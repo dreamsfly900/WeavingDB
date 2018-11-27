@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -277,7 +278,7 @@ namespace WeavingDBLogical
 
  
 
-        internal List<void*[]> listutem = new List<void*[]>();
+        internal ConcurrentQueue<void*[]> listutem = new ConcurrentQueue<void*[]>();
         internal Hashtable gethtable(object obj)
         {
             Hashtable coll = new Hashtable();

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -106,7 +107,7 @@ namespace WeavingDBLogical
             }
             catch { throw new Exception("数据插入有误"); }
         }
-        
+
         List<listDmode> listu;
         byte[] logical; string[] sst; String sqlsst; head[] dhead;int maxlen = 0;
         bool[] numbb;
@@ -138,7 +139,24 @@ namespace WeavingDBLogical
 
                     Marshal.FreeHGlobal((IntPtr)p);
                 }
-                System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(delnull), _listu);
+
+                //try
+                //{
+                //    // List<listDmode> _listu = oo as List<listDmode>;
+                //    for (int i = 0; i < _listu.Count; i++)
+                //        if (_listu.Count > i && _listu[i] == null)
+                //        {
+                //            _listu.RemoveAt(i);
+
+                //            i = i - 1;
+                //        }
+                //}
+                    //catch (Exception e)
+                    //{
+                    //    throw e;
+                    //}
+
+                //System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(delnull), _listu);
             }
             catch (Exception ex)
             { throw ex; }
@@ -146,13 +164,20 @@ namespace WeavingDBLogical
         }
         void delnull(object oo)
         {
+            try { 
             List<listDmode> _listu = oo as List<listDmode>;
             for (int i = 0; i < _listu.Count; i++)
-                if (_listu[i] == null)
+                if (_listu.Count>i && _listu[i] == null)
                 {
                     _listu.RemoveAt(i);
+                     
                     i = i - 1;
                 }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
         void wherelogical()
         {
@@ -290,10 +315,10 @@ namespace WeavingDBLogical
         List<int> listsindex = new List<int>();
         public unsafe void*[][] selecttiem(List<listDmode> _listu, String _sqlsst, head[] _dhead, int _maxlen= 100000)
         {
-            try
-            {
+            
                 //listsindex = new List<int>();
-                listutem = new List<void*[]>();
+                listutem = new ConcurrentQueue<void*[]>();
+           
                 sqlsst = _sqlsst;
                 dhead = _dhead;
                 maxlen = _maxlen;
@@ -303,7 +328,7 @@ namespace WeavingDBLogical
                 int num = listu.Count % maxlen == 0 ? listu.Count / maxlen : (listu.Count / maxlen) + 1;
                 if (listu.Count < maxlen)
                     num = 1;
-               numbb = new bool[num];
+                numbb = new bool[num];
                 for (int ih = 0; ih < num; ih++)
                 {
                     numbb[ih] = false;
@@ -311,21 +336,29 @@ namespace WeavingDBLogical
                     //Logicaltiem((ih + 1) * maxlen, ih * maxlen);
 
                 }
-                bool nbb = false;
-                while (!nbb)
+            try
+            {
+                try
                 {
-                    nbb = false;
-                    int nbi = 0;
-                    if ((num - 1) == 0)
+                    bool nbb = false;
+                    while (!nbb)
                     {
-                        if (numbb[0]) break;
-                    }
-                    else
-                        while (nbi < (num - 1))
+                        nbb = false;
+                        int nbi = 0;
+                        if ((num - 1) == 0)
                         {
-                            nbb = numbb[nbi] && numbb[nbi + 1];
-                            nbi++;
+                            if (numbb[0]) break;
                         }
+                        else
+                            while (nbi < (num - 1))
+                            {
+                                nbb = numbb[nbi] && numbb[nbi + 1];
+                                nbi++;
+                            }
+                    }
+                }
+                catch (Exception ee)
+                {
                 }
                 for (int gi = 0; gi < mtssscon.Length; gi++)
                 {
@@ -333,109 +366,147 @@ namespace WeavingDBLogical
 
                     Marshal.FreeHGlobal((IntPtr)p);
                 }
-                
-                    // void*[][] listall = new void*[0][listsindex.Count];
-                return listutem.ToArray();
+
+                // void*[][] listall = new void*[0][listsindex.Count];
+               
             }
-            catch(Exception ex)
-            { throw ex;   }
+            catch (Exception ex)
+            { throw ex; }
+            void*[][] tempp= listutem.ToArray();
+            //listutem = new ConcurrentQueue<void*[]>();
+            return tempp;
         }
 
-        public List< Hashtable> viewdata(void*[][] objsall, byte order,string ordercol,int indexlen, int viewlen, head[] datahead)
+        public  Hashtable[] viewdata(void*[][] objsall, byte order,string ordercol,int indexlen, int viewlen, head[] datahead)
         {
             List<Hashtable> alllist = new List<Hashtable>();
-            if (ordercol == "")
+            Hashtable[] temphtt = alllist.ToArray();
+            try
             {
-
-            }
-            else
-            {
-                head orhe = null;
-                foreach (head h in datahead)
+                if (ordercol == "")
                 {
-                    if (h.key == ordercol)
-                    {
-                        orhe = h;
-                        break;
-                    }
+
                 }
-                if (orhe == null)
-                    return null;
-
-
-                objsall = sort(objsall, orhe, order);
-
-            }
-                
-                if (viewlen <= 0)
-                    viewlen = objsall.Length;
-            if ((indexlen * viewlen) >= objsall.Length)
-                return alllist;
-            int count = indexlen * viewlen;
-            int lens = ((indexlen + 1) * viewlen)>objsall.Length ? objsall.Length:((indexlen + 1) * viewlen)  ;
-            lens = lens  -(indexlen * viewlen);
-                for (int i = count; i < count+ lens; i++)
+                else
                 {
-                    Hashtable ht = new Hashtable();
+                    head orhe = null;
                     foreach (head h in datahead)
                     {
-                        if (objsall[i].Length > h.index)
+                        if (h.key == ordercol)
                         {
-                            object obj = getHashtable(h.key, h.type, objsall[i][h.index]);
-                            ht.Add(h.key, obj);
+                            orhe = h;
+                            break;
                         }
                     }
-                    alllist.Add(ht);
-                }
-            
+                    if (orhe == null)
+                        return null;
 
+
+                    objsall = sort(objsall, orhe, order);
+
+                }
+
+                if (viewlen <= 0)
+                    viewlen = objsall.Length;
+                if ((indexlen * viewlen) >= objsall.Length)
+                {
+                    alllist = new List<Hashtable>();
+                    return temphtt;
+                }
+                int count = indexlen * viewlen;
+                int lens = ((indexlen + 1) * viewlen) > objsall.Length ? objsall.Length : ((indexlen + 1) * viewlen);
+                lens = lens - (indexlen * viewlen);
+                for (int i = count; i < count + lens; i++)
+                {
+                    try
+                    {
+                        if (objsall[i] != null)
+                        {
+                            Hashtable ht = new Hashtable();
+                            foreach (head h in datahead)
+                            {
+                                if (objsall[i].Length > h.index)
+                                {
+                                    object obj = getHashtable(h.key, h.type, objsall[i][h.index]);
+                                    ht.Add(h.key, obj);
+                                }
+                            }
+                            alllist.Add(ht);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+                }
+                 temphtt = alllist.ToArray();
+                alllist = new List<Hashtable>();
+                return temphtt;
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                  
+            }
            
 
-            return alllist;
+        
 
         }
         object getHashtable(string key, byte type,void * p1)
         {
-            object obj =null;
-            if (type == 6)
+            
+                object obj = null;
+            try
             {
-                obj = (int)(*(int*)p1);
+                if (type == 6)
+                {
+                    obj = (int)(*(int*)p1);
 
 
+                }
+                else if (type == 9)
+                {
+                    obj = (bool)(*(bool*)p1);
+
+                }
+                else if (type == 7)
+                {
+                    obj = (double)(*(double*)p1);
+
+
+
+                }
+                else if (type == 12)
+                {
+
+
+                    obj = DateTime.FromFileTimeUtc((long)(*(long*)p1));
+
+
+                }
+                else if (type == 8)
+                {
+
+
+
+                    obj = Marshal.PtrToStringAnsi((IntPtr)p1);
+
+
+
+                }
+                else
+                {
+                    obj = Marshal.PtrToStringAnsi((IntPtr)p1);
+                }
             }
-            else if (type == 9)
+            catch(Exception e)
+
             {
-                obj = (bool)(*(bool*)p1);
-
-            }
-            else if (type == 7)
-            {
-                obj = (double)(*(double*)p1);
-
-
-
-            }
-            else if (type == 12)
-            {
-
-
-                obj = DateTime.FromFileTimeUtc( (long)(*(long*)p1));
-
-
-            }
-            else if (type == 8)
-            {
-
-
-
-                obj = Marshal.PtrToStringAnsi((IntPtr)p1);
-
-
-
-            }
-            else
-            {
-                obj = Marshal.PtrToStringAnsi((IntPtr)p1);
+                return obj;
             }
             return obj;
         }
@@ -460,7 +531,7 @@ namespace WeavingDBLogical
         unsafe void delLogicaltiem(int listulen, int listindex)
         {
 
-            List<void*[]> dellist = new List<void*[]>();
+           // List<void*[]> dellist = new List<void*[]>();
             if (logical.Length < 0)
             {
                 return;
@@ -613,9 +684,10 @@ namespace WeavingDBLogical
                         if (allb)
                         {
                             //  List<IntPtr> dellist = new List<IntPtr>();
-                            //for (int ig = 0; ig < listu[i].dtable2.Length; ig++)
-                            //    Marshal.FreeHGlobal((IntPtr)listu[i].dtable2[ig]);
-                            dellist.Add(listu[i].dtable2);
+                            for (int ig = 0; ig < listu[i].dtable2.Length; ig++)
+                                Marshal.FreeHGlobal((IntPtr)listu[i].dtable2[ig]);
+                         //   dellist.Add(listu[i].dtable2);
+
                             //listu.RemoveAt(i);
                             listu[i] = null;
                             //i = i - 1;
@@ -639,26 +711,33 @@ namespace WeavingDBLogical
                     //}
                 }
             }
-          
 
 
+            GC.Collect();
 
-            System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(del), dellist);
+            //  System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(del), dellist);
             //   return listutem.ToArray();
 
         }
      
-        void del(object oo)
-        {
-            List<void*[]> dellist = oo as   List<void*[]>;
-            
-            for (int ig = 0; ig < dellist.Count; ig++)
-                for (int ig2 = 0; ig2 < dellist[ig].Length; ig2++)
-                    Marshal.FreeHGlobal((IntPtr)dellist[ig][ig2]);
-            //   listu.Remove(ld);
-            dellist = null;
-            GC.Collect();
-        }
+        //void del(object oo)
+        //{
+        //    try
+        //    {
+        //        List<void*[]> dellist = oo as List<void*[]>;
+
+        //        for (int ig = 0; ig < dellist.Count; ig++)
+        //            for (int ig2 = 0; ig2 < dellist[ig].Length; ig2++)
+        //                Marshal.FreeHGlobal((IntPtr)dellist[ig][ig2]);
+        //        //   listu.Remove(ld);
+        //        dellist = null;
+        //        GC.Collect();
+        //    }
+        //    catch(Exception e)
+        //    {
+        //        throw e;
+        //    }
+        //}
         unsafe void Logicaltiem(int listulen,int listindex)
         {
            
@@ -815,9 +894,9 @@ namespace WeavingDBLogical
                             allb = logicaljudgement(logical, conbb);
                         if (allb)
                         {
-                            listu[i].dt = DateTime.Now;
+                            listu[i].dt = DateTime.Now.ToFileTimeUtc();
                             //listu[i].dtable
-                            listutem.Add(listu[i].dtable2);
+                            listutem.Enqueue(listu[i].dtable2);
                            // listsindex.Add(i);
 
 

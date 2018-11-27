@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,11 +15,11 @@ namespace WeavingDBLogical
     {
         //public object[] dtable;
         public void* [] dtable2;
-        public DateTime dt = DateTime.Now;
+        public long dt = DateTime.Now.ToFileTimeUtc();
     }
     public class liattable
     {
-       public   List<listDmode> datas = new List<listDmode>();
+       public List<listDmode> datas = new List<listDmode>();
         public head [] datahead;
     }
     public class head
