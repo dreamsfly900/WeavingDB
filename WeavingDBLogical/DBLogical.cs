@@ -1,0 +1,848 @@
+﻿using Newtonsoft.Json.Linq;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+
+namespace WeavingDBLogical
+{
+    public unsafe class DBLogical: logical
+    {
+
+        ////
+        //// 摘要:
+        ////     No token type has been set.
+        //None = 0,
+        ////
+        //// 摘要:
+        ////     A JSON object.
+        //Object = 1,
+        ////
+        //// 摘要:
+        ////     A JSON array.
+        //Array = 2,
+        ////
+        //// 摘要:
+        ////     A JSON constructor.
+        //Constructor = 3,
+        ////
+        //// 摘要:
+        ////     A JSON object property.
+        //Property = 4,
+        ////
+        //// 摘要:
+        ////     A comment.
+        //Comment = 5,
+        ////
+        //// 摘要:
+        ////     An integer value.
+        //Integer = 6,
+        ////
+        //// 摘要:
+        ////     A float value.
+        //Float = 7,
+        ////
+        //// 摘要:
+        ////     A string value.
+        //String = 8,
+        ////
+        //// 摘要:
+        ////     A boolean value.
+        //Boolean = 9,
+        ////
+        //// 摘要:
+        ////     A null value.
+        //Null = 10,
+        ////
+        //// 摘要:
+        ////     An undefined value.
+        //Undefined = 11,
+        ////
+        //// 摘要:
+        ////     A date value.
+        //Date = 12,
+        ////
+        //// 摘要:
+        ////     A raw JSON value.
+        //Raw = 13,
+        ////
+        //// 摘要:
+        ////     A collection of bytes value.
+        //Bytes = 14,
+        ////
+        //// 摘要:
+        ////     A Guid value.
+        //Guid = 15,
+        ////
+        //// 摘要:
+        ////     A Uri value.
+        //Uri = 16,
+        ////
+        //// 摘要:
+        ////     A TimeSpan value.
+        //TimeSpan = 17
+
+      public unsafe listDmode insertintoJson(JObject obj,ref head [] dhead)
+        {
+            try
+            {
+                if (dhead == null)
+                {
+                    dhead = gethead(obj);
+                }
+                else
+                {
+                    dhead = gethead(obj, dhead);
+                }
+                listDmode ld = new listDmode();
+               // ld.dtable = gethtabledtjson(obj as JObject, dhead);
+                ld.dtable2= gethtabledtjsontointptr(obj, dhead);
+                return ld;
+            }
+            catch { throw new Exception("数据插入有误"); }
+        }
+        
+        List<listDmode> listu;
+        byte[] logical; string[] sst; String sqlsst; head[] dhead;int maxlen = 0;
+        bool[] numbb;
+        byte[] mtsContrast;
+        void*[] mtssscon;
+        short[] collindex;
+        byte[] hindex;
+        int glen = 0;
+         
+
+        public unsafe void deletedata(List<listDmode> _listu, String _sqlsst, head[] _dhead)
+        {
+            try
+            {
+                //listsindex = new List<int>();
+               // listutem = new List<void*[]>();
+                sqlsst = _sqlsst;
+                dhead = _dhead;
+        
+                listu = _listu;
+
+                wherelogical();
+
+           
+                delLogicaltiem(_listu.Count,0);
+                for (int gi = 0; gi < mtssscon.Length; gi++)
+                {
+                    void* p = mtssscon[gi];
+
+                    Marshal.FreeHGlobal((IntPtr)p);
+                }
+                System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(delnull), _listu);
+            }
+            catch (Exception ex)
+            { throw ex; }
+
+        }
+        void delnull(object oo)
+        {
+            List<listDmode> _listu = oo as List<listDmode>;
+            for (int i = 0; i < _listu.Count; i++)
+                if (_listu[i] == null)
+                {
+                    _listu.RemoveAt(i);
+                    i = i - 1;
+                }
+        }
+        void wherelogical()
+        {
+            sst = sqltolist(sqlsst);
+            logical = logicalSplit(sst);
+
+            {
+                glen = 0;
+                foreach (string sr in sst)
+                {
+                    string Contrast = logicalContrastSplit(sr);
+                    String[] sscon = sr.Split(new string[] { Contrast }, StringSplitOptions.None);
+
+                    if (sscon.Length == 2)
+                    {
+                        glen++;
+                    }
+                }
+                mtsContrast = new byte[glen];
+                mtssscon = new void*[glen];
+                collindex = new short[glen];
+                hindex = new byte[glen];
+
+            }
+            if (listu.Count > 0)
+            {
+                //  gethtable(listu[0]);
+                int gglen = 0;
+                int ss = 0;
+                foreach (string sr in sst)
+                {
+                    string Contrast = logicalContrastSplit(sr);
+                    String[] sscon = sr.Split(new string[] { Contrast }, StringSplitOptions.None);
+
+                    if (sscon.Length == 2)
+                    {
+                        Contrastmode mts = new Contrastmode();
+                        //  mtsContrast[gglen] = Contrast;
+                        if (Contrast == ">=")
+                        {
+                            mtsContrast[gglen] = 0;
+                        }
+                        if (Contrast == "<=")
+                        {
+                            mtsContrast[gglen] = 1;
+                        }
+                        if (Contrast == "==")
+                        {
+                            mtsContrast[gglen] = 2;
+                        }
+                        if (Contrast == ">")
+                        {
+                            mtsContrast[gglen] = 3;
+                        }
+                        if (Contrast == "<")
+                        {
+                            mtsContrast[gglen] = 4;
+                        }
+                        // mtssscon[gglen] = sscon[1];
+
+                        foreach (head hd in dhead)
+                        {
+                            if (hd.key == sscon[0])
+                            {
+                                hindex[gglen] = hd.type;
+                                collindex[gglen] = (short)hd.index;
+                                unsafe
+                                {
+                                    if (hindex[gglen] == 6)
+                                    {
+                                        int p = Convert.ToInt32(sscon[1]);
+                                        int nSizeOfPerson = Marshal.SizeOf(p);
+                                        IntPtr intPtr = Marshal.AllocHGlobal(nSizeOfPerson);
+                                        Marshal.StructureToPtr(p, intPtr, true);
+                                        mtssscon[gglen] = intPtr.ToPointer();
+                                    }
+                                    else if (hindex[gglen] == 9)
+                                    {
+                                        bool p = Convert.ToBoolean(sscon[1]);
+                                        int nSizeOfPerson = Marshal.SizeOf(p);
+                                        IntPtr intPtr = Marshal.AllocHGlobal(nSizeOfPerson);
+                                        Marshal.StructureToPtr(p, intPtr, true);
+                                        mtssscon[gglen] = intPtr.ToPointer();
+
+                                    }
+                                    else if (hindex[gglen] == 7)
+                                    {
+
+                                        double p = Convert.ToDouble(sscon[1]);
+                                        int nSizeOfPerson = Marshal.SizeOf(p);
+                                        IntPtr intPtr = Marshal.AllocHGlobal(nSizeOfPerson);
+                                        Marshal.StructureToPtr(p, intPtr, true);
+                                        mtssscon[gglen] = intPtr.ToPointer();
+
+
+
+                                    }
+                                    else if (hindex[gglen] == 12)
+                                    {
+                                        sscon[1] = Stringtonosymbol(sscon[1]);
+                                        //sst[ss + 1] = Stringtonosymbol(sst[ss + 1]);
+                                        long p = Convert.ToDateTime(sscon[1]).ToFileTimeUtc();
+                                        int nSizeOfPerson = Marshal.SizeOf(p);
+                                        IntPtr intPtr = Marshal.AllocHGlobal(nSizeOfPerson);
+                                        Marshal.StructureToPtr(p, intPtr, true);
+                                        mtssscon[gglen] = intPtr.ToPointer();
+
+                                    }
+                                    else if (hindex[gglen] == 8)
+                                    {
+                                        sscon[1] = Stringtonosymbol(sscon[1]);
+                                        // char[] p = ((String)objc).ToCharArray().;
+                                        char* p = (char*)System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi(sscon[1]).ToPointer();
+                                        mtssscon[gglen] = p;
+                                    }
+                                    else
+                                    {
+                                        throw new Exception("不支持的逻辑判断");
+                                    }
+
+                                }
+                                break;
+                            }
+
+                        }
+
+                        gglen++;
+                    }
+                    ss++;
+                }
+
+            }
+
+        }
+        List<int> listsindex = new List<int>();
+        public unsafe void*[][] selecttiem(List<listDmode> _listu, String _sqlsst, head[] _dhead, int _maxlen= 100000)
+        {
+            try
+            {
+                //listsindex = new List<int>();
+                listutem = new List<void*[]>();
+                sqlsst = _sqlsst;
+                dhead = _dhead;
+                maxlen = _maxlen;
+                listu = _listu;
+
+                wherelogical();
+                int num = listu.Count % maxlen == 0 ? listu.Count / maxlen : (listu.Count / maxlen) + 1;
+                if (listu.Count < maxlen)
+                    num = 1;
+               numbb = new bool[num];
+                for (int ih = 0; ih < num; ih++)
+                {
+                    numbb[ih] = false;
+                    System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(gg), ih);
+                    //Logicaltiem((ih + 1) * maxlen, ih * maxlen);
+
+                }
+                bool nbb = false;
+                while (!nbb)
+                {
+                    nbb = false;
+                    int nbi = 0;
+                    if ((num - 1) == 0)
+                    {
+                        if (numbb[0]) break;
+                    }
+                    else
+                        while (nbi < (num - 1))
+                        {
+                            nbb = numbb[nbi] && numbb[nbi + 1];
+                            nbi++;
+                        }
+                }
+                for (int gi = 0; gi < mtssscon.Length; gi++)
+                {
+                    void* p = mtssscon[gi];
+
+                    Marshal.FreeHGlobal((IntPtr)p);
+                }
+                
+                    // void*[][] listall = new void*[0][listsindex.Count];
+                return listutem.ToArray();
+            }
+            catch(Exception ex)
+            { throw ex;   }
+        }
+
+        public List< Hashtable> viewdata(void*[][] objsall, byte order,string ordercol,int indexlen, int viewlen, head[] datahead)
+        {
+            List<Hashtable> alllist = new List<Hashtable>();
+            if (ordercol == "")
+            {
+
+            }
+            else
+            {
+                head orhe = null;
+                foreach (head h in datahead)
+                {
+                    if (h.key == ordercol)
+                    {
+                        orhe = h;
+                        break;
+                    }
+                }
+                if (orhe == null)
+                    return null;
+
+
+                objsall = sort(objsall, orhe, order);
+
+            }
+                
+                if (viewlen <= 0)
+                    viewlen = objsall.Length;
+            if ((indexlen * viewlen) >= objsall.Length)
+                return alllist;
+            int count = indexlen * viewlen;
+            int lens = ((indexlen + 1) * viewlen)>objsall.Length ? objsall.Length:((indexlen + 1) * viewlen)  ;
+            lens = lens  -(indexlen * viewlen);
+                for (int i = count; i < count+ lens; i++)
+                {
+                    Hashtable ht = new Hashtable();
+                    foreach (head h in datahead)
+                    {
+                        if (objsall[i].Length > h.index)
+                        {
+                            object obj = getHashtable(h.key, h.type, objsall[i][h.index]);
+                            ht.Add(h.key, obj);
+                        }
+                    }
+                    alllist.Add(ht);
+                }
+            
+
+           
+
+            return alllist;
+
+        }
+        object getHashtable(string key, byte type,void * p1)
+        {
+            object obj =null;
+            if (type == 6)
+            {
+                obj = (int)(*(int*)p1);
+
+
+            }
+            else if (type == 9)
+            {
+                obj = (bool)(*(bool*)p1);
+
+            }
+            else if (type == 7)
+            {
+                obj = (double)(*(double*)p1);
+
+
+
+            }
+            else if (type == 12)
+            {
+
+
+                obj = DateTime.FromFileTimeUtc( (long)(*(long*)p1));
+
+
+            }
+            else if (type == 8)
+            {
+
+
+
+                obj = Marshal.PtrToStringAnsi((IntPtr)p1);
+
+
+
+            }
+            else
+            {
+                obj = Marshal.PtrToStringAnsi((IntPtr)p1);
+            }
+            return obj;
+        }
+    
+
+        void gg(object objmode)
+        {
+            int index = (int)objmode;
+            try
+            {
+                Logicaltiem((index + 1) * maxlen, index * maxlen);
+
+            }
+            catch  {
+                numbb[index] = true;
+            }
+            numbb[index] = true;
+        }
+
+      
+
+        unsafe void delLogicaltiem(int listulen, int listindex)
+        {
+
+            List<void*[]> dellist = new List<void*[]>();
+            if (logical.Length < 0)
+            {
+                return;
+            }
+            
+
+
+            bool[] conbb = new bool[logical.Length + 1];
+            short coblen = (short)conbb.Length;
+            bool allb = false;
+
+            for (int i = listindex; i < listulen; i++)
+            {
+                if (i < listu.Count && listu[i] != null)
+                {
+
+                    byte bi = 0;
+
+                    int llen = logical.Length;
+                    allb = false;
+                    for (int ci = 0; ci < glen; ci++)
+                    {
+
+                        if (collindex[ci] != -99)
+                        {
+                            //  object value = (listu[i].dtable[collindex[ci]]);
+                            void* p1 = listu[i].dtable2[collindex[ci]];
+                            if (p1 == null)
+                                break;
+                            conbb[bi] = false;
+
+                            if (hindex[ci] == 6)
+                            {
+                                int value = (int)(*(int*)p1);
+                                int sconvalue = (int)(*(int*)mtssscon[ci]);
+                                if (mtsContrast[ci] == 0)
+                                {
+
+                                    conbb[bi] = (value) >= sconvalue;
+                                }
+                                if (mtsContrast[ci] == 1)
+                                {
+                                    conbb[bi] = (value) <= sconvalue;
+                                }
+                                if (mtsContrast[ci] == 2)
+                                {
+                                    conbb[bi] = sconvalue == (value);
+                                }
+                                if (mtsContrast[ci] == 3)
+                                {
+                                    conbb[bi] = (value) > sconvalue;
+                                }
+                                if (mtsContrast[ci] == 4)
+                                {
+                                    conbb[bi] = (value) < sconvalue;
+                                }
+
+                            }
+                            else if (hindex[ci] == 9)
+                            {
+                                bool value = (bool)(*(bool*)p1);
+                                bool sconvalue = (bool)(*(bool*)mtssscon[ci]);
+                                if (mtsContrast[ci] == 2)
+                                {
+                                    conbb[bi] = sconvalue == (value);
+                                }
+                            }
+                            else if (hindex[ci] == 7)
+                            {
+                                double value = (double)(*(double*)p1);
+                                double sconvalue = (double)(*(double*)mtssscon[ci]);
+                                if (mtsContrast[ci] == 0)
+                                {
+                                    conbb[bi] = (value) >= sconvalue;
+                                }
+                                if (mtsContrast[ci] == 1)
+                                {
+                                    conbb[bi] = (value) <= sconvalue;
+                                }
+                                if (mtsContrast[ci] == 2)
+                                {
+                                    conbb[bi] = sconvalue == (value);
+                                }
+                                if (mtsContrast[ci] == 3)
+                                {
+                                    conbb[bi] = (value) > sconvalue;
+                                }
+                                if (mtsContrast[ci] == 4)
+                                {
+                                    conbb[bi] = (value) < sconvalue;
+                                }
+
+                            }
+                            else if (hindex[ci] == 12)
+                            {
+
+                                // conbb[bi] = Contrast<DateTime>(Convert.ToDateTime(st), Convert.ToDateTime(value), mtsContrast[ci]);
+                                long value = (long)(*(long*)p1);
+                                long sconvalue = (long)(*(long*)mtssscon[ci]);
+                                if (mtsContrast[ci] == 0)
+                                {
+                                    conbb[bi] = value >= sconvalue;
+                                }
+                                if (mtsContrast[ci] == 1)
+                                {
+                                    conbb[bi] = value <= sconvalue;
+                                }
+                                if (mtsContrast[ci] == 2)
+                                {
+                                    conbb[bi] = value == sconvalue;
+                                }
+                                if (mtsContrast[ci] == 3)
+                                {
+                                    conbb[bi] = (value) > sconvalue;
+                                }
+                                if (mtsContrast[ci] == 4)
+                                {
+                                    conbb[bi] = (value) < sconvalue;
+                                }
+                            }
+                            else if (hindex[ci] == 8)
+                            {
+
+
+                                if (mtsContrast[ci] == 2)
+                                {
+                                    string value = Marshal.PtrToStringAnsi((IntPtr)p1);
+                                    string sconvalue = Marshal.PtrToStringAnsi((IntPtr)mtssscon[ci]);
+                                    conbb[bi] = sconvalue == (value);
+                                }
+
+                            }
+                            else
+                            {
+                                throw new Exception("不支持的逻辑判断。");
+                            }
+                            bi++;
+                        }
+
+
+                    }
+                    try
+                    {
+
+
+                        if (coblen == 1)
+                            allb = conbb[0];
+                        else
+                            allb = logicaljudgement(logical, conbb);
+                        if (allb)
+                        {
+                            //  List<IntPtr> dellist = new List<IntPtr>();
+                            //for (int ig = 0; ig < listu[i].dtable2.Length; ig++)
+                            //    Marshal.FreeHGlobal((IntPtr)listu[i].dtable2[ig]);
+                            dellist.Add(listu[i].dtable2);
+                            //listu.RemoveAt(i);
+                            listu[i] = null;
+                            //i = i - 1;
+                            // listu[i].dt = DateTime.Now;
+                            //listu[i].dtable
+                            //listutem.Add(listu[i].dtable2);
+                            // listsindex.Add(i);
+
+
+                        }
+
+
+                    }
+                    catch
+                    {
+                        throw new Exception("不支持的逻辑判断。");
+                    }
+                    //if (oo != null)
+                    //{
+                    //    listutem.Add(oo);
+                    //}
+                }
+            }
+          
+
+
+
+            System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(del), dellist);
+            //   return listutem.ToArray();
+
+        }
+     
+        void del(object oo)
+        {
+            List<void*[]> dellist = oo as   List<void*[]>;
+            
+            for (int ig = 0; ig < dellist.Count; ig++)
+                for (int ig2 = 0; ig2 < dellist[ig].Length; ig2++)
+                    Marshal.FreeHGlobal((IntPtr)dellist[ig][ig2]);
+            //   listu.Remove(ld);
+            dellist = null;
+            GC.Collect();
+        }
+        unsafe void Logicaltiem(int listulen,int listindex)
+        {
+           
+         
+            if (logical.Length < 0)
+            {
+                return ;
+            }
+         
+          
+          
+         
+            bool[] conbb = new bool[logical.Length + 1];
+            short coblen = (short)conbb.Length;
+            bool allb = false;
+          
+            for (int i = listindex; i < listulen; i++)
+            {
+                if (i < listu.Count && listu[i] != null)
+                {
+
+                    byte bi = 0;
+
+                    int llen = logical.Length;
+                    allb = false;
+                    for (int ci = 0; ci < glen; ci++)
+                    {
+                       
+                       if (collindex[ci] != -99)
+                        {
+                            //  object value = (listu[i].dtable[collindex[ci]]);
+                            void* p1 = listu[i].dtable2[collindex[ci]];
+                            if (p1 == null)
+                                break ;
+                            conbb[bi] = false;
+
+                            if (hindex[ci]==6)
+                            {
+                                int value= (int)(*(int*)p1);
+                                int sconvalue = (int)(*(int*)mtssscon[ci]);
+                                if (mtsContrast[ci] == 0)
+                                {
+
+                                    conbb[bi] =(value) >= sconvalue;
+                                }
+                                if (mtsContrast[ci] == 1)
+                                {
+                                    conbb[bi] = (value) <= sconvalue;
+                                }
+                                if (mtsContrast[ci] == 2)
+                                {
+                                    conbb[bi] = sconvalue == (value);
+                                }
+                                if (mtsContrast[ci] == 3)
+                                {
+                                    conbb[bi] = (value) > sconvalue;
+                                }
+                                if (mtsContrast[ci] == 4)
+                                {
+                                    conbb[bi] = (value) < sconvalue;
+                                }
+
+                            }
+                           else if (hindex[ci] ==9)
+                            {
+                                bool value = (bool)(*(bool*)p1);
+                                bool sconvalue = (bool)(*(bool*)mtssscon[ci]);
+                                if (mtsContrast[ci] == 2)
+                                {
+                                    conbb[bi] = sconvalue == (value);
+                                } 
+                            }
+                            else if (hindex[ci] == 7)
+                            {
+                                double value = (double)(*(double*)p1);
+                                double sconvalue = (double)(*(double*)mtssscon[ci]);
+                                if (mtsContrast[ci] == 0)
+                                {
+                                    conbb[bi] = (value) >= sconvalue;
+                                }
+                                if (mtsContrast[ci] == 1)
+                                {
+                                    conbb[bi] = (value) <= sconvalue;
+                                }
+                                if (mtsContrast[ci] == 2)
+                                {
+                                    conbb[bi] = sconvalue == (value);
+                                }
+                                if (mtsContrast[ci] == 3)
+                                {
+                                    conbb[bi] = (value)>sconvalue;
+                                }
+                                if (mtsContrast[ci] == 4)
+                                {
+                                    conbb[bi] = (value) < sconvalue;
+                                }
+
+                            }
+                            else if (hindex[ci] == 12)
+                            {
+
+                                // conbb[bi] = Contrast<DateTime>(Convert.ToDateTime(st), Convert.ToDateTime(value), mtsContrast[ci]);
+                                long value = (long)(*(long*)p1);
+                                long sconvalue = (long)(*(long*)mtssscon[ci]);
+                                if (mtsContrast[ci] == 0)
+                                {
+                                    conbb[bi] = value >= sconvalue;
+                                }
+                                if (mtsContrast[ci] == 1)
+                                {
+                                    conbb[bi] = value <= sconvalue;
+                                }
+                                if (mtsContrast[ci] == 2)
+                                {
+                                    conbb[bi] = value == sconvalue;
+                                }
+                                if (mtsContrast[ci] == 3)
+                                {
+                                    conbb[bi] = (value) > sconvalue;
+                                }
+                                if (mtsContrast[ci] == 4)
+                                {
+                                    conbb[bi] = (value) < sconvalue;
+                                }
+                            }
+                            else if (hindex[ci] == 8)
+                            {
+                                
+                               
+                                if (mtsContrast[ci] == 2)
+                                {
+                                   string value= Marshal.PtrToStringAnsi((IntPtr)p1);
+                                    string sconvalue = Marshal.PtrToStringAnsi((IntPtr)mtssscon[ci]);
+                                    conbb[bi] = sconvalue == (value);
+                                }
+
+                            }
+                            else
+                            {
+                                throw new Exception("不支持的逻辑判断。");
+                            }
+                            bi++;
+                        }
+                       
+                     
+                    }
+                    try
+                    {
+
+
+                        if (coblen == 1)
+                            allb = conbb[0];
+                        else
+                            allb = logicaljudgement(logical, conbb);
+                        if (allb)
+                        {
+                            listu[i].dt = DateTime.Now;
+                            //listu[i].dtable
+                            listutem.Add(listu[i].dtable2);
+                           // listsindex.Add(i);
+
+
+                        }
+
+
+                    }
+                    catch
+                    {
+                        throw new Exception("不支持的逻辑判断。");
+                    }
+                    //if (oo != null)
+                    //{
+                    //    listutem.Add(oo);
+                    //}
+                }
+            }
+
+
+           
+
+         //   return listutem.ToArray();
+
+        }
+     
+      
+    }
+}
