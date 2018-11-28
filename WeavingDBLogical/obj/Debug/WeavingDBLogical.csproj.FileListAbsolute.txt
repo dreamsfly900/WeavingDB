@@ -16,3 +16,4 @@ D:\WeavingDB\WeavingDBLogical\obj\Debug\WeavingDBLogical.csproj.CopyComplete
 D:\WeavingDB\WeavingDBLogical\obj\Debug\WeavingDBLogical.dll
 D:\WeavingDB\WeavingDBLogical\obj\Debug\WeavingDBLogical.pdb
 D:\WeavingDB\WeavingDBLogical\obj\Debug\WeavingDBLogical.csprojAssemblyReference.cache
+D:\WeavingDB\WeavingDBLogical\bin\Debug\WeavingDBLogical.dll.config

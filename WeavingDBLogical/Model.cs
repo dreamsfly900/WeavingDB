@@ -15,12 +15,14 @@ namespace WeavingDBLogical
     {
         //public object[] dtable;
         public void* [] dtable2;
+     
         public long dt = DateTime.Now.ToFileTimeUtc();
     }
     public class liattable
     {
        public List<listDmode> datas = new List<listDmode>();
         public head [] datahead;
+        public bool deleterun = false;
     }
     public class head
     {

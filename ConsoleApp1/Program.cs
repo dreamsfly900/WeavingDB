@@ -36,29 +36,37 @@ namespace ConsoleApp1
             public int idaa;
             public string id;
         }
-
+      static  DBmanage dbm = new DBmanage();
         static unsafe void Main(string[] args)
         {
+          
 
-            ConcurrentDictionary<String, byte[]> CDK = new ConcurrentDictionary<string, byte[]>();
-
-
-       
-            DBLogical dblo = new DBLogical();
+               DBLogical dblo = new DBLogical();
             int i = 0;
             List<listDmode> listu = new List<listDmode>();
             liattable ltable = new liattable();
             ltable.datas = listu;
-         
+            List<user> liseruser = new List<user>();
             string str = "";
             JObject objbb;
+            user uu = new user() { id = i++, name = "" + i, dt = DateTime.Now.AddSeconds(new Random().Next(0, 100)), aa = 123 };
+            liseruser.Add(uu);
+            uu = new user() { id = i++, name = "" + i, dt = DateTime.Now.AddSeconds(new Random().Next(0, 100)), aa = 123 };
+            liseruser.Add(uu);
+          
+            str = Newtonsoft.Json.JsonConvert.SerializeObject(liseruser);
+            JArray ja = JArray.Parse(str);
+            //objbb = JObject.Parse(str);
             int count = 1000000;
+
             while (i < count)
             {
                 user u = new user() { id = i++, name = ""+ i, dt = DateTime.Now.AddSeconds(new Random().Next(0,100)), aa=123};
                  str = Newtonsoft.Json.JsonConvert.SerializeObject(u);
-                 objbb = JObject.Parse(str);
-
+                
+                objbb = JObject.Parse(str);
+                dbm.set(i.ToString(), new byte[0]);
+                
                 lock (listu)
                 {
                     listu.Add(dblo.insertintoJson(objbb, ref ltable.datahead));
@@ -68,6 +76,8 @@ namespace ConsoleApp1
                 objbb = null;
 
             }
+           
+          //object obj = dbm.get("111");
             user2 u2 = new user2() { idaa = i + 123 ,id="adf"};
             str = Newtonsoft.Json.JsonConvert.SerializeObject(u2);
              objbb = JObject.Parse(str);

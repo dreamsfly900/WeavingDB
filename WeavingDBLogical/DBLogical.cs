@@ -116,9 +116,19 @@ namespace WeavingDBLogical
         short[] collindex;
         byte[] hindex;
         int glen = 0;
-         
+        public unsafe void cleardata(List<listDmode> _listu)
+        {
+            lock (_listu)
+            {
+                for (int i = 0; i < _listu.Count; i++)
+                    for (int ig = 0; ig < listu[i].dtable2.Length; ig++)
+                        Marshal.FreeHGlobal((IntPtr)listu[i].dtable2[ig]);
 
-        public unsafe void deletedata(List<listDmode> _listu, String _sqlsst, head[] _dhead)
+                _listu.Clear();
+            }
+        }
+
+         public unsafe void deletedata(List<listDmode> _listu, String _sqlsst, head[] _dhead)
         {
             try
             {
@@ -162,17 +172,18 @@ namespace WeavingDBLogical
             { throw ex; }
 
         }
-        void delnull(object oo)
+       public static void delnull(object oo)
         {
-            try { 
-            List<listDmode> _listu = oo as List<listDmode>;
-            for (int i = 0; i < _listu.Count; i++)
-                if (_listu.Count>i && _listu[i] == null)
+            try {
+                liattable _listu = oo as liattable;
+            for (int i = 0; i < _listu.datas.Count; i++)
+                if (_listu.datas.Count>i && _listu.datas[i] == null)
                 {
-                    _listu.RemoveAt(i);
+                        _listu.datas.RemoveAt(i);
                      
                     i = i - 1;
                 }
+                _listu.deleterun = false;
             }
             catch (Exception e)
             {
@@ -323,7 +334,21 @@ namespace WeavingDBLogical
                 dhead = _dhead;
                 maxlen = _maxlen;
                 listu = _listu;
+            if (_sqlsst == "")
+            {
+                int len = _listu.Count;
+                for (int i = 0; i < len; i++)
+                {
+                    if (i < listu.Count && listu[i] != null)
+                    {
+                        listu[i].dt = DateTime.Now.ToFileTimeUtc();
+                        //listu[i].dtable
+                        listutem.Enqueue(listu[i].dtable2);
+                    }
+                }
 
+            } else
+            {
                 wherelogical();
                 int num = listu.Count % maxlen == 0 ? listu.Count / maxlen : (listu.Count / maxlen) + 1;
                 if (listu.Count < maxlen)
@@ -336,10 +361,9 @@ namespace WeavingDBLogical
                     //Logicaltiem((ih + 1) * maxlen, ih * maxlen);
 
                 }
-            try
-            {
                 try
                 {
+
                     bool nbb = false;
                     while (!nbb)
                     {
@@ -356,22 +380,19 @@ namespace WeavingDBLogical
                                 nbi++;
                             }
                     }
-                }
-                catch (Exception ee)
-                {
-                }
-                for (int gi = 0; gi < mtssscon.Length; gi++)
-                {
-                    void* p = mtssscon[gi];
 
-                    Marshal.FreeHGlobal((IntPtr)p);
-                }
+                    for (int gi = 0; gi < mtssscon.Length; gi++)
+                    {
+                        void* p = mtssscon[gi];
 
+                        Marshal.FreeHGlobal((IntPtr)p);
+                    }
+                }
                 // void*[][] listall = new void*[0][listsindex.Count];
-               
+                catch (Exception ex)
+                { throw ex; }
             }
-            catch (Exception ex)
-            { throw ex; }
+           
             void*[][] tempp= listutem.ToArray();
             //listutem = new ConcurrentQueue<void*[]>();
             return tempp;
