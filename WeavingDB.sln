@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeavingDB", "WeavingDB\Weav
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeavingDBLogical", "WeavingDBLogical\WeavingDBLogical.csproj", "{7FEA7C3D-CC02-4525-9354-380E1F106208}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{19720B5A-9F42-405F-A6AB-C18131E94294}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "非关数据表SQL相关测试", "ConsoleApp1\非关数据表SQL相关测试.csproj", "{19720B5A-9F42-405F-A6AB-C18131E94294}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

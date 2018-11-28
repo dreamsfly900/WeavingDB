@@ -210,6 +210,16 @@ namespace WeavingDBLogical
             return false;
         }
 
+        /// <summary>
+        ///  从非关数据表查询数据
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="sql"></param>
+        /// <param name="order"></param>
+        /// <param name="page"></param>
+        /// <param name="viewlen"></param>
+        /// <param name="coll"></param>
+        /// <returns></returns>
         public string selecttabledata(string key, string sql, byte order, int page, int viewlen , string coll="")
         {
             if (CDtable.ContainsKey(key))
