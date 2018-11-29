@@ -9,7 +9,7 @@ namespace WeavingDBClient
 {
     public class DBClient
     {
-        string IP = ""; int port = 0; bool type = false;
+        string IP = ""; int port = 0; 
         Clientcontrol ccon;
         public DBClient(string ip, int _port, string userid, string pwd)
         {

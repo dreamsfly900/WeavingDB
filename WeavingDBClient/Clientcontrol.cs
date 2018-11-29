@@ -14,7 +14,7 @@ namespace WeavingDBClient
         byte[] rowsdata;
         public bool finsh = false;
         public string error = "";
-        bool type = false;
+       
         public Clientcontrol(string ip, int _port)
         {
           
