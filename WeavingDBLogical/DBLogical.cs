@@ -290,7 +290,7 @@ namespace WeavingDBLogical
                                     {
                                         sscon[1] = Stringtonosymbol(sscon[1]);
                                         //sst[ss + 1] = Stringtonosymbol(sst[ss + 1]);
-                                        long p = Convert.ToDateTime(sscon[1]).ToFileTimeUtc();
+                                        long p = Convert.ToDateTime(sscon[1]).ToFileTime();
                                         int nSizeOfPerson = Marshal.SizeOf(p);
                                         IntPtr intPtr = Marshal.AllocHGlobal(nSizeOfPerson);
                                         Marshal.StructureToPtr(p, intPtr, true);
@@ -341,7 +341,7 @@ namespace WeavingDBLogical
                 {
                     if (i < listu.Count && listu[i] != null)
                     {
-                        listu[i].dt = DateTime.Now.ToFileTimeUtc();
+                        listu[i].dt = DateTime.Now.ToFileTime();
                         //listu[i].dtable
                         listutem.Enqueue(listu[i].dtable2);
                     }
@@ -505,7 +505,7 @@ namespace WeavingDBLogical
                 {
 
 
-                    obj = DateTime.FromFileTimeUtc((long)(*(long*)p1));
+                    obj = DateTime.FromFileTime((long)(*(long*)p1));
 
 
                 }
@@ -915,7 +915,7 @@ namespace WeavingDBLogical
                             allb = logicaljudgement(logical, conbb);
                         if (allb)
                         {
-                            listu[i].dt = DateTime.Now.ToFileTimeUtc();
+                            listu[i].dt = DateTime.Now.ToFileTime();
                             //listu[i].dtable
                             listutem.Enqueue(listu[i].dtable2);
                            // listsindex.Add(i);

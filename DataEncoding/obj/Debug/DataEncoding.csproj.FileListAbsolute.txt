@@ -1,0 +1,5 @@
+D:\WeavingDB\DataEncoding\bin\Debug\DataEncoding.dll
+D:\WeavingDB\DataEncoding\bin\Debug\DataEncoding.pdb
+D:\WeavingDB\DataEncoding\obj\Debug\DataEncoding.csproj.CoreCompileInputs.cache
+D:\WeavingDB\DataEncoding\obj\Debug\DataEncoding.dll
+D:\WeavingDB\DataEncoding\obj\Debug\DataEncoding.pdb

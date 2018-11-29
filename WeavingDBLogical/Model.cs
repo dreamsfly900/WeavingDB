@@ -16,7 +16,7 @@ namespace WeavingDBLogical
         //public object[] dtable;
         public void* [] dtable2;
      
-        public long dt = DateTime.Now.ToFileTimeUtc();
+        public long dt = DateTime.Now.ToFileTime();
     }
     public class liattable
     {

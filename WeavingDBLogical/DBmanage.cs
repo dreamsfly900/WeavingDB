@@ -36,7 +36,7 @@ namespace WeavingDBLogical
         {
             // DBLogical.delnull()
             //System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(), _listu);
-            int timeout = (int)obj;
+          //  int timeout = (int)obj;
             while (true)
             {
                 System.Threading.Thread.Sleep(1000);
@@ -86,7 +86,8 @@ namespace WeavingDBLogical
                                 List<listDmode> listdate = CDtable[key].datas;
                                 for (int j = listdate.Count; j > 0; j--)
                                 {
-                                    double ss = (DateTime.Now - DateTime.FromFileTimeUtc(listdate[j].dt)).TotalSeconds;
+                                    
+                                    double ss = (DateTime.Now - DateTime.FromFileTime(listdate[j].dt)).TotalSeconds;
                                     if (ss > timeout)
                                     {
                                         for (int ig = 0; ig < listdate[j].dtable2.Length; ig++)
@@ -120,7 +121,7 @@ namespace WeavingDBLogical
                         {
                             string key = keys[i];
                             long utc = CDKVlong[key];
-                            double ss = (DateTime.Now - DateTime.FromFileTimeUtc(utc)).TotalSeconds;
+                            double ss = (DateTime.Now - DateTime.FromFileTime(utc)).TotalSeconds;
                             if (ss > timeout)
                             {
                                 Remove(key);
@@ -293,7 +294,7 @@ namespace WeavingDBLogical
           
             if (CDKV.ContainsKey(key))
             {
-                CDKVlong[key] = DateTime.Now.ToFileTimeUtc();
+                CDKVlong[key] = DateTime.Now.ToFileTime();
                 return CDKV[key];
             }
             return null;
@@ -325,13 +326,13 @@ namespace WeavingDBLogical
           
             if (CDKV.ContainsKey(key))
             {
-                CDKVlong[key] = DateTime.Now.ToFileTimeUtc();
+                CDKVlong[key] = DateTime.Now.ToFileTime();
                 CDKV[key] = vlaue;
                 return true;
             }
             else
             {
-                CDKVlong.TryAdd(key, DateTime.Now.ToFileTimeUtc());
+                CDKVlong.TryAdd(key, DateTime.Now.ToFileTime());
                 return CDKV.TryAdd(key, vlaue);
             }
         }

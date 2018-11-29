@@ -21,13 +21,8 @@ D:\WeavingDB\WeavingDB\bin\Debug\WeavingDB.exe.config
 D:\WeavingDB\WeavingDB\bin\Debug\WeavingDB.exe
 D:\WeavingDB\WeavingDB\bin\Debug\WeavingDB.pdb
 D:\WeavingDB\WeavingDB\bin\Debug\Newtonsoft.Json.dll
-D:\WeavingDB\WeavingDB\bin\Debug\Weave.Base.dll
-D:\WeavingDB\WeavingDB\bin\Debug\Weave.Server.dll
 D:\WeavingDB\WeavingDB\bin\Debug\WeavingDBLogical.dll
 D:\WeavingDB\WeavingDB\bin\Debug\WeavingDBLogical.pdb
-D:\WeavingDB\WeavingDB\bin\Debug\Newtonsoft.Json.xml
-D:\WeavingDB\WeavingDB\bin\Debug\Weave.Base.pdb
-D:\WeavingDB\WeavingDB\bin\Debug\Weave.Server.pdb
 D:\WeavingDB\WeavingDB\obj\Debug\WeavingDB.csprojAssemblyReference.cache
 D:\WeavingDB\WeavingDB\obj\Debug\WeavingDB.WeavingDB.resources
 D:\WeavingDB\WeavingDB\obj\Debug\WeavingDB.Properties.Resources.resources
@@ -36,3 +31,11 @@ D:\WeavingDB\WeavingDB\obj\Debug\WeavingDB.csproj.CoreCompileInputs.cache
 D:\WeavingDB\WeavingDB\obj\Debug\WeavingDB.csproj.CopyComplete
 D:\WeavingDB\WeavingDB\obj\Debug\WeavingDB.exe
 D:\WeavingDB\WeavingDB\obj\Debug\WeavingDB.pdb
+D:\WeavingDB\WeavingDB\bin\Debug\Weave.TCPClient.dll
+D:\WeavingDB\WeavingDB\bin\Debug\WeavingDBLogical.dll.config
+D:\WeavingDB\WeavingDB\bin\Debug\Weave.Base.dll
+D:\WeavingDB\WeavingDB\bin\Debug\Weave.Server.dll
+D:\WeavingDB\WeavingDB\bin\Debug\WeavingDBClient.dll
+D:\WeavingDB\WeavingDB\bin\Debug\DataEncoding.dll
+D:\WeavingDB\WeavingDB\bin\Debug\WeavingDBClient.pdb
+D:\WeavingDB\WeavingDB\bin\Debug\DataEncoding.pdb

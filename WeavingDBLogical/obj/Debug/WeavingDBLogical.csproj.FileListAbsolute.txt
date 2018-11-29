@@ -10,10 +10,14 @@ D:\卫星遥感数据传输\WeavingDB\WeavingDBLogical\obj\Debug\WeavingDBLogica
 D:\WeavingDB\WeavingDBLogical\bin\Debug\WeavingDBLogical.dll
 D:\WeavingDB\WeavingDBLogical\bin\Debug\WeavingDBLogical.pdb
 D:\WeavingDB\WeavingDBLogical\bin\Debug\Newtonsoft.Json.dll
-D:\WeavingDB\WeavingDBLogical\bin\Debug\Newtonsoft.Json.xml
 D:\WeavingDB\WeavingDBLogical\obj\Debug\WeavingDBLogical.csproj.CoreCompileInputs.cache
 D:\WeavingDB\WeavingDBLogical\obj\Debug\WeavingDBLogical.csproj.CopyComplete
 D:\WeavingDB\WeavingDBLogical\obj\Debug\WeavingDBLogical.dll
 D:\WeavingDB\WeavingDBLogical\obj\Debug\WeavingDBLogical.pdb
 D:\WeavingDB\WeavingDBLogical\obj\Debug\WeavingDBLogical.csprojAssemblyReference.cache
 D:\WeavingDB\WeavingDBLogical\bin\Debug\WeavingDBLogical.dll.config
+D:\WeavingDB\WeavingDBLogical\bin\Debug\Weave.Base.dll
+D:\WeavingDB\WeavingDBLogical\bin\Debug\Weave.Server.dll
+D:\WeavingDB\WeavingDBLogical\bin\Debug\Weave.TCPClient.dll
+D:\WeavingDB\WeavingDBLogical\bin\Debug\DataEncoding.dll
+D:\WeavingDB\WeavingDBLogical\bin\Debug\DataEncoding.pdb
