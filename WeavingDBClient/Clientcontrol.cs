@@ -26,6 +26,8 @@ namespace WeavingDBClient
 
         internal void open()
         {
+            if(p2Pclient!=null)
+                p2Pclient.receiveServerEventbit -= P2Pclient_receiveServerEventbit;
             p2Pclient = new Weave.TCPClient.P2Pclient(Weave.TCPClient.DataType.bytes);
             p2Pclient.receiveServerEventbit += P2Pclient_receiveServerEventbit;
             if (!p2Pclient.start(IP, port, false))

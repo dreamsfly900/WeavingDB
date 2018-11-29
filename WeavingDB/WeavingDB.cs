@@ -25,12 +25,12 @@ namespace WeavingDB
           
             //object obj= Newtonsoft.Json.JsonConvert.PopulateObject(builder.ToString());
         }
-
+        DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
         private void button1_Click(object sender, EventArgs e)
         {
-            DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
+           
             dbc.open();
-            dbc.Set<String>("asdasd", "等相关资料以及软件在后续使用过程中因为开发原因或数据来源改动造成的功能无法正常使用等问题及时进行修改，包括提供相关开发接口。");
+            dbc.Set<String>("asdasd", "等相关资料以及软件在后续使用过程中因为");
             int i = 0;
             while (i < 50)
             {
