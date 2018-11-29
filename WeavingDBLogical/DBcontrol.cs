@@ -74,7 +74,7 @@ namespace WeavingDBLogical
                 wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes(e.Message));
             }
 
-            soc.Close();
+          //  soc.Close();
         }
 
        

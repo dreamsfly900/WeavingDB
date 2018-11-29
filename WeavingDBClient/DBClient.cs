@@ -9,15 +9,20 @@ namespace WeavingDBClient
 {
     public class DBClient
     {
-        string IP = ""; int port = 0;
+        string IP = ""; int port = 0; bool type = false;
         Clientcontrol ccon;
         public DBClient(string ip, int _port, string userid, string pwd)
         {
+            
             IP = ip;
             port = _port;
             WeavingDB.DataEncoding.userid = userid;
             DataEncoding.pwd = pwd;
             ccon = new Clientcontrol(IP,port);
+        }
+        public void open()
+        {
+            ccon.open();
         }
         public bool Set<T>(string key, T t)
         {
@@ -29,7 +34,14 @@ namespace WeavingDBClient
         {
             byte[] rowdata = DataEncoding.encodinggetKV(key);
             //DataEncoding.encodinggetKV("2018092100000");
+            //GZIP.Compress(rowdata);
+            //return BytesToT<T>(TToBytes(key));
             return BytesToT<T>(ccon.Send(0x02, rowdata));
+        }
+        public void close()
+        {
+           
+            ccon.close();
         }
         private T BytesToT<T>(byte[] bytes)
         {
