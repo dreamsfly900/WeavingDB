@@ -25,22 +25,26 @@ namespace WeavingDB
             //object obj= Newtonsoft.Json.JsonConvert.PopulateObject(builder.ToString());
         }
         DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
+        double gggg = 0;
         private void button1_Click(object sender, EventArgs e)
         {
-           
+            gggg = 0;
             dbc.open();
             dbc.Set<String>("asdasd", "1");
             int i = 0;
-           
-            while (i < 100)
+            String str2 = dbc.Get<String>("asdasd");
+            while (i < 10000)
             {
                 i++;
                 DateTime dt = DateTime.Now;
                 String str = dbc.Get<String>("asdasd");
                 DateTime dt2 = DateTime.Now;
-                listBox1.Items.Add("第" + (i++) + "次查询耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒");
+                double gg= (dt2 - dt).TotalMilliseconds;
+                gggg += gg;
+                listBox1.Items.Add("第" + (i++) + "次查询耗时：" + gg + "毫秒");
             }
-            
+        
+            label1.Text = "1W次总耗时："+ gggg;
             dbc.close();
         }
     }
