@@ -15,3 +15,5 @@ D:\WeavingDB\WDBServer\obj\Debug\WDBServer.csproj.CoreCompileInputs.cache
 D:\WeavingDB\WDBServer\obj\Debug\WDBServer.csproj.CopyComplete
 D:\WeavingDB\WDBServer\obj\Debug\WDBServer.exe
 D:\WeavingDB\WDBServer\obj\Debug\WDBServer.pdb
+D:\WeavingDB\WDBServer\bin\Debug\Weave.Server.pdb
+D:\WeavingDB\WDBServer\bin\Debug\Weave.Base.pdb

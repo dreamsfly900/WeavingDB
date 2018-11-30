@@ -32,11 +32,16 @@ namespace WeavingDBClient
         }
         public T  Get<T>(string key)
         {
-            byte[] rowdata = DataEncoding.encodinggetKV(key);
-            //DataEncoding.encodinggetKV("2018092100000");
-            //GZIP.Compress(rowdata);
-            //return BytesToT<T>(TToBytes(key));
-            return BytesToT<T>(ccon.Send(0x02, rowdata));
+            
+                byte[] rowdata = DataEncoding.encodinggetKV(key);
+                //DataEncoding.encodinggetKV("2018092100000");
+                //GZIP.Compress(rowdata);
+                //return BytesToT<T>(TToBytes(key));
+                byte[] data = ccon.Send(0x02, rowdata);
+                if (data != null)
+                    return BytesToT<T>(data);
+                return default(T);
+            
         }
         public void close()
         {

@@ -291,12 +291,16 @@ namespace WeavingDBLogical
         /// <returns></returns>
         public byte[] get(string key)
         {
-          
-            if (CDKV.ContainsKey(key))
+            try
             {
-                CDKVlong[key] = DateTime.Now.ToFileTime();
-                return CDKV[key];
+                if (CDKV.ContainsKey(key))
+                {
+                    CDKVlong[key] = DateTime.Now.ToFileTime();
+                    return CDKV[key];
+                }
             }
+            catch
+            { }
             return null;
            
         }

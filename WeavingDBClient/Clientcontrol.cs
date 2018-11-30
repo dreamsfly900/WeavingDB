@@ -26,30 +26,46 @@ namespace WeavingDBClient
 
         internal void open()
         {
-            if(p2Pclient!=null)
+            if (p2Pclient != null)
+            {
                 p2Pclient.receiveServerEventbit -= P2Pclient_receiveServerEventbit;
+                p2Pclient.ErrorMge -= P2Pclient_ErrorMge;
+            }
             p2Pclient = new Weave.TCPClient.P2Pclient(Weave.TCPClient.DataType.bytes);
             p2Pclient.receiveServerEventbit += P2Pclient_receiveServerEventbit;
+            p2Pclient.ErrorMge += P2Pclient_ErrorMge;
             if (!p2Pclient.start(IP, port, false))
             {
                 throw new Exception("连接失败！");
             }
         }
 
+        private void P2Pclient_ErrorMge(int type, string error)
+        {
+           
+        }
+
         private void P2Pclient_receiveServerEventbit(byte command, byte[] data)
         {
-            switch (command)
+            try
             {
-                case 0x01:
-                    rowsdata = data;
+                switch (command)
+                {
+                    case 0x01:
+                        rowsdata = data;
 
-                    break;
-                case 0x02:
-                    rowsdata = GZIP.Decompress(data); 
-                    break;
-                case 0xfe:
-                    error = System.Text.Encoding.UTF8.GetString(data);
-                    break;
+                        break;
+                    case 0x02:
+                        rowsdata = GZIP.Decompress(data);
+                        break;
+                    case 0xfe:
+                        error = System.Text.Encoding.UTF8.GetString(data);
+                        break;
+
+                }
+            }
+            catch
+            {
 
             }
          

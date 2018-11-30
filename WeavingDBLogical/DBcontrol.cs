@@ -31,9 +31,10 @@ namespace WeavingDBLogical
 
 
         }
-
+        int ssss = 0;
         private void Wserver_weaveDeleteSocketListEvent(System.Net.Sockets.Socket soc)
         {
+            ssss = 0;
             count--;
         }
 
@@ -73,7 +74,7 @@ namespace WeavingDBLogical
             {
                 wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes(e.Message));
             }
-
+            ssss++;
           //  soc.Close();
         }
 

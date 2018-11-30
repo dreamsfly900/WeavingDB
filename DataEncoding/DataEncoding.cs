@@ -61,7 +61,8 @@ namespace WeavingDB
                 data = data2;
                 return bb;
             }
-            catch { return false; }
+            catch
+            { return false; }
         }
         public static bool getKVdecode(byte[] rowsdata, out string key)
         {
@@ -79,7 +80,10 @@ namespace WeavingDB
                 //data = data2;
                 return bb;
             }
-            catch { return false; }
+            catch
+            {
+                return false;
+            }
         }
 
         static bool userpwddecode(byte[] rowsdata, out byte[] data)

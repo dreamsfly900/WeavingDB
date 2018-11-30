@@ -21,3 +21,7 @@ D:\WeavingDB\WeavingDBLogical\bin\Debug\Weave.Server.dll
 D:\WeavingDB\WeavingDBLogical\bin\Debug\Weave.TCPClient.dll
 D:\WeavingDB\WeavingDBLogical\bin\Debug\DataEncoding.dll
 D:\WeavingDB\WeavingDBLogical\bin\Debug\DataEncoding.pdb
+D:\WeavingDB\WeavingDBLogical\bin\Debug\UDTCommon.dll
+D:\WeavingDB\WeavingDBLogical\bin\Debug\UDTLibary.dll
+D:\WeavingDB\WeavingDBLogical\bin\Debug\Weave.Base.pdb
+D:\WeavingDB\WeavingDBLogical\bin\Debug\Weave.Server.pdb

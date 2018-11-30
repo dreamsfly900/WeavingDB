@@ -9,3 +9,7 @@ D:\WeavingDB\WeavingDBClient\obj\Debug\WeavingDBClient.csproj.CoreCompileInputs.
 D:\WeavingDB\WeavingDBClient\obj\Debug\WeavingDBClient.csproj.CopyComplete
 D:\WeavingDB\WeavingDBClient\obj\Debug\WeavingDBClient.dll
 D:\WeavingDB\WeavingDBClient\obj\Debug\WeavingDBClient.pdb
+D:\WeavingDB\WeavingDBClient\bin\Debug\Newtonsoft.Json.dll
+D:\WeavingDB\WeavingDBClient\bin\Debug\Weave.Base.pdb
+D:\WeavingDB\WeavingDBClient\bin\Debug\Weave.TCPClient.pdb
+D:\WeavingDB\WeavingDBClient\bin\Debug\Newtonsoft.Json.xml
