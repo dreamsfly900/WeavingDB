@@ -14,15 +14,23 @@ using System.Threading.Tasks;
 
 namespace WeavingDBLogical
 {
-   public unsafe class logical
+    [StructLayoutAttribute(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
+    public class binaryvoid
+    {
+        
+        public IntPtr data;
+       
+        public Int32 len;
+    }
+
+    public unsafe class logical
     {
 
 
 
 
 
-
-     internal   object [] gethtabledtjson(JObject obj, head[] dhead)
+        internal object[] gethtabledtjson(JObject obj, head[] dhead)
         {
             //Hashtable coll = new Hashtable();
             Object[] objs = new object[dhead.Length];
@@ -41,13 +49,107 @@ namespace WeavingDBLogical
 
             return objs;
         }
-        internal unsafe void*[] gethtabledtjsontointptr(JObject obj, head[] dhead)
+
+        internal object getHashtable(string key, byte type, void* p1)
+        {
+
+            object obj = null;
+            try
+            {
+                if (type == 6)
+                {
+                    obj = (int)(*(int*)p1);
+
+
+                }
+                else if (type == 9)
+                {
+                    obj = (bool)(*(bool*)p1);
+
+                }
+                else if (type == 7)
+                {
+                    obj = (double)(*(double*)p1);
+
+
+
+                }
+                else if (type == 12)
+                {
+
+
+                    obj = DateTime.FromFileTime((long)(*(long*)p1));
+
+
+                }
+                else if (type == 8)
+                {
+
+
+
+                    obj = Marshal.PtrToStringAnsi((IntPtr)p1);
+
+
+
+                }
+                else
+                {
+                    binaryvoid byv2 = new binaryvoid();
+                    Marshal.PtrToStructure((IntPtr)p1, byv2);
+                    byte[] abc = tobyte((byte*)byv2.data, byv2.len);
+                    // tobyte((IntPtr)p1,)
+                       obj = BytesToT<String>(WeavingDB.GZIP.Decompress(abc));
+                }
+            }
+            catch (Exception e)
+
+            {
+                return obj;
+            }
+            return obj;
+        }
+        private T BytesToT<T>(byte[] bytes)
+        {
+            using (var ms = new System.IO.MemoryStream())
+            {
+                ms.Write(bytes, 0, bytes.Length);
+                var bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                ms.Position = 0;
+                var x = bf.Deserialize(ms);
+                return (T)x;
+            }
+        }
+
+        private byte[] TToBytes<T>(T obj)
+        {
+            var bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+            using (var ms = new System.IO.MemoryStream())
+            {
+                bf.Serialize(ms, obj);
+                return ms.ToArray();
+            }
+        }
+        public unsafe IntPtr tobytes(byte[] write)
+        {
+            IntPtr write_data = Marshal.AllocHGlobal(write.Length);
+            Marshal.Copy(write, 0, write_data, write.Length);
+            // Marshal.FreeHGlobal(write_data);
+            return write_data;
+        }
+        public unsafe byte[] tobyte(byte* write_data, int data_len)
+        {
+         
+            byte[] write = new byte[data_len];
+            Marshal.Copy((IntPtr)write_data, write, 0, write.Length);
+            return write;
+        }
+internal unsafe void*[] gethtabledtjsontointptr(JObject obj, head[] dhead)
         {
             //Hashtable coll = new Hashtable();
             void*[] objs = new void*[dhead.Length];
             foreach (var item in dhead)
             {
-                 byte jtt = item.type;
+                byte jtt = item.type;
                 if (obj[item.key] != null)
                 {
                     //object objc = insertmarshal(obj[item.key]);
@@ -103,18 +205,27 @@ namespace WeavingDBLogical
                             {
 
                                 // char[] p = ((String)objc).ToCharArray().;
-                             
+
                                 char* p = (char*)System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi(obj[item.key].ToString()).ToPointer();
                                 objs[item.index] = p;
                             }
                             else
                             {
 
+
                                 // char[] p = ((String)objc).ToCharArray().;
-                                string gzip=  (obj[item.key].ToString());
-                            
-                                char* p = (char*)System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi(gzip).ToPointer();
-                                objs[item.index] = p;
+
+                                //string gzip= WeavingDB.GZIP.GZipCompressString(obj[item.key].ToString());
+
+                                // char* p = (char*)System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi(gzip).ToPointer();
+                                byte[] p = WeavingDB.GZIP.Compress(TToBytes<String>(obj[item.key].ToString()));
+                                 
+                                binaryvoid byv = new binaryvoid();
+                                byv.data =  tobytes(p);
+                                byv.len = p.Length; 
+                                IntPtr sp = Marshal.AllocHGlobal(Marshal.SizeOf(byv));
+                                Marshal.StructureToPtr(byv, sp, false);
+                                objs[item.index] = sp.ToPointer();
                             }
 
                         }
@@ -122,18 +233,17 @@ namespace WeavingDBLogical
                     catch {
                         Marshal.FreeHGlobal((IntPtr)objs[item.index]);
                     }
-                  
-                    
+
+
                 }
-                 
+
             }
 
 
             return objs;
         }
-      
-
-        internal head[] gethead(JObject obj)
+        
+internal head[] gethead(JObject obj)
         {
             head [] coll = new head[obj.Count];
             int i = 0;

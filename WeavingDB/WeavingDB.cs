@@ -22,7 +22,6 @@ namespace WeavingDB
        
         private void WeavingDB_Load(object sender, EventArgs e)
         {
-          
             //object obj= Newtonsoft.Json.JsonConvert.PopulateObject(builder.ToString());
         }
         DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");

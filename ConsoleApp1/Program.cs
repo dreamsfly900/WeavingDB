@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using WeavingDB;
 using WeavingDBLogical;
 
 namespace ConsoleApp1
@@ -25,7 +26,7 @@ namespace ConsoleApp1
             public int id;
             public string name;
             public byte aa;
-          //  public byte [] aas;
+            public byte [] aas;
            // public byte[,] aass;
             public DateTime dt;
             public bool bb = true;
@@ -36,12 +37,66 @@ namespace ConsoleApp1
             public int idaa;
             public string id;
         }
-      static  DBmanage dbm = new DBmanage();
+        static T BytesToT<T>(byte[] bytes)
+        {
+            using (var ms = new System.IO.MemoryStream())
+            {
+                ms.Write(bytes, 0, bytes.Length);
+                var bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                ms.Position = 0;
+                var x = bf.Deserialize(ms);
+                return (T)x;
+            }
+        }
+
+        static byte[] TToBytes<T>(T obj)
+        {
+            var bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+            using (var ms = new System.IO.MemoryStream())
+            {
+                bf.Serialize(ms, obj);
+                return ms.ToArray();
+            }
+        }
+        static unsafe IntPtr tobytes(byte[] write)
+        {
+            IntPtr write_data = Marshal.AllocHGlobal(write.Length);
+            Marshal.Copy(write, 0, write_data, write.Length);
+            // Marshal.FreeHGlobal(write_data);
+            return write_data;
+        }
+        static unsafe byte[] tobyte(byte* write_data,int len)
+        {
+            IntPtr ip = (IntPtr)write_data;
+            byte[] write = new byte[len];
+            Marshal.Copy((IntPtr)write_data, write, 0, write.Length);
+            return write;
+        }
+        static  DBmanage dbm = new DBmanage();
+        
         static unsafe void Main(string[] args)
         {
-          
 
-               DBLogical dblo = new DBLogical();
+            byte[] p = GZIP.Compress(TToBytes<String>("2141234"));
+
+          
+            binaryvoid byv = new binaryvoid();
+            byv.data =( tobytes(p));
+            byv.len = p.Length;
+            IntPtr sp = Marshal.AllocHGlobal(Marshal.SizeOf(byv));
+            Marshal.StructureToPtr(byv, sp, false);
+            binaryvoid byv2 = new binaryvoid();
+            Marshal.PtrToStructure(sp, byv2);
+            byte[] abc = tobyte((byte*)byv2.data, byv2.len);
+           String sstr= BytesToT<String>( GZIP.Decompress(abc));
+                 //   System.Runtime.InteropServices.Marshal.PtrToStructure((IntPtr)pp, abc);
+                 //fixed (byte* tt =(byte[])(*(byte*)pp))
+                 //{
+
+
+                 //}
+
+                 DBLogical dblo = new DBLogical();
             int i = 0;
             List<listDmode> listu = new List<listDmode>();
             liattable ltable = new liattable();
@@ -49,15 +104,15 @@ namespace ConsoleApp1
             List<user> liseruser = new List<user>();
             string str = "";
             JObject objbb;
-            user uu = new user() { id = i++, name = "" + i, dt = DateTime.Now.AddSeconds(new Random().Next(0, 100)), aa = 123 };
+            user uu = new user() { id = i++, name = "" + i, dt = DateTime.Now.AddSeconds(new Random().Next(0, 100)), aa = 123,aas=new byte[5] };
             liseruser.Add(uu);
-            uu = new user() { id = i++, name = "" + i, dt = DateTime.Now.AddSeconds(new Random().Next(0, 100)), aa = 123 };
+            uu = new user() { id = i++, name = "" + i, dt = DateTime.Now.AddSeconds(new Random().Next(0, 100)), aa = 123, aas = new byte[5] };
             liseruser.Add(uu);
           
             str = Newtonsoft.Json.JsonConvert.SerializeObject(liseruser);
             JArray ja = JArray.Parse(str);
             //objbb = JObject.Parse(str);
-            int count = 1000000;
+            int count = 10;
 
             while (i < count)
             {
@@ -142,7 +197,7 @@ namespace ConsoleApp1
                        
                         GC.Collect();
                     }
-                  //  dblo.deletedata(listu, ss, ltable.datahead);
+                    dblo.deletedata(listu, ss, ltable.datahead);
 
                    
                      Console.ReadLine();

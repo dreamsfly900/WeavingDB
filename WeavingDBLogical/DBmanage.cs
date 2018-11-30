@@ -154,7 +154,7 @@ namespace WeavingDBLogical
             {
                 liattable list;
                 bool b= CDtable.TryRemove(key,out list);
-                new DBLogical().cleardata(list.datas);
+                new DBLogical().cleardata(list.datas, list.datahead);
                 list.datahead = null;
                 list = null;
                 return b;

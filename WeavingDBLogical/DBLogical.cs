@@ -116,13 +116,30 @@ namespace WeavingDBLogical
         short[] collindex;
         byte[] hindex;
         int glen = 0;
-        public unsafe void cleardata(List<listDmode> _listu)
+        public unsafe void cleardata(List<listDmode> _listu, head[] _dhead)
         {
             lock (_listu)
             {
                 for (int i = 0; i < _listu.Count; i++)
-                    for (int ig = 0; ig < listu[i].dtable2.Length; ig++)
-                        Marshal.FreeHGlobal((IntPtr)listu[i].dtable2[ig]);
+                    for (int ig = 0; ig < _dhead.Length; ig++)
+                    {
+                        byte type = _dhead[ig].type;
+                        if (_dhead[ig].index >= listu[i].dtable2.Length)
+                            continue;
+                        IntPtr pp=(IntPtr) listu[i].dtable2[_dhead[ig].index];
+                        if (type != 6 && type != 9 && type != 7 && type != 12 && type != 8)
+                        {
+
+                            binaryvoid byv2 = new binaryvoid();
+                            Marshal.PtrToStructure((IntPtr)pp, byv2);
+                            
+                              Marshal.FreeHGlobal(byv2.data);
+                        } 
+                        
+                            Marshal.FreeHGlobal(pp);
+                         
+                     
+                    }
 
                 _listu.Clear();
             }
@@ -142,7 +159,7 @@ namespace WeavingDBLogical
                 wherelogical();
 
            
-                delLogicaltiem(_listu.Count,0);
+                delLogicaltiem(_listu.Count,0, _dhead);
                 for (int gi = 0; gi < mtssscon.Length; gi++)
                 {
                     void* p = mtssscon[gi];
@@ -150,39 +167,24 @@ namespace WeavingDBLogical
                     Marshal.FreeHGlobal((IntPtr)p);
                 }
 
-                //try
-                //{
-                //    // List<listDmode> _listu = oo as List<listDmode>;
-                //    for (int i = 0; i < _listu.Count; i++)
-                //        if (_listu.Count > i && _listu[i] == null)
-                //        {
-                //            _listu.RemoveAt(i);
-
-                //            i = i - 1;
-                //        }
-                //}
-                    //catch (Exception e)
-                    //{
-                    //    throw e;
-                    //}
-
-                //System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(delnull), _listu);
+                
             }
             catch (Exception ex)
             { throw ex; }
 
         }
-       public static void delnull(object oo)
+        public static void delnull(object oo)
         {
-            try {
+            try
+            {
                 liattable _listu = oo as liattable;
-            for (int i = 0; i < _listu.datas.Count; i++)
-                if (_listu.datas.Count>i && _listu.datas[i] == null)
-                {
+                for (int i = 0; i < _listu.datas.Count; i++)
+                    if (_listu.datas.Count > i && _listu.datas[i] == null)
+                    {
                         _listu.datas.RemoveAt(i);
-                     
-                    i = i - 1;
-                }
+
+                        i = i - 1;
+                    }
                 _listu.deleterun = false;
             }
             catch (Exception e)
@@ -477,62 +479,7 @@ namespace WeavingDBLogical
         
 
         }
-        object getHashtable(string key, byte type,void * p1)
-        {
-            
-                object obj = null;
-            try
-            {
-                if (type == 6)
-                {
-                    obj = (int)(*(int*)p1);
-
-
-                }
-                else if (type == 9)
-                {
-                    obj = (bool)(*(bool*)p1);
-
-                }
-                else if (type == 7)
-                {
-                    obj = (double)(*(double*)p1);
-
-
-
-                }
-                else if (type == 12)
-                {
-
-
-                    obj = DateTime.FromFileTime((long)(*(long*)p1));
-
-
-                }
-                else if (type == 8)
-                {
-
-
-
-                    obj = Marshal.PtrToStringAnsi((IntPtr)p1);
-
-
-
-                }
-                else
-                {
-                    obj = Marshal.PtrToStringAnsi((IntPtr)p1);
-                }
-            }
-            catch(Exception e)
-
-            {
-                return obj;
-            }
-            return obj;
-        }
-    
-
+  
         void gg(object objmode)
         {
             int index = (int)objmode;
@@ -549,7 +496,7 @@ namespace WeavingDBLogical
 
       
 
-        unsafe void delLogicaltiem(int listulen, int listindex)
+        unsafe void delLogicaltiem(int listulen, int listindex, head[] _dhead)
         {
 
            // List<void*[]> dellist = new List<void*[]>();
@@ -705,8 +652,25 @@ namespace WeavingDBLogical
                         if (allb)
                         {
                             //  List<IntPtr> dellist = new List<IntPtr>();
-                            for (int ig = 0; ig < listu[i].dtable2.Length; ig++)
-                                Marshal.FreeHGlobal((IntPtr)listu[i].dtable2[ig]);
+                            for (int ig = 0; ig < _dhead.Length; ig++)
+                            {
+                                byte type = _dhead[ig].type;
+                                if (_dhead[ig].index >= listu[i].dtable2.Length)
+                                    continue;
+                                IntPtr pp = (IntPtr)listu[i].dtable2[_dhead[ig].index];
+                                if (type != 6 && type != 9 && type != 7 && type != 12 && type != 8)
+                                {
+
+                                    binaryvoid byv2 = new binaryvoid();
+                                    Marshal.PtrToStructure((IntPtr)pp, byv2);
+
+                                    Marshal.FreeHGlobal(byv2.data);
+                                }
+
+                                Marshal.FreeHGlobal(pp);
+                                 
+                               
+                            }
                          //   dellist.Add(listu[i].dtable2);
 
                             //listu.RemoveAt(i);
