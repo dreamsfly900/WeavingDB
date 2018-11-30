@@ -42,11 +42,13 @@ namespace WeavingDBLogical
         {
             count++;
         }
-
+       
+       
         private void Wserver_weaveReceiveBitEvent(byte command, byte[] data, System.Net.Sockets.Socket soc)
         {
             try
             {
+                
                 byte[] rowsdata = GZIP.Decompress(data);
                 string key = "";
                 byte[] datas;
@@ -61,10 +63,18 @@ namespace WeavingDBLogical
 
                         break;
                     case 0x02:
+                        //byte[] hhh = new byte[] { 31, 139, 8, 0, 0, 0, 0, 0, 4, 0, 99, 96, 100, 96, 96, 248, 15, 4, 32, 26, 4, 216, 64, 12, 70, 67, 110, 0, 117, 40, 253, 6, 25, 0, 0, 0 };
+                        //wserver.Send(soc, command, hhh);
+                        //return;
                         if (WeavingDB.DataEncoding.getKVdecode(rowsdata, out key))
-                        {
+                        { 
+                           
+                           
+                            //byte []bbb=  GZIP.Compress(dbm.get(key));
+                          
                             wserver.Send(soc, command, GZIP.Compress(dbm.get(key)));
                         }
+                        
                         break;
                     case 0x03:
                         if (WeavingDB.DataEncoding.getKVdecode(rowsdata, out key))

@@ -29,15 +29,18 @@ namespace WeavingDB
         {
            
             dbc.open();
-            dbc.Set<String>("asdasd", "等相关资料以及软件在后续使用过程中因为");
+            dbc.Set<String>("asdasd", "1");
             int i = 0;
-            while (i < 50)
+           
+            while (i < 100)
             {
+                i++;
                 DateTime dt = DateTime.Now;
                 String str = dbc.Get<String>("asdasd");
                 DateTime dt2 = DateTime.Now;
-                listBox1.Items.Add("第"+(i++)+"次查询耗时：" +(dt2 - dt).TotalMilliseconds + "毫秒");
+                listBox1.Items.Add("第" + (i++) + "次查询耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒");
             }
+            
             dbc.close();
         }
     }
