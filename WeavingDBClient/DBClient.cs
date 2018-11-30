@@ -30,6 +30,11 @@ namespace WeavingDBClient
              //DataEncoding.encodinggetKV("2018092100000");
           return  Convert.ToBoolean( ccon.Send(0x01, rowdata)[0]);
         }
+        public bool RemoveKV(string key)
+        {
+            byte[] rowdata = DataEncoding.encodinggetKV(key); 
+            return Convert.ToBoolean(ccon.Send(0x03, rowdata)[0]);
+        }
         public T  Get<T>(string key)
         {
             

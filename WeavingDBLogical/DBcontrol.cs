@@ -65,6 +65,13 @@ namespace WeavingDBLogical
                         {
                             wserver.Send(soc, command, GZIP.Compress(dbm.get(key)));
                         }
+                        break;
+                    case 0x03:
+                        if (WeavingDB.DataEncoding.getKVdecode(rowsdata, out key))
+                        {
+                            bool bb = dbm.Remove(key);
+                            wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
+                        }
 
                         break;
 
