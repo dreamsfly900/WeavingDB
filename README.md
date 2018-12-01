@@ -25,12 +25,16 @@
 
 #### 使用说明
 
- `DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
-            dbc.open();
-            dbc.Set<String>("asdasd", "1");
+
+```
+ DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
+           dbc.open();
+           dbc.Set<String>("asdasd", "1");
             int i = 0;
             String str2 = dbc.Get<String>("asdasd");
-            dbc.close();`
+            dbc.close();
+```
+
 
 #### 参与贡献
 
