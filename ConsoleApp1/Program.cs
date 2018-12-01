@@ -76,7 +76,8 @@ namespace ConsoleApp1
         
         static unsafe void Main(string[] args)
         {
-
+            String strsss = Newtonsoft.Json.JsonConvert.SerializeObject("asdfsadf");
+       
             byte[] p = GZIP.Compress(TToBytes<String>("2141234"));
 
           
@@ -108,11 +109,18 @@ namespace ConsoleApp1
             liseruser.Add(uu);
             uu = new user() { id = i++, name = "" + i, dt = DateTime.Now.AddSeconds(new Random().Next(0, 100)), aa = 123, aas = new byte[5] };
             liseruser.Add(uu);
-          
+            ArrayList arrlist = new ArrayList();
+            arrlist.Add(uu);
+            string sss = "1231";
+            bool bba = liseruser is IEnumerable;
+            bba = arrlist is IEnumerable;
+            bba = uu is IEnumerable;
+            bba = sss is IEnumerable;
+            //   var ary = liseruser.GetType().GetProperties().Where(t => t.PropertyType.GetInterfaces().Count(tt => tt.Name == "IEnumerable") > 0).ToArray();
             str = Newtonsoft.Json.JsonConvert.SerializeObject(liseruser);
             JArray ja = JArray.Parse(str);
             //objbb = JObject.Parse(str);
-            int count = 10;
+            int count = 1000000;
 
             while (i < count)
             {
@@ -170,8 +178,7 @@ namespace ConsoleApp1
                         // listu = null;
                       
                         dt = DateTime.Now;
-                        void*[][] objsall = dblo.selecttiem(listu, ss, ltable.datahead);
-                      
+                        void*[][] objsall = dblo.selecttiem(listu, ss, ltable.datahead); 
                             dt2 = DateTime.Now;
                         // List<long> objsall = new List<long>();
                         if (objsall != null || objsall.Length>0)
@@ -186,10 +193,10 @@ namespace ConsoleApp1
                             string coll = (Console.ReadLine());
                             Hashtable[] objbb2 = dblo.viewdata(objsall, order, coll, page, viewlen, ltable.datahead);
                             Console.WriteLine("耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒--查询后的数据：");
-                            // string str2 = Newtonsoft.Json.JsonConvert.SerializeObject(objbb2);
+                             string str2 = Newtonsoft.Json.JsonConvert.SerializeObject(objbb2);
 
                             //  List<user> liss= Newtonsoft.Json.JsonConvert.DeserializeObject<List<user>>(str2);
-                            //Console.WriteLine("索引:" + str2);
+                            Console.WriteLine("索引:" + str2);
                             //str2 = "";
                             objbb2 = null;
                         }
@@ -197,7 +204,7 @@ namespace ConsoleApp1
                        
                         GC.Collect();
                     }
-                    dblo.deletedata(listu, ss, ltable.datahead);
+                   // dblo.deletedata(listu, ss, ltable.datahead);
 
                    
                      Console.ReadLine();

@@ -253,12 +253,15 @@ internal head[] gethead(JObject obj)
                 //     object objc = insertmarshal(item.Value);
                 //  datamode dm = new datamode(jtt, objc); 
                 // coll.Add(item.Key, objc);
-                head hh = new head();
-                coll[i] = hh;
-                coll[i].key = item.Key;
-                coll[i].index = i;
-                coll[i].type = (byte)item.Value.Type;
-                i++;
+                if (item.Key != "" && item.Key != null)
+                {
+                    head hh = new head();
+                    coll[i] = hh;
+                    coll[i].key = item.Key;
+                    coll[i].index = i;
+                    coll[i].type = (byte)item.Value.Type;
+                    i++;
+                }
             }
 
 

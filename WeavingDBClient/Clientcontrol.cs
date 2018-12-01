@@ -24,7 +24,7 @@ namespace WeavingDBClient
          
         }
 
-        internal void open()
+        internal bool open()
         {
             if (p2Pclient != null)
             {
@@ -36,8 +36,11 @@ namespace WeavingDBClient
             p2Pclient.ErrorMge += P2Pclient_ErrorMge;
             if (!p2Pclient.start(IP, port, false))
             {
-                throw new Exception("连接失败！");
+                return false;
+                //throw new Exception("连接失败！");
+            
             }
+            return true;
         }
 
         private void P2Pclient_ErrorMge(int type, string error)
@@ -51,12 +54,27 @@ namespace WeavingDBClient
             {
                 switch (command)
                 {
-                    case 0x01:
+                    case 0x01://set
                         rowsdata = data;
 
                         break;
-                    case 0x02:
+                    case 0x02://get
                         rowsdata = GZIP.Decompress(data);
+                        break;
+                    case 0x03://RemoveKV
+                        rowsdata = data;
+                        break;
+                    case 0x04://Createtable
+                        rowsdata = data;
+                        break;
+                    case 0x05://Removetable
+                        rowsdata = data;
+                        break;
+                    case 0x06://inserttable
+                        rowsdata = data;
+                        break;
+                    case 0x07://inserttableARRAY
+                        rowsdata = data;
                         break;
                     case 0xfe:
                         error = System.Text.Encoding.UTF8.GetString(data);

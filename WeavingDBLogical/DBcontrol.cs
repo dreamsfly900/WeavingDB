@@ -84,7 +84,36 @@ namespace WeavingDBLogical
                         }
 
                         break;
+                    case 0x04:
+                        if (WeavingDB.DataEncoding.getKVdecode(rowsdata, out key))
+                        {
+                            bool bb = dbm.Createtable(key);
+                            wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
+                        }
 
+                        break;
+                    case 0x05:
+                        if (WeavingDB.DataEncoding.getKVdecode(rowsdata, out key))
+                        {
+                            bool bb = dbm.deletetable(key);
+                            wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
+                        }
+                        break;
+                    case 0x06:
+                        if (WeavingDB.DataEncoding.setKVdecode(rowsdata, out key, out datas))
+                        {
+                            bool bb = (dbm.insettabledata(key, System.Text.Encoding.UTF8.GetString( datas)));
+                            wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
+                        }
+
+                        break;
+                    case 0x07:
+                        if (WeavingDB.DataEncoding.setKVdecode(rowsdata, out key, out datas))
+                        {
+                            bool bb = (dbm.insettabledataArray(key, System.Text.Encoding.UTF8.GetString(datas)));
+                            wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
+                        }
+                        break;
                 }
             }
             catch (Exception e)

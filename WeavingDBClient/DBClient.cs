@@ -20,9 +20,41 @@ namespace WeavingDBClient
             DataEncoding.pwd = pwd;
             ccon = new Clientcontrol(IP,port);
         }
-        public void open()
+        public bool open()
         {
-            ccon.open();
+           return ccon.open();
+        }
+        public bool Createtable(string tablename)
+        {
+            byte[] rowdata = DataEncoding.encodinggetKV(tablename);
+            return Convert.ToBoolean(ccon.Send(0x04, rowdata)[0]);
+        }
+        public bool Removetable(string tablename)
+        {
+            byte[] rowdata = DataEncoding.encodinggetKV(tablename);
+            return Convert.ToBoolean(ccon.Send(0x05, rowdata)[0]);
+        }
+        public bool inserttable<T>(String tablename,params T [] t)
+        {
+            //Type tp = t.GetType();
+            String str = "";
+            if (t.Length == 1)
+                 str=  Newtonsoft.Json.JsonConvert.SerializeObject(t[0]);
+            else
+                str = Newtonsoft.Json.JsonConvert.SerializeObject(t);
+            byte[] rowdata = DataEncoding.encodingsetKV(tablename, System.Text.Encoding.UTF8.GetBytes(str));
+            if (t.Length > 1)
+            {
+                return Convert.ToBoolean(ccon.Send(0x07, rowdata)[0]);
+            }
+            else
+            {
+                return Convert.ToBoolean(ccon.Send(0x06, rowdata)[0]);
+            }
+            //  return Convert.ToBoolean(ccon.Send(0x07, rowdata)[0]);
+            // else
+            //      return Convert.ToBoolean(ccon.Send(0x06, rowdata)[0]);
+            return false;
         }
         public bool Set<T>(string key, T t)
         {

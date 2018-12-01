@@ -23,5 +23,4 @@ D:\WeavingDB\WeavingDB\obj\Debug\WeavingDB.pdb
 D:\WeavingDB\WeavingDB\bin\Debug\Weave.TCPClient.pdb
 D:\WeavingDB\WeavingDB\bin\Debug\Weave.Server.pdb
 D:\WeavingDB\WeavingDB\bin\Debug\Weave.Base.pdb
-D:\WeavingDB\WeavingDB\bin\Debug\UDTCommon.dll
-D:\WeavingDB\WeavingDB\bin\Debug\UDTLibary.dll
+D:\WeavingDB\WeavingDB\bin\Debug\Newtonsoft.Json.xml
