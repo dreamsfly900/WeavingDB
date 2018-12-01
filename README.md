@@ -25,7 +25,8 @@
 
 #### 使用说明
 
- `  DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
+ `  
+DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
         double gggg = 0;
         private void button1_Click(object sender, EventArgs e)
         {
@@ -47,7 +48,8 @@
         
             label1.Text = "1W次总耗时："+ gggg;
             dbc.close();
-        }`
+        }
+`
 
 #### 参与贡献
 
