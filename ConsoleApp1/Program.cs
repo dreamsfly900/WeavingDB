@@ -76,6 +76,8 @@ namespace ConsoleApp1
         
         static unsafe void Main(string[] args)
         {
+           byte [] bbtemp=  DataEncoding.encodingdata("","2312312","");
+          string  [] strbb=  DataEncoding.dencdingdata(bbtemp);
             String strsss = Newtonsoft.Json.JsonConvert.SerializeObject("asdfsadf");
        
             byte[] p = GZIP.Compress(TToBytes<String>("2141234"));

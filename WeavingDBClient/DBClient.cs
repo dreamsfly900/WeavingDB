@@ -54,7 +54,26 @@ namespace WeavingDBClient
             //  return Convert.ToBoolean(ccon.Send(0x07, rowdata)[0]);
             // else
             //      return Convert.ToBoolean(ccon.Send(0x06, rowdata)[0]);
-            return false;
+           
+        }
+        public T selecttable<T>(string tablename,string where, byte order,String coll,int pageindex,int pagesize,out int count)
+        {
+            count = 0;
+            byte[] wherdata = DataEncoding.encodingdata(where, order.ToString(), coll, pageindex.ToString(), pagesize.ToString());
+            byte[] rowdata = DataEncoding.encodingsetKV(tablename, wherdata);
+            byte[] alldata = ccon.Send(0x08, rowdata);
+            try
+            {
+
+                
+                string[] ssr = DataEncoding.dencdingdata(alldata);
+                count = Convert.ToInt32(ssr[0]);
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(ssr[1]);
+            }
+            catch
+            {
+                return default(T);
+            }
         }
         public bool Set<T>(string key, T t)
         {
@@ -108,4 +127,5 @@ namespace WeavingDBClient
         }
  
     }
+
 }

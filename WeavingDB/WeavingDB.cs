@@ -23,6 +23,7 @@ namespace WeavingDB
         private void WeavingDB_Load(object sender, EventArgs e)
         {
             //object obj= Newtonsoft.Json.JsonConvert.PopulateObject(builder.ToString());
+            
         }
         DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
         double gggg = 0;
@@ -43,6 +44,8 @@ namespace WeavingDB
             int i = 0;
             while (i < 10000)
             {
+                u = new user();
+                u.id = i;
                 list.Add(u);
                 i++;
             }
@@ -50,6 +53,15 @@ namespace WeavingDB
             bbc = dbc.inserttable<user>("ddd", list.ToArray());
             DateTime dt2 = DateTime.Now;
             listBox1.Items.Add("万条数据插入" + (dt2-dt).TotalMilliseconds + "毫秒");
+
+            int count = 0;
+             dt = DateTime.Now;
+            
+            var rrs = dbc.selecttable<List<user>>("ddd","id<100",0,"",0,0,out count);
+            
+             dt2 = DateTime.Now;
+            listBox1.Items.Add("数据SQL查询" + (dt2 - dt).TotalMilliseconds + "毫秒");
+
             dbc.Removetable("ddd");
             //dbc.Set<String>("asdasd", "1");
             //int i = 0;

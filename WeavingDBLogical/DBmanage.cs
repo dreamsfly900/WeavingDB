@@ -221,8 +221,9 @@ namespace WeavingDBLogical
         /// <param name="viewlen"></param>
         /// <param name="coll"></param>
         /// <returns></returns>
-        public string selecttabledata(string key, string sql, byte order, int page, int viewlen , string coll="")
+        public string selecttabledata(string key, string sql, byte order, int pageindex, int pagesize ,out int count, string coll="")
         {
+            count = 0;
             if (CDtable.ContainsKey(key))
             {
                 try
@@ -231,7 +232,8 @@ namespace WeavingDBLogical
                     liattable list = CDtable[key];
                    
                         void*[][] objsall = dblo.selecttiem(list.datas, sql, list.datahead);
-                        Hashtable[] objbb2 = dblo.viewdata(objsall, order, coll, page, viewlen, list.datahead);
+                        count = objsall.Length;
+                        Hashtable[] objbb2 = dblo.viewdata(objsall, order, coll, pageindex, pagesize, list.datahead);
                         return Newtonsoft.Json.JsonConvert.SerializeObject(objbb2);
                     
                  

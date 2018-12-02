@@ -76,6 +76,9 @@ namespace WeavingDBClient
                     case 0x07://inserttableARRAY
                         rowsdata = data;
                         break;
+                    case 0x08://select
+                        rowsdata = GZIP.Decompress(data);
+                        break;
                     case 0xfe:
                         error = System.Text.Encoding.UTF8.GetString(data);
                         break;

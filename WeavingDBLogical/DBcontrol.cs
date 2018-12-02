@@ -114,6 +114,23 @@ namespace WeavingDBLogical
                             wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
                         }
                         break;
+                    case 0x08:
+                        if (WeavingDB.DataEncoding.setKVdecode(rowsdata, out key, out datas))
+                        {
+                            string [] ss= DataEncoding.dencdingdata(datas);
+                            if (ss.Length == 5)
+                            {
+                                // where, order.ToString(), coll, pageindex.ToString(), pagesize.ToString()
+                                int count = 0;
+                               string str=  dbm.selecttabledata(key, ss[0], Convert.ToByte(ss[1]), Convert.ToInt32(ss[3]), Convert.ToInt32(ss[4]),out count, ss[2]);
+                               byte[] senddata= GZIP.Compress( DataEncoding.encodingdata(count.ToString(), str));
+                               wserver.Send(soc, command, senddata);
+                            }
+                         
+                            //   bool bb = (dbm.insettabledataArray(key, System.Text.Encoding.UTF8.GetString(datas)));
+                            // wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
+                        }
+                        break;
                 }
             }
             catch (Exception e)

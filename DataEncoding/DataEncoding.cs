@@ -10,6 +10,31 @@ namespace WeavingDB
     {
         public static string userid;
         public static string pwd;
+        static int ConvertToInt(byte[] list)
+        {
+            int ret = 0;
+            int i = 0;
+            foreach (byte item in list)
+            {
+                ret = ret + (item << i);
+                i = i + 8;
+            }
+            return ret;
+        }
+        static byte[] ConvertToByteList(int v)
+        {
+            List<byte> ret = new List<byte>();
+            int value = v;
+            while (value != 0)
+            {
+                ret.Add((byte)value);
+                value = value >> 8;
+            }
+            byte[] bb = new byte[ret.Count];
+            ret.CopyTo(bb);
+            return bb;
+        }
+
         public static byte[] encodingsetKV(string key, byte[] data)
         {
 
@@ -21,6 +46,41 @@ namespace WeavingDB
             Array.Copy(keys, 0, rowdata, users.Length + 1, keys.Length);
             Array.Copy(data, 0, rowdata, users.Length + 1 + keys.Length, data.Length);
             return rowdata;
+        }
+        public static byte[] encodingdata(params string [] datas)
+        {
+            List<byte> list = new List<byte>();
+            foreach (String str in datas)
+            {
+                byte[] tem = System.Text.Encoding.UTF8.GetBytes(str);
+                byte[] lens= ConvertToByteList(tem.Length);
+                list.Add((byte)lens.Length);
+                list.AddRange(lens);
+                list.AddRange(tem);
+            }
+            return list.ToArray();
+        }
+        public static string[] dencdingdata(byte[] datas)
+        {
+            List<string> list = new List<string>();
+            while (true)
+            {
+                int len = datas[0];
+                byte[] lenb = new byte[len];
+                Array.Copy(datas, 1, lenb, 0, len);
+                int lens = ConvertToInt(lenb);
+                lenb = new byte[lens];
+                Array.Copy(datas, 1+len, lenb, 0, lens);
+                list.Add(System.Text.Encoding.UTF8.GetString(lenb));
+                  
+                if(datas.Length==1+len+lens)
+                   break;
+
+                byte[] temp = new byte[datas.Length-(1 + len + lens)];
+                Array.Copy(datas, (1 + len + lens), temp, 0, temp.Length);
+                datas = temp;
+            }
+            return list.ToArray();
         }
         public static byte[] encodinggetKV(string key)
         {
