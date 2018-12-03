@@ -56,6 +56,54 @@ namespace WeavingDBClient
             //      return Convert.ToBoolean(ccon.Send(0x06, rowdata)[0]);
            
         }
+        /// <summary>
+        /// 查询全部数据
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="tablename"></param>
+        /// <returns></returns>
+        public T selecttable<T>(string tablename)
+        {
+            int count = 0;
+            return selecttable<T>(tablename, "", 0, "", 0, 0, out count);
+        }
+        /// <summary>
+        /// 有条件的查询数据
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="tablename"></param>
+        /// <param name="where"></param>
+        /// <returns></returns>
+        public T selecttable<T>(string tablename, string where)
+        {
+            int count = 0;
+            return selecttable<T>(tablename, where, 0, "", 0, 0,out count);
+        }
+        /// <summary>
+        /// 查询数据并排序
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="tablename"></param>
+        /// <param name="order"></param>
+        /// <param name="coll"></param>
+        /// <returns></returns>
+        public T selecttable<T>(string tablename,  byte order, String coll)
+        {
+            int count = 0;
+            return selecttable<T>(tablename, "", order, coll, 0, 0, out count);
+        }
+        /// <summary>
+        /// 查询数据并排序与分页
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="tablename"></param>
+        /// <param name="where"></param>
+        /// <param name="order"></param>
+        /// <param name="coll"></param>
+        /// <param name="pageindex"></param>
+        /// <param name="pagesize"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
         public T selecttable<T>(string tablename,string where, byte order,String coll,int pageindex,int pagesize,out int count)
         {
             count = 0;
@@ -73,6 +121,25 @@ namespace WeavingDBClient
             catch
             {
                 return default(T);
+            }
+        }
+
+        public bool deletetable(string tablename, string where)
+        {
+            
+            byte[] wherdata = DataEncoding.encodingdata(where);
+            byte[] rowdata = DataEncoding.encodingsetKV(tablename, wherdata);
+            byte[] alldata = ccon.Send(0x09, rowdata);
+            try
+            {
+
+
+
+                return Convert.ToBoolean(alldata[0]);
+            }
+            catch
+            {
+                return false;
             }
         }
         public bool Set<T>(string key, T t)

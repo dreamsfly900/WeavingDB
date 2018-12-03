@@ -124,6 +124,8 @@ namespace WeavingDBLogical
                     for (int ig = 0; ig < _dhead.Length; ig++)
                     {
                         byte type = _dhead[ig].type;
+                        if (_listu[i] == null)
+                            continue;
                         if (_dhead[ig].index >= _listu[i].dtable2.Length)
                             continue;
                         IntPtr pp=(IntPtr)_listu[i].dtable2[_dhead[ig].index];

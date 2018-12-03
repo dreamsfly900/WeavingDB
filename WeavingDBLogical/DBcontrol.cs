@@ -95,7 +95,13 @@ namespace WeavingDBLogical
                     case 0x05:
                         if (WeavingDB.DataEncoding.getKVdecode(rowsdata, out key))
                         {
-                            bool bb = dbm.deletetable(key);
+                            bool bb = false;
+                            try
+                            {
+                                 bb = dbm.deletetable(key);
+                            }
+                            catch
+                            { }
                             wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
                         }
                         break;
@@ -127,6 +133,23 @@ namespace WeavingDBLogical
                                wserver.Send(soc, command, senddata);
                             }
                          
+                            //   bool bb = (dbm.insettabledataArray(key, System.Text.Encoding.UTF8.GetString(datas)));
+                            // wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
+                        }
+                        break;
+                    case 0x09:
+                        if (WeavingDB.DataEncoding.setKVdecode(rowsdata, out key, out datas))
+                        {
+                            string[] ss = DataEncoding.dencdingdata(datas);
+                            if (ss.Length == 1)
+                            {
+                                // where, order.ToString(), coll, pageindex.ToString(), pagesize.ToString()
+                                
+                                bool bb = dbm.deletetabledata(key, ss[0]);
+                               
+                                wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
+                            }
+
                             //   bool bb = (dbm.insettabledataArray(key, System.Text.Encoding.UTF8.GetString(datas)));
                             // wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
                         }

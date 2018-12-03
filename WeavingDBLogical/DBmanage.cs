@@ -152,12 +152,17 @@ namespace WeavingDBLogical
         {
             if (CDtable.ContainsKey(key))
             {
-                liattable list;
-                bool b= CDtable.TryRemove(key,out list);
-                new DBLogical().cleardata(list.datas, list.datahead);
-                list.datahead = null;
-                list = null;
-                return b;
+                try
+                {
+                    liattable list;
+                    bool b = CDtable.TryRemove(key, out list);
+                    new DBLogical().cleardata(list.datas, list.datahead);
+                    list.datahead = null;
+                    list = null;
+                    return b;
+                }
+                catch
+                { }
             }
             return false;
         }
