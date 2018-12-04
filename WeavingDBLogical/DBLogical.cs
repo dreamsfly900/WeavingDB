@@ -184,22 +184,63 @@ namespace WeavingDBLogical
                 //listsindex = new List<int>();
                 // listutem = new List<void*[]>();
                 sqlsst = _sqlsst;
-                dhead = _dhead;
-
-                listu = _listu;
-
-                wherelogical();
-
-
-                updataLogicaltiem(_listu.Count, 0, _dhead, dmode, hhead);
-                for (int gi = 0; gi < mtssscon.Length; gi++)
+                if (sqlsst == "")
                 {
-                    void* p = mtssscon[gi];
+                    for (int i = 0; i < _listu.Count; i++)
+                    {
+                        if (i < listu.Count && listu[i] != null)
+                        {
+                            for (int ig = 0; ig < _dhead.Length; ig++)
+                            {
+                                byte type = _dhead[ig].type;
+                                if (_dhead[ig].index >= listu[i].dtable2.Length)
+                                    continue;
+                                for (int igg = 0; igg < hhead.Length; igg++)
+                                {
+                                    if (hhead[igg].key == _dhead[ig].key)
+                                    {
+                                        if (type == hhead[igg].type)
+                                        {
+                                            IntPtr pp = (IntPtr)listu[i].dtable2[_dhead[ig].index];
+                                            if (type != 6 && type != 9 && type != 7 && type != 12 && type != 8)
+                                            {
 
-                    Marshal.FreeHGlobal((IntPtr)p);
+                                                binaryvoid byv2 = new binaryvoid();
+                                                Marshal.PtrToStructure((IntPtr)pp, byv2);
+
+                                                Marshal.FreeHGlobal(byv2.data);
+                                            }
+
+                                            Marshal.FreeHGlobal(pp);
+                                            listu[i].dtable2[_dhead[ig].index] = dmode.dtable2[hhead[igg].index];
+                                        }
+                                        else
+                                        { throw new Exception("数据列，类型不匹配。"); }
+                                    }
+                                }
+
+                            }
+                        }
+                    }
                 }
+                else
+                {
+                    dhead = _dhead;
+
+                    listu = _listu;
+
+                    wherelogical();
 
 
+                    updataLogicaltiem(_listu.Count, 0, _dhead, dmode, hhead);
+                    for (int gi = 0; gi < mtssscon.Length; gi++)
+                    {
+                        void* p = mtssscon[gi];
+
+                        Marshal.FreeHGlobal((IntPtr)p);
+                    }
+
+                }
             }
             catch (Exception ex)
             { throw ex; }

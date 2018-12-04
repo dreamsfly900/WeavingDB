@@ -280,6 +280,8 @@ namespace WeavingDBLogical
             {
                 try
                 {
+                    if (sql == "")
+                        return false;
                     DBLogical dblo = new DBLogical();
                     liattable list = CDtable[key];
 
