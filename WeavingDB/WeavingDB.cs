@@ -83,14 +83,17 @@ namespace WeavingDB
             DateTime dt2 = DateTime.Now;
             listBox1.Items.Add("万条数据插入" + (dt2 - dt).TotalMilliseconds + "毫秒");
 
+            dbc.updatetable("ddd", "id<10", new { name = "特大喜讯" });
             int count = 0;
-            dbc.deletetable("ddd", "id<100");
+           
             dt = DateTime.Now;
           
             var rrs = dbc.selecttable<List<user>>("ddd", "id<100", 0, "", 0, 0, out count);
           
             dt2 = DateTime.Now;
             listBox1.Items.Add("数据SQL查询" + (dt2 - dt).TotalMilliseconds + "毫秒。"+"查询数量:"+ rrs.Count);
+
+            dbc.deletetable("ddd", "id<100");
 
             dbc.Removetable("ddd");
             dbc.close();

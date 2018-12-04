@@ -11,7 +11,7 @@ namespace WeavingDBLogical
 
    public class DBcontrol
     {
-      WeaveP2Server wserver = new Weave.Server.WeaveP2Server(WeaveDataTypeEnum.Bytes);
+        WeaveP2Server wserver = new Weave.Server.WeaveP2Server(WeaveDataTypeEnum.Bytes);
         public int count = 0;
         DBmanage dbm = new DBmanage();
         string userid = "",pwd="";
@@ -31,10 +31,10 @@ namespace WeavingDBLogical
 
 
         }
-        int ssss = 0;
+       
         private void Wserver_weaveDeleteSocketListEvent(System.Net.Sockets.Socket soc)
         {
-            ssss = 0;
+          
             count--;
         }
 
@@ -154,13 +154,34 @@ namespace WeavingDBLogical
                             // wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
                         }
                         break;
+                    case 0x10:
+                        if (WeavingDB.DataEncoding.setKVdecode(rowsdata, out key, out datas))
+                        {
+                            string[] ss = DataEncoding.dencdingdata(datas);
+                            if (ss.Length == 2)
+                            {
+                                // where, order.ToString(), coll, pageindex.ToString(), pagesize.ToString()
+                                string where = ss[0];
+                                string uodatedata = ss[1];
+                                if (uodatedata != "")
+                                {
+                                    bool bb = dbm.updatetabledata(key, where, uodatedata);
+
+                                    wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
+                                }
+                            }
+
+                            //   bool bb = (dbm.insettabledataArray(key, System.Text.Encoding.UTF8.GetString(datas)));
+                            // wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
+                        }
+                        break;
                 }
             }
             catch (Exception e)
             {
                 wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes(e.Message));
             }
-            ssss++;
+            
           //  soc.Close();
         }
 

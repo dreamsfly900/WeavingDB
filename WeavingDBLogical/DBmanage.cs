@@ -249,28 +249,31 @@ namespace WeavingDBLogical
 
             return "";
         }
-        
-        //public bool updatetabledata(string key, string sql,string data)
-        //{
-        //    if (CDtable.ContainsKey(key))
-        //    {
-        //        try
-        //        {
-        //            DBLogical dblo = new DBLogical();
-        //            liattable list = CDtable[key];
 
-        //            dblo.deletedata(list.datas, sql, list.datahead);
-        //            insettabledata(key, data);
-        //            return true;
+        public bool updatetabledata(string key, string sql, string data)
+        {
+            if (CDtable.ContainsKey(key))
+            {
+                try
+                {
+                    DBLogical dblo = new DBLogical();
+                    liattable list = CDtable[key];
+                    head[] hd = null;
+                    listDmode dmode = dblo.insertintoJson(JObject.Parse(data), ref hd);
+                    dblo.updatedata(list.datas, sql, list.datahead, dmode, hd);
+                    //insettabledata(key, data);
+                    return true;
 
 
-        //        }
-        //        catch
-        //        { return false; }
-        //    }
+                }
+                catch(Exception ee)
+                {
+                    throw ee;
+                }
+            }
 
-        //    return false;
-        //}
+            return false;
+        }
         public bool deletetabledata(string key, string sql)
         {
             if (CDtable.ContainsKey(key))

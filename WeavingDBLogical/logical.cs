@@ -158,7 +158,11 @@ internal unsafe void*[] gethtabledtjsontointptr(JObject obj, head[] dhead)
                     try
                     {
                         {
-                            if (jtt == 6)
+                            if (jtt == 10)
+                            {
+                                continue;
+                            }
+                             else   if (jtt == 6)
                             {
 
 
@@ -278,8 +282,20 @@ internal head[] gethead(JObject obj)
                 {
                     if (item.Key == hd.key)
                     {
-                        bb = true;
-                        break;
+                        if (hd.type == 10)
+                        {
+                            hd.type = (byte)item.Value.Type;
+                        }
+                        if ((byte)item.Value.Type == hd.type )
+                        {
+                            bb = true;
+                            break;
+                        }
+                        else
+                        {
+                            throw new Exception("数据类型不匹配。");
+                        }
+                       
                     }
                     //coll[i].key = item.Key;
                     //coll[i].index = i;

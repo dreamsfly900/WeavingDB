@@ -142,6 +142,27 @@ namespace WeavingDBClient
                 return false;
             }
         }
+        public bool updatetable(string tablename, string where,dynamic obj)
+        {
+            string data=    Newtonsoft.Json.JsonConvert.SerializeObject(obj);
+            byte[] wherdata = DataEncoding.encodingdata(where, data);
+            byte[] rowdata = DataEncoding.encodingsetKV(tablename, wherdata);
+
+            byte[] alldata = ccon.Send(0x10, rowdata);
+            try
+            {
+
+
+
+                return Convert.ToBoolean(alldata[0]);
+            }
+            catch(Exception ee)
+            {
+              //  throw ee;
+                return false;
+            }
+          
+        }
         public bool Set<T>(string key, T t)
         {
             byte[] rowdata = DataEncoding.encodingsetKV(key, TToBytes<T>(t));

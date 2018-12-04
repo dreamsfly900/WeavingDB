@@ -23,20 +23,16 @@ namespace ConsoleApp1
         
         public class user
         {
-            public int id;
-            public string name;
-            public byte aa;
-            public byte [] aas;
+            public int id { get; set; }
+            public string name { get; set; }
+            public byte aa { get; set; }
+            public byte [] aas { get; set; }
            // public byte[,] aass;
-            public DateTime dt;
-            public bool bb = true;
+            public DateTime dt { get; set; }
+            public bool bb  { get; set; }
             
         }
-        public class user2
-        {
-            public int idaa;
-            public string id;
-        }
+       
         static T BytesToT<T>(byte[] bytes)
         {
             using (var ms = new System.IO.MemoryStream())
@@ -92,45 +88,33 @@ namespace ConsoleApp1
             Marshal.PtrToStructure(sp, byv2);
             byte[] abc = tobyte((byte*)byv2.data, byv2.len);
            String sstr= BytesToT<String>( GZIP.Decompress(abc));
-                 //   System.Runtime.InteropServices.Marshal.PtrToStructure((IntPtr)pp, abc);
-                 //fixed (byte* tt =(byte[])(*(byte*)pp))
-                 //{
-
-
-                 //}
+                 
 
                  DBLogical dblo = new DBLogical();
             int i = 0;
             List<listDmode> listu = new List<listDmode>();
             liattable ltable = new liattable();
             ltable.datas = listu;
-            List<user> liseruser = new List<user>();
+            
             string str = "";
             JObject objbb;
-            user uu = new user() { id = i++, name = "" + i, dt = DateTime.Now.AddSeconds(new Random().Next(0, 100)), aa = 123,aas=new byte[5] };
-            liseruser.Add(uu);
-            uu = new user() { id = i++, name = "" + i, dt = DateTime.Now.AddSeconds(new Random().Next(0, 100)), aa = 123, aas = new byte[5] };
-            liseruser.Add(uu);
-            ArrayList arrlist = new ArrayList();
-            arrlist.Add(uu);
-            string sss = "1231";
-            bool bba = liseruser is IEnumerable;
-            bba = arrlist is IEnumerable;
-            bba = uu is IEnumerable;
-            bba = sss is IEnumerable;
-            //   var ary = liseruser.GetType().GetProperties().Where(t => t.PropertyType.GetInterfaces().Count(tt => tt.Name == "IEnumerable") > 0).ToArray();
-            str = Newtonsoft.Json.JsonConvert.SerializeObject(liseruser);
-            JArray ja = JArray.Parse(str);
+             
+            
+             
             //objbb = JObject.Parse(str);
-            int count = 1000000;
+            int count = 10000;
+            user u = new user() { id = i++, name = "111" + i };
+            str = Newtonsoft.Json.JsonConvert.SerializeObject(u);
 
+            objbb = JObject.Parse(str);
+            listu.Add(dblo.insertintoJson(objbb, ref ltable.datahead));
             while (i < count)
             {
-                user u = new user() { id = i++, name = ""+ i, dt = DateTime.Now.AddSeconds(new Random().Next(0,100)), aa=123};
+                 u = new user() { id = i++, name = ""+ i, dt = DateTime.Now.AddSeconds(new Random().Next(0,100)), aa=123};
                  str = Newtonsoft.Json.JsonConvert.SerializeObject(u);
                 
                 objbb = JObject.Parse(str);
-                dbm.set(i.ToString(), new byte[0]);
+                //dbm.set(i.ToString(), new byte[0]);
                 
                 lock (listu)
                 {
@@ -143,23 +127,11 @@ namespace ConsoleApp1
             }
            
           //object obj = dbm.get("111");
-            user2 u2 = new user2() { idaa = i + 123 ,id="adf"};
-            str = Newtonsoft.Json.JsonConvert.SerializeObject(u2);
-             objbb = JObject.Parse(str);
-
-            listu.Add(dblo.insertintoJson(objbb, ref ltable.datahead));
-
-
+             
              
             Console.WriteLine("全部数据：");
             Console.WriteLine(count+"条");
-         //   var oobj = listuu.Where<user>(c => c.id >= 12 && c.name == "" || c.name == "aa");
-         
-           
-            //foreach (user uuu in oobj)
-            //{
-
-            //}
+       
             while (true)
             {
                 try
@@ -170,9 +142,11 @@ namespace ConsoleApp1
                     Console.WriteLine("请输入查询条件");
                     ss = Console.ReadLine();
                     // var fields = obj.GetType().GetProperties();
-                 
-               
-                    DateTime dt=DateTime.Now,dt2=DateTime.Now;
+                    var news = new { name = "特大喜讯" };
+                    head[] hh = new head[0];
+                   listDmode dmo=    dblo.insertintoJson(JObject.FromObject(news), ref hh);
+                    dblo.updatedata(listu, ss, ltable.datahead, dmo, hh);
+                         DateTime dt=DateTime.Now,dt2=DateTime.Now;
                     if (ss != "")
                     {
 
