@@ -63,7 +63,8 @@ namespace WeavingDBLogical
                         {
                             bool bb = (dbm.set(key, datas));
                             wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
-                        }
+                        }else
+                            wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes("账号或密码不正确"));
 
                         break;
                     case 0x02:
@@ -78,7 +79,8 @@ namespace WeavingDBLogical
                           
                             wserver.Send(soc, command, GZIP.Compress(dbm.get(key)));
                         }
-                        
+                        else
+                            wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes("账号或密码不正确"));
                         break;
                     case 0x03:
                         if (WeavingDB.DataEncoding.getKVdecode(rowsdata, out key))
@@ -86,6 +88,8 @@ namespace WeavingDBLogical
                             bool bb = dbm.Remove(key);
                             wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
                         }
+                        else
+                            wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes("账号或密码不正确"));
 
                         break;
                     case 0x04:
@@ -94,6 +98,8 @@ namespace WeavingDBLogical
                             bool bb = dbm.Createtable(key);
                             wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
                         }
+                        else
+                            wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes("账号或密码不正确"));
 
                         break;
                     case 0x05:
@@ -108,6 +114,8 @@ namespace WeavingDBLogical
                             { }
                             wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
                         }
+                        else
+                            wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes("账号或密码不正确"));
                         break;
                     case 0x06:
                         if (WeavingDB.DataEncoding.setKVdecode(rowsdata, out key, out datas))
@@ -115,7 +123,8 @@ namespace WeavingDBLogical
                             bool bb = (dbm.insettabledata(key, System.Text.Encoding.UTF8.GetString( datas)));
                             wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
                         }
-
+                        else
+                            wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes("账号或密码不正确"));
                         break;
                     case 0x07:
                         if (WeavingDB.DataEncoding.setKVdecode(rowsdata, out key, out datas))
@@ -123,6 +132,8 @@ namespace WeavingDBLogical
                             bool bb = (dbm.insettabledataArray(key, System.Text.Encoding.UTF8.GetString(datas)));
                             wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
                         }
+                        else
+                            wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes("账号或密码不正确"));
                         break;
                     case 0x08:
                         if (WeavingDB.DataEncoding.setKVdecode(rowsdata, out key, out datas))
@@ -140,6 +151,8 @@ namespace WeavingDBLogical
                             //   bool bb = (dbm.insettabledataArray(key, System.Text.Encoding.UTF8.GetString(datas)));
                             // wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
                         }
+                        else
+                            wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes("账号或密码不正确"));
                         break;
                     case 0x09:
                         if (WeavingDB.DataEncoding.setKVdecode(rowsdata, out key, out datas))
@@ -157,6 +170,8 @@ namespace WeavingDBLogical
                             //   bool bb = (dbm.insettabledataArray(key, System.Text.Encoding.UTF8.GetString(datas)));
                             // wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
                         }
+                        else
+                            wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes("账号或密码不正确"));
                         break;
                     case 0x10:
                         if (WeavingDB.DataEncoding.setKVdecode(rowsdata, out key, out datas))
@@ -178,6 +193,11 @@ namespace WeavingDBLogical
                             //   bool bb = (dbm.insettabledataArray(key, System.Text.Encoding.UTF8.GetString(datas)));
                             // wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
                         }
+                        else
+                            wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes("账号或密码不正确"));
+                        break;
+                    default:
+                        wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes("又在乱搞吧"));
                         break;
                 }
             }
@@ -185,8 +205,8 @@ namespace WeavingDBLogical
             {
                 wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes(e.Message));
             }
-            
-          //  soc.Close();
+            wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes("又在乱搞吧"));
+            //  soc.Close();
         }
 
        

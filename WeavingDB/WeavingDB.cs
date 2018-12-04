@@ -68,7 +68,7 @@ namespace WeavingDB
 
         void go(object ob)
         {
-            DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
+            DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123");
             dbc.open();
             user u = new user();
             bool bbc = dbc.inserttable<user>("ddd", u);
