@@ -595,124 +595,126 @@ namespace WeavingDBLogical
                     allb = false;
                     for (int ci = 0; ci < glen; ci++)
                     {
-
-                        if (collindex[ci] != -99)
+                        try
                         {
-                            //  object value = (listu[i].dtable[collindex[ci]]);
-                            void* p1 = listu[i].dtable2[collindex[ci]];
-                            if (p1 == null)
-                                break;
-                            conbb[bi] = false;
-
-                            if (hindex[ci] == 6)
+                            if (collindex[ci] != -99)
                             {
-                                int value = (int)(*(int*)p1);
-                                int sconvalue = (int)(*(int*)mtssscon[ci]);
-                                if (mtsContrast[ci] == 0)
+                                //  object value = (listu[i].dtable[collindex[ci]]);
+                                void* p1 = listu[i].dtable2[collindex[ci]];
+                                if (p1 == null)
+                                    break;
+                                conbb[bi] = false;
+
+                                if (hindex[ci] == 6)
+                                {
+                                    int value = (int)(*(int*)p1);
+                                    int sconvalue = (int)(*(int*)mtssscon[ci]);
+                                    if (mtsContrast[ci] == 0)
+                                    {
+
+                                        conbb[bi] = (value) >= sconvalue;
+                                    }
+                                    if (mtsContrast[ci] == 1)
+                                    {
+                                        conbb[bi] = (value) <= sconvalue;
+                                    }
+                                    if (mtsContrast[ci] == 2)
+                                    {
+                                        conbb[bi] = sconvalue == (value);
+                                    }
+                                    if (mtsContrast[ci] == 3)
+                                    {
+                                        conbb[bi] = (value) > sconvalue;
+                                    }
+                                    if (mtsContrast[ci] == 4)
+                                    {
+                                        conbb[bi] = (value) < sconvalue;
+                                    }
+
+                                }
+                                else if (hindex[ci] == 9)
+                                {
+                                    bool value = (bool)(*(bool*)p1);
+                                    bool sconvalue = (bool)(*(bool*)mtssscon[ci]);
+                                    if (mtsContrast[ci] == 2)
+                                    {
+                                        conbb[bi] = sconvalue == (value);
+                                    }
+                                }
+                                else if (hindex[ci] == 7)
+                                {
+                                    double value = (double)(*(double*)p1);
+                                    double sconvalue = (double)(*(double*)mtssscon[ci]);
+                                    if (mtsContrast[ci] == 0)
+                                    {
+                                        conbb[bi] = (value) >= sconvalue;
+                                    }
+                                    if (mtsContrast[ci] == 1)
+                                    {
+                                        conbb[bi] = (value) <= sconvalue;
+                                    }
+                                    if (mtsContrast[ci] == 2)
+                                    {
+                                        conbb[bi] = sconvalue == (value);
+                                    }
+                                    if (mtsContrast[ci] == 3)
+                                    {
+                                        conbb[bi] = (value) > sconvalue;
+                                    }
+                                    if (mtsContrast[ci] == 4)
+                                    {
+                                        conbb[bi] = (value) < sconvalue;
+                                    }
+
+                                }
+                                else if (hindex[ci] == 12)
                                 {
 
-                                    conbb[bi] = (value) >= sconvalue;
+                                    // conbb[bi] = Contrast<DateTime>(Convert.ToDateTime(st), Convert.ToDateTime(value), mtsContrast[ci]);
+                                    long value = (long)(*(long*)p1);
+                                    long sconvalue = (long)(*(long*)mtssscon[ci]);
+                                    if (mtsContrast[ci] == 0)
+                                    {
+                                        conbb[bi] = value >= sconvalue;
+                                    }
+                                    if (mtsContrast[ci] == 1)
+                                    {
+                                        conbb[bi] = value <= sconvalue;
+                                    }
+                                    if (mtsContrast[ci] == 2)
+                                    {
+                                        conbb[bi] = value == sconvalue;
+                                    }
+                                    if (mtsContrast[ci] == 3)
+                                    {
+                                        conbb[bi] = (value) > sconvalue;
+                                    }
+                                    if (mtsContrast[ci] == 4)
+                                    {
+                                        conbb[bi] = (value) < sconvalue;
+                                    }
                                 }
-                                if (mtsContrast[ci] == 1)
+                                else if (hindex[ci] == 8)
                                 {
-                                    conbb[bi] = (value) <= sconvalue;
-                                }
-                                if (mtsContrast[ci] == 2)
-                                {
-                                    conbb[bi] = sconvalue == (value);
-                                }
-                                if (mtsContrast[ci] == 3)
-                                {
-                                    conbb[bi] = (value) > sconvalue;
-                                }
-                                if (mtsContrast[ci] == 4)
-                                {
-                                    conbb[bi] = (value) < sconvalue;
-                                }
 
+
+                                    if (mtsContrast[ci] == 2)
+                                    {
+                                        string value = Marshal.PtrToStringAnsi((IntPtr)p1);
+                                        string sconvalue = Marshal.PtrToStringAnsi((IntPtr)mtssscon[ci]);
+                                        conbb[bi] = sconvalue == (value);
+                                    }
+
+                                }
+                                else
+                                {
+                                    throw new Exception("不支持的逻辑判断。");
+                                }
+                                bi++;
                             }
-                            else if (hindex[ci] == 9)
-                            {
-                                bool value = (bool)(*(bool*)p1);
-                                bool sconvalue = (bool)(*(bool*)mtssscon[ci]);
-                                if (mtsContrast[ci] == 2)
-                                {
-                                    conbb[bi] = sconvalue == (value);
-                                }
-                            }
-                            else if (hindex[ci] == 7)
-                            {
-                                double value = (double)(*(double*)p1);
-                                double sconvalue = (double)(*(double*)mtssscon[ci]);
-                                if (mtsContrast[ci] == 0)
-                                {
-                                    conbb[bi] = (value) >= sconvalue;
-                                }
-                                if (mtsContrast[ci] == 1)
-                                {
-                                    conbb[bi] = (value) <= sconvalue;
-                                }
-                                if (mtsContrast[ci] == 2)
-                                {
-                                    conbb[bi] = sconvalue == (value);
-                                }
-                                if (mtsContrast[ci] == 3)
-                                {
-                                    conbb[bi] = (value) > sconvalue;
-                                }
-                                if (mtsContrast[ci] == 4)
-                                {
-                                    conbb[bi] = (value) < sconvalue;
-                                }
 
-                            }
-                            else if (hindex[ci] == 12)
-                            {
-
-                                // conbb[bi] = Contrast<DateTime>(Convert.ToDateTime(st), Convert.ToDateTime(value), mtsContrast[ci]);
-                                long value = (long)(*(long*)p1);
-                                long sconvalue = (long)(*(long*)mtssscon[ci]);
-                                if (mtsContrast[ci] == 0)
-                                {
-                                    conbb[bi] = value >= sconvalue;
-                                }
-                                if (mtsContrast[ci] == 1)
-                                {
-                                    conbb[bi] = value <= sconvalue;
-                                }
-                                if (mtsContrast[ci] == 2)
-                                {
-                                    conbb[bi] = value == sconvalue;
-                                }
-                                if (mtsContrast[ci] == 3)
-                                {
-                                    conbb[bi] = (value) > sconvalue;
-                                }
-                                if (mtsContrast[ci] == 4)
-                                {
-                                    conbb[bi] = (value) < sconvalue;
-                                }
-                            }
-                            else if (hindex[ci] == 8)
-                            {
-
-
-                                if (mtsContrast[ci] == 2)
-                                {
-                                    string value = Marshal.PtrToStringAnsi((IntPtr)p1);
-                                    string sconvalue = Marshal.PtrToStringAnsi((IntPtr)mtssscon[ci]);
-                                    conbb[bi] = sconvalue == (value);
-                                }
-
-                            }
-                            else
-                            {
-                                throw new Exception("不支持的逻辑判断。");
-                            }
-                            bi++;
                         }
-
-
+                        catch { break; }
                     }
                     try
                     {
@@ -803,6 +805,7 @@ namespace WeavingDBLogical
                     allb = false;
                     for (int ci = 0; ci < glen; ci++)
                     {
+                        try { 
 
                         if (collindex[ci] != -99)
                         {
@@ -920,7 +923,8 @@ namespace WeavingDBLogical
                             bi++;
                         }
 
-
+                        }
+                        catch { break; }
                     }
                     try
                     {
@@ -1036,124 +1040,127 @@ namespace WeavingDBLogical
                     allb = false;
                     for (int ci = 0; ci < glen; ci++)
                     {
-                       
-                       if (collindex[ci] != -99)
+
+                        try
                         {
-                            //  object value = (listu[i].dtable[collindex[ci]]);
-                            void* p1 = listu[i].dtable2[collindex[ci]];
-                            if (p1 == null)
-                                break ;
-                            conbb[bi] = false;
-
-                            if (hindex[ci]==6)
+                            if (collindex[ci] != -99)
                             {
-                                int value= (int)(*(int*)p1);
-                                int sconvalue = (int)(*(int*)mtssscon[ci]);
-                                if (mtsContrast[ci] == 0)
+                                //  object value = (listu[i].dtable[collindex[ci]]);
+                                void* p1 = listu[i].dtable2[collindex[ci]];
+                                if (p1 == null)
+                                    break;
+                                conbb[bi] = false;
+
+                                if (hindex[ci] == 6)
+                                {
+                                    int value = (int)(*(int*)p1);
+                                    int sconvalue = (int)(*(int*)mtssscon[ci]);
+                                    if (mtsContrast[ci] == 0)
+                                    {
+
+                                        conbb[bi] = (value) >= sconvalue;
+                                    }
+                                    if (mtsContrast[ci] == 1)
+                                    {
+                                        conbb[bi] = (value) <= sconvalue;
+                                    }
+                                    if (mtsContrast[ci] == 2)
+                                    {
+                                        conbb[bi] = sconvalue == (value);
+                                    }
+                                    if (mtsContrast[ci] == 3)
+                                    {
+                                        conbb[bi] = (value) > sconvalue;
+                                    }
+                                    if (mtsContrast[ci] == 4)
+                                    {
+                                        conbb[bi] = (value) < sconvalue;
+                                    }
+
+                                }
+                                else if (hindex[ci] == 9)
+                                {
+                                    bool value = (bool)(*(bool*)p1);
+                                    bool sconvalue = (bool)(*(bool*)mtssscon[ci]);
+                                    if (mtsContrast[ci] == 2)
+                                    {
+                                        conbb[bi] = sconvalue == (value);
+                                    }
+                                }
+                                else if (hindex[ci] == 7)
+                                {
+                                    double value = (double)(*(double*)p1);
+                                    double sconvalue = (double)(*(double*)mtssscon[ci]);
+                                    if (mtsContrast[ci] == 0)
+                                    {
+                                        conbb[bi] = (value) >= sconvalue;
+                                    }
+                                    if (mtsContrast[ci] == 1)
+                                    {
+                                        conbb[bi] = (value) <= sconvalue;
+                                    }
+                                    if (mtsContrast[ci] == 2)
+                                    {
+                                        conbb[bi] = sconvalue == (value);
+                                    }
+                                    if (mtsContrast[ci] == 3)
+                                    {
+                                        conbb[bi] = (value) > sconvalue;
+                                    }
+                                    if (mtsContrast[ci] == 4)
+                                    {
+                                        conbb[bi] = (value) < sconvalue;
+                                    }
+
+                                }
+                                else if (hindex[ci] == 12)
                                 {
 
-                                    conbb[bi] =(value) >= sconvalue;
+                                    // conbb[bi] = Contrast<DateTime>(Convert.ToDateTime(st), Convert.ToDateTime(value), mtsContrast[ci]);
+                                    long value = (long)(*(long*)p1);
+                                    long sconvalue = (long)(*(long*)mtssscon[ci]);
+                                    if (mtsContrast[ci] == 0)
+                                    {
+                                        conbb[bi] = value >= sconvalue;
+                                    }
+                                    if (mtsContrast[ci] == 1)
+                                    {
+                                        conbb[bi] = value <= sconvalue;
+                                    }
+                                    if (mtsContrast[ci] == 2)
+                                    {
+                                        conbb[bi] = value == sconvalue;
+                                    }
+                                    if (mtsContrast[ci] == 3)
+                                    {
+                                        conbb[bi] = (value) > sconvalue;
+                                    }
+                                    if (mtsContrast[ci] == 4)
+                                    {
+                                        conbb[bi] = (value) < sconvalue;
+                                    }
                                 }
-                                if (mtsContrast[ci] == 1)
+                                else if (hindex[ci] == 8)
                                 {
-                                    conbb[bi] = (value) <= sconvalue;
-                                }
-                                if (mtsContrast[ci] == 2)
-                                {
-                                    conbb[bi] = sconvalue == (value);
-                                }
-                                if (mtsContrast[ci] == 3)
-                                {
-                                    conbb[bi] = (value) > sconvalue;
-                                }
-                                if (mtsContrast[ci] == 4)
-                                {
-                                    conbb[bi] = (value) < sconvalue;
-                                }
 
-                            }
-                           else if (hindex[ci] ==9)
-                            {
-                                bool value = (bool)(*(bool*)p1);
-                                bool sconvalue = (bool)(*(bool*)mtssscon[ci]);
-                                if (mtsContrast[ci] == 2)
-                                {
-                                    conbb[bi] = sconvalue == (value);
-                                } 
-                            }
-                            else if (hindex[ci] == 7)
-                            {
-                                double value = (double)(*(double*)p1);
-                                double sconvalue = (double)(*(double*)mtssscon[ci]);
-                                if (mtsContrast[ci] == 0)
-                                {
-                                    conbb[bi] = (value) >= sconvalue;
-                                }
-                                if (mtsContrast[ci] == 1)
-                                {
-                                    conbb[bi] = (value) <= sconvalue;
-                                }
-                                if (mtsContrast[ci] == 2)
-                                {
-                                    conbb[bi] = sconvalue == (value);
-                                }
-                                if (mtsContrast[ci] == 3)
-                                {
-                                    conbb[bi] = (value)>sconvalue;
-                                }
-                                if (mtsContrast[ci] == 4)
-                                {
-                                    conbb[bi] = (value) < sconvalue;
-                                }
 
-                            }
-                            else if (hindex[ci] == 12)
-                            {
+                                    if (mtsContrast[ci] == 2)
+                                    {
+                                        string value = Marshal.PtrToStringAnsi((IntPtr)p1);
+                                        string sconvalue = Marshal.PtrToStringAnsi((IntPtr)mtssscon[ci]);
+                                        conbb[bi] = sconvalue == (value);
+                                    }
 
-                                // conbb[bi] = Contrast<DateTime>(Convert.ToDateTime(st), Convert.ToDateTime(value), mtsContrast[ci]);
-                                long value = (long)(*(long*)p1);
-                                long sconvalue = (long)(*(long*)mtssscon[ci]);
-                                if (mtsContrast[ci] == 0)
-                                {
-                                    conbb[bi] = value >= sconvalue;
                                 }
-                                if (mtsContrast[ci] == 1)
+                                else
                                 {
-                                    conbb[bi] = value <= sconvalue;
+                                    throw new Exception("不支持的逻辑判断。");
                                 }
-                                if (mtsContrast[ci] == 2)
-                                {
-                                    conbb[bi] = value == sconvalue;
-                                }
-                                if (mtsContrast[ci] == 3)
-                                {
-                                    conbb[bi] = (value) > sconvalue;
-                                }
-                                if (mtsContrast[ci] == 4)
-                                {
-                                    conbb[bi] = (value) < sconvalue;
-                                }
+                                bi++;
                             }
-                            else if (hindex[ci] == 8)
-                            {
-                                
-                               
-                                if (mtsContrast[ci] == 2)
-                                {
-                                   string value= Marshal.PtrToStringAnsi((IntPtr)p1);
-                                    string sconvalue = Marshal.PtrToStringAnsi((IntPtr)mtssscon[ci]);
-                                    conbb[bi] = sconvalue == (value);
-                                }
-
-                            }
-                            else
-                            {
-                                throw new Exception("不支持的逻辑判断。");
-                            }
-                            bi++;
                         }
-                       
-                     
+                        catch { break; }
+
                     }
                     try
                     {
