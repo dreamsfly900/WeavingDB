@@ -72,7 +72,9 @@ namespace ConsoleApp1
         
         static unsafe void Main(string[] args)
         {
-           byte [] bbtemp=  DataEncoding.encodingdata("","2312312","");
+            //char* p2 = (char*)System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi("asdfasdf").ToPointer();
+          
+            byte [] bbtemp=  DataEncoding.encodingdata("","2312312","");
           string  [] strbb=  DataEncoding.dencdingdata(bbtemp);
             String strsss = Newtonsoft.Json.JsonConvert.SerializeObject("asdfsadf");
        
@@ -143,9 +145,8 @@ namespace ConsoleApp1
                     ss = Console.ReadLine();
                     // var fields = obj.GetType().GetProperties();
                     var news = new { name = "特大喜讯" };
-                    head[] hh = new head[0];
-                   listDmode dmo=    dblo.insertintoJson(JObject.FromObject(news), ref hh);
-                    dblo.updatedata(listu, ss, ltable.datahead, dmo, hh);
+                    
+                    dblo.updatedata(listu, ss, ltable.datahead, JObject.FromObject(news));
                          DateTime dt=DateTime.Now,dt2=DateTime.Now;
                     if (ss != "")
                     {

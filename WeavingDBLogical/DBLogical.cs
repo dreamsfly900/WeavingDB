@@ -124,14 +124,17 @@ namespace WeavingDBLogical
                 for (int i = 0; i < _listu.Count; i++)
                     for (int ig = 0; ig < _dhead.Length; ig++)
                     {
-                        byte type = _dhead[ig].type;
+                     
                         if (_listu[i] == null)
                             continue;
                         if (_dhead[ig].index >= _listu[i].dtable2.Length)
                             continue;
                         if(_listu[i].dtable2[_dhead[ig].index]==null)
                             continue;
+                        byte type = _dhead[ig].type;
                         IntPtr pp=(IntPtr)_listu[i].dtable2[_dhead[ig].index];
+                        if(pp== IntPtr.Zero)
+                            continue;
                         if (type != 6 && type != 9 && type != 7 && type != 12 && type != 8)
                         {
 
@@ -182,7 +185,7 @@ namespace WeavingDBLogical
             { throw ex; }
 
         }
-        public unsafe void updatedata(List<listDmode> _listu, String _sqlsst, head[] _dhead, listDmode dmode,head[] hhead)
+        public unsafe void updatedata(List<listDmode> _listu, String _sqlsst, head[] _dhead,JObject job)
         {
             try
             {
@@ -192,19 +195,24 @@ namespace WeavingDBLogical
                 sqlsst = _sqlsst;
                 if (sqlsst == "")
                 {
+                    listDmode dmode; head[] hhead=new head[0];
+                    
+                     dmode = insertintoJson(job, ref hhead);
                     for (int i = 0; i < _listu.Count; i++)
                     {
                         if (i < listu.Count && listu[i] != null)
                         {
                             for (int ig = 0; ig < _dhead.Length; ig++)
                             {
-                                byte type = _dhead[ig].type;
+                               
                                 if (_dhead[ig].index >= listu[i].dtable2.Length)
                                     continue;
+                                byte type = _dhead[ig].type;
                                 for (int igg = 0; igg < hhead.Length; igg++)
                                 {
                                     if (hhead[igg].key == _dhead[ig].key)
                                     {
+                                        bool bba = false;
                                         if (type == hhead[igg].type)
                                         {
                                             IntPtr pp = (IntPtr)listu[i].dtable2[_dhead[ig].index];
@@ -219,9 +227,12 @@ namespace WeavingDBLogical
 
                                             Marshal.FreeHGlobal(pp);
                                             listu[i].dtable2[_dhead[ig].index] = dmode.dtable2[hhead[igg].index];
+                                            bba = true;
                                         }
                                         else
                                         { throw new Exception("数据列，类型不匹配。"); }
+                                        if(bba)
+                                          dmode = insertintoJson(job, ref hhead);
                                     }
                                 }
 
@@ -238,7 +249,7 @@ namespace WeavingDBLogical
                     wherelogical();
 
 
-                    updataLogicaltiem(_listu.Count, 0, _dhead, dmode, hhead);
+                    updataLogicaltiem(_listu.Count, 0, _dhead,job);
                     for (int gi = 0; gi < mtssscon.Length; gi++)
                     {
                         void* p = mtssscon[gi];
@@ -592,6 +603,7 @@ namespace WeavingDBLogical
 
             for (int i = listindex; i < listulen; i++)
             {
+               
                 if (i < listu.Count && listu[i] != null)
                 {
 
@@ -606,6 +618,7 @@ namespace WeavingDBLogical
                             if (collindex[ci] != -99)
                             {
                                 //  object value = (listu[i].dtable[collindex[ci]]);
+                              
                                 void* p1 = listu[i].dtable2[collindex[ci]];
                                 if (p1 == null)
                                     break;
@@ -725,7 +738,7 @@ namespace WeavingDBLogical
                     try
                     {
 
-
+                       
                         if (coblen == 1)
                             allb = conbb[0];
                         else
@@ -735,10 +748,19 @@ namespace WeavingDBLogical
                             //  List<IntPtr> dellist = new List<IntPtr>();
                             for (int ig = 0; ig < _dhead.Length; ig++)
                             {
-                                byte type = _dhead[ig].type;
+                             
                                 if (_dhead[ig].index >= listu[i].dtable2.Length)
                                     continue;
-                                IntPtr pp = (IntPtr)listu[i].dtable2[_dhead[ig].index];
+                                byte type = _dhead[ig].type;
+                               
+                                if (listu[i] == null)
+                                    break;
+                                if (listu[i].dtable2[_dhead[ig].index] == null)
+                                    continue;
+                                 IntPtr pp = (IntPtr)listu[i].dtable2[_dhead[ig].index];
+                                
+
+                                
                                 if (type != 6 && type != 9 && type != 7 && type != 12 && type != 8)
                                 {
 
@@ -747,16 +769,21 @@ namespace WeavingDBLogical
 
                                     Marshal.FreeHGlobal(byv2.data);
                                 }
+                                try
+                                {
+                                    Marshal.FreeHGlobal(pp);
+                                    pp = IntPtr.Zero;
+                                }
+                                catch { }
+                              
+                              
 
-                                Marshal.FreeHGlobal(pp);
-                                 
-                               
                             }
                          //   dellist.Add(listu[i].dtable2);
 
                             //listu.RemoveAt(i);
                             listu[i] = null;
-                            //i = i - 1;
+                         //   i = i - 1;
                             // listu[i].dt = DateTime.Now;
                             //listu[i].dtable
                             //listutem.Add(listu[i].dtable2);
@@ -785,7 +812,7 @@ namespace WeavingDBLogical
             //   return listutem.ToArray();
 
         }
-        unsafe void updataLogicaltiem(int listulen, int listindex, head[] _dhead, listDmode dmode,head [] hhead)
+        unsafe void updataLogicaltiem(int listulen, int listindex, head[] _dhead,JObject job)
         {
 
             // List<void*[]> dellist = new List<void*[]>();
@@ -793,9 +820,11 @@ namespace WeavingDBLogical
             {
                 return;
             }
+            
 
+            listDmode dmode; head[] hhead = new head[0];
 
-
+            dmode = insertintoJson(job, ref hhead);
             bool[] conbb = new bool[logical.Length + 1];
             short coblen = (short)conbb.Length;
             bool allb = false;
@@ -952,8 +981,10 @@ namespace WeavingDBLogical
                                 {
                                     if (hhead[igg].key == _dhead[ig].key)
                                     {
+                                        bool bba = false;
                                         if (type == hhead[igg].type)
                                         {
+                                          
                                             IntPtr pp = (IntPtr)listu[i].dtable2[_dhead[ig].index];
                                             if (type != 6 && type != 9 && type != 7 && type != 12 && type != 8)
                                             {
@@ -963,12 +994,18 @@ namespace WeavingDBLogical
 
                                                 Marshal.FreeHGlobal(byv2.data);
                                             }
-
+                                           // void* gg = dmode.dtable2[hhead[igg].index];
+                                           // if ()
                                             Marshal.FreeHGlobal(pp);
                                             listu[i].dtable2[_dhead[ig].index] = dmode.dtable2[hhead[igg].index];
+                                        
+
+                                            bba = true;
                                         }
                                         else
                                         { throw new Exception("数据列，类型不匹配。"); }
+                                        if (bba)
+                                            dmode = insertintoJson(job, ref hhead);
                                     }
                                 }
 

@@ -29,7 +29,7 @@ namespace WeavingDB
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
+            DBClient dbc = new DBClient("122.114.53.233", 18989, "admin", "123123");
             double gggg = 0;
             dbc.open();
          //   String str2 = dbc.Get<String>("asdasd");
@@ -68,7 +68,7 @@ namespace WeavingDB
 
         void go(object ob)
         {
-            DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
+            DBClient dbc = new DBClient("122.114.53.233", 18989, "admin", "123123");
             dbc.open();
             user u = new user();
             bool bbc = dbc.inserttable<user>("ddd", u);

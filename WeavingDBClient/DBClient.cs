@@ -126,21 +126,28 @@ namespace WeavingDBClient
 
         public bool deletetable(string tablename, string where)
         {
-            
-            byte[] wherdata = DataEncoding.encodingdata(where);
-            byte[] rowdata = DataEncoding.encodingsetKV(tablename, wherdata);
-            byte[] alldata = ccon.Send(0x09, rowdata);
             try
             {
+                byte[] wherdata = DataEncoding.encodingdata(where);
+                byte[] rowdata = DataEncoding.encodingsetKV(tablename, wherdata);
+                byte[] alldata = ccon.Send(0x09, rowdata);
+                try
+                {
 
 
 
-                return Convert.ToBoolean(alldata[0]);
+                    return Convert.ToBoolean(alldata[0]);
+                }
+                catch
+                {
+                    return false;
+                }
             }
-            catch
+            catch (Exception e)
             {
-                return false;
+                throw e;
             }
+           
         }
         public bool updatetable(string tablename, string where,dynamic obj)
         {

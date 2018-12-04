@@ -258,9 +258,9 @@ namespace WeavingDBLogical
                 {
                     DBLogical dblo = new DBLogical();
                     liattable list = CDtable[key];
-                    head[] hd = null;
-                    listDmode dmode = dblo.insertintoJson(JObject.Parse(data), ref hd);
-                    dblo.updatedata(list.datas, sql, list.datahead, dmode, hd);
+                    JObject job= JObject.Parse(data);
+                    
+                    dblo.updatedata(list.datas, sql, list.datahead, job);
                     //insettabledata(key, data);
                     return true;
 
