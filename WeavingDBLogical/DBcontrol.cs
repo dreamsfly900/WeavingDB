@@ -205,7 +205,7 @@ namespace WeavingDBLogical
             {
                 wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes(e.Message));
             }
-            wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes("又在乱搞吧"));
+        // wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes("又在乱搞吧"));
             //  soc.Close();
         }
 

@@ -20,6 +20,7 @@ D:\WeavingDB\WeavingDB\bin\Debug\Weave.TCPClient.pdb
 D:\WeavingDB\WeavingDB\bin\Debug\Weave.Server.pdb
 D:\WeavingDB\WeavingDB\bin\Debug\Weave.Base.pdb
 D:\WeavingDB\WeavingDB\bin\Debug\Newtonsoft.Json.xml
-D:\WeavingDB\WeavingDB\obj\Debug\DBclient.csprojResolveAssemblyReference.cache
-D:\WeavingDB\WeavingDB\bin\Debug\UDTCommon.dll
-D:\WeavingDB\WeavingDB\bin\Debug\UDTLibary.dll
+D:\WeavingDB\WeavingDB\bin\Debug\WeavingDBLogical.dll.config
+D:\WeavingDB\WeavingDB\obj\Debug\DBclient.csprojAssemblyReference.cache
+D:\WeavingDB\WeavingDB\obj\Debug\DBclient.csproj.CoreCompileInputs.cache
+D:\WeavingDB\WeavingDB\obj\Debug\DBclient.csproj.CopyComplete
