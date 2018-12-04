@@ -24,15 +24,60 @@
 
 #### 使用说明
 
-
+K-V读写使用代码
 ```
  DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
            dbc.open();
-           dbc.Set<String>("asdasd", "1");
+           dbc.Set<String>("asdasd", "1");//设置
             int i = 0;
-            String str2 = dbc.Get<String>("asdasd");
+            String str2 = dbc.Get<String>("asdasd");//读取
             dbc.close();
 ```
+
+JSONDB，创建库，插入表，批量插入表，修改表，删除表，清空库 操作
+
+```
+  dbc.open();
+            user u = new user();
+            bool bbc = dbc.inserttable<user>("ddd", u);
+            dbc.Createtable("ddd");//创建库
+
+            bbc = dbc.inserttable<user>("ddd", u);//插入对象
+
+
+            //每次插入一组数据
+            List<user> list = new List<user>();
+
+            int i = 0;
+            while (i < 10000)
+            {
+                u = new user();
+                u.id = i;
+                list.Add(u);
+                i++;
+            }
+            DateTime dt = DateTime.Now;
+            bbc = dbc.inserttable<user>("ddd", list.ToArray());//批量插入库
+        
+            DateTime dt2 = DateTime.Now;
+            listBox1.Items.Add("万条数据插入" + (dt2 - dt).TotalMilliseconds + "毫秒");
+
+            dbc.updatetable("ddd", "id<10", new { name = "特大喜讯" });//有条件的修改，条件可以是空的
+            int count = 0;
+           
+            dt = DateTime.Now;
+          
+            var rrs = dbc.selecttable<List<user>>("ddd", "id<100", 0, "", 0, 0, out count);//有条件的查询数据，条件可以是空的
+          
+            dt2 = DateTime.Now;
+            listBox1.Items.Add("数据SQL查询" + (dt2 - dt).TotalMilliseconds + "毫秒。"+"查询数量:"+ rrs.Count);
+
+            dbc.deletetable("ddd", "id<100");//有条件的删除数据，条件不可以是空的
+
+            dbc.Removetable("ddd");
+            dbc.close();
+```
+
 
 
 #### 参与贡献
