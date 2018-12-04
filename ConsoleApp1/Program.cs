@@ -69,11 +69,39 @@ namespace ConsoleApp1
             return write;
         }
         static  DBmanage dbm = new DBmanage();
-        
+      static  IntPtr p3 = System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi("asdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwer");
+
+      static  void go(object obj)
+        {
+            if (p3 != IntPtr.Zero)
+            {
+                System.Threading.Thread.Sleep(100);
+                Marshal.FreeHGlobal(p3);
+                p3 = IntPtr.Zero;
+            }
+        }
         static unsafe void Main(string[] args)
         {
-            //char* p2 = (char*)System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi("asdfasdf").ToPointer();
-          
+            char* p2 = (char*)System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi("asdfasdf").ToPointer();
+            int iii = 0;
+            while (iii < 100)
+            {
+                System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(go), null);
+                iii++;
+            }
+            int pbb = 2345;
+            int nSizeOfPerson = Marshal.SizeOf(pbb);
+            IntPtr intPtr = Marshal.AllocHGlobal(nSizeOfPerson);
+            Marshal.StructureToPtr(pbb, intPtr, true);
+            void* hhg = intPtr.ToPointer();
+            intPtr = IntPtr.Zero;
+            Marshal.FreeHGlobal((IntPtr)hhg);
+
+            Marshal.FreeHGlobal((IntPtr)hhg);
+            //   Marshal.FreeHGlobal(p3);
+            System.GC.Collect();
+           // Marshal.DestroyStructure(p3, typeof(String));
+          // string ss= Marshal.PtrToStringAnsi(p3);
             byte [] bbtemp=  DataEncoding.encodingdata("","2312312","");
           string  [] strbb=  DataEncoding.dencdingdata(bbtemp);
             String strsss = Newtonsoft.Json.JsonConvert.SerializeObject("asdfsadf");
@@ -140,9 +168,9 @@ namespace ConsoleApp1
                 {
                     dblo = new DBLogical();
                     Console.Clear();
-                    string ss = "name=='aa' ";
+                   // string ss = "name=='aa' ";
                     Console.WriteLine("请输入查询条件");
-                    ss = Console.ReadLine();
+                    string ss = Console.ReadLine();
                     // var fields = obj.GetType().GetProperties();
                     var news = new { name = "特大喜讯" };
                     

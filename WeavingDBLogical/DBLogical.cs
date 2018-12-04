@@ -133,9 +133,10 @@ namespace WeavingDBLogical
                             continue;
                         byte type = _dhead[ig].type;
                         IntPtr pp=(IntPtr)_listu[i].dtable2[_dhead[ig].index];
-                        if(pp== IntPtr.Zero)
-                            continue;
-                        if (type != 6 && type != 9 && type != 7 && type != 12 && type != 8)
+                        
+                           
+                        _listu[i].dtable2[_dhead[ig].index] = IntPtr.Zero.ToPointer();
+                        if (pp != IntPtr.Zero && type != 6 && type != 9 && type != 7 && type != 12 && type != 8)
                         {
 
                             binaryvoid byv2 = new binaryvoid();
@@ -145,8 +146,10 @@ namespace WeavingDBLogical
                         }
                         try
                         {
+                            if (pp != IntPtr.Zero)
+                                Marshal.FreeHGlobal(pp);
+                           
 
-                            Marshal.FreeHGlobal(pp);
                         }
                         catch { }
                          
@@ -216,7 +219,8 @@ namespace WeavingDBLogical
                                         if (type == hhead[igg].type)
                                         {
                                             IntPtr pp = (IntPtr)listu[i].dtable2[_dhead[ig].index];
-                                            if (type != 6 && type != 9 && type != 7 && type != 12 && type != 8)
+                                            listu[i].dtable2[_dhead[ig].index] = IntPtr.Zero.ToPointer();
+                                            if (pp != IntPtr.Zero && type != 6 && type != 9 && type != 7 && type != 12 && type != 8)
                                             {
 
                                                 binaryvoid byv2 = new binaryvoid();
@@ -224,7 +228,7 @@ namespace WeavingDBLogical
 
                                                 Marshal.FreeHGlobal(byv2.data);
                                             }
-
+                                            if(pp!=IntPtr.Zero)
                                             Marshal.FreeHGlobal(pp);
                                             listu[i].dtable2[_dhead[ig].index] = dmode.dtable2[hhead[igg].index];
                                             bba = true;
@@ -758,10 +762,10 @@ namespace WeavingDBLogical
                                 if (listu[i].dtable2[_dhead[ig].index] == null)
                                     continue;
                                  IntPtr pp = (IntPtr)listu[i].dtable2[_dhead[ig].index];
-                                
 
-                                
-                                if (type != 6 && type != 9 && type != 7 && type != 12 && type != 8)
+                                listu[i].dtable2[_dhead[ig].index] = IntPtr.Zero.ToPointer();
+
+                                if (pp != IntPtr.Zero && type != 6 && type != 9 && type != 7 && type != 12 && type != 8)
                                 {
 
                                     binaryvoid byv2 = new binaryvoid();
@@ -771,8 +775,10 @@ namespace WeavingDBLogical
                                 }
                                 try
                                 {
+                                    if(pp!=IntPtr.Zero)
                                     Marshal.FreeHGlobal(pp);
-                                    pp = IntPtr.Zero;
+                                    
+                                   
                                 }
                                 catch { }
                               
@@ -986,7 +992,9 @@ namespace WeavingDBLogical
                                         {
                                           
                                             IntPtr pp = (IntPtr)listu[i].dtable2[_dhead[ig].index];
-                                            if (type != 6 && type != 9 && type != 7 && type != 12 && type != 8)
+                                           
+                                            listu[i].dtable2[_dhead[ig].index] = IntPtr.Zero.ToPointer();
+                                            if (pp != IntPtr.Zero && type != 6 && type != 9 && type != 7 && type != 12 && type != 8)
                                             {
 
                                                 binaryvoid byv2 = new binaryvoid();
@@ -994,9 +1002,10 @@ namespace WeavingDBLogical
 
                                                 Marshal.FreeHGlobal(byv2.data);
                                             }
-                                           // void* gg = dmode.dtable2[hhead[igg].index];
-                                           // if ()
-                                            Marshal.FreeHGlobal(pp);
+                                            // void* gg = dmode.dtable2[hhead[igg].index];
+                                            // if ()
+                                            if (pp != IntPtr.Zero)
+                                                Marshal.FreeHGlobal(pp);
                                             listu[i].dtable2[_dhead[ig].index] = dmode.dtable2[hhead[igg].index];
                                         
 
