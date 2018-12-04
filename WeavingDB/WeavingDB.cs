@@ -57,22 +57,14 @@ namespace WeavingDB
        
         private void button2_Click(object sender, EventArgs e)
         {
-            //int i = 0;
-            //while (i < 3)
-            //{
-            //    System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(go), null);
-            //    i++;
-            //}
-           go(null);
-        }
-
-        void go(object ob)
-        {
             DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
             dbc.open();
             user u = new user();
             bool bbc = dbc.inserttable<user>("ddd", u);
-            dbc.Createtable("ddd");
+            if (dbc.Createtable("ddd"))
+            {
+
+            }
 
             bbc = dbc.inserttable<user>("ddd", u);
 
@@ -81,7 +73,7 @@ namespace WeavingDB
             List<user> list = new List<user>();
 
             int i = 0;
-            while (i < 10000)
+            while (i < 200)
             {
                 u = new user();
                 u.id = i;
@@ -102,14 +94,35 @@ namespace WeavingDB
             var rrs = dbc.selecttable<List<user>>("ddd", "id<100", 0, "", 0, 0, out count);
 
             dt2 = DateTime.Now;
+            if(rrs!=null)
             listBox1.Items.Add("数据SQL查询" + (dt2 - dt).TotalMilliseconds + "毫秒。" + "查询数量:" + rrs.Count);
 
+           
+           
+            int iii = 0;
+            while (iii < 1)
+            {
+                System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(go), null);
+                iii++;
+            }
+             rrs = dbc.selecttable<List<user>>("ddd", "id<200", 0, "", 0, 0, out count);
+            if(rrs!=null)
+            listBox1.Items.Add("查询数量:" + rrs.Count);
+            dbc.close();
+            // go(null);
+        }
+
+        void go(object ob)
+        {
+            DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
+            dbc.open();
+            
             dbc.deletetable("ddd", "id<100");
 
-            dbc.deletetable("ddd", "id<100");
+            dbc.deletetable("ddd", "id<2000");
 
 
-            dbc.Removetable("ddd");
+          //  dbc.Removetable("ddd");
             dbc.close();
         }
     }

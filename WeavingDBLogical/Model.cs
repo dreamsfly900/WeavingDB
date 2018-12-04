@@ -36,4 +36,9 @@ namespace WeavingDBLogical
         public string[] sscon;
         public string Contrast;
     }
+    public class freedata
+    {
+        public IntPtr ptr;
+        public byte type;
+    }
 }

@@ -136,24 +136,15 @@ namespace WeavingDBLogical
                         
                            
                         _listu[i].dtable2[_dhead[ig].index] = IntPtr.Zero.ToPointer();
-                        if (pp != IntPtr.Zero && type != 6 && type != 9 && type != 7 && type != 12 && type != 8)
+                        if (pp != IntPtr.Zero)
                         {
-
-                            binaryvoid byv2 = new binaryvoid();
-                            Marshal.PtrToStructure((IntPtr)pp, byv2);
-                            
-                              Marshal.FreeHGlobal(byv2.data);
+                            freedata fd = new freedata();
+                            fd.ptr = pp;
+                            fd.type = type;
+                            allfree.Enqueue(fd);
                         }
-                        try
-                        {
-                            if (pp != IntPtr.Zero)
-                                Marshal.FreeHGlobal(pp);
-                           
 
-                        }
-                        catch { }
-                         
-                     
+
                     }
 
                 _listu.Clear();
@@ -220,16 +211,13 @@ namespace WeavingDBLogical
                                         {
                                             IntPtr pp = (IntPtr)listu[i].dtable2[_dhead[ig].index];
                                             listu[i].dtable2[_dhead[ig].index] = IntPtr.Zero.ToPointer();
-                                            if (pp != IntPtr.Zero && type != 6 && type != 9 && type != 7 && type != 12 && type != 8)
+                                            if (pp != IntPtr.Zero)
                                             {
-
-                                                binaryvoid byv2 = new binaryvoid();
-                                                Marshal.PtrToStructure((IntPtr)pp, byv2);
-
-                                                Marshal.FreeHGlobal(byv2.data);
+                                                freedata fd = new freedata();
+                                                fd.ptr = pp;
+                                                fd.type = type;
+                                                allfree.Enqueue(fd);
                                             }
-                                            if(pp!=IntPtr.Zero)
-                                            Marshal.FreeHGlobal(pp);
                                             listu[i].dtable2[_dhead[ig].index] = dmode.dtable2[hhead[igg].index];
                                             bba = true;
                                         }
@@ -266,6 +254,42 @@ namespace WeavingDBLogical
             catch (Exception ex)
             { throw ex; }
 
+        }
+        public static ConcurrentQueue<freedata> allfree = new ConcurrentQueue<freedata>();
+        public static void freequeue(object obj)
+        {
+            while (true)
+            {
+                int count = allfree.Count;
+                while (count > 0)
+                {
+                    if (allfree.Count > 0)
+                    {
+                        freedata fd = new freedata();
+                        allfree.TryDequeue(out fd);
+                        IntPtr pp = fd.ptr;
+                        byte type = fd.type;
+                        if (pp != IntPtr.Zero && type != 6 && type != 9 && type != 7 && type != 12 && type != 8)
+                        {
+
+                            binaryvoid byv2 = new binaryvoid();
+                            Marshal.PtrToStructure((IntPtr)pp, byv2);
+
+                            Marshal.FreeHGlobal(byv2.data);
+                        }
+                        try
+                        {
+                             
+                                Marshal.FreeHGlobal(pp);
+                              // Marshal.FreeHGlobal(pp);
+
+                        }
+                        catch { }
+                    }
+                    count--;
+                }
+                System.Threading.Thread.Sleep(500);
+            }
         }
         public static void delnull(object oo)
         {
@@ -765,18 +789,16 @@ namespace WeavingDBLogical
 
                                 listu[i].dtable2[_dhead[ig].index] = IntPtr.Zero.ToPointer();
 
-                                if (pp != IntPtr.Zero && type != 6 && type != 9 && type != 7 && type != 12 && type != 8)
-                                {
-
-                                    binaryvoid byv2 = new binaryvoid();
-                                    Marshal.PtrToStructure((IntPtr)pp, byv2);
-
-                                    Marshal.FreeHGlobal(byv2.data);
-                                }
+                                
                                 try
                                 {
-                                    if(pp!=IntPtr.Zero)
-                                    Marshal.FreeHGlobal(pp);
+                                    if (pp != IntPtr.Zero)
+                                    {
+                                        freedata fd = new freedata();
+                                        fd.ptr = pp;
+                                        fd.type = type;
+                                        allfree.Enqueue(fd);
+                                    }
                                     
                                    
                                 }
@@ -994,18 +1016,14 @@ namespace WeavingDBLogical
                                             IntPtr pp = (IntPtr)listu[i].dtable2[_dhead[ig].index];
                                            
                                             listu[i].dtable2[_dhead[ig].index] = IntPtr.Zero.ToPointer();
-                                            if (pp != IntPtr.Zero && type != 6 && type != 9 && type != 7 && type != 12 && type != 8)
-                                            {
-
-                                                binaryvoid byv2 = new binaryvoid();
-                                                Marshal.PtrToStructure((IntPtr)pp, byv2);
-
-                                                Marshal.FreeHGlobal(byv2.data);
-                                            }
-                                            // void* gg = dmode.dtable2[hhead[igg].index];
-                                            // if ()
                                             if (pp != IntPtr.Zero)
-                                                Marshal.FreeHGlobal(pp);
+                                            {
+                                                freedata fd = new freedata();
+                                                fd.ptr = pp;
+                                                fd.type = type;
+                                                allfree.Enqueue(fd);
+                                            }
+
                                             listu[i].dtable2[_dhead[ig].index] = dmode.dtable2[hhead[igg].index];
                                         
 

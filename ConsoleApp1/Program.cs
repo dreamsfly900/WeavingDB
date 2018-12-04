@@ -82,7 +82,23 @@ namespace ConsoleApp1
         }
         static unsafe void Main(string[] args)
         {
+
+            //Queue st = new Queue();
+            //st.Enqueue(11);
+            //while (true)
+            //{
+            //    if (st.Count > 0)
+            //    {
+            //        Object objo = st.Dequeue();
+            //    }
+            //}
             char* p2 = (char*)System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi("asdfasdf").ToPointer();
+            try
+            {
+                Marshal.FreeHGlobal(p3);
+                //Marshal.FreeHGlobal(p3);
+            }
+            catch { }
             int iii = 0;
             while (iii < 100)
             {

@@ -16,7 +16,7 @@ namespace WeavingDBLogical
         ConcurrentDictionary<String, long> CDKVlong = new ConcurrentDictionary<string, long>();
         ConcurrentDictionary<String, liattable> CDtable = new ConcurrentDictionary<string, liattable>();
        
-       public DBmanage()
+        public DBmanage()
         {
             int noselecttimeout = 0, notimeout = 0;
             noselecttimeout =Convert.ToInt32( System.Configuration.ConfigurationManager.AppSettings["KVnoselecttimeout"]);
@@ -30,7 +30,8 @@ namespace WeavingDBLogical
                 System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(jsondataout), notimeout);
             }
             System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(bdnull), null);
-
+            System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(DBLogical.freequeue), null);
+            
         }
         void bdnull(object obj)
         {
@@ -84,15 +85,26 @@ namespace WeavingDBLogical
                             {
                                 string key = keys[i];
                                 List<listDmode> listdate = CDtable[key].datas;
+                                head[] hhed=  CDtable[key].datahead;
                                 for (int j = listdate.Count; j > 0; j--)
                                 {
                                     
                                     double ss = (DateTime.Now - DateTime.FromFileTime(listdate[j].dt)).TotalSeconds;
                                     if (ss > timeout)
                                     {
-                                        for (int ig = 0; ig < listdate[j].dtable2.Length; ig++)
-                                            Marshal.FreeHGlobal((IntPtr)listdate[i].dtable2[ig]);
-                                        listdate.Remove(listdate[j]);
+                                        for (int ig = 0; ig < hhed.Length; ig++)
+                                        {
+                                            if (listdate[i].dtable2[hhed[ig].index] == null)
+                                                continue;
+                                            IntPtr pp = (IntPtr)listdate[i].dtable2[hhed[ig].index];
+                                            if (pp == IntPtr.Zero)
+                                                continue;
+                                            freedata fd = new freedata();
+                                            fd.ptr = (IntPtr)listdate[i].dtable2[hhed[ig].index];
+                                            fd.type = hhed[ig].type;
+                                            DBLogical.allfree.Enqueue(fd);
+                                        }
+                                        listdate[j] = null;
                                     }
                                 }
                             }
