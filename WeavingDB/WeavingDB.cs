@@ -29,7 +29,7 @@ namespace WeavingDB
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
+            DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
             double gggg = 0;
             dbc.open();
          //   String str2 = dbc.Get<String>("asdasd");
@@ -54,10 +54,21 @@ namespace WeavingDB
             //每次插入一条数据
            
         }
-        DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
+       
         private void button2_Click(object sender, EventArgs e)
         {
-           
+            //int i = 0;
+            //while (i < 1)
+            //{
+            //    System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(go), null);
+            //    i++;
+            //}
+            go(null);
+        }
+
+        void go(object ob)
+        {
+            DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
             dbc.open();
             user u = new user();
             bool bbc = dbc.inserttable<user>("ddd", u);
@@ -79,21 +90,24 @@ namespace WeavingDB
             }
             DateTime dt = DateTime.Now;
             bbc = dbc.inserttable<user>("ddd", list.ToArray());
-        
+
             DateTime dt2 = DateTime.Now;
             listBox1.Items.Add("万条数据插入" + (dt2 - dt).TotalMilliseconds + "毫秒");
 
             dbc.updatetable("ddd", "id<10", new { name = "特大喜讯" });
             int count = 0;
-           
+
             dt = DateTime.Now;
-          
+
             var rrs = dbc.selecttable<List<user>>("ddd", "id<100", 0, "", 0, 0, out count);
-          
+
             dt2 = DateTime.Now;
-            listBox1.Items.Add("数据SQL查询" + (dt2 - dt).TotalMilliseconds + "毫秒。"+"查询数量:"+ rrs.Count);
+            listBox1.Items.Add("数据SQL查询" + (dt2 - dt).TotalMilliseconds + "毫秒。" + "查询数量:" + rrs.Count);
 
             dbc.deletetable("ddd", "id<100");
+
+            dbc.deletetable("ddd", "id<100");
+
 
             dbc.Removetable("ddd");
             dbc.close();

@@ -18,17 +18,21 @@ namespace WeavingDBLogical
         int port = 0;
         public DBcontrol()
         {
-            port = Convert.ToInt32 (System.Configuration.ConfigurationManager.AppSettings["port"]);
-            userid =(System.Configuration.ConfigurationManager.AppSettings["userid"]);
-            pwd = (System.Configuration.ConfigurationManager.AppSettings["pwd"]);
-            WeavingDB.DataEncoding.userid = userid;
-            WeavingDB.DataEncoding.pwd = pwd;
-         
-            wserver.weaveUpdateSocketListEvent += Wserver_weaveUpdateSocketListEvent;
-            wserver.weaveDeleteSocketListEvent += Wserver_weaveDeleteSocketListEvent;
-            wserver.weaveReceiveBitEvent += Wserver_weaveReceiveBitEvent;
-            wserver.Start(port);
+            try
+            {
+                port = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["port"]);
+                userid = (System.Configuration.ConfigurationManager.AppSettings["userid"]);
+                pwd = (System.Configuration.ConfigurationManager.AppSettings["pwd"]);
+                WeavingDB.DataEncoding.userid = userid;
+                WeavingDB.DataEncoding.pwd = pwd;
 
+                wserver.weaveUpdateSocketListEvent += Wserver_weaveUpdateSocketListEvent;
+                wserver.weaveDeleteSocketListEvent += Wserver_weaveDeleteSocketListEvent;
+                wserver.weaveReceiveBitEvent += Wserver_weaveReceiveBitEvent;
+                wserver.Start(port);
+            }
+            catch
+            { }
 
         }
        

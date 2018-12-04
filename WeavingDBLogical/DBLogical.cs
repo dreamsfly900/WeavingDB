@@ -129,6 +129,8 @@ namespace WeavingDBLogical
                             continue;
                         if (_dhead[ig].index >= _listu[i].dtable2.Length)
                             continue;
+                        if(_listu[i].dtable2[_dhead[ig].index]==null)
+                            continue;
                         IntPtr pp=(IntPtr)_listu[i].dtable2[_dhead[ig].index];
                         if (type != 6 && type != 9 && type != 7 && type != 12 && type != 8)
                         {
@@ -137,9 +139,13 @@ namespace WeavingDBLogical
                             Marshal.PtrToStructure((IntPtr)pp, byv2);
                             
                               Marshal.FreeHGlobal(byv2.data);
-                        } 
-                        
+                        }
+                        try
+                        {
+
                             Marshal.FreeHGlobal(pp);
+                        }
+                        catch { }
                          
                      
                     }
