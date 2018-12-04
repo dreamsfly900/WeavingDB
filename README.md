@@ -11,17 +11,7 @@
 - 3.可以设置最后一次访问时间的过期时效，例如：A数据，最后一次访问是1小时以前，设置过期为60分钟，此时A数据将被清理，如果A数据在60分钟内再次被访问则不清理。也可以设置永久不过期。
 - 数据通信部分使用WeavingSocket架构，通信部分架构地址：https://gitee.com/dreamsfly900/universal-Data-Communication-System-for-windows
 
-![K-V运行效率测试，万次读写1.8秒，配置SURFACEBOOK 一代 8G 128G](https://images.gitee.com/uploads/images/2018/1201/092336_926426c6_598831.png "a0f86c0262df10cc9cc3c509714c935.png")
-#### 软件架构
-软件架构说明
-
-
-#### 安装教程
-
-1. xxxx
-2. xxxx
-3. xxxx
-
+ 
 #### 使用说明
 
 K-V读写使用代码
@@ -77,8 +67,8 @@ JSONDB，创建库，插入表，批量插入表，修改表，删除表，清�
             dbc.Removetable("ddd");
             dbc.close();
 ```
-
-
+#### 运行测试
+![K-V运行效率测试，万次读写1.8秒，配置SURFACEBOOK 一代 8G 128G](https://images.gitee.com/uploads/images/2018/1201/092336_926426c6_598831.png "a0f86c0262df10cc9cc3c509714c935.png")
 
 #### 参与贡献
 
