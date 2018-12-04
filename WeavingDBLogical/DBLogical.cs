@@ -256,6 +256,8 @@ namespace WeavingDBLogical
 
         }
         public static ConcurrentQueue<freedata> allfree = new ConcurrentQueue<freedata>();
+        [DllImport("kernel32", SetLastError = true)]
+        static extern IntPtr LocalFree(IntPtr mem);
         public static void freequeue(object obj)
         {
             while (true)
@@ -275,12 +277,12 @@ namespace WeavingDBLogical
                             binaryvoid byv2 = new binaryvoid();
                             Marshal.PtrToStructure((IntPtr)pp, byv2);
 
-                            Marshal.FreeHGlobal(byv2.data);
+                            LocalFree(byv2.data);
                         }
                         try
                         {
-                             
-                                Marshal.FreeHGlobal(pp);
+
+                            LocalFree(pp);
                               // Marshal.FreeHGlobal(pp);
 
                         }

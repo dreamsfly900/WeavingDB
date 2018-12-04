@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WeavingDBLogical;
 using WeavingDBClient;
+using System.Runtime.InteropServices;
+
 namespace WeavingDB
 {
   
@@ -19,13 +21,22 @@ namespace WeavingDB
         {
             InitializeComponent();
         }
-       
-        private void WeavingDB_Load(object sender, EventArgs e)
+        [DllImport("kernel32",SetLastError = true)]
+        static extern IntPtr LocalFree(IntPtr mem);
+
+ 
+    private void WeavingDB_Load(object sender, EventArgs e)
         {
             //object obj= Newtonsoft.Json.JsonConvert.PopulateObject(builder.ToString());122.114.53.233
             //127.0.0.1
+            IntPtr p3 = System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi("asdfasdfasdfasdfasdfassd所asdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwerasdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwerasdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwerasdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwerasdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwerasdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwerasdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwerasdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwer谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwer");
+            LocalFree(p3);
+            LocalFree(p3);
         }
-
+        void hhf(object obj)
+        {
+           
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
