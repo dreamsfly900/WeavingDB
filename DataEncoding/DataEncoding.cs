@@ -48,6 +48,11 @@ namespace WeavingDB
             Array.Copy(data, 0, rowdata, users.Length + 1 + keys.Length, data.Length);
             return rowdata;
         }
+        /// <summary>
+        /// 将多个String 编码成可分离的byte[]
+        /// </summary>
+        /// <param name="datas"></param>
+        /// <returns></returns>
         public static byte[] encodingdata(params string [] datas)
         {
             List<byte> list = new List<byte>();
@@ -61,6 +66,11 @@ namespace WeavingDB
             }
             return list.ToArray();
         }
+        /// <summary>
+        /// 将可分离的byte[]，转换为多个string
+        /// </summary>
+        /// <param name="datas"></param>
+        /// <returns></returns>
         public static string[] dencdingdata(byte[] datas)
         {
             List<string> list = new List<string>();

@@ -87,7 +87,12 @@ namespace WeavingDBLogical
         //// 摘要:
         ////     A TimeSpan value.
         //TimeSpan = 17
-
+        /// <summary>
+        /// 将JSON转成要插入的指针和与其对应的数据类型标识
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="dhead"></param>
+        /// <returns></returns>
       public unsafe listDmode insertintoJson(JObject obj,ref head [] dhead)
         {
             
@@ -117,6 +122,11 @@ namespace WeavingDBLogical
         short[] collindex;
         byte[] hindex;
         int glen = 0;
+        /// <summary>
+        /// 清理数据表
+        /// </summary>
+        /// <param name="_listu"></param>
+        /// <param name="_dhead"></param>
         public unsafe void cleardata(List<listDmode> _listu, head[] _dhead)
         {
             lock (_listu)
@@ -131,17 +141,20 @@ namespace WeavingDBLogical
                             continue;
                         if(_listu[i].dtable2[_dhead[ig].index]==null)
                             continue;
-                        byte type = _dhead[ig].type;
-                        IntPtr pp=(IntPtr)_listu[i].dtable2[_dhead[ig].index];
-                        
-                           
-                        _listu[i].dtable2[_dhead[ig].index] = IntPtr.Zero.ToPointer();
-                        if (pp != IntPtr.Zero)
+                        lock (_listu[i])
                         {
-                            freedata fd = new freedata();
-                            fd.ptr = pp;
-                            fd.type = type;
-                            allfree.Enqueue(fd);
+                            byte type = _dhead[ig].type;
+                            IntPtr pp = (IntPtr)_listu[i].dtable2[_dhead[ig].index];
+
+
+                            _listu[i].dtable2[_dhead[ig].index] = IntPtr.Zero.ToPointer();
+                            if (pp != IntPtr.Zero)
+                            {
+                                freedata fd = new freedata();
+                                fd.ptr = pp;
+                                fd.type = type;
+                                allfree.Enqueue(fd);
+                            }
                         }
 
 
@@ -150,7 +163,12 @@ namespace WeavingDBLogical
                 _listu.Clear();
             }
         }
-
+        /// <summary>
+        /// 有条件的删除表数据
+        /// </summary>
+        /// <param name="_listu"></param>
+        /// <param name="_sqlsst"></param>
+        /// <param name="_dhead"></param>
          public unsafe void deletedata(List<listDmode> _listu, String _sqlsst, head[] _dhead)
         {
             try
@@ -179,6 +197,13 @@ namespace WeavingDBLogical
             { throw ex; }
 
         }
+        /// <summary>
+        /// 有条件的更新数据
+        /// </summary>
+        /// <param name="_listu"></param>
+        /// <param name="_sqlsst"></param>
+        /// <param name="_dhead"></param>
+        /// <param name="job"></param>
         public unsafe void updatedata(List<listDmode> _listu, String _sqlsst, head[] _dhead,JObject job)
         {
             try
@@ -196,53 +221,56 @@ namespace WeavingDBLogical
                     {
                         if (i < listu.Count && listu[i] != null)
                         {
-                            for (int ig = 0; ig < _dhead.Length; ig++)
+                            lock (_listu[i])
                             {
-                              
-                                if (_dhead[ig].index >= listu[i].dtable2.Length)
-                                    continue;
-                                byte type = _dhead[ig].type;
-                                dmode = insertintoJson(job, ref hhead);
-                                for (int igg = 0; igg < hhead.Length; igg++)
+                                for (int ig = 0; ig < _dhead.Length; ig++)
                                 {
-                                    if (hhead[igg].key == _dhead[ig].key)
+
+                                    if (_dhead[ig].index >= listu[i].dtable2.Length)
+                                        continue;
+                                    byte type = _dhead[ig].type;
+                                    dmode = insertintoJson(job, ref hhead);
+                                    for (int igg = 0; igg < hhead.Length; igg++)
                                     {
-                                       
-                                        if (type == hhead[igg].type)
+                                        if (hhead[igg].key == _dhead[ig].key)
                                         {
-                                            IntPtr pp = (IntPtr)listu[i].dtable2[_dhead[ig].index];
-                                            listu[i].dtable2[_dhead[ig].index] = IntPtr.Zero.ToPointer();
-                                            if (pp != IntPtr.Zero)
+
+                                            if (type == hhead[igg].type)
                                             {
-                                                freedata fd = new freedata();
-                                                fd.ptr = pp;
-                                                fd.type = type;
-                                                allfree.Enqueue(fd);
+                                                IntPtr pp = (IntPtr)listu[i].dtable2[_dhead[ig].index];
+                                                listu[i].dtable2[_dhead[ig].index] = IntPtr.Zero.ToPointer();
+                                                if (pp != IntPtr.Zero)
+                                                {
+                                                    freedata fd = new freedata();
+                                                    fd.ptr = pp;
+                                                    fd.type = type;
+                                                    allfree.Enqueue(fd);
+                                                }
+                                                listu[i].dtable2[_dhead[ig].index] = dmode.dtable2[hhead[igg].index];
+                                                dmode.dtable2[hhead[igg].index] = IntPtr.Zero.ToPointer();
                                             }
-                                            listu[i].dtable2[_dhead[ig].index] = dmode.dtable2[hhead[igg].index];
-                                            dmode.dtable2[hhead[igg].index] = IntPtr.Zero.ToPointer();
+                                            //else
+                                            //{
+                                            //    throw new Exception("数据列，类型不匹配。");
+                                            //}
+
                                         }
-                                        //else
-                                        //{
-                                        //    throw new Exception("数据列，类型不匹配。");
-                                        //}
-                                       
                                     }
-                                }
 
-                                for (int igga = 0; igga < hhead.Length; igga++)
-                                {
-                                    IntPtr pp = (IntPtr)dmode.dtable2[hhead[igga].index];
-                                    if (pp != IntPtr.Zero)
+                                    for (int igga = 0; igga < hhead.Length; igga++)
                                     {
-                                        freedata fd = new freedata();
-                                        fd.ptr = pp;
-                                        fd.type = hhead[igga].type;
-                                        allfree.Enqueue(fd);
+                                        IntPtr pp = (IntPtr)dmode.dtable2[hhead[igga].index];
+                                        if (pp != IntPtr.Zero)
+                                        {
+                                            freedata fd = new freedata();
+                                            fd.ptr = pp;
+                                            fd.type = hhead[igga].type;
+                                            allfree.Enqueue(fd);
+                                        }
                                     }
-                                }
-                              
 
+
+                                }
                             }
                         }
                     }
@@ -274,6 +302,10 @@ namespace WeavingDBLogical
         public static ConcurrentQueue<freedata> allfree = new ConcurrentQueue<freedata>();
         [DllImport("kernel32", SetLastError = true)]
         static extern IntPtr LocalFree(IntPtr mem);
+        /// <summary>
+        /// 垃圾回收，彻底从内存中移除数据所占用的空间并释放。
+        /// </summary>
+        /// <param name="obj"></param>
         public static void freequeue(object obj)
         {
             while (true)
@@ -309,6 +341,10 @@ namespace WeavingDBLogical
                 System.Threading.Thread.Sleep(500);
             }
         }
+        /// <summary>
+        /// 移除表链中的null行
+        /// </summary>
+        /// <param name="oo"></param>
         public static void delnull(object oo)
         {
             try
@@ -328,6 +364,9 @@ namespace WeavingDBLogical
                 throw e;
             }
         }
+        /// <summary>
+        /// 分解SQL语句并压入等待判断的条件中
+        /// </summary>
         void wherelogical()
         {
             sst = sqltolist(sqlsst);
@@ -462,6 +501,15 @@ namespace WeavingDBLogical
 
         }
         List<int> listsindex = new List<int>();
+
+        /// <summary>
+        /// 有条件的查询表中数据，并返回指针，查询是多线程的，数据是无排序的
+        /// </summary>
+        /// <param name="_listu"></param>
+        /// <param name="_sqlsst"></param>
+        /// <param name="_dhead"></param>
+        /// <param name="_maxlen"></param>
+        /// <returns></returns>
         public unsafe void*[][] selecttiem(List<listDmode> _listu, String _sqlsst, head[] _dhead, int _maxlen= 100000)
         {
             
@@ -652,197 +700,199 @@ namespace WeavingDBLogical
                
                 if (i < listu.Count && listu[i] != null)
                 {
-
-                    byte bi = 0;
-
-                    int llen = logical.Length;
-                    allb = false;
-                    for (int ci = 0; ci < glen; ci++)
+                    lock (listu[i])
                     {
+                        byte bi = 0;
+
+                        int llen = logical.Length;
+                        allb = false;
+                        for (int ci = 0; ci < glen; ci++)
+                        {
+                            try
+                            {
+                                if (collindex[ci] != -99)
+                                {
+                                    //  object value = (listu[i].dtable[collindex[ci]]);
+
+                                    void* p1 = listu[i].dtable2[collindex[ci]];
+                                    if (p1 == null)
+                                        break;
+                                    conbb[bi] = false;
+
+                                    if (hindex[ci] == 6)
+                                    {
+                                        int value = (int)(*(int*)p1);
+                                        int sconvalue = (int)(*(int*)mtssscon[ci]);
+                                        if (mtsContrast[ci] == 0)
+                                        {
+
+                                            conbb[bi] = (value) >= sconvalue;
+                                        }
+                                        if (mtsContrast[ci] == 1)
+                                        {
+                                            conbb[bi] = (value) <= sconvalue;
+                                        }
+                                        if (mtsContrast[ci] == 2)
+                                        {
+                                            conbb[bi] = sconvalue == (value);
+                                        }
+                                        if (mtsContrast[ci] == 3)
+                                        {
+                                            conbb[bi] = (value) > sconvalue;
+                                        }
+                                        if (mtsContrast[ci] == 4)
+                                        {
+                                            conbb[bi] = (value) < sconvalue;
+                                        }
+
+                                    }
+                                    else if (hindex[ci] == 9)
+                                    {
+                                        bool value = (bool)(*(bool*)p1);
+                                        bool sconvalue = (bool)(*(bool*)mtssscon[ci]);
+                                        if (mtsContrast[ci] == 2)
+                                        {
+                                            conbb[bi] = sconvalue == (value);
+                                        }
+                                    }
+                                    else if (hindex[ci] == 7)
+                                    {
+                                        double value = (double)(*(double*)p1);
+                                        double sconvalue = (double)(*(double*)mtssscon[ci]);
+                                        if (mtsContrast[ci] == 0)
+                                        {
+                                            conbb[bi] = (value) >= sconvalue;
+                                        }
+                                        if (mtsContrast[ci] == 1)
+                                        {
+                                            conbb[bi] = (value) <= sconvalue;
+                                        }
+                                        if (mtsContrast[ci] == 2)
+                                        {
+                                            conbb[bi] = sconvalue == (value);
+                                        }
+                                        if (mtsContrast[ci] == 3)
+                                        {
+                                            conbb[bi] = (value) > sconvalue;
+                                        }
+                                        if (mtsContrast[ci] == 4)
+                                        {
+                                            conbb[bi] = (value) < sconvalue;
+                                        }
+
+                                    }
+                                    else if (hindex[ci] == 12)
+                                    {
+
+                                        // conbb[bi] = Contrast<DateTime>(Convert.ToDateTime(st), Convert.ToDateTime(value), mtsContrast[ci]);
+                                        long value = (long)(*(long*)p1);
+                                        long sconvalue = (long)(*(long*)mtssscon[ci]);
+                                        if (mtsContrast[ci] == 0)
+                                        {
+                                            conbb[bi] = value >= sconvalue;
+                                        }
+                                        if (mtsContrast[ci] == 1)
+                                        {
+                                            conbb[bi] = value <= sconvalue;
+                                        }
+                                        if (mtsContrast[ci] == 2)
+                                        {
+                                            conbb[bi] = value == sconvalue;
+                                        }
+                                        if (mtsContrast[ci] == 3)
+                                        {
+                                            conbb[bi] = (value) > sconvalue;
+                                        }
+                                        if (mtsContrast[ci] == 4)
+                                        {
+                                            conbb[bi] = (value) < sconvalue;
+                                        }
+                                    }
+                                    else if (hindex[ci] == 8)
+                                    {
+
+
+                                        if (mtsContrast[ci] == 2)
+                                        {
+                                            string value = Marshal.PtrToStringAnsi((IntPtr)p1);
+                                            string sconvalue = Marshal.PtrToStringAnsi((IntPtr)mtssscon[ci]);
+                                            conbb[bi] = sconvalue == (value);
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        throw new Exception("不支持的逻辑判断。");
+                                    }
+                                    bi++;
+                                }
+
+                            }
+                            catch { break; }
+                        }
                         try
                         {
-                            if (collindex[ci] != -99)
+
+
+                            if (coblen == 1)
+                                allb = conbb[0];
+                            else
+                                allb = logicaljudgement(logical, conbb);
+                            if (allb)
                             {
-                                //  object value = (listu[i].dtable[collindex[ci]]);
-                              
-                                void* p1 = listu[i].dtable2[collindex[ci]];
-                                if (p1 == null)
-                                    break;
-                                conbb[bi] = false;
-
-                                if (hindex[ci] == 6)
-                                {
-                                    int value = (int)(*(int*)p1);
-                                    int sconvalue = (int)(*(int*)mtssscon[ci]);
-                                    if (mtsContrast[ci] == 0)
-                                    {
-
-                                        conbb[bi] = (value) >= sconvalue;
-                                    }
-                                    if (mtsContrast[ci] == 1)
-                                    {
-                                        conbb[bi] = (value) <= sconvalue;
-                                    }
-                                    if (mtsContrast[ci] == 2)
-                                    {
-                                        conbb[bi] = sconvalue == (value);
-                                    }
-                                    if (mtsContrast[ci] == 3)
-                                    {
-                                        conbb[bi] = (value) > sconvalue;
-                                    }
-                                    if (mtsContrast[ci] == 4)
-                                    {
-                                        conbb[bi] = (value) < sconvalue;
-                                    }
-
-                                }
-                                else if (hindex[ci] == 9)
-                                {
-                                    bool value = (bool)(*(bool*)p1);
-                                    bool sconvalue = (bool)(*(bool*)mtssscon[ci]);
-                                    if (mtsContrast[ci] == 2)
-                                    {
-                                        conbb[bi] = sconvalue == (value);
-                                    }
-                                }
-                                else if (hindex[ci] == 7)
-                                {
-                                    double value = (double)(*(double*)p1);
-                                    double sconvalue = (double)(*(double*)mtssscon[ci]);
-                                    if (mtsContrast[ci] == 0)
-                                    {
-                                        conbb[bi] = (value) >= sconvalue;
-                                    }
-                                    if (mtsContrast[ci] == 1)
-                                    {
-                                        conbb[bi] = (value) <= sconvalue;
-                                    }
-                                    if (mtsContrast[ci] == 2)
-                                    {
-                                        conbb[bi] = sconvalue == (value);
-                                    }
-                                    if (mtsContrast[ci] == 3)
-                                    {
-                                        conbb[bi] = (value) > sconvalue;
-                                    }
-                                    if (mtsContrast[ci] == 4)
-                                    {
-                                        conbb[bi] = (value) < sconvalue;
-                                    }
-
-                                }
-                                else if (hindex[ci] == 12)
+                                //  List<IntPtr> dellist = new List<IntPtr>();
+                                for (int ig = 0; ig < _dhead.Length; ig++)
                                 {
 
-                                    // conbb[bi] = Contrast<DateTime>(Convert.ToDateTime(st), Convert.ToDateTime(value), mtsContrast[ci]);
-                                    long value = (long)(*(long*)p1);
-                                    long sconvalue = (long)(*(long*)mtssscon[ci]);
-                                    if (mtsContrast[ci] == 0)
-                                    {
-                                        conbb[bi] = value >= sconvalue;
-                                    }
-                                    if (mtsContrast[ci] == 1)
-                                    {
-                                        conbb[bi] = value <= sconvalue;
-                                    }
-                                    if (mtsContrast[ci] == 2)
-                                    {
-                                        conbb[bi] = value == sconvalue;
-                                    }
-                                    if (mtsContrast[ci] == 3)
-                                    {
-                                        conbb[bi] = (value) > sconvalue;
-                                    }
-                                    if (mtsContrast[ci] == 4)
-                                    {
-                                        conbb[bi] = (value) < sconvalue;
-                                    }
-                                }
-                                else if (hindex[ci] == 8)
-                                {
+                                    if (_dhead[ig].index >= listu[i].dtable2.Length)
+                                        continue;
+                                    byte type = _dhead[ig].type;
+
+                                    if (listu[i] == null)
+                                        break;
+                                    if (listu[i].dtable2[_dhead[ig].index] == null)
+                                        continue;
+                                    IntPtr pp = (IntPtr)listu[i].dtable2[_dhead[ig].index];
+
+                                    listu[i].dtable2[_dhead[ig].index] = IntPtr.Zero.ToPointer();
 
 
-                                    if (mtsContrast[ci] == 2)
+                                    try
                                     {
-                                        string value = Marshal.PtrToStringAnsi((IntPtr)p1);
-                                        string sconvalue = Marshal.PtrToStringAnsi((IntPtr)mtssscon[ci]);
-                                        conbb[bi] = sconvalue == (value);
+                                        if (pp != IntPtr.Zero)
+                                        {
+                                            freedata fd = new freedata();
+                                            fd.ptr = pp;
+                                            fd.type = type;
+                                            allfree.Enqueue(fd);
+                                        }
+
+
                                     }
+                                    catch { }
+
+
 
                                 }
-                                else
-                                {
-                                    throw new Exception("不支持的逻辑判断。");
-                                }
-                                bi++;
+                                //   dellist.Add(listu[i].dtable2);
+
+                                //listu.RemoveAt(i);
+                                listu[i] = null;
+                                //   i = i - 1;
+                                // listu[i].dt = DateTime.Now;
+                                //listu[i].dtable
+                                //listutem.Add(listu[i].dtable2);
+                                // listsindex.Add(i);
+
+
                             }
 
-                        }
-                        catch { break; }
-                    }
-                    try
-                    {
 
-                       
-                        if (coblen == 1)
-                            allb = conbb[0];
-                        else
-                            allb = logicaljudgement(logical, conbb);
-                        if (allb)
+                        }
+                        catch
                         {
-                            //  List<IntPtr> dellist = new List<IntPtr>();
-                            for (int ig = 0; ig < _dhead.Length; ig++)
-                            {
-                             
-                                if (_dhead[ig].index >= listu[i].dtable2.Length)
-                                    continue;
-                                byte type = _dhead[ig].type;
-                               
-                                if (listu[i] == null)
-                                    break;
-                                if (listu[i].dtable2[_dhead[ig].index] == null)
-                                    continue;
-                                 IntPtr pp = (IntPtr)listu[i].dtable2[_dhead[ig].index];
-
-                                listu[i].dtable2[_dhead[ig].index] = IntPtr.Zero.ToPointer();
-
-                                
-                                try
-                                {
-                                    if (pp != IntPtr.Zero)
-                                    {
-                                        freedata fd = new freedata();
-                                        fd.ptr = pp;
-                                        fd.type = type;
-                                        allfree.Enqueue(fd);
-                                    }
-                                    
-                                   
-                                }
-                                catch { }
-                              
-                              
-
-                            }
-                         //   dellist.Add(listu[i].dtable2);
-
-                            //listu.RemoveAt(i);
-                            listu[i] = null;
-                         //   i = i - 1;
-                            // listu[i].dt = DateTime.Now;
-                            //listu[i].dtable
-                            //listutem.Add(listu[i].dtable2);
-                            // listsindex.Add(i);
-
-
+                            throw new Exception("不支持的逻辑判断。");
                         }
-
-
-                    }
-                    catch
-                    {
-                        throw new Exception("不支持的逻辑判断。");
                     }
                     //if (oo != null)
                     //{
@@ -879,206 +929,209 @@ namespace WeavingDBLogical
             {
                 if (i < listu.Count && listu[i] != null)
                 {
-
-                    byte bi = 0;
-
-                    int llen = logical.Length;
-                    allb = false;
-                    for (int ci = 0; ci < glen; ci++)
+                    lock (listu[i])
                     {
-                        try { 
+                        byte bi = 0;
 
-                        if (collindex[ci] != -99)
+                        int llen = logical.Length;
+                        allb = false;
+                        for (int ci = 0; ci < glen; ci++)
                         {
-                            //  object value = (listu[i].dtable[collindex[ci]]);
-                            void* p1 = listu[i].dtable2[collindex[ci]];
-                            if (p1 == null)
-                                break;
-                            conbb[bi] = false;
-
-                            if (hindex[ci] == 6)
-                            {
-                                int value = (int)(*(int*)p1);
-                                int sconvalue = (int)(*(int*)mtssscon[ci]);
-                                if (mtsContrast[ci] == 0)
-                                {
-
-                                    conbb[bi] = (value) >= sconvalue;
-                                }
-                                if (mtsContrast[ci] == 1)
-                                {
-                                    conbb[bi] = (value) <= sconvalue;
-                                }
-                                if (mtsContrast[ci] == 2)
-                                {
-                                    conbb[bi] = sconvalue == (value);
-                                }
-                                if (mtsContrast[ci] == 3)
-                                {
-                                    conbb[bi] = (value) > sconvalue;
-                                }
-                                if (mtsContrast[ci] == 4)
-                                {
-                                    conbb[bi] = (value) < sconvalue;
-                                }
-
-                            }
-                            else if (hindex[ci] == 9)
-                            {
-                                bool value = (bool)(*(bool*)p1);
-                                bool sconvalue = (bool)(*(bool*)mtssscon[ci]);
-                                if (mtsContrast[ci] == 2)
-                                {
-                                    conbb[bi] = sconvalue == (value);
-                                }
-                            }
-                            else if (hindex[ci] == 7)
-                            {
-                                double value = (double)(*(double*)p1);
-                                double sconvalue = (double)(*(double*)mtssscon[ci]);
-                                if (mtsContrast[ci] == 0)
-                                {
-                                    conbb[bi] = (value) >= sconvalue;
-                                }
-                                if (mtsContrast[ci] == 1)
-                                {
-                                    conbb[bi] = (value) <= sconvalue;
-                                }
-                                if (mtsContrast[ci] == 2)
-                                {
-                                    conbb[bi] = sconvalue == (value);
-                                }
-                                if (mtsContrast[ci] == 3)
-                                {
-                                    conbb[bi] = (value) > sconvalue;
-                                }
-                                if (mtsContrast[ci] == 4)
-                                {
-                                    conbb[bi] = (value) < sconvalue;
-                                }
-
-                            }
-                            else if (hindex[ci] == 12)
+                            try
                             {
 
-                                // conbb[bi] = Contrast<DateTime>(Convert.ToDateTime(st), Convert.ToDateTime(value), mtsContrast[ci]);
-                                long value = (long)(*(long*)p1);
-                                long sconvalue = (long)(*(long*)mtssscon[ci]);
-                                if (mtsContrast[ci] == 0)
+                                if (collindex[ci] != -99)
                                 {
-                                    conbb[bi] = value >= sconvalue;
-                                }
-                                if (mtsContrast[ci] == 1)
-                                {
-                                    conbb[bi] = value <= sconvalue;
-                                }
-                                if (mtsContrast[ci] == 2)
-                                {
-                                    conbb[bi] = value == sconvalue;
-                                }
-                                if (mtsContrast[ci] == 3)
-                                {
-                                    conbb[bi] = (value) > sconvalue;
-                                }
-                                if (mtsContrast[ci] == 4)
-                                {
-                                    conbb[bi] = (value) < sconvalue;
-                                }
-                            }
-                            else if (hindex[ci] == 8)
-                            {
+                                    //  object value = (listu[i].dtable[collindex[ci]]);
+                                    void* p1 = listu[i].dtable2[collindex[ci]];
+                                    if (p1 == null)
+                                        break;
+                                    conbb[bi] = false;
 
-
-                                if (mtsContrast[ci] == 2)
-                                {
-                                    string value = Marshal.PtrToStringAnsi((IntPtr)p1);
-                                    string sconvalue = Marshal.PtrToStringAnsi((IntPtr)mtssscon[ci]);
-                                    conbb[bi] = sconvalue == (value);
-                                }
-
-                            }
-                            else
-                            {
-                                throw new Exception("不支持的逻辑判断。");
-                            }
-                            bi++;
-                        }
-
-                        }
-                        catch { break; }
-                    }
-                    try
-                    {
-
-
-                        if (coblen == 1)
-                            allb = conbb[0];
-                        else
-                            allb = logicaljudgement(logical, conbb);
-                        if (allb)
-                        {
-                            //  List<IntPtr> dellist = new List<IntPtr>();
-                           
-                                dmode = insertintoJson(job, ref hhead);
-                            for (int ig = 0; ig < _dhead.Length; ig++)
-                            {
-                                byte type = _dhead[ig].type;
-                                if (_dhead[ig].index >= listu[i].dtable2.Length)
-                                    continue;
-                                for (int igg = 0; igg < hhead.Length; igg++)
-                                {
-                                    if (hhead[igg].key == _dhead[ig].key)
+                                    if (hindex[ci] == 6)
                                     {
-                                        
-                                        if (type == hhead[igg].type)
+                                        int value = (int)(*(int*)p1);
+                                        int sconvalue = (int)(*(int*)mtssscon[ci]);
+                                        if (mtsContrast[ci] == 0)
                                         {
-                                          
-                                            IntPtr pp = (IntPtr)listu[i].dtable2[_dhead[ig].index];
-                                           
-                                            listu[i].dtable2[_dhead[ig].index] = IntPtr.Zero.ToPointer();
-                                            if (pp != IntPtr.Zero)
+
+                                            conbb[bi] = (value) >= sconvalue;
+                                        }
+                                        if (mtsContrast[ci] == 1)
+                                        {
+                                            conbb[bi] = (value) <= sconvalue;
+                                        }
+                                        if (mtsContrast[ci] == 2)
+                                        {
+                                            conbb[bi] = sconvalue == (value);
+                                        }
+                                        if (mtsContrast[ci] == 3)
+                                        {
+                                            conbb[bi] = (value) > sconvalue;
+                                        }
+                                        if (mtsContrast[ci] == 4)
+                                        {
+                                            conbb[bi] = (value) < sconvalue;
+                                        }
+
+                                    }
+                                    else if (hindex[ci] == 9)
+                                    {
+                                        bool value = (bool)(*(bool*)p1);
+                                        bool sconvalue = (bool)(*(bool*)mtssscon[ci]);
+                                        if (mtsContrast[ci] == 2)
+                                        {
+                                            conbb[bi] = sconvalue == (value);
+                                        }
+                                    }
+                                    else if (hindex[ci] == 7)
+                                    {
+                                        double value = (double)(*(double*)p1);
+                                        double sconvalue = (double)(*(double*)mtssscon[ci]);
+                                        if (mtsContrast[ci] == 0)
+                                        {
+                                            conbb[bi] = (value) >= sconvalue;
+                                        }
+                                        if (mtsContrast[ci] == 1)
+                                        {
+                                            conbb[bi] = (value) <= sconvalue;
+                                        }
+                                        if (mtsContrast[ci] == 2)
+                                        {
+                                            conbb[bi] = sconvalue == (value);
+                                        }
+                                        if (mtsContrast[ci] == 3)
+                                        {
+                                            conbb[bi] = (value) > sconvalue;
+                                        }
+                                        if (mtsContrast[ci] == 4)
+                                        {
+                                            conbb[bi] = (value) < sconvalue;
+                                        }
+
+                                    }
+                                    else if (hindex[ci] == 12)
+                                    {
+
+                                        // conbb[bi] = Contrast<DateTime>(Convert.ToDateTime(st), Convert.ToDateTime(value), mtsContrast[ci]);
+                                        long value = (long)(*(long*)p1);
+                                        long sconvalue = (long)(*(long*)mtssscon[ci]);
+                                        if (mtsContrast[ci] == 0)
+                                        {
+                                            conbb[bi] = value >= sconvalue;
+                                        }
+                                        if (mtsContrast[ci] == 1)
+                                        {
+                                            conbb[bi] = value <= sconvalue;
+                                        }
+                                        if (mtsContrast[ci] == 2)
+                                        {
+                                            conbb[bi] = value == sconvalue;
+                                        }
+                                        if (mtsContrast[ci] == 3)
+                                        {
+                                            conbb[bi] = (value) > sconvalue;
+                                        }
+                                        if (mtsContrast[ci] == 4)
+                                        {
+                                            conbb[bi] = (value) < sconvalue;
+                                        }
+                                    }
+                                    else if (hindex[ci] == 8)
+                                    {
+
+
+                                        if (mtsContrast[ci] == 2)
+                                        {
+                                            string value = Marshal.PtrToStringAnsi((IntPtr)p1);
+                                            string sconvalue = Marshal.PtrToStringAnsi((IntPtr)mtssscon[ci]);
+                                            conbb[bi] = sconvalue == (value);
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        throw new Exception("不支持的逻辑判断。");
+                                    }
+                                    bi++;
+                                }
+
+                            }
+                            catch { break; }
+                        }
+                        try
+                        {
+
+
+                            if (coblen == 1)
+                                allb = conbb[0];
+                            else
+                                allb = logicaljudgement(logical, conbb);
+                            if (allb)
+                            {
+                                //  List<IntPtr> dellist = new List<IntPtr>();
+
+                                dmode = insertintoJson(job, ref hhead);
+                                for (int ig = 0; ig < _dhead.Length; ig++)
+                                {
+                                    byte type = _dhead[ig].type;
+                                    if (_dhead[ig].index >= listu[i].dtable2.Length)
+                                        continue;
+                                    for (int igg = 0; igg < hhead.Length; igg++)
+                                    {
+                                        if (hhead[igg].key == _dhead[ig].key)
+                                        {
+
+                                            if (type == hhead[igg].type)
                                             {
-                                                freedata fd = new freedata();
-                                                fd.ptr = pp;
-                                                fd.type = type;
-                                                allfree.Enqueue(fd);
+
+                                                IntPtr pp = (IntPtr)listu[i].dtable2[_dhead[ig].index];
+
+                                                listu[i].dtable2[_dhead[ig].index] = IntPtr.Zero.ToPointer();
+                                                if (pp != IntPtr.Zero)
+                                                {
+                                                    freedata fd = new freedata();
+                                                    fd.ptr = pp;
+                                                    fd.type = type;
+                                                    allfree.Enqueue(fd);
+                                                }
+
+                                                listu[i].dtable2[_dhead[ig].index] = dmode.dtable2[hhead[igg].index];
+
+                                                dmode.dtable2[hhead[igg].index] = IntPtr.Zero.ToPointer();
+
+
                                             }
-                                             
-                                            listu[i].dtable2[_dhead[ig].index] = dmode.dtable2[hhead[igg].index];
-
-                                            dmode.dtable2[hhead[igg].index] = IntPtr.Zero.ToPointer();
-
+                                            //else
+                                            //{ throw new Exception("数据列，类型不匹配。"); }
 
                                         }
-                                        //else
-                                        //{ throw new Exception("数据列，类型不匹配。"); }
-                                        
                                     }
+
                                 }
 
-                            }
-
-                            for (int igga = 0; igga < hhead.Length; igga++)
-                            {
-                                IntPtr pp = (IntPtr)dmode.dtable2[hhead[igga].index];
-                                if (pp != IntPtr.Zero)
-                                { 
+                                for (int igga = 0; igga < hhead.Length; igga++)
+                                {
+                                    IntPtr pp = (IntPtr)dmode.dtable2[hhead[igga].index];
+                                    if (pp != IntPtr.Zero)
+                                    {
                                         freedata fd = new freedata();
                                         fd.ptr = pp;
                                         fd.type = hhead[igga].type;
-                                        allfree.Enqueue(fd); 
+                                        allfree.Enqueue(fd);
+                                    }
                                 }
+
+
+
                             }
-                            
 
 
                         }
-
-
-                    }
-                    catch
-                    {
-                        throw new Exception("不支持的逻辑判断。");
+                        catch
+                        {
+                            throw new Exception("不支持的逻辑判断。");
+                        }
                     }
                     //if (oo != null)
                     //{

@@ -93,6 +93,7 @@ namespace ConsoleApp1
             //    }
             //}
             char* p2 = (char*)System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi("asdfasdf").ToPointer();
+            
             try
             {
                 Marshal.FreeHGlobal(p3);
