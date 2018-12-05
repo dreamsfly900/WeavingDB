@@ -92,19 +92,22 @@ namespace WeavingDBLogical
                                     double ss = (DateTime.Now - DateTime.FromFileTime(listdate[j].dt)).TotalSeconds;
                                     if (ss > timeout)
                                     {
-                                        for (int ig = 0; ig < hhed.Length; ig++)
+                                        lock (listdate[i])
                                         {
-                                            if (listdate[i].dtable2[hhed[ig].index] == null)
-                                                continue;
-                                            IntPtr pp = (IntPtr)listdate[i].dtable2[hhed[ig].index];
-                                            if (pp == IntPtr.Zero)
-                                                continue;
-                                            freedata fd = new freedata();
-                                            fd.ptr = (IntPtr)listdate[i].dtable2[hhed[ig].index];
-                                            fd.type = hhed[ig].type;
-                                            DBLogical.allfree.Enqueue(fd);
+                                            for (int ig = 0; ig < hhed.Length; ig++)
+                                            {
+                                                if (listdate[i].dtable2[hhed[ig].index] == null)
+                                                    continue;
+                                                IntPtr pp = (IntPtr)listdate[i].dtable2[hhed[ig].index];
+                                                if (pp == IntPtr.Zero)
+                                                    continue;
+                                                freedata fd = new freedata();
+                                                fd.ptr = (IntPtr)listdate[i].dtable2[hhed[ig].index];
+                                                fd.type = hhed[ig].type;
+                                                DBLogical.allfree.Enqueue(fd);
+                                            }
+                                            listdate[j] = null;
                                         }
-                                        listdate[j] = null;
                                     }
                                 }
                             }
