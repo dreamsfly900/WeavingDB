@@ -223,13 +223,14 @@ namespace WeavingDBLogical
                         {
                             lock (_listu[i])
                             {
+                                dmode = insertintoJson(job, ref hhead);
                                 for (int ig = 0; ig < _dhead.Length; ig++)
                                 {
 
                                     if (_dhead[ig].index >= listu[i].dtable2.Length)
                                         continue;
                                     byte type = _dhead[ig].type;
-                                    dmode = insertintoJson(job, ref hhead);
+                                  
                                     for (int igg = 0; igg < hhead.Length; igg++)
                                     {
                                         if (hhead[igg].key == _dhead[ig].key)
@@ -257,20 +258,23 @@ namespace WeavingDBLogical
                                         }
                                     }
 
-                                    for (int igga = 0; igga < hhead.Length; igga++)
-                                    {
-                                        IntPtr pp = (IntPtr)dmode.dtable2[hhead[igga].index];
-                                        if (pp != IntPtr.Zero)
-                                        {
-                                            freedata fd = new freedata();
-                                            fd.ptr = pp;
-                                            fd.type = hhead[igga].type;
-                                            allfree.Enqueue(fd);
-                                        }
-                                    }
-
+                                   
 
                                 }
+                                for (int igga = 0; igga < hhead.Length; igga++)
+                                {
+                                    if (hhead[igga].index >= dmode.dtable2.Length)
+                                        continue;
+                                    IntPtr pp = (IntPtr)dmode.dtable2[hhead[igga].index];
+                                    if (pp != IntPtr.Zero)
+                                    {
+                                        freedata fd = new freedata();
+                                        fd.ptr = pp;
+                                        fd.type = hhead[igga].type;
+                                        allfree.Enqueue(fd);
+                                    }
+                                }
+
                             }
                         }
                     }
