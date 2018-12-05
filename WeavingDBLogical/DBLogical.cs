@@ -313,7 +313,7 @@ namespace WeavingDBLogical
                 int count = allfree.Count;
                 while (count > 0)
                 {
-                    if (allfree.Count > 0)
+                    if (!allfree.IsEmpty)
                     {
                         freedata fd = new freedata();
                         allfree.TryDequeue(out fd);
