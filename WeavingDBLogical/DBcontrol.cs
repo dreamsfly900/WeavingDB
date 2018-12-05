@@ -72,12 +72,26 @@ namespace WeavingDBLogical
                         //wserver.Send(soc, command, hhh);
                         //return;
                         if (WeavingDB.DataEncoding.getKVdecode(rowsdata, out key))
-                        { 
-                           
-                           
-                            //byte []bbb=  GZIP.Compress(dbm.get(key));
-                          
-                            wserver.Send(soc, command, GZIP.Compress(dbm.get(key)));
+                        {
+                            try
+                            {
+
+                                byte[] bbb = dbm.get(key);
+                                if (bbb != null)
+                                {
+                                    bbb = GZIP.Compress(bbb);
+
+                                    wserver.Send(soc, command, bbb);
+                                }
+                                else
+                                {
+                                    wserver.Send(soc, command, new byte[1]);
+
+                                }
+                            }
+                            catch {
+
+                            }
                         }
                         else
                             wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes("账号或密码不正确"));
@@ -195,6 +209,33 @@ namespace WeavingDBLogical
                         }
                         else
                             wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes("账号或密码不正确"));
+                        break;
+                    case 0x11://返回通配符KEY
+                        if (WeavingDB.DataEncoding.getKVdecode(rowsdata, out key))
+                        {
+
+
+
+                            try
+                            {
+                                string[] keys = dbm.selctekey(key);
+                                if (keys.Length == 0)
+                                {
+                                    wserver.Send(soc, command, new byte[1]);
+                                }
+                                else
+                                {
+                                    byte[] temp = DataEncoding.encodingdata(keys);
+
+
+                                    wserver.Send(soc, command, GZIP.Compress(temp));
+                                }
+                            }
+                            catch
+                            { }
+                             
+                           
+                        }
                         break;
                     default:
                         wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes("又在乱搞吧"));

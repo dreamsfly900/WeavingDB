@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace WeavingDBLogical
@@ -265,6 +266,31 @@ namespace WeavingDBLogical
             return "";
         }
 
+        internal string[] selctekey(string keyp)
+        {
+            keyp = keyp.Replace("*", "(.+)").Replace("?", "(.+){1}");
+            List<String> list = new List<string>();
+            foreach (String key in CDKV.Keys)
+            {
+                // Stringtonosymbol("123", "^12(.+){1}3$");
+                if (Stringtonosymbol(key, "^" + keyp+"$"))
+                    list.Add(key);
+            }
+            return list.ToArray();
+        }
+        internal bool Stringtonosymbol(String _sqlsst,string rstr)
+        {
+            
+            Regex r = new Regex(rstr); // 定义一个Regex对象实例
+            var m = r.Match(_sqlsst);
+
+
+            if (m.Success)
+            {
+                return true;
+            }
+            return false;
+        }
         public bool updatetabledata(string key, string sql, string data)
         {
             if (CDtable.ContainsKey(key))

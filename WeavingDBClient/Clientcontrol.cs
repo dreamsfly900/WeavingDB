@@ -59,6 +59,11 @@ namespace WeavingDBClient
 
                         break;
                     case 0x02://get
+                        if (data.Length == 1)
+                        {
+                            rowsdata = null;
+                            break;
+                        }
                         rowsdata = GZIP.Decompress(data);
                         break;
                     case 0x03://RemoveKV
@@ -77,6 +82,20 @@ namespace WeavingDBClient
                         rowsdata = data;
                         break;
                     case 0x08://select
+                        rowsdata = GZIP.Decompress(data);
+                        break;
+                    case 0x09:
+                        rowsdata = data;
+                        break;
+                    case 0x10:
+                        rowsdata = data;
+                        break;
+                    case 0x11:
+                        if (data.Length == 1)
+                        {
+                            rowsdata = null;
+                            break;
+                        }
                         rowsdata = GZIP.Decompress(data);
                         break;
                     case 0xfe:

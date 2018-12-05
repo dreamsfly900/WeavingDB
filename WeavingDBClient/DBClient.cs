@@ -194,6 +194,19 @@ namespace WeavingDBClient
                 return default(T);
             
         }
+        public String[] GetKey(string key)
+        {
+
+            byte[] rowdata = DataEncoding.encodinggetKV(key);
+            //DataEncoding.encodinggetKV("2018092100000");
+            //GZIP.Compress(rowdata);
+            //return BytesToT<T>(TToBytes(key));
+            byte[] data = ccon.Send(0x11, rowdata);
+            if (data != null)
+                return DataEncoding.dencdingdata(data);
+            return null;
+
+        }
         public void close()
         {
            

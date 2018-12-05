@@ -80,9 +80,23 @@ namespace ConsoleApp1
                 p3 = IntPtr.Zero;
             }
         }
+        static bool Stringtonosymbol(String _sqlsst, string rstr)
+        {
+            if (_sqlsst == "''")
+                return false;
+            Regex r = new Regex(rstr); // 定义一个Regex对象实例
+            var m = r.Match(_sqlsst);
+
+
+            if (m.Success)
+            {
+                return true;
+            }
+            return false;
+        }
         static unsafe void Main(string[] args)
         {
-
+            Stringtonosymbol("asdaskkkk123吧啊", "^12(.+)?3(.+)$");
             //Queue st = new Queue();
             //st.Enqueue(11);
             //while (true)

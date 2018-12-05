@@ -24,5 +24,3 @@ D:\WeavingDB\WeavingDB\bin\Debug\WeavingDBLogical.dll.config
 D:\WeavingDB\WeavingDB\obj\Debug\DBclient.csprojAssemblyReference.cache
 D:\WeavingDB\WeavingDB\obj\Debug\DBclient.csproj.CoreCompileInputs.cache
 D:\WeavingDB\WeavingDB\obj\Debug\DBclient.csproj.CopyComplete
-D:\WeavingDB\WeavingDB\bin\Debug\UDTCommon.dll
-D:\WeavingDB\WeavingDB\bin\Debug\UDTLibary.dll

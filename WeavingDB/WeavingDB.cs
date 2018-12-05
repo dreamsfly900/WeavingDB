@@ -46,10 +46,15 @@ namespace WeavingDB
             DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
             double gggg = 0;
             dbc.open();
-         //   String str2 = dbc.Get<String>("asdasd");
+            String str2 = dbc.Get<String>("asdasd");
+            dbc.GetKey("?d");
+             
             dbc.Set<String>("asdasd", "1");
             int i = 0;
-         
+           string [] keys=   dbc.GetKey("as?asd");//通配符?一个匹配字符
+            keys = dbc.GetKey("as*");//通配符* 表示，多个模糊匹配
+            dbc.GetKey("as?a?d");
+            dbc.GetKey("?d");
             while (i < 10000)
             {
                 i++;
