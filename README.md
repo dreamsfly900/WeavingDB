@@ -23,6 +23,8 @@ K-V读写使用代码
            dbc.Set<String>("asdasd", "1");//设置
             int i = 0;
             String str2 = dbc.Get<String>("asdasd");//读取
+ string [] keys=   dbc.GetKey("as?asd");//通配符?一个匹配字符
+            keys = dbc.GetKey("as*");//通配符* 表示，多个模糊匹配
             dbc.close();
 ```
 
