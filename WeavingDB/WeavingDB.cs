@@ -21,17 +21,20 @@ namespace WeavingDB
         {
             InitializeComponent();
         }
-        [DllImport("kernel32",SetLastError = true)]
-        static extern IntPtr LocalFree(IntPtr mem);
+        //[DllImport("kernel32",SetLastError = true)]
+        //static extern IntPtr LocalFree(IntPtr mem);
 
  
-    private void WeavingDB_Load(object sender, EventArgs e)
+    private unsafe void WeavingDB_Load(object sender, EventArgs e)
         {
             //object obj= Newtonsoft.Json.JsonConvert.PopulateObject(builder.ToString());122.114.53.233
             //127.0.0.1
-            IntPtr p3 = System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi("asdfasdfasdfasdfasdfassd所asdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwerasdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwerasdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwerasdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwerasdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwerasdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwerasdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwerasdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwer谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwer");
-            LocalFree(p3);
-            LocalFree(p3);
+            //IntPtr p3 = System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi("asdfasdfasdfasdfasdfassd所asdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwerasdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwerasdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwerasdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwerasdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwerasdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwerasdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwerasdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwer谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwer");
+            //void* gg = p3.ToPointer();
+             
+            //LocalFree((IntPtr)p3.ToPointer());
+       
+           // LocalFree(p3);
         }
         void hhf(object obj)
         {
@@ -40,7 +43,7 @@ namespace WeavingDB
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
+            DBClient dbc = new DBClient("122.114.53.233", 18989, "admin", "123123");
             double gggg = 0;
             dbc.open();
          //   String str2 = dbc.Get<String>("asdasd");
@@ -68,7 +71,7 @@ namespace WeavingDB
        
         private void button2_Click(object sender, EventArgs e)
         {
-            DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
+            DBClient dbc = new DBClient("122.114.53.233", 18989, "admin", "123123");
             dbc.open();
             user u = new user();
             bool bbc = dbc.inserttable<user>("ddd", u);
@@ -108,14 +111,14 @@ namespace WeavingDB
             if(rrs!=null)
             listBox1.Items.Add("数据SQL查询" + (dt2 - dt).TotalMilliseconds + "毫秒。" + "查询数量:" + rrs.Count);
 
-           
-           
-            int iii = 0;
-            while (iii < 1)
-            {
-                System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(go), null);
-                iii++;
-            }
+            dbc.deletetable("ddd", "id<2000");
+
+            //int iii = 0;
+            //while (iii < 1)
+            //{
+            //    System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(go), null);
+            //    iii++;
+            //}
              rrs = dbc.selecttable<List<user>>("ddd", "id<200", 0, "", 0, 0, out count);
             if(rrs!=null)
             listBox1.Items.Add("查询数量:" + rrs.Count);

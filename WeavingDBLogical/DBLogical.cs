@@ -190,23 +190,24 @@ namespace WeavingDBLogical
                 if (sqlsst == "")
                 {
                     listDmode dmode; head[] hhead=new head[0];
-                    
-                     dmode = insertintoJson(job, ref hhead);
+
+                  
                     for (int i = 0; i < _listu.Count; i++)
                     {
                         if (i < listu.Count && listu[i] != null)
                         {
                             for (int ig = 0; ig < _dhead.Length; ig++)
                             {
-                               
+                              
                                 if (_dhead[ig].index >= listu[i].dtable2.Length)
                                     continue;
                                 byte type = _dhead[ig].type;
+                                dmode = insertintoJson(job, ref hhead);
                                 for (int igg = 0; igg < hhead.Length; igg++)
                                 {
                                     if (hhead[igg].key == _dhead[ig].key)
                                     {
-                                        bool bba = false;
+                                       
                                         if (type == hhead[igg].type)
                                         {
                                             IntPtr pp = (IntPtr)listu[i].dtable2[_dhead[ig].index];
@@ -219,14 +220,28 @@ namespace WeavingDBLogical
                                                 allfree.Enqueue(fd);
                                             }
                                             listu[i].dtable2[_dhead[ig].index] = dmode.dtable2[hhead[igg].index];
-                                            bba = true;
+                                            dmode.dtable2[hhead[igg].index] = IntPtr.Zero.ToPointer();
                                         }
-                                        else
-                                        { throw new Exception("数据列，类型不匹配。"); }
-                                        if(bba)
-                                          dmode = insertintoJson(job, ref hhead);
+                                        //else
+                                        //{
+                                        //    throw new Exception("数据列，类型不匹配。");
+                                        //}
+                                       
                                     }
                                 }
+
+                                for (int igga = 0; igga < hhead.Length; igga++)
+                                {
+                                    IntPtr pp = (IntPtr)dmode.dtable2[hhead[igga].index];
+                                    if (pp != IntPtr.Zero)
+                                    {
+                                        freedata fd = new freedata();
+                                        fd.ptr = pp;
+                                        fd.type = hhead[igga].type;
+                                        allfree.Enqueue(fd);
+                                    }
+                                }
+                              
 
                             }
                         }
@@ -255,6 +270,7 @@ namespace WeavingDBLogical
             { throw ex; }
 
         }
+
         public static ConcurrentQueue<freedata> allfree = new ConcurrentQueue<freedata>();
         [DllImport("kernel32", SetLastError = true)]
         static extern IntPtr LocalFree(IntPtr mem);
@@ -854,7 +870,7 @@ namespace WeavingDBLogical
 
             listDmode dmode; head[] hhead = new head[0];
 
-            dmode = insertintoJson(job, ref hhead);
+           // dmode = insertintoJson(job, ref hhead);
             bool[] conbb = new bool[logical.Length + 1];
             short coblen = (short)conbb.Length;
             bool allb = false;
@@ -1002,6 +1018,8 @@ namespace WeavingDBLogical
                         if (allb)
                         {
                             //  List<IntPtr> dellist = new List<IntPtr>();
+                           
+                                dmode = insertintoJson(job, ref hhead);
                             for (int ig = 0; ig < _dhead.Length; ig++)
                             {
                                 byte type = _dhead[ig].type;
@@ -1011,7 +1029,7 @@ namespace WeavingDBLogical
                                 {
                                     if (hhead[igg].key == _dhead[ig].key)
                                     {
-                                        bool bba = false;
+                                        
                                         if (type == hhead[igg].type)
                                         {
                                           
@@ -1025,23 +1043,33 @@ namespace WeavingDBLogical
                                                 fd.type = type;
                                                 allfree.Enqueue(fd);
                                             }
-
+                                             
                                             listu[i].dtable2[_dhead[ig].index] = dmode.dtable2[hhead[igg].index];
-                                        
 
-                                            bba = true;
+                                            dmode.dtable2[hhead[igg].index] = IntPtr.Zero.ToPointer();
+
+
                                         }
-                                        else
-                                        { throw new Exception("数据列，类型不匹配。"); }
-                                        if (bba)
-                                            dmode = insertintoJson(job, ref hhead);
+                                        //else
+                                        //{ throw new Exception("数据列，类型不匹配。"); }
+                                        
                                     }
                                 }
 
                             }
-                          
-                        
 
+                            for (int igga = 0; igga < hhead.Length; igga++)
+                            {
+                                IntPtr pp = (IntPtr)dmode.dtable2[hhead[igga].index];
+                                if (pp != IntPtr.Zero)
+                                { 
+                                        freedata fd = new freedata();
+                                        fd.ptr = pp;
+                                        fd.type = hhead[igga].type;
+                                        allfree.Enqueue(fd); 
+                                }
+                            }
+                            
 
 
                         }
