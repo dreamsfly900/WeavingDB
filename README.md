@@ -74,6 +74,7 @@ JSONDB，创建库，插入表，批量插入表，修改表，删除表，清�
 #### 运行测试
  
 - K-V运行效率测试，万次读写1.8秒，配置I5 8G 128G 500G 台式机
+
 ![K-V运行效率测试，万次读写1.8秒，配置I5 8G 128G 500G 台式机](https://images.gitee.com/uploads/images/2018/1206/204019_b22fff09_598831.png "在这里输入图片标题")
 - K-V运行效率测试，万次读写1.8秒，配置SURFACEBOOK 一代 8G 128G
 ![K-V运行效率测试，万次读写1.8秒，配置SURFACEBOOK 一代 8G 128G](https://images.gitee.com/uploads/images/2018/1201/092336_926426c6_598831.png "a0f86c0262df10cc9cc3c509714c935.png")
