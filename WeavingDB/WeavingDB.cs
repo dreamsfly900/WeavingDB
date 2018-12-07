@@ -62,7 +62,7 @@ namespace WeavingDB
             String str2 = dbc.Get<String>("asdasd");
             dbc.GetKey("?d");
             dbc.Set("asd", 111);
-            dbc.Set<String>("asdasd", "1");
+           // dbc.Set<String>("asdasd", "1");
             int i = 0;
            string [] keys=   dbc.GetKey("as?asd");//通配符?一个匹配字符
             keys = dbc.GetKey("as*");//通配符* 表示，多个模糊匹配
