@@ -25,6 +25,13 @@ K-V读写使用代码
             String str2 = dbc.Get<String>("asdasd");//读取
  string [] keys=   dbc.GetKey("as?asd");//通配符?一个匹配字符
             keys = dbc.GetKey("as*");//通配符* 表示，多个模糊匹配
+
+ Hashtable ht = new Hashtable();
+            ht.Add("123123","afasdfasdf");
+            ht.Add("12312311", "afasdfasdf");
+            ht.Add("1231231221", "afasaasdfasdf");
+            ht.Add("123123122199", "afasaasdfasdf");
+           bool bb= dbc.SetAll<string>(ht);//批量Set
             dbc.close();
 ```
 

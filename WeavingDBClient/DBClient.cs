@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -173,6 +174,25 @@ namespace WeavingDBClient
                 return false;
             }
           
+        }
+        public bool SetAll<T>(Hashtable ht)
+        {
+
+            //DataEncoding.encodinggetKV("2018092100000");
+            List<byte[]> list = new List<byte[]>();
+            List<string> keys = new List<string>();
+            foreach (var key in ht.Keys)
+            {
+              
+                list.Add(TToBytes<T>((T)ht[key]));
+                keys.Add((String)key);
+
+
+
+            }
+            byte[] data = DataEncoding.encodingdatalist(list);
+            byte[] rowdata = DataEncoding.encodingsetKVs(keys.ToArray() , data);
+            return Convert.ToBoolean(ccon.Send(0x12, rowdata)[0]);
         }
         public bool Set<T>(string key, T t)
         {

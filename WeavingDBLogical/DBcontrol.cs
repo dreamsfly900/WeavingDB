@@ -237,6 +237,37 @@ namespace WeavingDBLogical
                            
                         }
                         break;
+                    case 0x12:
+                        string[] kets;
+                        List<byte[]> list = new List<byte[]>();
+                        if (WeavingDB.DataEncoding.setKVsdecode(rowsdata, out kets, out list))
+                        {
+                            // datas
+                            if (kets.Length != list.Count)
+                            {
+                                wserver.Send(soc, command, new byte[] { Convert.ToByte(false) });
+                            }
+                            else
+                            {
+                                for (int i = 0; i < kets.Length; i++)
+                                {
+                                    bool bb = (dbm.set(kets[i], list[i]));
+                                    if (!bb)
+                                    {
+                                        wserver.Send(soc, command, new byte[] { Convert.ToByte(false) });
+                                        return;
+                                        
+                                    }
+                                }
+                               
+                                wserver.Send(soc, command, new byte[] { Convert.ToByte(true) });
+                            }
+
+                          
+                        }
+                        else
+                            wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes("账号或密码不正确"));
+                        break;
                     default:
                         wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes("又在乱搞吧"));
                         break;

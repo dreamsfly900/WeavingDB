@@ -96,6 +96,17 @@ namespace ConsoleApp1
         }
         static unsafe void Main(string[] args)
         {
+            List<byte[]> list=  new List<byte[]>();
+            list.Add(new Byte[]{15});
+            list.Add(new Byte[]{56});
+            byte[] data = DataEncoding.encodingdatalist(list);
+            DataEncoding.userid = "admin";
+            DataEncoding.pwd = "123";
+            data = DataEncoding.encodingsetKVs(new string[2] {"111", "1222"}, data);
+            string[] kets;
+            list = new List<byte[]>();
+            DataEncoding.setKVsdecode(data, out kets, out list);
+
             Stringtonosymbol("asdaskkkk123吧啊", "^12(.+)?3(.+)$");
             //Queue st = new Queue();
             //st.Enqueue(11);

@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -49,6 +50,15 @@ namespace WeavingDB
             DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
             double gggg = 0;
             dbc.open();
+
+            Hashtable ht = new Hashtable();
+            ht.Add("123123","afasdfasdf");
+            ht.Add("12312311", "afasdfasdf");
+            ht.Add("1231231221", "afasaasdfasdf");
+            ht.Add("123123122199", "afasaasdfasdf");
+           bool bb= dbc.SetAll<string>(ht);
+
+          string sss=  dbc.Get<String>("12312311");
             String str2 = dbc.Get<String>("asdasd");
             dbc.GetKey("?d");
             dbc.Set("asd", 111);
@@ -58,7 +68,7 @@ namespace WeavingDB
             keys = dbc.GetKey("as*");//通配符* 表示，多个模糊匹配
             dbc.GetKey("as?a?d");
             dbc.GetKey("?d");
-            while (i < 10000)
+            while (i < 100000)
             {
                 i++;
                 DateTime dt = DateTime.Now;
@@ -82,14 +92,16 @@ namespace WeavingDB
             DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
             dbc.open();
             user u = new user();
-            u.list.Add(new aabb());
+            var uu = new aabb();
+            uu.list.Add(new bbcc());
+            u.list.Add(uu);
         
             if (dbc.Createtable("ddd"))
             {
 
             }
             bool bbc = dbc.inserttable<user>("ddd", u);
-            List<user> u2 = dbc.selecttable<List<user>>("ddd");
+            user[] u2 = dbc.selecttable<user[]>("ddd");
             bbc = dbc.inserttable<user>("ddd", u);
 
 
@@ -159,8 +171,14 @@ namespace WeavingDB
             CacheTaskRunModel model = JsonConvert.DeserializeObject<CacheTaskRunModel>(json);
 
             dbClient.Createtable("e8f787af90e745c59429265beaa6d055");
-            if (!dbClient.inserttable("e8f787af90e745c59429265beaa6d055", model))
-                throw new Exception("插入数据错误");
+            int i = 0;
+            while (i<10000)
+            {
+                if (!dbClient.inserttable("e8f787af90e745c59429265beaa6d055", model))
+                    throw new Exception("插入数据错误");
+                i++;
+            }
+           
 
             int count = 0;
 
@@ -179,6 +197,11 @@ namespace WeavingDB
     }
 
     public class aabb
+    {
+        public string name = "";
+        public List<bbcc> list = new List<bbcc>();
+    }
+    public class bbcc
     {
         public string name = "";
     }
