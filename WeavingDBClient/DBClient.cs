@@ -13,7 +13,7 @@ namespace WeavingDBClient
         Clientcontrol ccon;
         public DBClient(string ip, int _port, string userid, string pwd)
         {
-            
+             
             IP = ip;
             port = _port;
             WeavingDB.DataEncoding.userid = userid;
@@ -106,7 +106,9 @@ namespace WeavingDBClient
         /// <returns></returns>
         public T selecttable<T>(string tablename,string where, byte order,String coll,int pageindex,int pagesize,out int count)
         {
+            
             count = 0;
+
             byte[] wherdata = DataEncoding.encodingdata(where, order.ToString(), coll, pageindex.ToString(), pagesize.ToString());
             byte[] rowdata = DataEncoding.encodingsetKV(tablename, wherdata);
             byte[] alldata = ccon.Send(0x08, rowdata);
@@ -116,9 +118,11 @@ namespace WeavingDBClient
                 
                 string[] ssr = DataEncoding.dencdingdata(alldata);
                 count = Convert.ToInt32(ssr[0]);
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(ssr[1]);
+                string temp = ssr[1];//.Replace("\r\n", ""); 
+                   // [{"list":"[{   \"name\": \"\"  }]","name":"","id":0}]
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(temp);
             }
-            catch
+            catch(Exception ee)
             {
                 return default(T);
             }

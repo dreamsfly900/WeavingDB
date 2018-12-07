@@ -11,6 +11,7 @@ namespace WDBServer
         static void Main(string[] args)
         {
             WeavingDBLogical.DBcontrol dbcon = new WeavingDBLogical.DBcontrol();
+          
             while (true)
             {
                string str= Console.ReadLine();

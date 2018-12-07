@@ -98,7 +98,10 @@ namespace WeavingDBLogical
                     Marshal.PtrToStructure((IntPtr)p1, byv2);
                     byte[] abc = tobyte((byte*)byv2.data, byv2.len);
                     // tobyte((IntPtr)p1,)
-                       obj = BytesToT<String>(WeavingDB.GZIP.Decompress(abc));
+                   string temp = BytesToT<String>(WeavingDB.GZIP.Decompress(abc));
+                    //JTokenType.ToObject((JTokenType) type, temp);
+                  //  obj = temp;
+                    obj = Newtonsoft.Json.JsonConvert.DeserializeObject(temp);
                 }
             }
             catch (Exception e)

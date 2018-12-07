@@ -11,6 +11,9 @@ using System.Windows.Forms;
 using WeavingDBLogical;
 using WeavingDBClient;
 using System.Runtime.InteropServices;
+using System.IO;
+using WindowsFormsApplication1;
+using Newtonsoft.Json;
 
 namespace WeavingDB
 {
@@ -48,7 +51,7 @@ namespace WeavingDB
             dbc.open();
             String str2 = dbc.Get<String>("asdasd");
             dbc.GetKey("?d");
-             
+            dbc.Set("asd", 111);
             dbc.Set<String>("asdasd", "1");
             int i = 0;
            string [] keys=   dbc.GetKey("as?asd");//通配符?一个匹配字符
@@ -79,12 +82,14 @@ namespace WeavingDB
             DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
             dbc.open();
             user u = new user();
-            bool bbc = dbc.inserttable<user>("ddd", u);
+            u.list.Add(new aabb());
+        
             if (dbc.Createtable("ddd"))
             {
 
             }
-
+            bool bbc = dbc.inserttable<user>("ddd", u);
+            List<user> u2 = dbc.selecttable<List<user>>("ddd");
             bbc = dbc.inserttable<user>("ddd", u);
 
 
@@ -144,10 +149,37 @@ namespace WeavingDB
           //  dbc.Removetable("ddd");
             dbc.close();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var dbClient = new WeavingDBClient.DBClient("127.0.0.1", 18989, "admin", "123123");
+            dbClient.open();
+
+            var json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "e8f787af90e745c59429265beaa6d055.jie"));
+            CacheTaskRunModel model = JsonConvert.DeserializeObject<CacheTaskRunModel>(json);
+
+            dbClient.Createtable("e8f787af90e745c59429265beaa6d055");
+            if (!dbClient.inserttable("e8f787af90e745c59429265beaa6d055", model))
+                throw new Exception("插入数据错误");
+
+            int count = 0;
+
+            var result = dbClient.selecttable<CacheTaskRunModel[]>("e8f787af90e745c59429265beaa6d055", "", 0, "", 0, 1, out count);
+
+            Console.WriteLine(result);
+
+            dbClient.close();
+        }
     }
     public class user
     {
         public int id = 0;
+        public string name = "";
+       public List<aabb> list=new List<aabb>();
+    }
+
+    public class aabb
+    {
         public string name = "";
     }
 }
