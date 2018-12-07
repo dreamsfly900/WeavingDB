@@ -9,7 +9,6 @@ D:\WeavingDB\WeavingDBClient\obj\Debug\WeavingDBClient.pdb
 D:\WeavingDB\WeavingDBClient\bin\Debug\Newtonsoft.Json.dll
 D:\WeavingDB\WeavingDBClient\bin\Debug\Weave.Base.pdb
 D:\WeavingDB\WeavingDBClient\bin\Debug\Weave.TCPClient.pdb
-D:\WeavingDB\WeavingDBClient\bin\Debug\Newtonsoft.Json.xml
 D:\WeavingDB\WeavingDBClient\obj\Debug\WeavingDBClient.csprojAssemblyReference.cache
 D:\WeavingDB\WeavingDBClient\obj\Debug\WeavingDBClient.csproj.CoreCompileInputs.cache
 D:\WeavingDB\WeavingDBClient\obj\Debug\WeavingDBClient.csproj.CopyComplete
