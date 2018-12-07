@@ -51,14 +51,14 @@ namespace WeavingDB
             double gggg = 0;
             dbc.open();
 
-            Hashtable ht = new Hashtable();
-            ht.Add("123123","afasdfasdf");
-            ht.Add("12312311", "afasdfasdf");
-            ht.Add("1231231221", "afasaasdfasdf");
-            ht.Add("123123122199", "afasaasdfasdf");
-           bool bb= dbc.SetAll<string>(ht);
+          //  Hashtable ht = new Hashtable();
+          //  ht.Add("123123","afasdfasdf");
+          //  ht.Add("12312311", "afasdfasdf");
+          //  ht.Add("1231231221", "afasaasdfasdf");
+          //  ht.Add("123123122199", "afasaasdfasdf");
+          // bool bb= dbc.SetAll<string>(ht);
 
-          string sss=  dbc.Get<String>("12312311");
+          //string sss=  dbc.Get<String>("12312311");
             String str2 = dbc.Get<String>("asdasd");
             dbc.GetKey("?d");
             dbc.Set("asd", 111);
@@ -68,7 +68,7 @@ namespace WeavingDB
             keys = dbc.GetKey("as*");//通配符* 表示，多个模糊匹配
             dbc.GetKey("as?a?d");
             dbc.GetKey("?d");
-            while (i < 100000)
+            while (i < 10000)
             {
                 i++;
                 DateTime dt = DateTime.Now;
