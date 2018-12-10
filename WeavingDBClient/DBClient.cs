@@ -184,7 +184,7 @@ namespace WeavingDBClient
             foreach (var key in ht.Keys)
             {
               
-                list.Add(TToBytes<T>((T)ht[key]));
+                list.Add(DataEncoding.TToBytes<T>((T)ht[key]));
                 keys.Add((String)key);
 
 
@@ -196,7 +196,7 @@ namespace WeavingDBClient
         }
         public bool Set<T>(string key, T t)
         {
-            byte[] rowdata = DataEncoding.encodingsetKV(key, TToBytes<T>(t));
+            byte[] rowdata = DataEncoding.encodingsetKV(key, DataEncoding.TToBytes<T>(t));
              //DataEncoding.encodinggetKV("2018092100000");
           return  Convert.ToBoolean( ccon.Send(0x01, rowdata)[0]);
         }
@@ -214,7 +214,7 @@ namespace WeavingDBClient
                 //return BytesToT<T>(TToBytes(key));
                 byte[] data = ccon.Send(0x02, rowdata);
                 if (data != null)
-                    return BytesToT<T>(data);
+                    return DataEncoding.BytesToT<T>(data);
                 return default(T);
             
         }
@@ -236,27 +236,7 @@ namespace WeavingDBClient
            
             ccon.close();
         }
-        private T BytesToT<T>(byte[] bytes)
-        {
-            using (var ms = new System.IO.MemoryStream())
-            {
-                ms.Write(bytes, 0, bytes.Length);
-                var bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                ms.Position = 0;
-                var x = bf.Deserialize(ms);
-                return (T)x;
-            }
-        }
-
-        private byte[] TToBytes<T>(T obj)
-        {
-            var bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-            using (var ms = new System.IO.MemoryStream())
-            {
-                bf.Serialize(ms, obj);
-                return ms.ToArray();
-            }
-        }
+      
  
     }
 

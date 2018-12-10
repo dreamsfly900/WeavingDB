@@ -34,7 +34,31 @@ namespace WeavingDB
             ret.CopyTo(bb);
             return bb;
         }
-     
+        public static T BytesToT<T>(byte[] bytes)
+        {
+            //using (var ms = new System.IO.MemoryStream())
+            //{
+            //    ms.Write(bytes, 0, bytes.Length);
+            //    var bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+            //    ms.Position = 0;
+            //    var x = bf.Deserialize(ms);
+            //    return (T)x;
+            //}
+            string str=System.Text.Encoding.UTF8.GetString(bytes);
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(str);
+        }
+
+        public static byte[] TToBytes<T>(T obj)
+        {
+            //var bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+            //using (var ms = new System.IO.MemoryStream())
+            //{
+            //    bf.Serialize(ms, obj);
+            //    return ms.ToArray();
+            //}
+           String str= Newtonsoft.Json.JsonConvert.SerializeObject(obj);
+            return System.Text.Encoding.UTF8.GetBytes(str);
+        }
 
         public static byte[] encodingsetKV(string key, byte[] data)
         {
