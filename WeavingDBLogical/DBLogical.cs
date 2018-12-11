@@ -511,7 +511,7 @@ namespace WeavingDBLogical
 
         }
         List<int> listsindex = new List<int>();
-        private List<int[]> listlen;
+       
         /// <summary>
         /// 有条件的查询表中数据，并返回指针，查询是多线程的，数据是无排序的
         /// </summary>
@@ -520,12 +520,12 @@ namespace WeavingDBLogical
         /// <param name="_dhead"></param>
         /// <param name="_maxlen"></param>
         /// <returns></returns>
-        public unsafe void*[][] selecttiem(List<listDmode> _listu , String _sqlsst, head[] _dhead, int _maxlen= 100000)
+        public unsafe listDmode[] selecttiem(List<listDmode> _listu , String _sqlsst, head[] _dhead, int _maxlen= 100000)
         {
             
                 //listsindex = new List<int>();
-                listutem = new ConcurrentQueue<void*[]>();
-                listlen=new List<int[]>();
+                listutem = new ConcurrentQueue<listDmode>();
+              
                  sqlsst = _sqlsst;
                 dhead = _dhead;
                 maxlen = _maxlen;
@@ -539,8 +539,8 @@ namespace WeavingDBLogical
                     {
                         listu[i].dt = DateTime.Now.ToFileTime();
                         //listu[i].dtable
-                        listutem.Enqueue(listu[i].dtable2);
-                        listlen.Add(listu[i].LenInts);
+                        listutem.Enqueue(listu[i]);
+                       // listlen.Add(listu[i].LenInts);
                     }
                 }
 
@@ -589,13 +589,13 @@ namespace WeavingDBLogical
                 catch (Exception ex)
                 { throw ex; }
             }
-           
-            void*[][] tempp= listutem.ToArray();
+
+          
             //listutem = new ConcurrentQueue<void*[]>();
-            return tempp;
+            return listutem.ToArray(); ;
         }
 
-        public  Hashtable[] viewdata(void*[][] objsall, byte order,string ordercol,int indexlen, int viewlen, head[] datahead)
+        public  Hashtable[] viewdata(listDmode [] objsall, byte order,string ordercol,int indexlen, int viewlen, head[] datahead)
         {
             List<Hashtable> alllist = new List<Hashtable>();
             Hashtable[] temphtt = alllist.ToArray();
@@ -643,9 +643,9 @@ namespace WeavingDBLogical
                             Hashtable ht = new Hashtable();
                             foreach (head h in datahead)
                             {
-                                if (objsall[i].Length > h.index)
+                                if (objsall[i].dtable2.Length > h.index)
                                 {
-                                    object obj = getHashtable(h.key, h.type, objsall[i][h.index], listlen[i][h.index]);
+                                    object obj = getHashtable(h.key, h.type, objsall[i].dtable2[h.index], objsall[i].LenInts[h.index] );
                                     ht.Add(h.key, obj);
                                 }
                             }
@@ -1318,8 +1318,8 @@ namespace WeavingDBLogical
                         {
                             listu[i].dt = DateTime.Now.ToFileTime();
                             //listu[i].dtable
-                            listutem.Enqueue(listu[i].dtable2);
-                            listlen.Add(listu[i].LenInts);
+                            listutem.Enqueue(listu[i]);
+                           
                            // listsindex.Add(i);
 
 

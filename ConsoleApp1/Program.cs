@@ -172,7 +172,7 @@ namespace ConsoleApp1
             
              
             //objbb = JObject.Parse(str);
-            int count = 10000;
+            int count = 1000000;
             user u = new user() { id = i++, name = "2345ds" + i ,aas =new byte[10,10]};
             str = Newtonsoft.Json.JsonConvert.SerializeObject(u);
 
@@ -223,7 +223,7 @@ namespace ConsoleApp1
                         // listu = null;
                       
                         dt = DateTime.Now;
-                        void*[][] objsall = dblo.selecttiem(listu, ss, ltable.datahead); 
+                        listDmode[] objsall = dblo.selecttiem(listu, ss, ltable.datahead); 
                             dt2 = DateTime.Now;
                         // List<long> objsall = new List<long>();
                         if (objsall != null || objsall.Length>0)

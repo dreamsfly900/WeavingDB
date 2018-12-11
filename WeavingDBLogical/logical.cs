@@ -366,7 +366,7 @@ internal head[] gethead(JObject obj)
 
  
 
-        internal ConcurrentQueue<void*[]> listutem = new ConcurrentQueue<void*[]>();
+        internal ConcurrentQueue<listDmode> listutem = new ConcurrentQueue<listDmode>();
         internal Hashtable gethtable(object obj)
         {
             Hashtable coll = new Hashtable();
@@ -468,7 +468,7 @@ internal head[] gethead(JObject obj)
         #region 排序
 
         
-        internal void*[][] sort(void*[][] objsall, head orhe,int order)
+        internal listDmode[] sort(listDmode[] objsall, head orhe,int order)
         {
             if(order==0)
                objsall = QuickSort(objsall, orhe, 0, objsall.Length - 1,true);
@@ -480,13 +480,13 @@ internal head[] gethead(JObject obj)
          
 
 
-        private unsafe int Division(void*[][] list, head orhe, int left, int right,bool ord)
+        private unsafe int Division(listDmode[] list, head orhe, int left, int right,bool ord)
         {
 
             while (left < right)
             {
-                void* p1 = list[left][orhe.index];
-                void*[] listvoid = list[left];
+                void* p1 = list[left].dtable2[orhe.index];
+                listDmode listvoid = list[left];
 
                 bool bba = false;
                 if (orhe.type == 6)
@@ -495,7 +495,7 @@ internal head[] gethead(JObject obj)
                     int num = (int)(*(int*)p1);
 
 
-                    int left1 = (int)(*(int*)list[left + 1][orhe.index]);
+                    int left1 = (int)(*(int*)list[left + 1].dtable2[orhe.index]);
                     bba = num > left1;
 
                 }
@@ -505,7 +505,7 @@ internal head[] gethead(JObject obj)
                     byte num = Convert.ToByte((bool)(*(bool*)p1));
 
 
-                    byte left1 = Convert.ToByte((bool)(*(bool*)list[left + 1][orhe.index]));
+                    byte left1 = Convert.ToByte((bool)(*(bool*)list[left + 1].dtable2[orhe.index]));
                     bba = num > left1;
                 }
                 else if (orhe.type == 7)
@@ -514,7 +514,7 @@ internal head[] gethead(JObject obj)
                     double num = (double)(*(double*)p1);
 
 
-                    double left1 = (double)(*(double*)list[left + 1][orhe.index]);
+                    double left1 = (double)(*(double*)list[left + 1].dtable2[orhe.index]);
                     bba = num > left1;
 
 
@@ -526,7 +526,7 @@ internal head[] gethead(JObject obj)
                     long num = (long)(*(long*)p1);
 
 
-                    long left1 = (long)(*(long*)list[left + 1][orhe.index]);
+                    long left1 = (long)(*(long*)list[left + 1].dtable2[orhe.index]);
                     bba = num > left1;
 
                 }
@@ -536,7 +536,7 @@ internal head[] gethead(JObject obj)
                     if (vv != "")
                     {
                         int num = Asc(vv.Substring(0, 1));
-                        string vv2 = Marshal.PtrToStringAnsi((IntPtr)list[left + 1][orhe.index]);
+                        string vv2 = Marshal.PtrToStringAnsi((IntPtr)list[left + 1].dtable2[orhe.index]);
 
                         long left1 = Asc(vv2.Substring(0, 1));
                         bba = num > left1;
@@ -554,7 +554,7 @@ internal head[] gethead(JObject obj)
                 }
                 else
                 {
-                    void*[] temp = list[right];
+                    listDmode temp = list[right];
                     list[right] = list[left + 1];
                     list[left + 1] = temp;
                     right--;
@@ -564,7 +564,7 @@ internal head[] gethead(JObject obj)
             
             return left; //指向的此时枢轴的位置
         }
-        private void*[][] QuickSort(void*[][] list, head orhe, int left, int right,bool ord)
+        private listDmode[] QuickSort(listDmode[] list, head orhe, int left, int right,bool ord)
         {
 
             if (left < right)
