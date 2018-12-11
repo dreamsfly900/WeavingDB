@@ -61,7 +61,7 @@ namespace WeavingDB
           //string sss=  dbc.Get<String>("12312311");
             String str2 = dbc.Get<String>("asdasd");
             dbc.GetKey("?d");
-            dbc.Set("asd", 111);
+            dbc.Set("asdasd", 111);
            // dbc.Set<String>("asdasd", "1");
             int i = 0;
            string [] keys=   dbc.GetKey("as?asd");//通配符?一个匹配字符

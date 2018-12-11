@@ -15,7 +15,7 @@ namespace WeavingDBLogical
     {
         //public object[] dtable;
         public void* [] dtable2;
-     
+        public int [] LenInts;
         public long dt = DateTime.Now.ToFileTime();
     }
     public class liattable
@@ -40,5 +40,6 @@ namespace WeavingDBLogical
     {
         public IntPtr ptr;
         public byte type;
+         
     }
 }

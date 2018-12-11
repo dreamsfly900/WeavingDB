@@ -95,7 +95,7 @@ namespace WeavingDBLogical
         /// <returns></returns>
       public unsafe listDmode insertintoJson(JObject obj,ref head [] dhead)
         {
-            
+
             try
             {
                 if (dhead == null)
@@ -106,12 +106,18 @@ namespace WeavingDBLogical
                 {
                     dhead = gethead(obj, dhead);
                 }
+
                 listDmode ld = new listDmode();
-               // ld.dtable = gethtabledtjson(obj as JObject, dhead);
-                ld.dtable2= gethtabledtjsontointptr(obj, dhead);
+                // ld.dtable = gethtabledtjson(obj as JObject, dhead);
+                int[] lens = new int[0];
+                ld.dtable2 = gethtabledtjsontointptr(obj, dhead, ref lens);
+                ld.LenInts = lens;
                 return ld;
             }
-            catch(Exception e) { throw new Exception("数据插入有误"+ e.Message); }
+            catch (Exception e)
+            {
+                throw new Exception("数据插入有误"+ e.Message);
+            }
         }
 
         List<listDmode> listu;
@@ -148,6 +154,7 @@ namespace WeavingDBLogical
 
 
                             _listu[i].dtable2[_dhead[ig].index] = IntPtr.Zero.ToPointer();
+                            _listu[i].LenInts[dhead[ig].index] = 0;
                             if (pp != IntPtr.Zero)
                             {
                                 freedata fd = new freedata();
@@ -240,6 +247,7 @@ namespace WeavingDBLogical
                                             {
                                                 IntPtr pp = (IntPtr)listu[i].dtable2[_dhead[ig].index];
                                                 listu[i].dtable2[_dhead[ig].index] = IntPtr.Zero.ToPointer();
+                                                //listu[i].dtable2[_dhead[ig].index] = IntPtr.Zero.ToPointer();
                                                 if (pp != IntPtr.Zero)
                                                 {
                                                     freedata fd = new freedata();
@@ -248,12 +256,10 @@ namespace WeavingDBLogical
                                                     allfree.Enqueue(fd);
                                                 }
                                                 listu[i].dtable2[_dhead[ig].index] = dmode.dtable2[hhead[igg].index];
+                                                listu[i].LenInts[_dhead[ig].index] = dmode.LenInts[hhead[igg].index];
                                                 dmode.dtable2[hhead[igg].index] = IntPtr.Zero.ToPointer();
                                             }
-                                            //else
-                                            //{
-                                            //    throw new Exception("数据列，类型不匹配。");
-                                            //}
+                                           
 
                                         }
                                     }
@@ -323,14 +329,14 @@ namespace WeavingDBLogical
                         allfree.TryDequeue(out fd);
                         IntPtr pp = fd.ptr;
                         byte type = fd.type;
-                        if (pp != IntPtr.Zero && type != 6 && type != 9 && type != 7 && type != 12 && type != 8)
-                        {
+                        //if (pp != IntPtr.Zero && type != 6 && type != 9 && type != 7 && type != 12 && type != 8)
+                        //{
 
-                            binaryvoid byv2 = new binaryvoid();
-                            Marshal.PtrToStructure((IntPtr)pp, byv2);
+                        //    binaryvoid byv2 = new binaryvoid();
+                        //    Marshal.PtrToStructure((IntPtr)pp, byv2);
 
-                            LocalFree(byv2.data);
-                        }
+                        //    LocalFree(byv2.data);
+                        //}
                         try
                         {
 
@@ -505,7 +511,7 @@ namespace WeavingDBLogical
 
         }
         List<int> listsindex = new List<int>();
-
+        private List<int[]> listlen;
         /// <summary>
         /// 有条件的查询表中数据，并返回指针，查询是多线程的，数据是无排序的
         /// </summary>
@@ -514,13 +520,13 @@ namespace WeavingDBLogical
         /// <param name="_dhead"></param>
         /// <param name="_maxlen"></param>
         /// <returns></returns>
-        public unsafe void*[][] selecttiem(List<listDmode> _listu, String _sqlsst, head[] _dhead, int _maxlen= 100000)
+        public unsafe void*[][] selecttiem(List<listDmode> _listu , String _sqlsst, head[] _dhead, int _maxlen= 100000)
         {
             
                 //listsindex = new List<int>();
                 listutem = new ConcurrentQueue<void*[]>();
-           
-                sqlsst = _sqlsst;
+                listlen=new List<int[]>();
+                 sqlsst = _sqlsst;
                 dhead = _dhead;
                 maxlen = _maxlen;
                 listu = _listu;
@@ -534,6 +540,7 @@ namespace WeavingDBLogical
                         listu[i].dt = DateTime.Now.ToFileTime();
                         //listu[i].dtable
                         listutem.Enqueue(listu[i].dtable2);
+                        listlen.Add(listu[i].LenInts);
                     }
                 }
 
@@ -638,7 +645,7 @@ namespace WeavingDBLogical
                             {
                                 if (objsall[i].Length > h.index)
                                 {
-                                    object obj = getHashtable(h.key, h.type, objsall[i][h.index]);
+                                    object obj = getHashtable(h.key, h.type, objsall[i][h.index], listlen[i][h.index]);
                                     ht.Add(h.key, obj);
                                 }
                             }
@@ -860,7 +867,7 @@ namespace WeavingDBLogical
 
                                     listu[i].dtable2[_dhead[ig].index] = IntPtr.Zero.ToPointer();
 
-
+                                    listu[i].LenInts[_dhead[ig].index] =0;
                                     try
                                     {
                                         if (pp != IntPtr.Zero)
@@ -1101,7 +1108,7 @@ namespace WeavingDBLogical
                                                 }
 
                                                 listu[i].dtable2[_dhead[ig].index] = dmode.dtable2[hhead[igg].index];
-
+                                                listu[i].LenInts[_dhead[ig].index] = dmode.LenInts[hhead[igg].index];
                                                 dmode.dtable2[hhead[igg].index] = IntPtr.Zero.ToPointer();
 
 
@@ -1137,10 +1144,7 @@ namespace WeavingDBLogical
                             throw new Exception("不支持的逻辑判断。");
                         }
                     }
-                    //if (oo != null)
-                    //{
-                    //    listutem.Add(oo);
-                    //}
+                  
                 }
             }
 
@@ -1152,24 +1156,7 @@ namespace WeavingDBLogical
 
         }
 
-        //void del(object oo)
-        //{
-        //    try
-        //    {
-        //        List<void*[]> dellist = oo as List<void*[]>;
-
-        //        for (int ig = 0; ig < dellist.Count; ig++)
-        //            for (int ig2 = 0; ig2 < dellist[ig].Length; ig2++)
-        //                Marshal.FreeHGlobal((IntPtr)dellist[ig][ig2]);
-        //        //   listu.Remove(ld);
-        //        dellist = null;
-        //        GC.Collect();
-        //    }
-        //    catch(Exception e)
-        //    {
-        //        throw e;
-        //    }
-        //}
+       
         unsafe void Logicaltiem(int listulen,int listindex)
         {
            
@@ -1332,6 +1319,7 @@ namespace WeavingDBLogical
                             listu[i].dt = DateTime.Now.ToFileTime();
                             //listu[i].dtable
                             listutem.Enqueue(listu[i].dtable2);
+                            listlen.Add(listu[i].LenInts);
                            // listsindex.Add(i);
 
 

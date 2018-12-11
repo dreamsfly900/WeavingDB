@@ -26,7 +26,7 @@ namespace ConsoleApp1
             public int id { get; set; }
             public string name { get; set; }
             public byte aa { get; set; }
-            public byte [] aas { get; set; }
+            public byte [,] aas { get; set; }
            // public byte[,] aass;
             public DateTime dt { get; set; }
             public bool bb  { get; set; }
@@ -96,70 +96,68 @@ namespace ConsoleApp1
         }
         static unsafe void Main(string[] args)
         {
-            List<byte[]> list=  new List<byte[]>();
-            list.Add(new Byte[]{15});
-            list.Add(new Byte[]{56});
-            byte[] data = DataEncoding.encodingdatalist(list);
-            DataEncoding.userid = "admin";
-            DataEncoding.pwd = "123";
-            data = DataEncoding.encodingsetKVs(new string[2] {"111", "1222"}, data);
-            string[] kets;
-            list = new List<byte[]>();
-            DataEncoding.setKVsdecode(data, out kets, out list);
-
-            Stringtonosymbol("asdaskkkk123吧啊", "^12(.+)?3(.+)$");
-            //Queue st = new Queue();
-            //st.Enqueue(11);
-            //while (true)
-            //{
-            //    if (st.Count > 0)
-            //    {
-            //        Object objo = st.Dequeue();
-            //    }
-            //}
-            char* p2 = (char*)System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi("asdfasdf").ToPointer();
             
-            try
-            {
-                Marshal.FreeHGlobal(p3);
-                //Marshal.FreeHGlobal(p3);
-            }
-            catch { }
-            int iii = 0;
-            while (iii < 100)
-            {
-                System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(go), null);
-                iii++;
-            }
-            int pbb = 2345;
-            int nSizeOfPerson = Marshal.SizeOf(pbb);
-            IntPtr intPtr = Marshal.AllocHGlobal(nSizeOfPerson);
-            Marshal.StructureToPtr(pbb, intPtr, true);
-            void* hhg = intPtr.ToPointer();
-            intPtr = IntPtr.Zero;
-            Marshal.FreeHGlobal((IntPtr)hhg);
+            //byte[] data = DataEncoding.encodingdatalist(list);
+            //DataEncoding.userid = "admin";
+            //DataEncoding.pwd = "123";
+            //data = DataEncoding.encodingsetKVs(new string[2] {"111", "1222"}, data);
+            //string[] kets;
+            //list = new List<byte[]>();
+            //DataEncoding.setKVsdecode(data, out kets, out list);
 
-            Marshal.FreeHGlobal((IntPtr)hhg);
-            //   Marshal.FreeHGlobal(p3);
-            System.GC.Collect();
+            //Stringtonosymbol("asdaskkkk123吧啊", "^12(.+)?3(.+)$");
+            ////Queue st = new Queue();
+            ////st.Enqueue(11);
+            ////while (true)
+            ////{
+            ////    if (st.Count > 0)
+            ////    {
+            ////        Object objo = st.Dequeue();
+            ////    }
+            ////}
+            //char* p2 = (char*)System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi("asdfasdf").ToPointer();
+            
+            //try
+            //{
+            //    Marshal.FreeHGlobal(p3);
+            //    //Marshal.FreeHGlobal(p3);
+            //}
+            //catch { }
+            //int iii = 0;
+            //while (iii < 100)
+            //{
+            //    System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(go), null);
+            //    iii++;
+            //}
+            //int pbb = 2345;
+            //int nSizeOfPerson = Marshal.SizeOf(pbb);
+            //IntPtr intPtr = Marshal.AllocHGlobal(nSizeOfPerson);
+            //Marshal.StructureToPtr(pbb, intPtr, true);
+            //void* hhg = intPtr.ToPointer();
+            //intPtr = IntPtr.Zero;
+            //Marshal.FreeHGlobal((IntPtr)hhg);
+
+            //Marshal.FreeHGlobal((IntPtr)hhg);
+            ////   Marshal.FreeHGlobal(p3);
+            //System.GC.Collect();
            // Marshal.DestroyStructure(p3, typeof(String));
           // string ss= Marshal.PtrToStringAnsi(p3);
-            byte [] bbtemp=  DataEncoding.encodingdata("","2312312","");
-          string  [] strbb=  DataEncoding.dencdingdata(bbtemp);
-            String strsss = Newtonsoft.Json.JsonConvert.SerializeObject("asdfsadf");
+          //  byte [] bbtemp=  DataEncoding.encodingdata("","2312312","");
+          //string  [] strbb=  DataEncoding.dencdingdata(bbtemp);
+          //  String strsss = Newtonsoft.Json.JsonConvert.SerializeObject("asdfsadf");
        
-            byte[] p = GZIP.Compress(TToBytes<String>("2141234"));
+          //  byte[] p = GZIP.Compress(TToBytes<String>("2141234"));
 
           
-            binaryvoid byv = new binaryvoid();
-            byv.data =( tobytes(p));
-            byv.len = p.Length;
-            IntPtr sp = Marshal.AllocHGlobal(Marshal.SizeOf(byv));
-            Marshal.StructureToPtr(byv, sp, false);
-            binaryvoid byv2 = new binaryvoid();
-            Marshal.PtrToStructure(sp, byv2);
-            byte[] abc = tobyte((byte*)byv2.data, byv2.len);
-           String sstr= BytesToT<String>( GZIP.Decompress(abc));
+          //  binaryvoid byv = new binaryvoid();
+            //byv.data =( tobytes(p));
+          //  byv.len = p.Length;
+          //  IntPtr sp = Marshal.AllocHGlobal(Marshal.SizeOf(byv));
+          //  Marshal.StructureToPtr(byv, sp, false);
+          //  binaryvoid byv2 = new binaryvoid();
+          //  Marshal.PtrToStructure(sp, byv2);
+          //  byte[] abc = tobyte((byte*)byv2.data, byv2.len);
+          // String sstr= BytesToT<String>( GZIP.Decompress(abc));
                  
 
                  DBLogical dblo = new DBLogical();
@@ -175,14 +173,14 @@ namespace ConsoleApp1
              
             //objbb = JObject.Parse(str);
             int count = 10000;
-            user u = new user() { id = i++, name = "111" + i };
+            user u = new user() { id = i++, name = "2345ds" + i ,aas =new byte[10,10]};
             str = Newtonsoft.Json.JsonConvert.SerializeObject(u);
 
             objbb = JObject.Parse(str);
             listu.Add(dblo.insertintoJson(objbb, ref ltable.datahead));
             while (i < count)
             {
-                 u = new user() { id = i++, name = ""+ i, dt = DateTime.Now.AddSeconds(new Random().Next(0,100)), aa=123};
+                 u = new user() { id = i++, name = "a"+ i, dt = DateTime.Now.AddSeconds(new Random().Next(0,100)), aa=123};
                  str = Newtonsoft.Json.JsonConvert.SerializeObject(u);
                 
                 objbb = JObject.Parse(str);

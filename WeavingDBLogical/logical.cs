@@ -14,14 +14,14 @@ using System.Threading.Tasks;
 
 namespace WeavingDBLogical
 {
-    [StructLayoutAttribute(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
-    public class binaryvoid
-    {
+    //[StructLayoutAttribute(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
+    //public class binaryvoid
+    //{
         
-        public IntPtr data;
+    //    public IntPtr data;
        
-        public Int32 len;
-    }
+    //    public Int32 len;
+    //}
 
     public unsafe class logical
     {
@@ -50,7 +50,7 @@ namespace WeavingDBLogical
             return objs;
         }
 
-        internal object getHashtable(string key, byte type, void* p1)
+        internal object getHashtable(string key, byte type, void* p1,int len)
         {
 
             object obj = null;
@@ -94,13 +94,10 @@ namespace WeavingDBLogical
                 }
                 else
                 {
-                    binaryvoid byv2 = new binaryvoid();
-                    Marshal.PtrToStructure((IntPtr)p1, byv2);
-                    byte[] abc = tobyte((byte*)byv2.data, byv2.len);
-                    // tobyte((IntPtr)p1,)
+                    byte[] abc = tobyte((byte*)p1, len);
+                     
                    string temp = BytesToT<String>(WeavingDB.GZIP.Decompress(abc));
-                    //JTokenType.ToObject((JTokenType) type, temp);
-                  //  obj = temp;
+                     
                     obj = Newtonsoft.Json.JsonConvert.DeserializeObject(temp);
                 }
             }
@@ -146,10 +143,11 @@ namespace WeavingDBLogical
             Marshal.Copy((IntPtr)write_data, write, 0, write.Length);
             return write;
         }
-internal unsafe void*[] gethtabledtjsontointptr(JObject obj, head[] dhead)
+internal unsafe void*[] gethtabledtjsontointptr(JObject obj, head[] dhead,ref int[] lensInts)
         {
             //Hashtable coll = new Hashtable();
             void*[] objs = new void*[dhead.Length];
+            lensInts=new int[dhead.Length];
             foreach (var item in dhead)
             {
                 byte jtt = item.type;
@@ -174,6 +172,7 @@ internal unsafe void*[] gethtabledtjsontointptr(JObject obj, head[] dhead)
                                 IntPtr intPtr = Marshal.AllocHGlobal(nSizeOfPerson);
                                 Marshal.StructureToPtr(p, intPtr, true);
                                 objs[item.index] = intPtr.ToPointer();
+                                lensInts[item.index] = 4;
                             }
                             else if (jtt == 9)
                             {
@@ -183,7 +182,7 @@ internal unsafe void*[] gethtabledtjsontointptr(JObject obj, head[] dhead)
                                 IntPtr intPtr = Marshal.AllocHGlobal(nSizeOfPerson);
                                 Marshal.StructureToPtr(p, intPtr, true);
                                 objs[item.index] = intPtr.ToPointer(); ;
-
+                                lensInts[item.index] = 1;
                             }
                             else if (jtt == 7)
                             {
@@ -193,13 +192,13 @@ internal unsafe void*[] gethtabledtjsontointptr(JObject obj, head[] dhead)
                                 IntPtr intPtr = Marshal.AllocHGlobal(nSizeOfPerson);
                                 Marshal.StructureToPtr(p, intPtr, true);
                                 objs[item.index] = intPtr.ToPointer();
-
+                                lensInts[item.index] = 8;
 
 
                             }
                             else if (jtt == 12)
                             {
-
+                                lensInts[item.index] = 8;
                                 long p = Convert.ToDateTime(obj[item.key].ToString()).ToFileTime();
 
                                 int nSizeOfPerson = Marshal.SizeOf(p);
@@ -212,9 +211,11 @@ internal unsafe void*[] gethtabledtjsontointptr(JObject obj, head[] dhead)
                             {
 
                                 // char[] p = ((String)objc).ToCharArray().;
-
-                                char* p = (char*)System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi(obj[item.key].ToString()).ToPointer();
+                                string str = obj[item.key].ToString();
+                                lensInts[item.index] = System.Text.Encoding.Default.GetBytes(str.ToCharArray()).Length;
+                                char* p = (char*)System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi(str).ToPointer();
                                 objs[item.index] = p;
+                              
                             }
                             else
                             {
@@ -222,17 +223,19 @@ internal unsafe void*[] gethtabledtjsontointptr(JObject obj, head[] dhead)
 
                                 // char[] p = ((String)objc).ToCharArray().;
 
-                                //string gzip= WeavingDB.GZIP.GZipCompressString(obj[item.key].ToString());
+                                //string gzip = WeavingDB.GZIP.GZipCompressString(obj[item.key].ToString());
 
-                                // char* p = (char*)System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi(gzip).ToPointer();
+                                //char* p = (char*)System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi(gzip).ToPointer();
                                 byte[] p = WeavingDB.GZIP.Compress(TToBytes<String>(obj[item.key].ToString()));
                                  
-                                binaryvoid byv = new binaryvoid();
-                                byv.data =  tobytes(p);
-                                byv.len = p.Length; 
-                                IntPtr sp = Marshal.AllocHGlobal(Marshal.SizeOf(byv));
-                                Marshal.StructureToPtr(byv, sp, false);
-                                objs[item.index] = sp.ToPointer();
+                                //binaryvoid byv = new binaryvoid();
+                                //byv.data =  tobytes(p);
+                                //byv.len = p.Length; 
+                                //IntPtr sp = Marshal.AllocHGlobal(Marshal.SizeOf(byv));
+                                //Marshal.StructureToPtr(byv, sp, false);
+                                
+                                objs[item.index] = tobytes(p).ToPointer();
+                                lensInts[item.index] = p.Length;
                             }
 
                         }
@@ -289,6 +292,13 @@ internal head[] gethead(JObject obj)
                         {
                             hd.type = (byte)item.Value.Type;
                         }
+
+                        if ((byte) item.Value.Type == 10)
+                        {
+                            bb = true;
+                            break;
+                        }
+
                         if ((byte)item.Value.Type == hd.type )
                         {
                             bb = true;
@@ -454,6 +464,10 @@ internal head[] gethead(JObject obj)
 
             return "";
         }
+
+        #region 排序
+
+        
         internal void*[][] sort(void*[][] objsall, head orhe,int order)
         {
             if(order==0)
@@ -590,5 +604,6 @@ internal head[] gethead(JObject obj)
                 throw new Exception("ASCII Code is not valid.");
             }
         }
+        #endregion
     }
 }
