@@ -223,7 +223,7 @@ namespace ConsoleApp1
                         // listu = null;
                       
                         dt = DateTime.Now;
-                        void*[][] objsall = dblo.selecttiem(listu, ss, ltable.datahead); 
+                        listDmode[] objsall = dblo.selecttiem(listu, ss, ltable.datahead); 
                             dt2 = DateTime.Now;
                         // List<long> objsall = new List<long>();
                         if (objsall != null || objsall.Length>0)
