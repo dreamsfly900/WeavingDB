@@ -13,7 +13,7 @@ namespace WeavingDBLogical
     {
         WeaveP2Server wserver = new Weave.Server.WeaveP2Server(WeaveDataTypeEnum.Bytes);
         public int count = 0;
-        DBmanage dbm = new DBmanage();
+      public  DBmanage dbm = new DBmanage();
         string userid = "",pwd="";
         int port = 0;
         public DBcontrol()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Topshelf;
 
 namespace WDBServer
 {
@@ -10,7 +11,22 @@ namespace WDBServer
     {
         static void Main(string[] args)
         {
-            WeavingDBLogical.DBcontrol dbcon = new WeavingDBLogical.DBcontrol();
+            TownCrier tcc=   new TownCrier();
+            HostFactory.Run(x =>                                 //1
+            {
+                x.Service<TownCrier>(s =>                        //2
+                {
+                    s.ConstructUsing(name => tcc);     //3
+                    s.WhenStarted(tc => tc.Start());              //4
+                    s.WhenStopped(tc => tc.Stop());               //5
+                });
+                x.RunAsLocalSystem();                            //6
+                x.StartAutomaticallyDelayed();
+                x.SetDescription("雷达-遥感-等值面图数据库");        //7
+                x.SetDisplayName("WeavingDB");                       //8
+                x.SetServiceName("WeavingDB");                       //9
+            });
+           
           
             while (true)
             {
@@ -18,10 +34,32 @@ namespace WDBServer
                 switch (str)
                 {
                     case "linknum":
-                        Console.WriteLine(dbcon.count);
+                        Console.WriteLine(tcc.dbcon.count);
                         break;
                 }
             }
         }
+
+        public class TownCrier
+        {
+            public WeavingDBLogical.DBcontrol dbcon;
+            public TownCrier()
+            {
+                
+            }
+
+            public void Start()
+            {
+                dbcon = new WeavingDBLogical.DBcontrol();
+
+            }
+
+            public void Stop()
+            {
+
+
+            }
+        }
+
     }
 }

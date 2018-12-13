@@ -19,3 +19,4 @@ D:\WeavingDB\WDBServer\bin\Debug\Weave.Server.pdb
 D:\WeavingDB\WDBServer\bin\Debug\Weave.Base.pdb
 D:\WeavingDB\WDBServer\bin\Debug\UDTCommon.dll
 D:\WeavingDB\WDBServer\bin\Debug\UDTLibary.dll
+D:\WeavingDB\WDBServer\bin\Debug\Topshelf.dll

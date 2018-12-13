@@ -167,24 +167,10 @@ namespace WeavingDB
             var dbClient = new WeavingDBClient.DBClient("127.0.0.1", 18989, "admin", "123123");
             dbClient.open();
 
-            var json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "e8f787af90e745c59429265beaa6d055.jie"));
-            CacheTaskRunModel model = JsonConvert.DeserializeObject<CacheTaskRunModel>(json);
-
-            dbClient.Createtable("e8f787af90e745c59429265beaa6d055");
-            int i = 0;
-            while (i<10000)
-            {
-                if (!dbClient.inserttable("e8f787af90e745c59429265beaa6d055", model))
-                    throw new Exception("插入数据错误");
-                i++;
-            }
-           
-
-            int count = 0;
-
-            var result = dbClient.selecttable<CacheTaskRunModel[]>("e8f787af90e745c59429265beaa6d055", "", 0, "", 0, 1, out count);
-
-            Console.WriteLine(result);
+            var json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "1.json"));
+            var model = JsonConvert.DeserializeObject(json);
+            dbClient.Set("撒大受打击-41", model);
+            object obj=  dbClient.Get<object>("撒大受打击-41");
 
             dbClient.close();
         }

@@ -72,6 +72,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="e8f787af90e745c59429265beaa6d055.jie">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
