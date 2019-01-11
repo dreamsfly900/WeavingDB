@@ -96,7 +96,9 @@ namespace ConsoleApp1
         }
         static unsafe void Main(string[] args)
         {
-            
+            string stssr = System.Threading.Thread.GetDomain().BaseDirectory;
+            byte[] shi = System.BitConverter.GetBytes((long)1);
+            long sh = (long)System.BitConverter.ToUInt64(shi, 0);
             //byte[] data = DataEncoding.encodingdatalist(list);
             //DataEncoding.userid = "admin";
             //DataEncoding.pwd = "123";
@@ -116,7 +118,7 @@ namespace ConsoleApp1
             ////    }
             ////}
             //char* p2 = (char*)System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi("asdfasdf").ToPointer();
-            
+
             //try
             //{
             //    Marshal.FreeHGlobal(p3);
@@ -140,27 +142,27 @@ namespace ConsoleApp1
             //Marshal.FreeHGlobal((IntPtr)hhg);
             ////   Marshal.FreeHGlobal(p3);
             //System.GC.Collect();
-           // Marshal.DestroyStructure(p3, typeof(String));
-          // string ss= Marshal.PtrToStringAnsi(p3);
-          //  byte [] bbtemp=  DataEncoding.encodingdata("","2312312","");
-          //string  [] strbb=  DataEncoding.dencdingdata(bbtemp);
-          //  String strsss = Newtonsoft.Json.JsonConvert.SerializeObject("asdfsadf");
-       
-          //  byte[] p = GZIP.Compress(TToBytes<String>("2141234"));
+            // Marshal.DestroyStructure(p3, typeof(String));
+            // string ss= Marshal.PtrToStringAnsi(p3);
+            //  byte [] bbtemp=  DataEncoding.encodingdata("","2312312","");
+            //string  [] strbb=  DataEncoding.dencdingdata(bbtemp);
+            //  String strsss = Newtonsoft.Json.JsonConvert.SerializeObject("asdfsadf");
 
-          
-          //  binaryvoid byv = new binaryvoid();
+            //  byte[] p = GZIP.Compress(TToBytes<String>("2141234"));
+
+
+            //  binaryvoid byv = new binaryvoid();
             //byv.data =( tobytes(p));
-          //  byv.len = p.Length;
-          //  IntPtr sp = Marshal.AllocHGlobal(Marshal.SizeOf(byv));
-          //  Marshal.StructureToPtr(byv, sp, false);
-          //  binaryvoid byv2 = new binaryvoid();
-          //  Marshal.PtrToStructure(sp, byv2);
-          //  byte[] abc = tobyte((byte*)byv2.data, byv2.len);
-          // String sstr= BytesToT<String>( GZIP.Decompress(abc));
-                 
+            //  byv.len = p.Length;
+            //  IntPtr sp = Marshal.AllocHGlobal(Marshal.SizeOf(byv));
+            //  Marshal.StructureToPtr(byv, sp, false);
+            //  binaryvoid byv2 = new binaryvoid();
+            //  Marshal.PtrToStructure(sp, byv2);
+            //  byte[] abc = tobyte((byte*)byv2.data, byv2.len);
+            // String sstr= BytesToT<String>( GZIP.Decompress(abc));
 
-                 DBLogical dblo = new DBLogical();
+
+            DBLogical dblo = new DBLogical();
             int i = 0;
             List<listDmode> listu = new List<listDmode>();
             liattable ltable = new liattable();

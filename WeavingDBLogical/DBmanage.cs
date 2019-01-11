@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -16,14 +17,24 @@ namespace WeavingDBLogical
         ConcurrentDictionary<String, byte[]> CDKV = new ConcurrentDictionary<string, byte[]>();
         ConcurrentDictionary<String, long> CDKVlong = new ConcurrentDictionary<string, long>();
         ConcurrentDictionary<String, liattable> CDtable = new ConcurrentDictionary<string, liattable>();
-       
+        string path = "";
         public DBmanage()
         {
+            path=System.Threading.Thread.GetDomain().BaseDirectory;
+            if (!System.IO.Directory.Exists(path+"KVDATA"))
+            {
+                System.IO.Directory.CreateDirectory(path+"KVDATA");
+            }
+            load(path + "KVDATA");
             int noselecttimeout = 0, notimeout = 0;
             noselecttimeout =Convert.ToInt32( System.Configuration.ConfigurationManager.AppSettings["KVnoselecttimeout"]);
             if (noselecttimeout != 0)
             {
                 System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(dataout), noselecttimeout);
+            }
+            else
+            {
+                System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(save), 0);
             }
             notimeout = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["noselecttimeout"]);
             if (notimeout != 0)
@@ -142,10 +153,98 @@ namespace WeavingDBLogical
                             {
                                 Remove(key);
                             }
+                            else
+                            {
+                                saveone(key, utc);
+                            }
                         }
                     }
                 }
                 catch { }
+            }
+        }
+
+        void load(string pathd)
+        {
+            string[] files = Directory.GetFiles(pathd);
+            foreach (string file in files)
+            {
+                string temp = file.Replace(pathd + @"\", "").Replace(".bin","");
+                loadone(temp);
+
+            }
+        }
+        void loadone(string key)
+        {
+            System.IO.FileStream fs = null;
+            try
+            {
+                
+                fs = new System.IO.FileStream(path + @"KVDATA\" + key + ".bin", System.IO.FileMode.OpenOrCreate);
+                if (Createtable(key))
+                {
+                    byte[] utc = new byte[8];
+                    fs.Read(utc, 0, 8);
+                    long len = fs.Length - 8;
+                    long sh = (long)System.BitConverter.ToUInt64(utc, 0);
+                    byte[] data = new byte[len];
+                    fs.Read(data, 0, (int)len);
+                    set(key, data, sh);
+                }
+                
+               
+            }
+            catch { }
+            finally
+            {
+                if (fs != null)
+                    fs.Close();
+            }
+        }
+        void saveone(string key,long utc)
+        {
+            System.IO.FileStream fs = null;
+            try
+            {
+                fs = new System.IO.FileStream(path + @"KVDATA\" + key + ".bin", System.IO.FileMode.OpenOrCreate);
+                int lenth = CDKV[key].Length;
+                byte[] shi = System.BitConverter.GetBytes(utc);
+                // long sh = (long)System.BitConverter.ToUInt64(shi, 0);
+                fs.Write(shi, 0, 8);
+                fs.Write(CDKV[key], 0, lenth);
+              
+            }
+            catch { }
+            finally
+            {
+                if (fs != null)
+                    fs.Close();
+            }
+        }
+        void save(object obj)
+        {
+            while (true)
+            {
+                System.Threading.Thread.Sleep(1000);
+                try
+                {
+                    //持久化保存
+                    string[] keys = CDKVlong.Keys.ToArray();
+                    int len = keys.Length;
+                    for (int i = 0; i < len; i++)
+                    {
+                        if (CDKVlong.ContainsKey(keys[i]))
+                        {
+                            string key = keys[i];
+                            long utc = CDKVlong[key];
+
+                            saveone(key, utc);
+                            
+                        }
+                    }
+                }
+                catch { }
+
             }
         }
         /// <summary>
@@ -156,7 +255,7 @@ namespace WeavingDBLogical
         public bool Createtable(string key)
         {
             if (!CDtable.ContainsKey(key))
-               return CDtable.TryAdd(key, new liattable());
+                return CDtable.TryAdd(key, new liattable());
             return false;
         }
         /// <summary>
@@ -393,6 +492,20 @@ namespace WeavingDBLogical
                 return CDKV.TryAdd(key, vlaue);
             }
         }
+        public bool set(string key, byte[] vlaue,long utc)
+        {
 
+            if (CDKV.ContainsKey(key))
+            {
+                CDKVlong[key] =  utc;
+                CDKV[key] = vlaue;
+                return true;
+            }
+            else
+            {
+                CDKVlong.TryAdd(key, utc);
+                return CDKV.TryAdd(key, vlaue);
+            }
+        }
     }
 }

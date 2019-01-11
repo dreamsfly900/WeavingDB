@@ -25,3 +25,5 @@ D:\WeavingDB\WeavingDB\obj\Debug\DBclient.csproj.CoreCompileInputs.cache
 D:\WeavingDB\WeavingDB\obj\Debug\DBclient.csproj.CopyComplete
 D:\WeavingDB\WeavingDB\bin\Debug\e8f787af90e745c59429265beaa6d055.jie
 D:\WeavingDB\WeavingDB\bin\Debug\1.json
+D:\WeavingDB\WeavingDB\bin\Debug\UDTCommon.dll
+D:\WeavingDB\WeavingDB\bin\Debug\UDTLibary.dll
