@@ -466,6 +466,15 @@ namespace WeavingDBLogical
             byte[] b;long lo;
             if (CDKV.ContainsKey(key))
             {
+                try
+                {
+                    string file = path + "KVDATA" + key + ".bin";
+                    if (File.Exists(file))
+                    {
+                        File.Delete(file);
+                    }
+                }
+                catch { }
                 CDKVlong.TryRemove(key, out lo);
                 return CDKV.TryRemove(key, out b);
             }
