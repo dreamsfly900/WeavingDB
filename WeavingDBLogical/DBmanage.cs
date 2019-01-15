@@ -450,6 +450,19 @@ namespace WeavingDBLogical
                     CDKVlong[key] = DateTime.Now.ToFileTime();
                     return CDKV[key];
                 }
+                else
+                {
+                    try
+                    {
+                        string file = path + "KVDATA" + key + ".bin";
+                        if (File.Exists(file))
+                        {
+                            loadone(key);
+                            get(key);
+                        }
+                    }
+                    catch { }
+                }
             }
             catch
             { }
@@ -466,15 +479,15 @@ namespace WeavingDBLogical
             byte[] b;long lo;
             if (CDKV.ContainsKey(key))
             {
-                try
-                {
-                    string file = path + "KVDATA" + key + ".bin";
-                    if (File.Exists(file))
-                    {
-                        File.Delete(file);
-                    }
-                }
-                catch { }
+                //try
+                //{
+                //    string file = path + "KVDATA" + key + ".bin";
+                //    if (File.Exists(file))
+                //    {
+                //        File.Delete(file);
+                //    }
+                //}
+                //catch { }
                 CDKVlong.TryRemove(key, out lo);
                 return CDKV.TryRemove(key, out b);
             }
