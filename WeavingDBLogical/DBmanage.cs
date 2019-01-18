@@ -17,6 +17,7 @@ namespace WeavingDBLogical
         ConcurrentDictionary<String, byte[]> CDKV = new ConcurrentDictionary<string, byte[]>();
         ConcurrentDictionary<String, long> CDKVlong = new ConcurrentDictionary<string, long>();
         ConcurrentDictionary<String, liattable> CDtable = new ConcurrentDictionary<string, liattable>();
+        ConcurrentQueue<string> savekey = new ConcurrentQueue<string>();
         string path = "";
         public DBmanage()
         {
@@ -153,10 +154,21 @@ namespace WeavingDBLogical
                             {
                                 Remove(key);
                             }
-                            else
-                            {
-                                saveone(key, utc);
-                            }
+                            //else
+                            //{
+                            //    saveone(key, utc);
+                            //}
+                        }
+                    }
+                    if (!savekey.IsEmpty)
+                    {
+                        len = savekey.Count;
+                        for (int i = 0; i < len; i++)
+                        {
+                            string key = "";
+                            savekey.TryDequeue(out key);
+                            long utc = CDKVlong[key];
+                            saveone(key, utc);
                         }
                     }
                 }
@@ -229,17 +241,21 @@ namespace WeavingDBLogical
                 try
                 {
                     //持久化保存
-                    string[] keys = CDKVlong.Keys.ToArray();
-                    int len = keys.Length;
-                    for (int i = 0; i < len; i++)
+                    if (!savekey.IsEmpty)
                     {
-                        if (CDKVlong.ContainsKey(keys[i]))
+                      //  string[] keys = CDKVlong.Keys.ToArray();
+                        int len = savekey.Count;
+                        for (int i = 0; i < len; i++)
                         {
-                            string key = keys[i];
-                            long utc = CDKVlong[key];
+                            string key = "";
+                            savekey.TryDequeue(out key);
+                            if (CDKVlong.ContainsKey(key))
+                            {
+                                 
+                                long utc = CDKVlong[key];
+                                saveone(key, utc);
 
-                            saveone(key, utc);
-                            
+                            }
                         }
                     }
                 }
@@ -479,15 +495,7 @@ namespace WeavingDBLogical
             byte[] b;long lo;
             if (CDKV.ContainsKey(key))
             {
-                //try
-                //{
-                //    string file = path + "KVDATA" + key + ".bin";
-                //    if (File.Exists(file))
-                //    {
-                //        File.Delete(file);
-                //    }
-                //}
-                //catch { }
+                 
                 CDKVlong.TryRemove(key, out lo);
                 return CDKV.TryRemove(key, out b);
             }
@@ -501,18 +509,24 @@ namespace WeavingDBLogical
         /// <returns></returns>
         public bool set(string key, byte[] vlaue)
         {
-          
-            if (CDKV.ContainsKey(key))
+            try
             {
-                CDKVlong[key] = DateTime.Now.ToFileTime();
-                CDKV[key] = vlaue;
-                return true;
+                if (CDKV.ContainsKey(key))
+                {
+                    CDKVlong[key] = DateTime.Now.ToFileTime();
+                    CDKV[key] = vlaue;
+
+                    return true;
+                }
+                else
+                {
+                    CDKVlong.TryAdd(key, DateTime.Now.ToFileTime());
+                    return CDKV.TryAdd(key, vlaue);
+                }
             }
-            else
-            {
-                CDKVlong.TryAdd(key, DateTime.Now.ToFileTime());
-                return CDKV.TryAdd(key, vlaue);
-            }
+            catch { }
+            finally { savekey.Enqueue(key); }
+            return true;
         }
         public bool set(string key, byte[] vlaue,long utc)
         {
