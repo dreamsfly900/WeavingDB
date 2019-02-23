@@ -92,10 +92,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WeavingDBClient\WeavingDBClient.csproj">
-      <Project>{72d6841f-15ea-43b8-88a4-09689cb5e1ab}</Project>
-      <Name>WeavingDBClient</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WeavingDBLogical\WeavingDBLogical.csproj">
       <Project>{7fea7c3d-cc02-4525-9354-380e1f106208}</Project>
       <Name>WeavingDBLogical</Name>

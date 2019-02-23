@@ -2,7 +2,7 @@
 using System.IO;
 using System.IO.Compression;
 
-namespace WeavingDB.DataEncoding
+namespace WeavingDB
 {
     public class GZIP
     {

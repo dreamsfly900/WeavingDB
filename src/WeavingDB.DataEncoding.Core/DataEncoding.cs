@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WeavingDB.DataEncoding
+namespace WeavingDB
 {
     public class DataEncoding
     {

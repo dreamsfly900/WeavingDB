@@ -1,51 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WeavingDB;
-using Weave.TCPClient;
-namespace WeavingDBClient
+
+namespace WeavingDB.Client
 {
-   public class Clientcontrol
+    public class Clientcontrol
     {
         Weave.TCPClient.P2Pclient p2Pclient;
-        string IP = ""; int port = 0;
+        readonly string IP = "";
+        readonly int port = 0;
         byte[] rowsdata;
         public bool finsh = false;
         public string error = "";
-       
+
         public Clientcontrol(string ip, int _port)
         {
-          
             IP = ip;
             port = _port;
-             
-         
         }
 
-        internal bool open()
+        internal bool Open()
         {
             if (p2Pclient != null)
             {
-                p2Pclient.receiveServerEventbit -= P2Pclient_receiveServerEventbit;
+                p2Pclient.ReceiveServerEventbit -= P2Pclient_receiveServerEventbit;
                 p2Pclient.ErrorMge -= P2Pclient_ErrorMge;
             }
             p2Pclient = new Weave.TCPClient.P2Pclient(Weave.TCPClient.DataType.bytes);
-            p2Pclient.receiveServerEventbit += P2Pclient_receiveServerEventbit;
+            p2Pclient.ReceiveServerEventbit += P2Pclient_receiveServerEventbit;
             p2Pclient.ErrorMge += P2Pclient_ErrorMge;
-            if (!p2Pclient.start(IP, port, false))
+            if (!p2Pclient.Start(IP, port, false))
             {
                 return false;
-                //throw new Exception("连接失败！");
-            
             }
             return true;
         }
 
         private void P2Pclient_ErrorMge(int type, string error)
         {
-           
         }
 
         private void P2Pclient_receiveServerEventbit(byte command, byte[] data)
@@ -109,34 +99,28 @@ namespace WeavingDBClient
             }
             catch
             {
-
             }
-         
             finsh = true;
-            
         }
 
-        internal void close()
+        internal void Close()
         {
-            p2Pclient.stop();
+            p2Pclient.Stop();
         }
 
         public byte[] Send(byte command, byte[] data)
         {
-
-        
             error = "";
             finsh = false;
-          
-            if (p2Pclient.send(command, GZIP.Compress(data)))
+
+            if (p2Pclient.Send(command, GZIP.Compress(data)))
             {
                 DateTime dt = DateTime.Now;
                 while (!finsh)
                 {
-                    //  System.Threading.Thread.Sleep(10);
                     if ((DateTime.Now - dt).TotalSeconds > 60)
                     {
-                        p2Pclient.stop();
+                        p2Pclient.Stop();
                         throw new Exception("获取数据超时！");
                     }
                 }
