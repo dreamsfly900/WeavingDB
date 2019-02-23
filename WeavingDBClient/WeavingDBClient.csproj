@@ -57,14 +57,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\weavingsocket\Code\Weave.Base\Weave.Base.csproj">
-      <Project>{b8d521e5-9073-4b32-a7a7-f415e623f67c}</Project>
-      <Name>Weave.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\weavingsocket\Code\Weave.TCPClient\Weave.TCPClient.csproj">
-      <Project>{dc9b4157-68c6-4f52-b8e4-ec2e4bc1d237}</Project>
-      <Name>Weave.TCPClient</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DataEncoding\DataEncoding.csproj">
       <Project>{5567f8b5-0c73-4096-9f90-4176058f5182}</Project>
       <Name>DataEncoding</Name>
