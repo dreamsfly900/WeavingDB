@@ -57,12 +57,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataEncoding\DataEncoding.csproj">
-      <Project>{5567f8b5-0c73-4096-9f90-4176058f5182}</Project>
-      <Name>DataEncoding</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

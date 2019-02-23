@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace WeavingDB
+namespace WeavingDB.DataEncoding
 {
     public class GZIP
     {
@@ -19,10 +15,11 @@ namespace WeavingDB
             }
             else
             {
-                byte[] zippedData = System.Convert.FromBase64String(zippedString.ToString());
-                return (string)(System.Text.Encoding.UTF8.GetString(Decompress(zippedData)));
+                byte[] zippedData = Convert.FromBase64String(zippedString.ToString());
+                return System.Text.Encoding.UTF8.GetString(Decompress(zippedData));
             }
         }
+
         /// <summary>
         /// ZIP解压
         /// </summary>
@@ -45,6 +42,7 @@ namespace WeavingDB
             compressedzipStream.Close();
             return outBuffer.ToArray();
         }
+
         public static string GZipCompressString(string rawString)
         {
             if (string.IsNullOrEmpty(rawString) || rawString.Length == 0)
@@ -55,10 +53,11 @@ namespace WeavingDB
             {
                 byte[] rawData = System.Text.Encoding.UTF8.GetBytes(rawString.ToString());
                 byte[] zippedData = Compress(rawData);
-                return (string)(Convert.ToBase64String(zippedData));
+                return Convert.ToBase64String(zippedData);
             }
 
         }
+
         /// <summary>
         /// 压缩
         /// </summary>
@@ -66,8 +65,8 @@ namespace WeavingDB
         /// <returns></returns>
         public static byte[] Compress(byte[] rawData)
         {
-            System.IO.MemoryStream ms = new MemoryStream();
-            System.IO.Compression.GZipStream compressedzipStream = new GZipStream(ms, CompressionMode.Compress, true);
+            MemoryStream ms = new MemoryStream();
+            GZipStream compressedzipStream = new GZipStream(ms, CompressionMode.Compress, true);
             compressedzipStream.Write(rawData, 0, rawData.Length);
             compressedzipStream.Close();
             return ms.ToArray();

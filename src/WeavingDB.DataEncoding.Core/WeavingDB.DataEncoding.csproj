@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../../build/version.props" />
+  <PropertyGroup>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <AssemblyName>WeavingDB.DataEncoding</AssemblyName>
+    <RootNamespace>WeavingDB.DataEncoding</RootNamespace>
+    <Product>WeavingDB.DataEncoding</Product>
+    <Copyright>葛杰</Copyright>
+    <Company>葛杰</Company>
+    <Authors>葛杰、丁川</Authors>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageTags>weavingdb;applicationframework;netframework;dotnetcore;aspnetcore;iot;;dataencoding;</PackageTags>
+    <Description>WeavingDB.DataEncoding是基于weaving-socket的网关应用框架的缓存数据库之数据转换处理接口类库。</Description>
+    <PackageId>WeavingDB.DataEncoding</PackageId>
+    <PackageReleaseNotes>C#实现的KV-与JSON 支持SQL语句的缓存库</PackageReleaseNotes>
+    <PackageIconUrl></PackageIconUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl>https://gitee.com/UDCS/WeavingDB/</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <!-- Disable warning for Controller/Action/Method not have block comment -->
+    <NoWarn>1701;1702;1705;1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\output\release\</OutputPath>
+    <DocumentationFile>..\..\output\release\netstandard2.0\WeavingDB.DataEncoding.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\output\release\</OutputPath>
+    <DocumentationFile>..\..\output\release\netstandard2.0\WeavingDB.DataEncoding.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+  </ItemGroup>
+
+</Project>

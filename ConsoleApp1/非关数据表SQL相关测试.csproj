@@ -56,10 +56,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataEncoding\DataEncoding.csproj">
-      <Project>{5567f8b5-0c73-4096-9f90-4176058f5182}</Project>
-      <Name>DataEncoding</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WeavingDBLogical\WeavingDBLogical.csproj">
       <Project>{7FEA7C3D-CC02-4525-9354-380E1F106208}</Project>
       <Name>WeavingDBLogical</Name>

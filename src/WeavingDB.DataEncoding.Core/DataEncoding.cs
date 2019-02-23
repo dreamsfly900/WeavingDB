@@ -1,26 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace WeavingDB
+namespace WeavingDB.DataEncoding
 {
     public class DataEncoding
     {
         public static string userid;
         public static string pwd;
+
         static int ConvertToInt(byte[] list)
         {
             int ret = 0;
             int i = 0;
             foreach (byte item in list)
             {
-                ret = ret + (item << i);
-                i = i + 8;
+                ret += (item << i);
+                i += 8;
             }
             return ret;
         }
+
         static byte[] ConvertToByteList(int v)
         {
             List<byte> ret = new List<byte>();
@@ -28,42 +27,28 @@ namespace WeavingDB
             while (value != 0)
             {
                 ret.Add((byte)value);
-                value = value >> 8;
+                value >>= 8;
             }
             byte[] bb = new byte[ret.Count];
             ret.CopyTo(bb);
             return bb;
         }
+
         public static T BytesToT<T>(byte[] bytes)
         {
-            //using (var ms = new System.IO.MemoryStream())
-            //{
-            //    ms.Write(bytes, 0, bytes.Length);
-            //    var bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-            //    ms.Position = 0;
-            //    var x = bf.Deserialize(ms);
-            //    return (T)x;
-            //}
-            string str=System.Text.Encoding.UTF8.GetString(bytes);
+            string str = System.Text.Encoding.UTF8.GetString(bytes);
             return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(str);
         }
 
         public static byte[] TToBytes<T>(T obj)
         {
-            //var bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-            //using (var ms = new System.IO.MemoryStream())
-            //{
-            //    bf.Serialize(ms, obj);
-            //    return ms.ToArray();
-            //}
-           String str= Newtonsoft.Json.JsonConvert.SerializeObject(obj);
+            string str = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
             return System.Text.Encoding.UTF8.GetBytes(str);
         }
 
-        public static byte[] encodingsetKV(string key, byte[] data)
+        public static byte[] EncodingsetKV(string key, byte[] data)
         {
-           
-            byte[] users = userpwdencoding();
+            byte[] users = Userpwdencoding();
             byte[] keys = System.Text.Encoding.UTF8.GetBytes(key);
             byte[] rowdata = new byte[users.Length + 1 + keys.Length + data.Length];
             Array.Copy(users, 0, rowdata, 0, users.Length);
@@ -72,30 +57,32 @@ namespace WeavingDB
             Array.Copy(data, 0, rowdata, users.Length + 1 + keys.Length, data.Length);
             return rowdata;
         }
+
         /// <summary>
         /// 将多个String 编码成可分离的byte[]
         /// </summary>
         /// <param name="datas"></param>
         /// <returns></returns>
-        public static byte[] encodingdata(params string [] datas)
+        public static byte[] Encodingdata(params string[] datas)
         {
             List<byte> list = new List<byte>();
-            foreach (String str in datas)
+            foreach (string str in datas)
             {
                 byte[] tem = System.Text.Encoding.UTF8.GetBytes(str);
-                byte[] lens= ConvertToByteList(tem.Length);
+                byte[] lens = ConvertToByteList(tem.Length);
                 list.Add((byte)lens.Length);
                 list.AddRange(lens);
                 list.AddRange(tem);
             }
             return list.ToArray();
         }
+
         /// <summary>
         /// 将可分离的byte[]，转换为多个string
         /// </summary>
         /// <param name="datas"></param>
         /// <returns></returns>
-        public static string[] dencdingdata(byte[] datas)
+        public static string[] Dencdingdata(byte[] datas)
         {
             List<string> list = new List<string>();
             while (true)
@@ -105,31 +92,31 @@ namespace WeavingDB
                 Array.Copy(datas, 1, lenb, 0, len);
                 int lens = ConvertToInt(lenb);
                 lenb = new byte[lens];
-                Array.Copy(datas, 1+len, lenb, 0, lens);
+                Array.Copy(datas, 1 + len, lenb, 0, lens);
                 list.Add(System.Text.Encoding.UTF8.GetString(lenb));
-                  
-                if(datas.Length==1+len+lens)
-                   break;
 
-                byte[] temp = new byte[datas.Length-(1 + len + lens)];
-                Array.Copy(datas, (1 + len + lens), temp, 0, temp.Length);
+                if (datas.Length == 1 + len + lens)
+                    break;
+
+                byte[] temp = new byte[datas.Length - (1 + len + lens)];
+                Array.Copy(datas, 1 + len + lens, temp, 0, temp.Length);
                 datas = temp;
             }
             return list.ToArray();
         }
-        public static byte[] encodinggetKV(string key)
-        {
 
-            byte[] users = userpwdencoding();
+        public static byte[] EncodinggetKV(string key)
+        {
+            byte[] users = Userpwdencoding();
             byte[] keys = System.Text.Encoding.UTF8.GetBytes(key);
             byte[] rowdata = new byte[users.Length + 1 + keys.Length];
             Array.Copy(users, 0, rowdata, 0, users.Length);
             rowdata[users.Length] = (byte)keys.Length;
             Array.Copy(keys, 0, rowdata, users.Length + 1, keys.Length);
-            // Array.Copy(data, 0, rowdata, users.Length + 1 + keys.Length, data.Length);
             return rowdata;
         }
-        static byte[] userpwdencoding()
+
+        static byte[] Userpwdencoding()
         {
             byte[] uu = System.Text.Encoding.UTF8.GetBytes(userid);
             byte[] pp = System.Text.Encoding.UTF8.GetBytes(pwd);
@@ -140,13 +127,14 @@ namespace WeavingDB
             Array.Copy(pp, 0, uupp, 2 + uu.Length, pp.Length);
             return uupp;
         }
-        public static bool setKVdecode(byte[] rowsdata, out string key, out byte[] data)
+
+        public static bool SetKVdecode(byte[] rowsdata, out string key, out byte[] data)
         {
             key = "";
             data = new byte[0];
             try
             {
-                bool bb = userpwddecode(rowsdata, out data);
+                bool bb = Userpwddecode(rowsdata, out data);
                 byte len = data[0];
                 byte[] keyb = new byte[len];
                 Array.Copy(data, 1, keyb, 0, keyb.Length);
@@ -159,45 +147,46 @@ namespace WeavingDB
             catch
             { return false; }
         }
-        public static byte[] encodingsetKVs(string[] key, byte[] data)
-        {
 
-            byte[] users = userpwdencoding();
-            byte[] keys = encodingdata(key);
+        public static byte[] EncodingsetKVs(string[] key, byte[] data)
+        {
+            byte[] users = Userpwdencoding();
+            byte[] keys = Encodingdata(key);
             byte[] lens = ConvertToByteList(keys.Length);
-            byte[] rowdata = new byte[users.Length + 1 + keys.Length + data.Length+ lens.Length];
+            byte[] rowdata = new byte[users.Length + 1 + keys.Length + data.Length + lens.Length];
             Array.Copy(users, 0, rowdata, 0, users.Length);
             rowdata[users.Length] = (byte)lens.Length;
             Array.Copy(lens, 0, rowdata, users.Length + 1, lens.Length);
-            Array.Copy(keys, 0, rowdata, users.Length + 1+ lens.Length, keys.Length);
-            Array.Copy(data, 0, rowdata, users.Length + 1 + keys.Length+ lens.Length, data.Length);
+            Array.Copy(keys, 0, rowdata, users.Length + 1 + lens.Length, keys.Length);
+            Array.Copy(data, 0, rowdata, users.Length + 1 + keys.Length + lens.Length, data.Length);
             return rowdata;
         }
-        public static bool setKVsdecode(byte[] rowsdata, out string[] key, out List<byte[]> datas)
+
+        public static bool SetKVsdecode(byte[] rowsdata, out string[] key, out List<byte[]> datas)
         {
             key = new string[0];
-            byte [] data = new byte[0];
-            datas=new  List<byte[]>();
-            
+            datas = new List<byte[]>();
+
             try
             {
-                bool bb = userpwddecode(rowsdata, out data);
+                bool bb = Userpwddecode(rowsdata, out byte[] data);
                 int len = data[0];
                 byte[] lenb = new byte[len];
                 Array.Copy(data, 1, lenb, 0, len);
                 int lens = ConvertToInt(lenb);
                 lenb = new byte[lens];
                 Array.Copy(data, 1 + len, lenb, 0, lens);
-                key=dencdingdata(lenb);
+                key = Dencdingdata(lenb);
                 byte[] temp = new byte[data.Length - (1 + len + lens)];
-                Array.Copy(data, (1 + len + lens), temp, 0, temp.Length);
-                datas = dencdingdatalist(temp);
+                Array.Copy(data, 1 + len + lens, temp, 0, temp.Length);
+                datas = Dencdingdatalist(temp);
                 return bb;
             }
             catch
             { return false; }
         }
-        public static List<byte[]> dencdingdatalist(byte[] datas)
+
+        public static List<byte[]> Dencdingdatalist(byte[] datas)
         {
             List<byte[]> list = new List<byte[]>();
             while (true)
@@ -219,7 +208,8 @@ namespace WeavingDB
             }
             return list;
         }
-        public static byte[] encodingdatalist(List<byte[]> datas)
+
+        public static byte[] Encodingdatalist(List<byte[]> datas)
         {
             List<byte> list = new List<byte>();
             foreach (byte[] str in datas)
@@ -232,20 +222,17 @@ namespace WeavingDB
             }
             return list.ToArray();
         }
-        public static bool getKVdecode(byte[] rowsdata, out string key)
+
+        public static bool GetKVdecode(byte[] rowsdata, out string key)
         {
             key = "";
-            byte[] data = new byte[0];
             try
             {
-                bool bb = userpwddecode(rowsdata, out data);
+                bool bb = Userpwddecode(rowsdata, out byte[] data);
                 byte len = data[0];
                 byte[] keyb = new byte[len];
                 Array.Copy(data, 1, keyb, 0, keyb.Length);
                 key = System.Text.Encoding.UTF8.GetString(keyb);
-                //byte[] data2 = new byte[data.Length - (len + 1)];
-                //Array.Copy(data, len + 1, data2, 0, data2.Length);
-                //data = data2;
                 return bb;
             }
             catch
@@ -254,7 +241,7 @@ namespace WeavingDB
             }
         }
 
-        static bool userpwddecode(byte[] rowsdata, out byte[] data)
+        static bool Userpwddecode(byte[] rowsdata, out byte[] data)
         {
             byte len = rowsdata[0];
             byte[] id = new byte[len];

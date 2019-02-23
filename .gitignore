@@ -3,3 +3,11 @@
 ################################################################################
 
 /.vs/WeavingDB/v16/Server/sqlite3
+/ConsoleApp1/obj/Debug
+/output/release
+/packages
+/src/WeavingDB.DataEncoding.Core/obj
+/WeavingDBClient/obj/Debug
+/WeavingDBLogical/obj/Debug
+/WeavingDB/obj/Debug
+/.vs/WeavingDB/v16
