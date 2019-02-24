@@ -1,0 +1,4 @@
+E:\Code\WeavingDB\src\WeavingDB.Logical\obj\Debug\netstandard2.0\WeavingDB.Logical.csprojAssemblyReference.cache
+E:\Code\WeavingDB\src\WeavingDB.Logical\obj\Debug\netstandard2.0\WeavingDB.Logical.csproj.CoreCompileInputs.cache
+E:\Code\WeavingDB\src\WeavingDB.Logical\obj\Debug\netstandard2.0\WeavingDB.Logical.AssemblyInfoInputs.cache
+E:\Code\WeavingDB\src\WeavingDB.Logical\obj\Debug\netstandard2.0\WeavingDB.Logical.AssemblyInfo.cs

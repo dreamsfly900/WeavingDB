@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeavingDB.DataEncoding", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeavingDB.Client", "src\WeavingDB.Client\WeavingDB.Client.csproj", "{9EC0A6AE-736E-49C3-8641-A2652273EEB9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeavingDB.Logical", "src\WeavingDB.Logical\WeavingDB.Logical.csproj", "{501917AF-A545-4907-9A26-A545744AD6D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		AAA|Any CPU = AAA|Any CPU
@@ -64,6 +66,12 @@ Global
 		{9EC0A6AE-736E-49C3-8641-A2652273EEB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EC0A6AE-736E-49C3-8641-A2652273EEB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EC0A6AE-736E-49C3-8641-A2652273EEB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{501917AF-A545-4907-9A26-A545744AD6D2}.AAA|Any CPU.ActiveCfg = Debug|Any CPU
+		{501917AF-A545-4907-9A26-A545744AD6D2}.AAA|Any CPU.Build.0 = Debug|Any CPU
+		{501917AF-A545-4907-9A26-A545744AD6D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{501917AF-A545-4907-9A26-A545744AD6D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{501917AF-A545-4907-9A26-A545744AD6D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{501917AF-A545-4907-9A26-A545744AD6D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +80,7 @@ Global
 		{7FEA7C3D-CC02-4525-9354-380E1F106208} = {DFE85D1F-1AB7-4528-95D8-9528B8C7C504}
 		{6D4F99BA-D420-40A3-940F-93015103D22F} = {60CEA23D-6679-42E0-A79D-B8D876312A23}
 		{9EC0A6AE-736E-49C3-8641-A2652273EEB9} = {F51CDCF4-A77D-4C30-AF3F-2A109A1947F6}
+		{501917AF-A545-4907-9A26-A545744AD6D2} = {DFE85D1F-1AB7-4528-95D8-9528B8C7C504}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D1E0B230-3B46-440D-AC21-DC482CEF166F}

@@ -1,34 +1,28 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
-namespace WeavingDBLogical
+namespace WeavingDB.Logical
 {
-   public unsafe class DBmanage
+    public unsafe class DBmanage
     {
-        ConcurrentDictionary<String, byte[]> CDKV = new ConcurrentDictionary<string, byte[]>();
-        ConcurrentDictionary<String, long> CDKVlong = new ConcurrentDictionary<string, long>();
-        ConcurrentDictionary<String, liattable> CDtable = new ConcurrentDictionary<string, liattable>();
+        readonly ConcurrentDictionary<string, byte[]> CDKV = new ConcurrentDictionary<string, byte[]>();
+        ConcurrentDictionary<string, long> CDKVlong = new ConcurrentDictionary<string, long>();
+        ConcurrentDictionary<string, Liattable> CDtable = new ConcurrentDictionary<string, Liattable>();
         ConcurrentQueue<string> savekey = new ConcurrentQueue<string>();
         string path = "";
+
         public DBmanage()
         {
-            path=System.Threading.Thread.GetDomain().BaseDirectory;
-            if (!System.IO.Directory.Exists(path+"KVDATA"))
+            path = System.Threading.Thread.GetDomain().BaseDirectory;
+            if (!System.IO.Directory.Exists(path + "KVDATA"))
             {
-                System.IO.Directory.CreateDirectory(path+"KVDATA");
+                System.IO.Directory.CreateDirectory(path + "KVDATA");
             }
             load(path + "KVDATA");
             int noselecttimeout = 0, notimeout = 0;
-            noselecttimeout =Convert.ToInt32( System.Configuration.ConfigurationManager.AppSettings["KVnoselecttimeout"]);
+            noselecttimeout = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["KVnoselecttimeout"]);
             if (noselecttimeout != 0)
             {
                 System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(dataout), noselecttimeout);
@@ -44,13 +38,13 @@ namespace WeavingDBLogical
             }
             System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(bdnull), null);
             System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(DBLogical.Freequeue), null);
-             
+
         }
         void bdnull(object obj)
         {
             // DBLogical.delnull()
             //System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(), _listu);
-          //  int timeout = (int)obj;
+            //  int timeout = (int)obj;
             while (true)
             {
                 System.Threading.Thread.Sleep(1000);
@@ -97,11 +91,11 @@ namespace WeavingDBLogical
                             try
                             {
                                 string key = keys[i];
-                                List<listDmode> listdate = CDtable[key].datas;
-                                head[] hhed=  CDtable[key].datahead;
+                                List<ListDmode> listdate = CDtable[key].datas;
+                                Head[] hhed = CDtable[key].datahead;
                                 for (int j = listdate.Count; j > 0; j--)
                                 {
-                                    
+
                                     double ss = (DateTime.Now - DateTime.FromFileTime(listdate[j].dt)).TotalSeconds;
                                     if (ss > timeout)
                                     {
@@ -114,7 +108,7 @@ namespace WeavingDBLogical
                                                 IntPtr pp = (IntPtr)listdate[i].dtable2[hhed[ig].index];
                                                 if (pp == IntPtr.Zero)
                                                     continue;
-                                                freedata fd = new freedata();
+                                                Freedata fd = new Freedata();
                                                 fd.ptr = (IntPtr)listdate[i].dtable2[hhed[ig].index];
                                                 fd.type = hhed[ig].type;
                                                 DBLogical.allfree.Enqueue(fd);
@@ -181,7 +175,7 @@ namespace WeavingDBLogical
             string[] files = Directory.GetFiles(pathd);
             foreach (string file in files)
             {
-                string temp = file.Replace(pathd + @"\", "").Replace(".bin","");
+                string temp = file.Replace(pathd + @"\", "").Replace(".bin", "");
                 loadone(temp);
 
             }
@@ -191,7 +185,7 @@ namespace WeavingDBLogical
             System.IO.FileStream fs = null;
             try
             {
-                
+
                 fs = new System.IO.FileStream(path + @"KVDATA\" + key + ".bin", System.IO.FileMode.OpenOrCreate);
                 if (Createtable(key))
                 {
@@ -203,8 +197,8 @@ namespace WeavingDBLogical
                     fs.Read(data, 0, (int)len);
                     set(key, data, sh);
                 }
-                
-               
+
+
             }
             catch { }
             finally
@@ -213,7 +207,7 @@ namespace WeavingDBLogical
                     fs.Close();
             }
         }
-        void saveone(string key,long utc)
+        void saveone(string key, long utc)
         {
             System.IO.FileStream fs = null;
             try
@@ -224,7 +218,7 @@ namespace WeavingDBLogical
                 // long sh = (long)System.BitConverter.ToUInt64(shi, 0);
                 fs.Write(shi, 0, 8);
                 fs.Write(CDKV[key], 0, lenth);
-              
+
             }
             catch { }
             finally
@@ -243,7 +237,7 @@ namespace WeavingDBLogical
                     //持久化保存
                     if (!savekey.IsEmpty)
                     {
-                      //  string[] keys = CDKVlong.Keys.ToArray();
+                        //  string[] keys = CDKVlong.Keys.ToArray();
                         int len = savekey.Count;
                         for (int i = 0; i < len; i++)
                         {
@@ -251,7 +245,7 @@ namespace WeavingDBLogical
                             savekey.TryDequeue(out key);
                             if (CDKVlong.ContainsKey(key))
                             {
-                                 
+
                                 long utc = CDKVlong[key];
                                 saveone(key, utc);
 
@@ -271,7 +265,7 @@ namespace WeavingDBLogical
         public bool Createtable(string key)
         {
             if (!CDtable.ContainsKey(key))
-                return CDtable.TryAdd(key, new liattable());
+                return CDtable.TryAdd(key, new Liattable());
             return false;
         }
         /// <summary>
@@ -285,7 +279,7 @@ namespace WeavingDBLogical
             {
                 try
                 {
-                    liattable list;
+                    Liattable list;
                     bool b = CDtable.TryRemove(key, out list);
                     new DBLogical().Cleardata(list.datas, list.datahead);
                     list.datahead = null;
@@ -308,17 +302,17 @@ namespace WeavingDBLogical
             if (CDtable.ContainsKey(key))
             {
                 DBLogical dblo = new DBLogical();
-                liattable list = CDtable[key];
-               JObject job=  JObject.Parse(data);
-                
+                Liattable list = CDtable[key];
+                JObject job = JObject.Parse(data);
+
                 lock (list.datas)
                 {
                     list.datas.Add(dblo.InsertintoJson(job, ref list.datahead));
-                  
+
                 }
                 return true;
             }
-          
+
             return false;
         }
         /// <summary>
@@ -332,14 +326,14 @@ namespace WeavingDBLogical
             if (CDtable.ContainsKey(key))
             {
                 DBLogical dblo = new DBLogical();
-                liattable list = CDtable[key];
+                Liattable list = CDtable[key];
                 JArray job = JArray.Parse(data);
 
                 lock (list.datas)
                 {
                     foreach (JObject item in job)
                         list.datas.Add(dblo.InsertintoJson(item, ref list.datahead));
-                   
+
                 }
                 return true;
             }
@@ -357,7 +351,7 @@ namespace WeavingDBLogical
         /// <param name="viewlen"></param>
         /// <param name="coll"></param>
         /// <returns></returns>
-        public string selecttabledata(string key, string sql, byte order, int pageindex, int pagesize ,out int count, string coll="")
+        public string selecttabledata(string key, string sql, byte order, int pageindex, int pagesize, out int count, string coll = "")
         {
             count = 0;
             if (CDtable.ContainsKey(key))
@@ -365,14 +359,14 @@ namespace WeavingDBLogical
                 try
                 {
                     DBLogical dblo = new DBLogical();
-                    liattable list = CDtable[key];
+                    Liattable list = CDtable[key];
 
-                    listDmode[] objsall = dblo.Selecttiem(list.datas, sql, list.datahead);
-                        count = objsall.Length;
-                        Hashtable[] objbb2 = dblo.Viewdata(objsall, order, coll, pageindex, pagesize, list.datahead);
-                        return Newtonsoft.Json.JsonConvert.SerializeObject(objbb2);
-                    
-                 
+                    ListDmode[] objsall = dblo.Selecttiem(list.datas, sql, list.datahead);
+                    count = objsall.Length;
+                    Hashtable[] objbb2 = dblo.Viewdata(objsall, order, coll, pageindex, pagesize, list.datahead);
+                    return Newtonsoft.Json.JsonConvert.SerializeObject(objbb2);
+
+
                 }
                 catch
                 { return ""; }
@@ -388,14 +382,14 @@ namespace WeavingDBLogical
             foreach (String key in CDKV.Keys)
             {
                 // Stringtonosymbol("123", "^12(.+){1}3$");
-                if (Stringtonosymbol(key, "^" + keyp+"$"))
+                if (Stringtonosymbol(key, "^" + keyp + "$"))
                     list.Add(key);
             }
             return list.ToArray();
         }
-        internal bool Stringtonosymbol(String _sqlsst,string rstr)
+        internal bool Stringtonosymbol(String _sqlsst, string rstr)
         {
-            
+
             Regex r = new Regex(rstr); // 定义一个Regex对象实例
             var m = r.Match(_sqlsst);
 
@@ -413,16 +407,16 @@ namespace WeavingDBLogical
                 try
                 {
                     DBLogical dblo = new DBLogical();
-                    liattable list = CDtable[key];
-                    JObject job= JObject.Parse(data);
-                    
+                    Liattable list = CDtable[key];
+                    JObject job = JObject.Parse(data);
+
                     dblo.Updatedata(list.datas, sql, list.datahead, job);
                     //insettabledata(key, data);
                     return true;
 
 
                 }
-                catch(Exception ee)
+                catch (Exception ee)
                 {
                     throw ee;
                 }
@@ -439,7 +433,7 @@ namespace WeavingDBLogical
                     if (sql == "")
                         return false;
                     DBLogical dblo = new DBLogical();
-                    liattable list = CDtable[key];
+                    Liattable list = CDtable[key];
 
                     dblo.Deletedata(list.datas, sql, list.datahead);
                     return true;
@@ -483,7 +477,7 @@ namespace WeavingDBLogical
             catch
             { }
             return null;
-           
+
         }
         /// <summary>
         /// 移除K-V数据
@@ -492,10 +486,10 @@ namespace WeavingDBLogical
         /// <returns></returns>
         public bool Remove(string key)
         {
-            byte[] b;long lo;
+            byte[] b; long lo;
             if (CDKV.ContainsKey(key))
             {
-                 
+
                 CDKVlong.TryRemove(key, out lo);
                 return CDKV.TryRemove(key, out b);
             }
@@ -528,12 +522,12 @@ namespace WeavingDBLogical
             finally { savekey.Enqueue(key); }
             return true;
         }
-        public bool set(string key, byte[] vlaue,long utc)
+        public bool set(string key, byte[] vlaue, long utc)
         {
 
             if (CDKV.ContainsKey(key))
             {
-                CDKVlong[key] =  utc;
+                CDKVlong[key] = utc;
                 CDKV[key] = vlaue;
                 return true;
             }

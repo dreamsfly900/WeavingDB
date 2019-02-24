@@ -179,7 +179,7 @@ namespace ConsoleApp1
             str = Newtonsoft.Json.JsonConvert.SerializeObject(u);
 
             objbb = JObject.Parse(str);
-            listu.Add(dblo.insertintoJson(objbb, ref ltable.datahead));
+            listu.Add(dblo.InsertintoJson(objbb, ref ltable.datahead));
             while (i < count)
             {
                  u = new user() { id = i++, name = "a"+ i, dt = DateTime.Now.AddSeconds(new Random().Next(0,100)), aa=123};
@@ -190,7 +190,7 @@ namespace ConsoleApp1
                 
                 lock (listu)
                 {
-                    listu.Add(dblo.insertintoJson(objbb, ref ltable.datahead));
+                    listu.Add(dblo.InsertintoJson(objbb, ref ltable.datahead));
 
                 }
                 str = null;
@@ -216,7 +216,7 @@ namespace ConsoleApp1
                     // var fields = obj.GetType().GetProperties();
                     var news = new { name = "特大喜讯" };
                     
-                    dblo.updatedata(listu, ss, ltable.datahead, JObject.FromObject(news));
+                    dblo.Updatedata(listu, ss, ltable.datahead, JObject.FromObject(news));
                          DateTime dt=DateTime.Now,dt2=DateTime.Now;
                     if (ss != "")
                     {
@@ -225,7 +225,7 @@ namespace ConsoleApp1
                         // listu = null;
                       
                         dt = DateTime.Now;
-                        listDmode[] objsall = dblo.selecttiem(listu, ss, ltable.datahead); 
+                        listDmode[] objsall = dblo.Selecttiem(listu, ss, ltable.datahead); 
                             dt2 = DateTime.Now;
                         // List<long> objsall = new List<long>();
                         if (objsall != null || objsall.Length>0)
@@ -238,7 +238,7 @@ namespace ConsoleApp1
                             int viewlen =Convert.ToInt32( Console.ReadLine());
                             Console.WriteLine("请输入排序列：");
                             string coll = (Console.ReadLine());
-                            Hashtable[] objbb2 = dblo.viewdata(objsall, order, coll, page, viewlen, ltable.datahead);
+                            Hashtable[] objbb2 = dblo.Viewdata(objsall, order, coll, page, viewlen, ltable.datahead);
                             Console.WriteLine("耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒--查询后的数据：");
                              string str2 = Newtonsoft.Json.JsonConvert.SerializeObject(objbb2);
 
