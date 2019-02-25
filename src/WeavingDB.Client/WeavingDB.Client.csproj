@@ -33,11 +33,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
     <PackageReference Include="Weave.TCPClient" Version="1.0.0-preview-20190223-2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\WeavingDB.DataEncoding.Core\WeavingDB.DataEncoding.csproj" />
+    <ProjectReference Include="..\WeavingDB.Logical\WeavingDB.Logical.csproj" />
   </ItemGroup>
 
 </Project>
