@@ -1,7 +1,0 @@
-E:\Code\WeavingDB\src\WeavingDB.Logical\obj\Debug\net45\WeavingDB.Logical.csprojAssemblyReference.cache
-E:\Code\WeavingDB\src\WeavingDB.Logical\obj\Debug\net45\WeavingDB.Logical.csproj.CoreCompileInputs.cache
-E:\Code\WeavingDB\src\WeavingDB.Logical\obj\Debug\net45\WeavingDB.Logical.AssemblyInfoInputs.cache
-E:\Code\WeavingDB\src\WeavingDB.Logical\obj\Debug\net45\WeavingDB.Logical.AssemblyInfo.cs
-E:\Code\WeavingDB\output\release\net45\WeavingDB.Logical.dll.config
-E:\Code\WeavingDB\output\release\net45\WeavingDB.Logical.dll
-E:\Code\WeavingDB\src\WeavingDB.Logical\obj\Debug\net45\WeavingDB.Logical.csproj.CopyComplete
