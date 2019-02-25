@@ -57,7 +57,7 @@ namespace WeavingDB.Logical
                     case 0x01:
                         if (DataEncoding.SetKVdecode(rowsdata, out key, out datas))
                         {
-                            bool bb = (dbm.set(key, datas));
+                            bool bb = (dbm.Set(key, datas));
                             wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
                         }
                         else
@@ -70,7 +70,7 @@ namespace WeavingDB.Logical
                             try
                             {
 
-                                byte[] bbb = dbm.get(key);
+                                byte[] bbb = dbm.Get(key);
                                 if (bbb != null)
                                 {
                                     bbb = GZIP.Compress(bbb);
@@ -117,7 +117,7 @@ namespace WeavingDB.Logical
                             bool bb = false;
                             try
                             {
-                                bb = dbm.deletetable(key);
+                                bb = dbm.Deletetable(key);
                             }
                             catch
                             { }
@@ -129,7 +129,7 @@ namespace WeavingDB.Logical
                     case 0x06:
                         if (DataEncoding.SetKVdecode(rowsdata, out key, out datas))
                         {
-                            bool bb = (dbm.insettabledata(key, System.Text.Encoding.UTF8.GetString(datas)));
+                            bool bb = (dbm.Insettabledata(key, System.Text.Encoding.UTF8.GetString(datas)));
                             wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
                         }
                         else
@@ -138,7 +138,7 @@ namespace WeavingDB.Logical
                     case 0x07:
                         if (DataEncoding.SetKVdecode(rowsdata, out key, out datas))
                         {
-                            bool bb = (dbm.insettabledataArray(key, System.Text.Encoding.UTF8.GetString(datas)));
+                            bool bb = (dbm.InsettabledataArray(key, System.Text.Encoding.UTF8.GetString(datas)));
                             wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
                         }
                         else
@@ -150,7 +150,7 @@ namespace WeavingDB.Logical
                             string[] ss = DataEncoding.Dencdingdata(datas);
                             if (ss.Length == 5)
                             {
-                                string str = dbm.selecttabledata(key, ss[0], Convert.ToByte(ss[1]), Convert.ToInt32(ss[3]), Convert.ToInt32(ss[4]), out int count, ss[2]);
+                                string str = dbm.Selecttabledata(key, ss[0], Convert.ToByte(ss[1]), Convert.ToInt32(ss[3]), Convert.ToInt32(ss[4]), out int count, ss[2]);
                                 byte[] senddata = GZIP.Compress(DataEncoding.Encodingdata(count.ToString(), str));
                                 wserver.Send(soc, command, senddata);
                             }
@@ -164,7 +164,7 @@ namespace WeavingDB.Logical
                             string[] ss = DataEncoding.Dencdingdata(datas);
                             if (ss.Length == 1)
                             {
-                                bool bb = dbm.deletetabledata(key, ss[0]);
+                                bool bb = dbm.Deletetabledata(key, ss[0]);
 
                                 wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
                             }
@@ -182,7 +182,7 @@ namespace WeavingDB.Logical
                                 string uodatedata = ss[1];
                                 if (uodatedata != "")
                                 {
-                                    bool bb = dbm.updatetabledata(key, where, uodatedata);
+                                    bool bb = dbm.Updatetabledata(key, where, uodatedata);
 
                                     wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
                                 }
@@ -196,7 +196,7 @@ namespace WeavingDB.Logical
                         {
                             try
                             {
-                                string[] keys = dbm.selctekey(key);
+                                string[] keys = dbm.Selctekey(key);
                                 if (keys.Length == 0)
                                 {
                                     wserver.Send(soc, command, new byte[1]);
@@ -229,7 +229,7 @@ namespace WeavingDB.Logical
                             {
                                 for (int i = 0; i < kets.Length; i++)
                                 {
-                                    bool bb = (dbm.set(kets[i], list[i]));
+                                    bool bb = (dbm.Set(kets[i], list[i]));
                                     if (!bb)
                                     {
                                         wserver.Send(soc, command, new byte[] { Convert.ToByte(false) });

@@ -1,53 +1,55 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace WeavingDB.Logical
 {
     public unsafe class DBmanage
     {
         readonly ConcurrentDictionary<string, byte[]> CDKV = new ConcurrentDictionary<string, byte[]>();
-        ConcurrentDictionary<string, long> CDKVlong = new ConcurrentDictionary<string, long>();
-        ConcurrentDictionary<string, Liattable> CDtable = new ConcurrentDictionary<string, Liattable>();
-        ConcurrentQueue<string> savekey = new ConcurrentQueue<string>();
-        string path = "";
+        readonly ConcurrentDictionary<string, long> CDKVlong = new ConcurrentDictionary<string, long>();
+        readonly ConcurrentDictionary<string, Liattable> CDtable = new ConcurrentDictionary<string, Liattable>();
+        readonly ConcurrentQueue<string> savekey = new ConcurrentQueue<string>();
+        readonly string path = "";
 
         public DBmanage()
         {
-            path = System.Threading.Thread.GetDomain().BaseDirectory;
-            if (!System.IO.Directory.Exists(path + "KVDATA"))
+            path = Thread.GetDomain().BaseDirectory;
+            if (!Directory.Exists(path + "KVDATA"))
             {
-                System.IO.Directory.CreateDirectory(path + "KVDATA");
+                Directory.CreateDirectory(path + "KVDATA");
             }
-            load(path + "KVDATA");
+            Load(path + "KVDATA");
             int noselecttimeout = 0, notimeout = 0;
             noselecttimeout = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["KVnoselecttimeout"]);
             if (noselecttimeout != 0)
             {
-                System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(dataout), noselecttimeout);
+                ThreadPool.QueueUserWorkItem(new WaitCallback(Dataout), noselecttimeout);
             }
             else
             {
-                System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(save), 0);
+                ThreadPool.QueueUserWorkItem(new WaitCallback(Save), 0);
             }
             notimeout = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["noselecttimeout"]);
             if (notimeout != 0)
             {
-                System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(jsondataout), notimeout);
+                ThreadPool.QueueUserWorkItem(new WaitCallback(Jsondataout), notimeout);
             }
-            System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(bdnull), null);
-            System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(DBLogical.Freequeue), null);
-
+            ThreadPool.QueueUserWorkItem(new WaitCallback(Bdnull), null);
+            ThreadPool.QueueUserWorkItem(new WaitCallback(DBLogical.Freequeue), null);
         }
-        void bdnull(object obj)
+
+        void Bdnull(object obj)
         {
-            // DBLogical.delnull()
-            //System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(), _listu);
-            //  int timeout = (int)obj;
             while (true)
             {
-                System.Threading.Thread.Sleep(1000);
+                Thread.Sleep(1000);
                 try
                 {
                     string[] keys = CDtable.Keys.ToArray();
@@ -59,11 +61,10 @@ namespace WeavingDB.Logical
                             try
                             {
                                 string key = keys[i];
-                                //List<listDmode> listdate = CDtable[key].datas;
                                 if (!CDtable[key].deleterun)
                                 {
                                     CDtable[key].deleterun = true;
-                                    System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(DBLogical.Delnull), CDtable[key]);
+                                    ThreadPool.QueueUserWorkItem(new WaitCallback(DBLogical.Delnull), CDtable[key]);
                                 }
                             }
                             catch { }
@@ -74,12 +75,13 @@ namespace WeavingDB.Logical
                 catch { }
             }
         }
-        void jsondataout(object obj)
+
+        void Jsondataout(object obj)
         {
             int timeout = (int)obj;
             while (true)
             {
-                System.Threading.Thread.Sleep(1000);
+                Thread.Sleep(1000);
                 try
                 {
                     string[] keys = CDtable.Keys.ToArray();
@@ -95,7 +97,6 @@ namespace WeavingDB.Logical
                                 Head[] hhed = CDtable[key].datahead;
                                 for (int j = listdate.Count; j > 0; j--)
                                 {
-
                                     double ss = (DateTime.Now - DateTime.FromFileTime(listdate[j].dt)).TotalSeconds;
                                     if (ss > timeout)
                                     {
@@ -108,9 +109,11 @@ namespace WeavingDB.Logical
                                                 IntPtr pp = (IntPtr)listdate[i].dtable2[hhed[ig].index];
                                                 if (pp == IntPtr.Zero)
                                                     continue;
-                                                Freedata fd = new Freedata();
-                                                fd.ptr = (IntPtr)listdate[i].dtable2[hhed[ig].index];
-                                                fd.type = hhed[ig].type;
+                                                Freedata fd = new Freedata
+                                                {
+                                                    ptr = (IntPtr)listdate[i].dtable2[hhed[ig].index],
+                                                    type = hhed[ig].type
+                                                };
                                                 DBLogical.allfree.Enqueue(fd);
                                             }
                                             listdate[j] = null;
@@ -119,19 +122,19 @@ namespace WeavingDB.Logical
                                 }
                             }
                             catch { }
-
                         }
                     }
                 }
                 catch { }
             }
         }
-        void dataout(object obj)
+
+        void Dataout(object obj)
         {
             int timeout = (int)obj;
             while (true)
             {
-                System.Threading.Thread.Sleep(1000);
+                Thread.Sleep(1000);
 
                 try
                 {
@@ -148,10 +151,6 @@ namespace WeavingDB.Logical
                             {
                                 Remove(key);
                             }
-                            //else
-                            //{
-                            //    saveone(key, utc);
-                            //}
                         }
                     }
                     if (!savekey.IsEmpty)
@@ -159,10 +158,9 @@ namespace WeavingDB.Logical
                         len = savekey.Count;
                         for (int i = 0; i < len; i++)
                         {
-                            string key = "";
-                            savekey.TryDequeue(out key);
+                            savekey.TryDequeue(out string key);
                             long utc = CDKVlong[key];
-                            saveone(key, utc);
+                            Saveone(key, utc);
                         }
                     }
                 }
@@ -170,35 +168,33 @@ namespace WeavingDB.Logical
             }
         }
 
-        void load(string pathd)
+        void Load(string pathd)
         {
             string[] files = Directory.GetFiles(pathd);
             foreach (string file in files)
             {
                 string temp = file.Replace(pathd + @"\", "").Replace(".bin", "");
-                loadone(temp);
+                Loadone(temp);
 
             }
         }
-        void loadone(string key)
+
+        void Loadone(string key)
         {
-            System.IO.FileStream fs = null;
+            FileStream fs = null;
             try
             {
-
-                fs = new System.IO.FileStream(path + @"KVDATA\" + key + ".bin", System.IO.FileMode.OpenOrCreate);
+                fs = new FileStream(path + @"KVDATA\" + key + ".bin", FileMode.OpenOrCreate);
                 if (Createtable(key))
                 {
                     byte[] utc = new byte[8];
                     fs.Read(utc, 0, 8);
                     long len = fs.Length - 8;
-                    long sh = (long)System.BitConverter.ToUInt64(utc, 0);
+                    long sh = (long)BitConverter.ToUInt64(utc, 0);
                     byte[] data = new byte[len];
                     fs.Read(data, 0, (int)len);
-                    set(key, data, sh);
+                    Set(key, data, sh);
                 }
-
-
             }
             catch { }
             finally
@@ -207,18 +203,17 @@ namespace WeavingDB.Logical
                     fs.Close();
             }
         }
-        void saveone(string key, long utc)
+
+        void Saveone(string key, long utc)
         {
-            System.IO.FileStream fs = null;
+            FileStream fs = null;
             try
             {
-                fs = new System.IO.FileStream(path + @"KVDATA\" + key + ".bin", System.IO.FileMode.OpenOrCreate);
+                fs = new FileStream(path + @"KVDATA\" + key + ".bin", FileMode.OpenOrCreate);
                 int lenth = CDKV[key].Length;
-                byte[] shi = System.BitConverter.GetBytes(utc);
-                // long sh = (long)System.BitConverter.ToUInt64(shi, 0);
+                byte[] shi = BitConverter.GetBytes(utc);
                 fs.Write(shi, 0, 8);
                 fs.Write(CDKV[key], 0, lenth);
-
             }
             catch { }
             finally
@@ -227,36 +222,35 @@ namespace WeavingDB.Logical
                     fs.Close();
             }
         }
-        void save(object obj)
+
+        void Save(object obj)
         {
             while (true)
             {
-                System.Threading.Thread.Sleep(1000);
+                Thread.Sleep(1000);
                 try
                 {
                     //持久化保存
                     if (!savekey.IsEmpty)
                     {
-                        //  string[] keys = CDKVlong.Keys.ToArray();
                         int len = savekey.Count;
                         for (int i = 0; i < len; i++)
                         {
-                            string key = "";
-                            savekey.TryDequeue(out key);
+                            savekey.TryDequeue(out string key);
                             if (CDKVlong.ContainsKey(key))
                             {
 
                                 long utc = CDKVlong[key];
-                                saveone(key, utc);
+                                Saveone(key, utc);
 
                             }
                         }
                     }
                 }
                 catch { }
-
             }
         }
+
         /// <summary>
         /// 创建非关型数据表
         /// </summary>
@@ -268,19 +262,19 @@ namespace WeavingDB.Logical
                 return CDtable.TryAdd(key, new Liattable());
             return false;
         }
+
         /// <summary>
         /// 清除非关型数据表
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public bool deletetable(string key)
+        public bool Deletetable(string key)
         {
             if (CDtable.ContainsKey(key))
             {
                 try
                 {
-                    Liattable list;
-                    bool b = CDtable.TryRemove(key, out list);
+                    bool b = CDtable.TryRemove(key, out Liattable list);
                     new DBLogical().Cleardata(list.datas, list.datahead);
                     list.datahead = null;
                     list = null;
@@ -291,13 +285,14 @@ namespace WeavingDB.Logical
             }
             return false;
         }
+
         /// <summary>
         /// 向非关表中插入数据
         /// </summary>
         /// <param name="key"></param>
         /// <param name="data"></param>
         /// <returns></returns>
-        public bool insettabledata(string key, string data)
+        public bool Insettabledata(string key, string data)
         {
             if (CDtable.ContainsKey(key))
             {
@@ -308,20 +303,20 @@ namespace WeavingDB.Logical
                 lock (list.datas)
                 {
                     list.datas.Add(dblo.InsertintoJson(job, ref list.datahead));
-
                 }
                 return true;
             }
 
             return false;
         }
+
         /// <summary>
         /// 向非关表中插入数据
         /// </summary>
         /// <param name="key"></param>
         /// <param name="data"></param>
         /// <returns></returns>
-        public bool insettabledataArray(string key, string data)
+        public bool InsettabledataArray(string key, string data)
         {
             if (CDtable.ContainsKey(key))
             {
@@ -333,7 +328,6 @@ namespace WeavingDB.Logical
                 {
                     foreach (JObject item in job)
                         list.datas.Add(dblo.InsertintoJson(item, ref list.datahead));
-
                 }
                 return true;
             }
@@ -347,11 +341,12 @@ namespace WeavingDB.Logical
         /// <param name="key"></param>
         /// <param name="sql"></param>
         /// <param name="order"></param>
-        /// <param name="page"></param>
-        /// <param name="viewlen"></param>
+        /// <param name="pageindex"></param>
+        /// <param name="pagesize"></param>
+        /// <param name="count"></param>
         /// <param name="coll"></param>
         /// <returns></returns>
-        public string selecttabledata(string key, string sql, byte order, int pageindex, int pagesize, out int count, string coll = "")
+        public string Selecttabledata(string key, string sql, byte order, int pageindex, int pagesize, out int count, string coll = "")
         {
             count = 0;
             if (CDtable.ContainsKey(key))
@@ -365,8 +360,6 @@ namespace WeavingDB.Logical
                     count = objsall.Length;
                     Hashtable[] objbb2 = dblo.Viewdata(objsall, order, coll, pageindex, pagesize, list.datahead);
                     return Newtonsoft.Json.JsonConvert.SerializeObject(objbb2);
-
-
                 }
                 catch
                 { return ""; }
@@ -375,24 +368,22 @@ namespace WeavingDB.Logical
             return "";
         }
 
-        internal string[] selctekey(string keyp)
+        internal string[] Selctekey(string keyp)
         {
             keyp = keyp.Replace("*", "(.+)").Replace("?", "(.+){1}");
-            List<String> list = new List<string>();
-            foreach (String key in CDKV.Keys)
+            List<string> list = new List<string>();
+            foreach (string key in CDKV.Keys)
             {
-                // Stringtonosymbol("123", "^12(.+){1}3$");
                 if (Stringtonosymbol(key, "^" + keyp + "$"))
                     list.Add(key);
             }
             return list.ToArray();
         }
-        internal bool Stringtonosymbol(String _sqlsst, string rstr)
-        {
 
+        internal bool Stringtonosymbol(string _sqlsst, string rstr)
+        {
             Regex r = new Regex(rstr); // 定义一个Regex对象实例
             var m = r.Match(_sqlsst);
-
 
             if (m.Success)
             {
@@ -400,7 +391,8 @@ namespace WeavingDB.Logical
             }
             return false;
         }
-        public bool updatetabledata(string key, string sql, string data)
+
+        public bool Updatetabledata(string key, string sql, string data)
         {
             if (CDtable.ContainsKey(key))
             {
@@ -411,10 +403,7 @@ namespace WeavingDB.Logical
                     JObject job = JObject.Parse(data);
 
                     dblo.Updatedata(list.datas, sql, list.datahead, job);
-                    //insettabledata(key, data);
                     return true;
-
-
                 }
                 catch (Exception ee)
                 {
@@ -424,7 +413,8 @@ namespace WeavingDB.Logical
 
             return false;
         }
-        public bool deletetabledata(string key, string sql)
+
+        public bool Deletetabledata(string key, string sql)
         {
             if (CDtable.ContainsKey(key))
             {
@@ -437,8 +427,6 @@ namespace WeavingDB.Logical
 
                     dblo.Deletedata(list.datas, sql, list.datahead);
                     return true;
-
-
                 }
                 catch
                 { return false; }
@@ -446,12 +434,13 @@ namespace WeavingDB.Logical
 
             return false;
         }
+
         /// <summary>
         /// 通过KEY获取V值
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public byte[] get(string key)
+        public byte[] Get(string key)
         {
             try
             {
@@ -467,8 +456,8 @@ namespace WeavingDB.Logical
                         string file = path + "KVDATA" + key + ".bin";
                         if (File.Exists(file))
                         {
-                            loadone(key);
-                            get(key);
+                            Loadone(key);
+                            Get(key);
                         }
                     }
                     catch { }
@@ -477,8 +466,8 @@ namespace WeavingDB.Logical
             catch
             { }
             return null;
-
         }
+
         /// <summary>
         /// 移除K-V数据
         /// </summary>
@@ -486,22 +475,21 @@ namespace WeavingDB.Logical
         /// <returns></returns>
         public bool Remove(string key)
         {
-            byte[] b; long lo;
             if (CDKV.ContainsKey(key))
             {
-
-                CDKVlong.TryRemove(key, out lo);
-                return CDKV.TryRemove(key, out b);
+                CDKVlong.TryRemove(key, out _);
+                return CDKV.TryRemove(key, out _);
             }
             return false;
         }
+
         /// <summary>
         /// 设置K-V数据
         /// </summary>
         /// <param name="key"></param>
         /// <param name="vlaue"></param>
         /// <returns></returns>
-        public bool set(string key, byte[] vlaue)
+        public bool Set(string key, byte[] vlaue)
         {
             try
             {
@@ -522,9 +510,9 @@ namespace WeavingDB.Logical
             finally { savekey.Enqueue(key); }
             return true;
         }
-        public bool set(string key, byte[] vlaue, long utc)
-        {
 
+        public bool Set(string key, byte[] vlaue, long utc)
+        {
             if (CDKV.ContainsKey(key))
             {
                 CDKVlong[key] = utc;

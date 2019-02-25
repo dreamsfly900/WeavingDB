@@ -2,3 +2,11 @@ E:\Code\WeavingDB\src\WeavingDB.Logical\obj\Debug\netstandard2.0\WeavingDB.Logic
 E:\Code\WeavingDB\src\WeavingDB.Logical\obj\Debug\netstandard2.0\WeavingDB.Logical.csproj.CoreCompileInputs.cache
 E:\Code\WeavingDB\src\WeavingDB.Logical\obj\Debug\netstandard2.0\WeavingDB.Logical.AssemblyInfoInputs.cache
 E:\Code\WeavingDB\src\WeavingDB.Logical\obj\Debug\netstandard2.0\WeavingDB.Logical.AssemblyInfo.cs
+E:\Code\WeavingDB\output\release\netstandard2.0\WeavingDB.Logical.dll.config
+E:\Code\WeavingDB\output\release\netstandard2.0\WeavingDB.Logical.xml
+E:\Code\WeavingDB\output\release\netstandard2.0\WeavingDB.Logical.deps.json
+E:\Code\WeavingDB\output\release\netstandard2.0\WeavingDB.Logical.dll
+E:\Code\WeavingDB\output\release\netstandard2.0\WeavingDB.Logical.pdb
+E:\Code\WeavingDB\src\WeavingDB.Logical\obj\Debug\netstandard2.0\WeavingDB.Logical.csproj.CopyComplete
+E:\Code\WeavingDB\src\WeavingDB.Logical\obj\Debug\netstandard2.0\WeavingDB.Logical.dll
+E:\Code\WeavingDB\src\WeavingDB.Logical\obj\Debug\netstandard2.0\WeavingDB.Logical.pdb

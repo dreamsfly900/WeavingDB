@@ -1,12 +1,15 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
+using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace WeavingDB.Logical
 {
-    public unsafe class DBLogical : logical
+    public unsafe class DBLogical : Logical
     {
-
         ////
         //// 摘要:
         ////     No token type has been set.
@@ -85,24 +88,24 @@ namespace WeavingDB.Logical
         /// <param name="obj"></param>
         /// <param name="dhead"></param>
         /// <returns></returns>
-        public unsafe ListDmode insertintoJson(JObject obj, ref Head[] dhead)
+        public unsafe ListDmode InsertintoJson(JObject obj, ref Head[] dhead)
         {
 
             try
             {
                 if (dhead == null)
                 {
-                    dhead = gethead(obj);
+                    dhead = Gethead(obj);
                 }
                 else
                 {
-                    dhead = gethead(obj, dhead);
+                    dhead = Gethead(obj, dhead);
                 }
 
                 ListDmode ld = new ListDmode();
                 // ld.dtable = gethtabledtjson(obj as JObject, dhead);
                 int[] lens = new int[0];
-                ld.dtable2 = gethtabledtjsontointptr(obj, dhead, ref lens);
+                ld.dtable2 = Gethtabledtjsontointptr(obj, dhead, ref lens);
                 ld.LenInts = lens;
                 return ld;
             }
@@ -113,19 +116,20 @@ namespace WeavingDB.Logical
         }
 
         List<ListDmode> listu;
-        byte[] logical; string[] sst; String sqlsst; Head[] dhead; int maxlen = 0;
+        byte[] logical; string[] sst; string sqlsst; Head[] dhead; int maxlen = 0;
         bool[] numbb;
         byte[] mtsContrast;
         void*[] mtssscon;
         short[] collindex;
         byte[] hindex;
         int glen = 0;
+
         /// <summary>
         /// 清理数据表
         /// </summary>
         /// <param name="_listu"></param>
         /// <param name="_dhead"></param>
-        public unsafe void cleardata(List<ListDmode> _listu, Head[] _dhead)
+        public unsafe void Cleardata(List<ListDmode> _listu, Head[] _dhead)
         {
             lock (_listu)
             {
@@ -144,58 +148,54 @@ namespace WeavingDB.Logical
                             byte type = _dhead[ig].type;
                             IntPtr pp = (IntPtr)_listu[i].dtable2[_dhead[ig].index];
 
-
                             _listu[i].dtable2[_dhead[ig].index] = IntPtr.Zero.ToPointer();
                             _listu[i].LenInts[dhead[ig].index] = 0;
                             if (pp != IntPtr.Zero)
                             {
-                                Freedata fd = new Freedata();
-                                fd.ptr = pp;
-                                fd.type = type;
+                                Freedata fd = new Freedata
+                                {
+                                    ptr = pp,
+                                    type = type
+                                };
                                 allfree.Enqueue(fd);
                             }
                         }
-
 
                     }
 
                 _listu.Clear();
             }
         }
+
         /// <summary>
         /// 有条件的删除表数据
         /// </summary>
         /// <param name="_listu"></param>
         /// <param name="_sqlsst"></param>
         /// <param name="_dhead"></param>
-        public unsafe void deletedata(List<ListDmode> _listu, String _sqlsst, Head[] _dhead)
+        public unsafe void Deletedata(List<ListDmode> _listu, String _sqlsst, Head[] _dhead)
         {
             try
             {
-                //listsindex = new List<int>();
-                // listutem = new List<void*[]>();
                 sqlsst = _sqlsst;
                 dhead = _dhead;
 
                 listu = _listu;
 
-                wherelogical();
+                Wherelogical();
 
-
-                delLogicaltiem(_listu.Count, 0, _dhead);
+                DelLogicaltiem(_listu.Count, 0, _dhead);
                 for (int gi = 0; gi < mtssscon.Length; gi++)
                 {
                     void* p = mtssscon[gi];
 
                     Marshal.FreeHGlobal((IntPtr)p);
                 }
-
-
             }
             catch (Exception ex)
             { throw ex; }
-
         }
+
         /// <summary>
         /// 有条件的更新数据
         /// </summary>
@@ -203,18 +203,14 @@ namespace WeavingDB.Logical
         /// <param name="_sqlsst"></param>
         /// <param name="_dhead"></param>
         /// <param name="job"></param>
-        public unsafe void updatedata(List<ListDmode> _listu, String _sqlsst, Head[] _dhead, JObject job)
+        public unsafe void Updatedata(List<ListDmode> _listu, String _sqlsst, Head[] _dhead, JObject job)
         {
             try
             {
-
-                //listsindex = new List<int>();
-                // listutem = new List<void*[]>();
                 sqlsst = _sqlsst;
                 if (sqlsst == "")
                 {
                     ListDmode dmode; Head[] hhead = new Head[0];
-
 
                     for (int i = 0; i < _listu.Count; i++)
                     {
@@ -222,7 +218,7 @@ namespace WeavingDB.Logical
                         {
                             lock (_listu[i])
                             {
-                                dmode = insertintoJson(job, ref hhead);
+                                dmode = InsertintoJson(job, ref hhead);
                                 for (int ig = 0; ig < _dhead.Length; ig++)
                                 {
 
@@ -239,25 +235,21 @@ namespace WeavingDB.Logical
                                             {
                                                 IntPtr pp = (IntPtr)listu[i].dtable2[_dhead[ig].index];
                                                 listu[i].dtable2[_dhead[ig].index] = IntPtr.Zero.ToPointer();
-                                                //listu[i].dtable2[_dhead[ig].index] = IntPtr.Zero.ToPointer();
                                                 if (pp != IntPtr.Zero)
                                                 {
-                                                    Freedata fd = new Freedata();
-                                                    fd.ptr = pp;
-                                                    fd.type = type;
+                                                    Freedata fd = new Freedata
+                                                    {
+                                                        ptr = pp,
+                                                        type = type
+                                                    };
                                                     allfree.Enqueue(fd);
                                                 }
                                                 listu[i].dtable2[_dhead[ig].index] = dmode.dtable2[hhead[igg].index];
                                                 listu[i].LenInts[_dhead[ig].index] = dmode.LenInts[hhead[igg].index];
                                                 dmode.dtable2[hhead[igg].index] = IntPtr.Zero.ToPointer();
                                             }
-
-
                                         }
                                     }
-
-
-
                                 }
                                 for (int igga = 0; igga < hhead.Length; igga++)
                                 {
@@ -266,9 +258,11 @@ namespace WeavingDB.Logical
                                     IntPtr pp = (IntPtr)dmode.dtable2[hhead[igga].index];
                                     if (pp != IntPtr.Zero)
                                     {
-                                        Freedata fd = new Freedata();
-                                        fd.ptr = pp;
-                                        fd.type = hhead[igga].type;
+                                        Freedata fd = new Freedata
+                                        {
+                                            ptr = pp,
+                                            type = hhead[igga].type
+                                        };
                                         allfree.Enqueue(fd);
                                     }
                                 }
@@ -283,10 +277,9 @@ namespace WeavingDB.Logical
 
                     listu = _listu;
 
-                    wherelogical();
+                    Wherelogical();
 
-
-                    updataLogicaltiem(_listu.Count, 0, _dhead, job);
+                    UpdataLogicaltiem(_listu.Count, 0, _dhead, job);
                     for (int gi = 0; gi < mtssscon.Length; gi++)
                     {
                         void* p = mtssscon[gi];
@@ -298,17 +291,17 @@ namespace WeavingDB.Logical
             }
             catch (Exception ex)
             { throw ex; }
-
         }
 
         public static ConcurrentQueue<Freedata> allfree = new ConcurrentQueue<Freedata>();
         [DllImport("kernel32", SetLastError = true)]
         static extern IntPtr LocalFree(IntPtr mem);
+
         /// <summary>
         /// 垃圾回收，彻底从内存中移除数据所占用的空间并释放。
         /// </summary>
         /// <param name="obj"></param>
-        public static void freequeue(object obj)
+        public static void Freequeue(object obj)
         {
             while (true)
             {
@@ -317,24 +310,11 @@ namespace WeavingDB.Logical
                 {
                     if (!allfree.IsEmpty)
                     {
-                        Freedata fd = new Freedata();
-                        allfree.TryDequeue(out fd);
+                        allfree.TryDequeue(out Freedata fd);
                         IntPtr pp = fd.ptr;
-                        byte type = fd.type;
-                        //if (pp != IntPtr.Zero && type != 6 && type != 9 && type != 7 && type != 12 && type != 8)
-                        //{
-
-                        //    binaryvoid byv2 = new binaryvoid();
-                        //    Marshal.PtrToStructure((IntPtr)pp, byv2);
-
-                        //    LocalFree(byv2.data);
-                        //}
                         try
                         {
-
                             LocalFree(pp);
-                            // Marshal.FreeHGlobal(pp);
-
                         }
                         catch { }
                     }
@@ -343,11 +323,12 @@ namespace WeavingDB.Logical
                 System.Threading.Thread.Sleep(500);
             }
         }
+
         /// <summary>
         /// 移除表链中的null行
         /// </summary>
         /// <param name="oo"></param>
-        public static void delnull(object oo)
+        public static void Delnull(object oo)
         {
             try
             {
@@ -357,7 +338,7 @@ namespace WeavingDB.Logical
                     {
                         _listu.datas.RemoveAt(i);
 
-                        i = i - 1;
+                        i -= 1;
                     }
                 _listu.deleterun = false;
             }
@@ -366,20 +347,21 @@ namespace WeavingDB.Logical
                 throw e;
             }
         }
+
         /// <summary>
         /// 分解SQL语句并压入等待判断的条件中
         /// </summary>
-        void wherelogical()
+        void Wherelogical()
         {
-            sst = sqltolist(sqlsst);
-            logical = logicalSplit(sst);
+            sst = Sqltolist(sqlsst);
+            logical = LogicalSplit(sst);
 
             {
                 glen = 0;
                 foreach (string sr in sst)
                 {
-                    string Contrast = logicalContrastSplit(sr);
-                    String[] sscon = sr.Split(new string[] { Contrast }, StringSplitOptions.None);
+                    string Contrast = LogicalContrastSplit(sr);
+                    string[] sscon = sr.Split(new string[] { Contrast }, StringSplitOptions.None);
 
                     if (sscon.Length == 2)
                     {
@@ -394,18 +376,16 @@ namespace WeavingDB.Logical
             }
             if (listu.Count > 0)
             {
-                //  gethtable(listu[0]);
                 int gglen = 0;
                 int ss = 0;
                 foreach (string sr in sst)
                 {
-                    string Contrast = logicalContrastSplit(sr);
-                    String[] sscon = sr.Split(new string[] { Contrast }, StringSplitOptions.None);
+                    string Contrast = LogicalContrastSplit(sr);
+                    string[] sscon = sr.Split(new string[] { Contrast }, StringSplitOptions.None);
 
                     if (sscon.Length == 2)
                     {
                         Contrastmode mts = new Contrastmode();
-                        //  mtsContrast[gglen] = Contrast;
                         if (Contrast == ">=")
                         {
                             mtsContrast[gglen] = 0;
@@ -426,7 +406,6 @@ namespace WeavingDB.Logical
                         {
                             mtsContrast[gglen] = 4;
                         }
-                        // mtssscon[gglen] = sscon[1];
 
                         foreach (Head hd in dhead)
                         {
@@ -451,24 +430,18 @@ namespace WeavingDB.Logical
                                         IntPtr intPtr = Marshal.AllocHGlobal(nSizeOfPerson);
                                         Marshal.StructureToPtr(p, intPtr, true);
                                         mtssscon[gglen] = intPtr.ToPointer();
-
                                     }
                                     else if (hindex[gglen] == 7)
                                     {
-
                                         double p = Convert.ToDouble(sscon[1]);
                                         int nSizeOfPerson = Marshal.SizeOf(p);
                                         IntPtr intPtr = Marshal.AllocHGlobal(nSizeOfPerson);
                                         Marshal.StructureToPtr(p, intPtr, true);
                                         mtssscon[gglen] = intPtr.ToPointer();
-
-
-
                                     }
                                     else if (hindex[gglen] == 12)
                                     {
                                         sscon[1] = Stringtonosymbol(sscon[1]);
-                                        //sst[ss + 1] = Stringtonosymbol(sst[ss + 1]);
                                         long p = Convert.ToDateTime(sscon[1]).ToFileTime();
                                         int nSizeOfPerson = Marshal.SizeOf(p);
                                         IntPtr intPtr = Marshal.AllocHGlobal(nSizeOfPerson);
@@ -479,30 +452,23 @@ namespace WeavingDB.Logical
                                     else if (hindex[gglen] == 8)
                                     {
                                         sscon[1] = Stringtonosymbol(sscon[1]);
-                                        // char[] p = ((String)objc).ToCharArray().;
-                                        char* p = (char*)System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi(sscon[1]).ToPointer();
+                                        char* p = (char*)Marshal.StringToHGlobalAnsi(sscon[1]).ToPointer();
                                         mtssscon[gglen] = p;
                                     }
                                     else
                                     {
                                         throw new Exception("不支持的逻辑判断");
                                     }
-
                                 }
                                 break;
                             }
-
                         }
-
                         gglen++;
                     }
                     ss++;
                 }
-
             }
-
         }
-        List<int> listsindex = new List<int>();
 
         /// <summary>
         /// 有条件的查询表中数据，并返回指针，查询是多线程的，数据是无排序的
@@ -512,10 +478,8 @@ namespace WeavingDB.Logical
         /// <param name="_dhead"></param>
         /// <param name="_maxlen"></param>
         /// <returns></returns>
-        public unsafe ListDmode[] selecttiem(List<ListDmode> _listu, String _sqlsst, Head[] _dhead, int _maxlen = 100000)
+        public unsafe ListDmode[] Selecttiem(List<ListDmode> _listu, String _sqlsst, Head[] _dhead, int _maxlen = 100000)
         {
-
-            //listsindex = new List<int>();
             listutem = new ConcurrentQueue<ListDmode>();
 
             sqlsst = _sqlsst;
@@ -530,16 +494,14 @@ namespace WeavingDB.Logical
                     if (i < listu.Count && listu[i] != null)
                     {
                         listu[i].dt = DateTime.Now.ToFileTime();
-                        //listu[i].dtable
                         listutem.Enqueue(listu[i]);
-                        // listlen.Add(listu[i].LenInts);
                     }
                 }
 
             }
             else
             {
-                wherelogical();
+                Wherelogical();
                 int num = listu.Count % maxlen == 0 ? listu.Count / maxlen : (listu.Count / maxlen) + 1;
                 if (listu.Count < maxlen)
                     num = 1;
@@ -547,13 +509,10 @@ namespace WeavingDB.Logical
                 for (int ih = 0; ih < num; ih++)
                 {
                     numbb[ih] = false;
-                    System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(gg), ih);
-                    //Logicaltiem((ih + 1) * maxlen, ih * maxlen);
-
+                    System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(Gg), ih);
                 }
                 try
                 {
-
                     bool nbb = false;
                     while (!nbb)
                     {
@@ -578,17 +537,13 @@ namespace WeavingDB.Logical
                         Marshal.FreeHGlobal((IntPtr)p);
                     }
                 }
-                // void*[][] listall = new void*[0][listsindex.Count];
                 catch (Exception ex)
                 { throw ex; }
             }
-
-
-            //listutem = new ConcurrentQueue<void*[]>();
             return listutem.ToArray(); ;
         }
 
-        public Hashtable[] viewdata(ListDmode[] objsall, byte order, string ordercol, int indexlen, int viewlen, Head[] datahead)
+        public Hashtable[] Viewdata(ListDmode[] objsall, byte order, string ordercol, int indexlen, int viewlen, Head[] datahead)
         {
             List<Hashtable> alllist = new List<Hashtable>();
             Hashtable[] temphtt = alllist.ToArray();
@@ -596,7 +551,6 @@ namespace WeavingDB.Logical
             {
                 if (ordercol == "")
                 {
-
                 }
                 else
                 {
@@ -613,7 +567,7 @@ namespace WeavingDB.Logical
                         return null;
 
 
-                    objsall = sort(objsall, orhe, order);
+                    objsall = Sort(objsall, orhe, order);
 
                 }
 
@@ -626,7 +580,7 @@ namespace WeavingDB.Logical
                 }
                 int count = indexlen * viewlen;
                 int lens = ((indexlen + 1) * viewlen) > objsall.Length ? objsall.Length : ((indexlen + 1) * viewlen);
-                lens = lens - (indexlen * viewlen);
+                lens -= (indexlen * viewlen);
                 for (int i = count; i < count + lens; i++)
                 {
                     try
@@ -638,16 +592,15 @@ namespace WeavingDB.Logical
                             {
                                 if (objsall[i].dtable2.Length > h.index)
                                 {
-                                    object obj = getHashtable(h.key, h.type, objsall[i].dtable2[h.index], objsall[i].LenInts[h.index]);
+                                    object obj = GetHashtable(h.key, h.type, objsall[i].dtable2[h.index], objsall[i].LenInts[h.index]);
                                     ht.Add(h.key, obj);
                                 }
                             }
                             alllist.Add(ht);
                         }
                     }
-                    catch (Exception e)
+                    catch
                     {
-
                     }
                 }
                 temphtt = alllist.ToArray();
@@ -660,15 +613,10 @@ namespace WeavingDB.Logical
             }
             finally
             {
-
             }
-
-
-
-
         }
 
-        void gg(object objmode)
+        void Gg(object objmode)
         {
             int index = (int)objmode;
             try
@@ -683,26 +631,17 @@ namespace WeavingDB.Logical
             numbb[index] = true;
         }
 
-
-
-        unsafe void delLogicaltiem(int listulen, int listindex, Head[] _dhead)
+        unsafe void DelLogicaltiem(int listulen, int listindex, Head[] _dhead)
         {
-
-            // List<void*[]> dellist = new List<void*[]>();
             if (logical.Length < 0)
             {
                 return;
             }
 
-
-
             bool[] conbb = new bool[logical.Length + 1];
             short coblen = (short)conbb.Length;
-            bool allb = false;
-
             for (int i = listindex; i < listulen; i++)
             {
-
                 if (i < listu.Count && listu[i] != null)
                 {
                     lock (listu[i])
@@ -710,15 +649,13 @@ namespace WeavingDB.Logical
                         byte bi = 0;
 
                         int llen = logical.Length;
-                        allb = false;
+                        bool allb = false;
                         for (int ci = 0; ci < glen; ci++)
                         {
                             try
                             {
                                 if (collindex[ci] != -99)
                                 {
-                                    //  object value = (listu[i].dtable[collindex[ci]]);
-
                                     void* p1 = listu[i].dtable2[collindex[ci]];
                                     if (p1 == null)
                                         break;
@@ -726,11 +663,10 @@ namespace WeavingDB.Logical
 
                                     if (hindex[ci] == 6)
                                     {
-                                        int value = (int)(*(int*)p1);
-                                        int sconvalue = (int)(*(int*)mtssscon[ci]);
+                                        int value = *(int*)p1;
+                                        int sconvalue = *(int*)mtssscon[ci];
                                         if (mtsContrast[ci] == 0)
                                         {
-
                                             conbb[bi] = (value) >= sconvalue;
                                         }
                                         if (mtsContrast[ci] == 1)
@@ -749,12 +685,11 @@ namespace WeavingDB.Logical
                                         {
                                             conbb[bi] = (value) < sconvalue;
                                         }
-
                                     }
                                     else if (hindex[ci] == 9)
                                     {
-                                        bool value = (bool)(*(bool*)p1);
-                                        bool sconvalue = (bool)(*(bool*)mtssscon[ci]);
+                                        bool value = *(bool*)p1;
+                                        bool sconvalue = *(bool*)mtssscon[ci];
                                         if (mtsContrast[ci] == 2)
                                         {
                                             conbb[bi] = sconvalue == (value);
@@ -762,8 +697,8 @@ namespace WeavingDB.Logical
                                     }
                                     else if (hindex[ci] == 7)
                                     {
-                                        double value = (double)(*(double*)p1);
-                                        double sconvalue = (double)(*(double*)mtssscon[ci]);
+                                        double value = *(double*)p1;
+                                        double sconvalue = *(double*)mtssscon[ci];
                                         if (mtsContrast[ci] == 0)
                                         {
                                             conbb[bi] = (value) >= sconvalue;
@@ -784,14 +719,11 @@ namespace WeavingDB.Logical
                                         {
                                             conbb[bi] = (value) < sconvalue;
                                         }
-
                                     }
                                     else if (hindex[ci] == 12)
                                     {
-
-                                        // conbb[bi] = Contrast<DateTime>(Convert.ToDateTime(st), Convert.ToDateTime(value), mtsContrast[ci]);
-                                        long value = (long)(*(long*)p1);
-                                        long sconvalue = (long)(*(long*)mtssscon[ci]);
+                                        long value = *(long*)p1;
+                                        long sconvalue = *(long*)mtssscon[ci];
                                         if (mtsContrast[ci] == 0)
                                         {
                                             conbb[bi] = value >= sconvalue;
@@ -815,15 +747,12 @@ namespace WeavingDB.Logical
                                     }
                                     else if (hindex[ci] == 8)
                                     {
-
-
                                         if (mtsContrast[ci] == 2)
                                         {
                                             string value = Marshal.PtrToStringAnsi((IntPtr)p1);
                                             string sconvalue = Marshal.PtrToStringAnsi((IntPtr)mtssscon[ci]);
                                             conbb[bi] = sconvalue == (value);
                                         }
-
                                     }
                                     else
                                     {
@@ -831,24 +760,19 @@ namespace WeavingDB.Logical
                                     }
                                     bi++;
                                 }
-
                             }
                             catch { break; }
                         }
                         try
                         {
-
-
                             if (coblen == 1)
                                 allb = conbb[0];
                             else
-                                allb = logicaljudgement(logical, conbb);
+                                allb = Logicaljudgement(logical, conbb);
                             if (allb)
                             {
-                                //  List<IntPtr> dellist = new List<IntPtr>();
                                 for (int ig = 0; ig < _dhead.Length; ig++)
                                 {
-
                                     if (_dhead[ig].index >= listu[i].dtable2.Length)
                                         continue;
                                     byte type = _dhead[ig].type;
@@ -866,70 +790,41 @@ namespace WeavingDB.Logical
                                     {
                                         if (pp != IntPtr.Zero)
                                         {
-                                            Freedata fd = new Freedata();
-                                            fd.ptr = pp;
-                                            fd.type = type;
+                                            Freedata fd = new Freedata
+                                            {
+                                                ptr = pp,
+                                                type = type
+                                            };
                                             allfree.Enqueue(fd);
                                         }
-
-
                                     }
                                     catch { }
-
-
-
                                 }
-                                //   dellist.Add(listu[i].dtable2);
-
-                                //listu.RemoveAt(i);
                                 listu[i] = null;
-                                //   i = i - 1;
-                                // listu[i].dt = DateTime.Now;
-                                //listu[i].dtable
-                                //listutem.Add(listu[i].dtable2);
-                                // listsindex.Add(i);
-
-
                             }
-
-
                         }
                         catch
                         {
                             throw new Exception("不支持的逻辑判断。");
                         }
                     }
-                    //if (oo != null)
-                    //{
-                    //    listutem.Add(oo);
-                    //}
                 }
             }
 
-
             GC.Collect();
-
-            //  System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(del), dellist);
-            //   return listutem.ToArray();
-
         }
-        unsafe void updataLogicaltiem(int listulen, int listindex, Head[] _dhead, JObject job)
-        {
 
-            // List<void*[]> dellist = new List<void*[]>();
+        unsafe void UpdataLogicaltiem(int listulen, int listindex, Head[] _dhead, JObject job)
+        {
             if (logical.Length < 0)
             {
                 return;
             }
 
-
             ListDmode dmode; Head[] hhead = new Head[0];
 
-            // dmode = insertintoJson(job, ref hhead);
             bool[] conbb = new bool[logical.Length + 1];
             short coblen = (short)conbb.Length;
-            bool allb = false;
-
             for (int i = listindex; i < listulen; i++)
             {
                 if (i < listu.Count && listu[i] != null)
@@ -939,15 +834,13 @@ namespace WeavingDB.Logical
                         byte bi = 0;
 
                         int llen = logical.Length;
-                        allb = false;
+                        bool allb = false;
                         for (int ci = 0; ci < glen; ci++)
                         {
                             try
                             {
-
                                 if (collindex[ci] != -99)
                                 {
-                                    //  object value = (listu[i].dtable[collindex[ci]]);
                                     void* p1 = listu[i].dtable2[collindex[ci]];
                                     if (p1 == null)
                                         break;
@@ -955,11 +848,10 @@ namespace WeavingDB.Logical
 
                                     if (hindex[ci] == 6)
                                     {
-                                        int value = (int)(*(int*)p1);
-                                        int sconvalue = (int)(*(int*)mtssscon[ci]);
+                                        int value = *(int*)p1;
+                                        int sconvalue = *(int*)mtssscon[ci];
                                         if (mtsContrast[ci] == 0)
                                         {
-
                                             conbb[bi] = (value) >= sconvalue;
                                         }
                                         if (mtsContrast[ci] == 1)
@@ -978,12 +870,11 @@ namespace WeavingDB.Logical
                                         {
                                             conbb[bi] = (value) < sconvalue;
                                         }
-
                                     }
                                     else if (hindex[ci] == 9)
                                     {
-                                        bool value = (bool)(*(bool*)p1);
-                                        bool sconvalue = (bool)(*(bool*)mtssscon[ci]);
+                                        bool value = *(bool*)p1;
+                                        bool sconvalue = *(bool*)mtssscon[ci];
                                         if (mtsContrast[ci] == 2)
                                         {
                                             conbb[bi] = sconvalue == (value);
@@ -991,8 +882,8 @@ namespace WeavingDB.Logical
                                     }
                                     else if (hindex[ci] == 7)
                                     {
-                                        double value = (double)(*(double*)p1);
-                                        double sconvalue = (double)(*(double*)mtssscon[ci]);
+                                        double value = *(double*)p1;
+                                        double sconvalue = *(double*)mtssscon[ci];
                                         if (mtsContrast[ci] == 0)
                                         {
                                             conbb[bi] = (value) >= sconvalue;
@@ -1013,14 +904,11 @@ namespace WeavingDB.Logical
                                         {
                                             conbb[bi] = (value) < sconvalue;
                                         }
-
                                     }
                                     else if (hindex[ci] == 12)
                                     {
-
-                                        // conbb[bi] = Contrast<DateTime>(Convert.ToDateTime(st), Convert.ToDateTime(value), mtsContrast[ci]);
-                                        long value = (long)(*(long*)p1);
-                                        long sconvalue = (long)(*(long*)mtssscon[ci]);
+                                        long value = *(long*)p1;
+                                        long sconvalue = *(long*)mtssscon[ci];
                                         if (mtsContrast[ci] == 0)
                                         {
                                             conbb[bi] = value >= sconvalue;
@@ -1044,15 +932,12 @@ namespace WeavingDB.Logical
                                     }
                                     else if (hindex[ci] == 8)
                                     {
-
-
                                         if (mtsContrast[ci] == 2)
                                         {
                                             string value = Marshal.PtrToStringAnsi((IntPtr)p1);
                                             string sconvalue = Marshal.PtrToStringAnsi((IntPtr)mtssscon[ci]);
                                             conbb[bi] = sconvalue == (value);
                                         }
-
                                     }
                                     else
                                     {
@@ -1060,23 +945,18 @@ namespace WeavingDB.Logical
                                     }
                                     bi++;
                                 }
-
                             }
                             catch { break; }
                         }
                         try
                         {
-
-
                             if (coblen == 1)
                                 allb = conbb[0];
                             else
-                                allb = logicaljudgement(logical, conbb);
+                                allb = Logicaljudgement(logical, conbb);
                             if (allb)
                             {
-                                //  List<IntPtr> dellist = new List<IntPtr>();
-
-                                dmode = insertintoJson(job, ref hhead);
+                                dmode = InsertintoJson(job, ref hhead);
                                 for (int ig = 0; ig < _dhead.Length; ig++)
                                 {
                                     byte type = _dhead[ig].type;
@@ -1095,24 +975,20 @@ namespace WeavingDB.Logical
                                                 listu[i].dtable2[_dhead[ig].index] = IntPtr.Zero.ToPointer();
                                                 if (pp != IntPtr.Zero)
                                                 {
-                                                    Freedata fd = new Freedata();
-                                                    fd.ptr = pp;
-                                                    fd.type = type;
+                                                    Freedata fd = new Freedata
+                                                    {
+                                                        ptr = pp,
+                                                        type = type
+                                                    };
                                                     allfree.Enqueue(fd);
                                                 }
 
                                                 listu[i].dtable2[_dhead[ig].index] = dmode.dtable2[hhead[igg].index];
                                                 listu[i].LenInts[_dhead[ig].index] = dmode.LenInts[hhead[igg].index];
                                                 dmode.dtable2[hhead[igg].index] = IntPtr.Zero.ToPointer();
-
-
                                             }
-                                            //else
-                                            //{ throw new Exception("数据列，类型不匹配。"); }
-
                                         }
                                     }
-
                                 }
 
                                 for (int igga = 0; igga < hhead.Length; igga++)
@@ -1120,70 +996,48 @@ namespace WeavingDB.Logical
                                     IntPtr pp = (IntPtr)dmode.dtable2[hhead[igga].index];
                                     if (pp != IntPtr.Zero)
                                     {
-                                        Freedata fd = new Freedata();
-                                        fd.ptr = pp;
-                                        fd.type = hhead[igga].type;
+                                        Freedata fd = new Freedata
+                                        {
+                                            ptr = pp,
+                                            type = hhead[igga].type
+                                        };
                                         allfree.Enqueue(fd);
                                     }
                                 }
-
-
-
                             }
-
-
                         }
                         catch
                         {
                             throw new Exception("不支持的逻辑判断。");
                         }
                     }
-
                 }
             }
 
-
             GC.Collect();
-
-            //  System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(del), dellist);
-            //   return listutem.ToArray();
-
         }
-
 
         unsafe void Logicaltiem(int listulen, int listindex)
         {
-
-
             if (logical.Length < 0)
             {
                 return;
             }
 
-
-
-
             bool[] conbb = new bool[logical.Length + 1];
             short coblen = (short)conbb.Length;
-            bool allb = false;
-
             for (int i = listindex; i < listulen; i++)
             {
                 if (i < listu.Count && listu[i] != null)
                 {
-
                     byte bi = 0;
-
-                    int llen = logical.Length;
-                    allb = false;
+                    bool allb;
                     for (int ci = 0; ci < glen; ci++)
                     {
-
                         try
                         {
                             if (collindex[ci] != -99)
                             {
-                                //  object value = (listu[i].dtable[collindex[ci]]);
                                 void* p1 = listu[i].dtable2[collindex[ci]];
                                 if (p1 == null)
                                     break;
@@ -1191,11 +1045,10 @@ namespace WeavingDB.Logical
 
                                 if (hindex[ci] == 6)
                                 {
-                                    int value = (int)(*(int*)p1);
-                                    int sconvalue = (int)(*(int*)mtssscon[ci]);
+                                    int value = *(int*)p1;
+                                    int sconvalue = *(int*)mtssscon[ci];
                                     if (mtsContrast[ci] == 0)
                                     {
-
                                         conbb[bi] = (value) >= sconvalue;
                                     }
                                     if (mtsContrast[ci] == 1)
@@ -1214,12 +1067,11 @@ namespace WeavingDB.Logical
                                     {
                                         conbb[bi] = (value) < sconvalue;
                                     }
-
                                 }
                                 else if (hindex[ci] == 9)
                                 {
-                                    bool value = (bool)(*(bool*)p1);
-                                    bool sconvalue = (bool)(*(bool*)mtssscon[ci]);
+                                    bool value = *(bool*)p1;
+                                    bool sconvalue = *(bool*)mtssscon[ci];
                                     if (mtsContrast[ci] == 2)
                                     {
                                         conbb[bi] = sconvalue == (value);
@@ -1227,8 +1079,8 @@ namespace WeavingDB.Logical
                                 }
                                 else if (hindex[ci] == 7)
                                 {
-                                    double value = (double)(*(double*)p1);
-                                    double sconvalue = (double)(*(double*)mtssscon[ci]);
+                                    double value = *(double*)p1;
+                                    double sconvalue = *(double*)mtssscon[ci];
                                     if (mtsContrast[ci] == 0)
                                     {
                                         conbb[bi] = (value) >= sconvalue;
@@ -1249,14 +1101,11 @@ namespace WeavingDB.Logical
                                     {
                                         conbb[bi] = (value) < sconvalue;
                                     }
-
                                 }
                                 else if (hindex[ci] == 12)
                                 {
-
-                                    // conbb[bi] = Contrast<DateTime>(Convert.ToDateTime(st), Convert.ToDateTime(value), mtsContrast[ci]);
-                                    long value = (long)(*(long*)p1);
-                                    long sconvalue = (long)(*(long*)mtssscon[ci]);
+                                    long value = *(long*)p1;
+                                    long sconvalue = *(long*)mtssscon[ci];
                                     if (mtsContrast[ci] == 0)
                                     {
                                         conbb[bi] = value >= sconvalue;
@@ -1280,15 +1129,12 @@ namespace WeavingDB.Logical
                                 }
                                 else if (hindex[ci] == 8)
                                 {
-
-
                                     if (mtsContrast[ci] == 2)
                                     {
                                         string value = Marshal.PtrToStringAnsi((IntPtr)p1);
                                         string sconvalue = Marshal.PtrToStringAnsi((IntPtr)mtssscon[ci]);
                                         conbb[bi] = sconvalue == (value);
                                     }
-
                                 }
                                 else
                                 {
@@ -1298,47 +1144,27 @@ namespace WeavingDB.Logical
                             }
                         }
                         catch { break; }
-
                     }
                     try
                     {
-
-
                         if (coblen == 1)
                             allb = conbb[0];
                         else
-                            allb = logicaljudgement(logical, conbb);
+                            allb = Logicaljudgement(logical, conbb);
                         if (allb)
                         {
                             listu[i].dt = DateTime.Now.ToFileTime();
-                            //listu[i].dtable
                             listutem.Enqueue(listu[i]);
-
-                            // listsindex.Add(i);
-
-
                         }
-
-
                     }
                     catch
                     {
                         throw new Exception("不支持的逻辑判断。");
                     }
-                    //if (oo != null)
-                    //{
-                    //    listutem.Add(oo);
-                    //}
                 }
             }
 
-
-
-
-            //   return listutem.ToArray();
-
         }
-
 
     }
 }

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>WeavingDB.Logical</id>
+    <version>1.0.0-preview-20190223-2</version>
+    <authors>葛杰、丁川</authors>
+    <owners>葛杰、丁川</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>WeavingDB.Logical是基于weaving-socket的网关应用框架的缓存数据库之服务端核心类库。</description>
+    <releaseNotes>C#实现的KV-与JSON 支持SQL语句的缓存库</releaseNotes>
+    <copyright>葛杰</copyright>
+    <tags>weavingdb applicationframework netframework dotnetcore aspnetcore iot logical</tags>
+    <repository type="git" url="https://gitee.com/UDCS/WeavingDB/" />
+    <dependencies>
+      <group targetFramework=".NETFramework4.5">
+        <dependency id="WeavingDB.DataEncoding" version="1.0.0-preview-20190223-2" exclude="Build,Analyzers" />
+        <dependency id="Weave.Server" version="1.0.0-preview-20190223-2" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="WeavingDB.DataEncoding" version="1.0.0-preview-20190223-2" exclude="Build,Analyzers" />
+        <dependency id="System.Configuration.ConfigurationManager" version="4.5.0" exclude="Build,Analyzers" />
+        <dependency id="Weave.Server" version="1.0.0-preview-20190223-2" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Configuration" targetFramework=".NETFramework4.5" />
+    </frameworkAssemblies>
+  </metadata>
+  <files>
+    <file src="E:\Code\WeavingDB\output\release\net45\WeavingDB.Logical.dll" target="lib\net45\WeavingDB.Logical.dll" />
+    <file src="E:\Code\WeavingDB\output\release\net45\WeavingDB.Logical.xml" target="lib\net45\WeavingDB.Logical.xml" />
+    <file src="E:\Code\WeavingDB\output\release\netstandard2.0\WeavingDB.Logical.dll" target="lib\netstandard2.0\WeavingDB.Logical.dll" />
+    <file src="E:\Code\WeavingDB\output\release\netstandard2.0\WeavingDB.Logical.xml" target="lib\netstandard2.0\WeavingDB.Logical.xml" />
+  </files>
+</package>

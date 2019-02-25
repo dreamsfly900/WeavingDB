@@ -1,0 +1,2 @@
+E:\Code\WeavingDB\WDBServer\obj\Debug\WDBServer.csprojAssemblyReference.cache
+E:\Code\WeavingDB\WDBServer\obj\Debug\WDBServer.csproj.CoreCompileInputs.cache

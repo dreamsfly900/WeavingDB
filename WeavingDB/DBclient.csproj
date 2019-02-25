@@ -91,11 +91,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\WeavingDBLogical\WeavingDBLogical.csproj">
-      <Project>{7fea7c3d-cc02-4525-9354-380e1f106208}</Project>
-      <Name>WeavingDBLogical</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
