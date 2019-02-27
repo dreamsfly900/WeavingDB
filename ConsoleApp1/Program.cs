@@ -174,7 +174,7 @@ namespace ConsoleApp1
             
              
             //objbb = JObject.Parse(str);
-            int count = 1000000;
+            int count = 10000;
             user u = new user() { id = i++, name = "2345ds" + i ,aas =new byte[10,10]};
             str = Newtonsoft.Json.JsonConvert.SerializeObject(u);
 
@@ -216,7 +216,7 @@ namespace ConsoleApp1
                     // var fields = obj.GetType().GetProperties();
                     var news = new { name = "特大喜讯" };
                     
-                    dblo.updatedata(listu, ss, ltable.datahead, JObject.FromObject(news));
+                   // dblo.updatedata(listu, ss, ltable.datahead, JObject.FromObject(news));
                          DateTime dt=DateTime.Now,dt2=DateTime.Now;
                     if (ss != "")
                     {

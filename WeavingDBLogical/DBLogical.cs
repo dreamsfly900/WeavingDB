@@ -434,6 +434,10 @@ namespace WeavingDBLogical
                         {
                             mtsContrast[gglen] = 4;
                         }
+                        if (Contrast == ">like<")
+                        {
+                            mtsContrast[gglen] = 5;
+                        }
                         // mtssscon[gglen] = sscon[1];
 
                         foreach (head hd in dhead)
@@ -755,7 +759,7 @@ namespace WeavingDBLogical
                                         {
                                             conbb[bi] = (value) < sconvalue;
                                         }
-
+                                        
                                     }
                                     else if (hindex[ci] == 9)
                                     {
@@ -822,14 +826,20 @@ namespace WeavingDBLogical
                                     else if (hindex[ci] == 8)
                                     {
 
-
+                                      
                                         if (mtsContrast[ci] == 2)
                                         {
                                             string value = Marshal.PtrToStringAnsi((IntPtr)p1);
                                             string sconvalue = Marshal.PtrToStringAnsi((IntPtr)mtssscon[ci]);
                                             conbb[bi] = sconvalue == (value);
                                         }
-
+                                        if (mtsContrast[ci] == 5)
+                                        {
+                                            string value = Marshal.PtrToStringAnsi((IntPtr)p1);
+                                            string sconvalue = Marshal.PtrToStringAnsi((IntPtr)mtssscon[ci]);
+                                            sconvalue = sconvalue.Replace("_", "(.+)").Replace("%", "(.+){1}");
+                                            conbb[bi] = Stringtonosymbol(value, sconvalue);
+                                        }
                                     }
                                     else
                                     {
@@ -1051,12 +1061,19 @@ namespace WeavingDBLogical
                                     else if (hindex[ci] == 8)
                                     {
 
-
+                                      
                                         if (mtsContrast[ci] == 2)
                                         {
                                             string value = Marshal.PtrToStringAnsi((IntPtr)p1);
                                             string sconvalue = Marshal.PtrToStringAnsi((IntPtr)mtssscon[ci]);
                                             conbb[bi] = sconvalue == (value);
+                                        }
+                                        if (mtsContrast[ci] == 5)
+                                        {
+                                            string value = Marshal.PtrToStringAnsi((IntPtr)p1);
+                                            string sconvalue = Marshal.PtrToStringAnsi((IntPtr)mtssscon[ci]);
+                                            sconvalue = sconvalue.Replace("_", "(.+)").Replace("%", "(.+){1}");
+                                            conbb[bi] = Stringtonosymbol(value, sconvalue);
                                         }
 
                                     }
@@ -1294,7 +1311,13 @@ namespace WeavingDBLogical
                                         string sconvalue = Marshal.PtrToStringAnsi((IntPtr)mtssscon[ci]);
                                         conbb[bi] = sconvalue == (value);
                                     }
-
+                                    if (mtsContrast[ci] == 5)
+                                    {
+                                        string value = Marshal.PtrToStringAnsi((IntPtr)p1);
+                                        string sconvalue = Marshal.PtrToStringAnsi((IntPtr)mtssscon[ci]);
+                                        sconvalue = sconvalue.Replace("_", "(.+)").Replace("%", "(.+){1}");
+                                        conbb[bi] = Stringtonosymbol(value, sconvalue);
+                                    }
                                 }
                                 else
                                 {
