@@ -837,8 +837,8 @@ namespace WeavingDBLogical
                                         {
                                             string value = Marshal.PtrToStringAnsi((IntPtr)p1);
                                             string sconvalue = Marshal.PtrToStringAnsi((IntPtr)mtssscon[ci]);
-                                            sconvalue = sconvalue.Replace("_", "(.+)").Replace("%", "(.+){1}");
-                                            conbb[bi] = Stringtonosymbol(value, sconvalue);
+                                            sconvalue = sconvalue.Replace("%", "(.+)").Replace("_", "(.+){1}");
+                                            conbb[bi] = Stringtonosymbol(value, "^" + sconvalue+ "$");
                                         }
                                     }
                                     else
@@ -1072,8 +1072,9 @@ namespace WeavingDBLogical
                                         {
                                             string value = Marshal.PtrToStringAnsi((IntPtr)p1);
                                             string sconvalue = Marshal.PtrToStringAnsi((IntPtr)mtssscon[ci]);
-                                            sconvalue = sconvalue.Replace("_", "(.+)").Replace("%", "(.+){1}");
-                                            conbb[bi] = Stringtonosymbol(value, sconvalue);
+                                            sconvalue = sconvalue.Replace("%", "(.+)").Replace("_", "(.+){1}");
+                                            conbb[bi] = Stringtonosymbol(value, "^" + sconvalue + "$");
+                                            
                                         }
 
                                     }
@@ -1315,8 +1316,8 @@ namespace WeavingDBLogical
                                     {
                                         string value = Marshal.PtrToStringAnsi((IntPtr)p1);
                                         string sconvalue = Marshal.PtrToStringAnsi((IntPtr)mtssscon[ci]);
-                                        sconvalue = sconvalue.Replace("_", "(.+)").Replace("%", "(.+){1}");
-                                        conbb[bi] = Stringtonosymbol(value, sconvalue);
+                                        sconvalue = sconvalue.Replace("%", "(.+)").Replace("_", "(.+){1}");
+                                        conbb[bi] = Stringtonosymbol(value, "^" + sconvalue + "$");
                                     }
                                 }
                                 else

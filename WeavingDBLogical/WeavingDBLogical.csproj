@@ -74,11 +74,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\weavingsocket\Code\Weave.Base\Weave.Base.csproj">
+    <ProjectReference Include="..\..\weavingsocket\Code\src\Weave.Base.Core\Weave.Base.csproj">
       <Project>{b8d521e5-9073-4b32-a7a7-f415e623f67c}</Project>
       <Name>Weave.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\weavingsocket\Code\Weave.Server\Weave.Server.csproj">
+    <ProjectReference Include="..\..\weavingsocket\Code\src\Weave.Server.Core\Weave.Server.csproj">
       <Project>{a237e772-678d-490b-addf-1d4535d970b6}</Project>
       <Name>Weave.Server</Name>
     </ProjectReference>

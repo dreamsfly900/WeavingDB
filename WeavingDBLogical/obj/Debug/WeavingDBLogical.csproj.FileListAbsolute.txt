@@ -18,10 +18,10 @@ D:\WeavingDB\WeavingDBLogical\bin\Debug\Weave.Server.dll
 D:\WeavingDB\WeavingDBLogical\bin\Debug\Weave.TCPClient.dll
 D:\WeavingDB\WeavingDBLogical\bin\Debug\DataEncoding.dll
 D:\WeavingDB\WeavingDBLogical\bin\Debug\DataEncoding.pdb
-D:\WeavingDB\WeavingDBLogical\bin\Debug\UDTCommon.dll
-D:\WeavingDB\WeavingDBLogical\bin\Debug\UDTLibary.dll
 D:\WeavingDB\WeavingDBLogical\bin\Debug\Weave.Base.pdb
 D:\WeavingDB\WeavingDBLogical\bin\Debug\Weave.Server.pdb
 D:\WeavingDB\WeavingDBLogical\obj\Debug\WeavingDBLogical.csprojAssemblyReference.cache
 D:\WeavingDB\WeavingDBLogical\obj\Debug\WeavingDBLogical.csproj.CoreCompileInputs.cache
 D:\WeavingDB\WeavingDBLogical\obj\Debug\WeavingDBLogical.csproj.CopyComplete
+D:\WeavingDB\WeavingDBLogical\bin\Debug\Weave.Base.xml
+D:\WeavingDB\WeavingDBLogical\bin\Debug\Weave.Server.xml
