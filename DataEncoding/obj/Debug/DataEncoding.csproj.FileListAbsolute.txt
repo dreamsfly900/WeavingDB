@@ -5,4 +5,3 @@ D:\WeavingDB\DataEncoding\obj\Debug\DataEncoding.dll
 D:\WeavingDB\DataEncoding\obj\Debug\DataEncoding.pdb
 D:\WeavingDB\DataEncoding\bin\Debug\Newtonsoft.Json.dll
 D:\WeavingDB\DataEncoding\obj\Debug\DataEncoding.csproj.CopyComplete
-D:\WeavingDB\DataEncoding\obj\Debug\DataEncoding.csprojAssemblyReference.cache

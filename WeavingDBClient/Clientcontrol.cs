@@ -28,13 +28,13 @@ namespace WeavingDBClient
         {
             if (p2Pclient != null)
             {
-                p2Pclient.receiveServerEventbit -= P2Pclient_receiveServerEventbit;
+                p2Pclient.ReceiveServerEventbit -= P2Pclient_receiveServerEventbit;
                 p2Pclient.ErrorMge -= P2Pclient_ErrorMge;
             }
             p2Pclient = new Weave.TCPClient.P2Pclient(Weave.TCPClient.DataType.bytes);
-            p2Pclient.receiveServerEventbit += P2Pclient_receiveServerEventbit;
+            p2Pclient.ReceiveServerEventbit += P2Pclient_receiveServerEventbit;
             p2Pclient.ErrorMge += P2Pclient_ErrorMge;
-            if (!p2Pclient.start(IP, port, false))
+            if (!p2Pclient.Start(IP, port, false))
             {
                 return false;
                 //throw new Exception("连接失败！");
@@ -118,7 +118,7 @@ namespace WeavingDBClient
 
         internal void close()
         {
-            p2Pclient.stop();
+            p2Pclient.Stop();
         }
 
         public byte[] Send(byte command, byte[] data)
@@ -127,8 +127,8 @@ namespace WeavingDBClient
         
             error = "";
             finsh = false;
-          
-            if (p2Pclient.send(command, GZIP.Compress(data)))
+
+            if (p2Pclient.Send(command, GZIP.Compress(data)))
             {
                 DateTime dt = DateTime.Now;
                 while (!finsh)
@@ -136,7 +136,7 @@ namespace WeavingDBClient
                     //  System.Threading.Thread.Sleep(10);
                     if ((DateTime.Now - dt).TotalSeconds > 60)
                     {
-                        p2Pclient.stop();
+                        p2Pclient.Stop();
                         throw new Exception("获取数据超时！");
                     }
                 }

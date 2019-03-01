@@ -12,3 +12,5 @@ D:\WeavingDB\WeavingDBClient\bin\Debug\Weave.TCPClient.pdb
 D:\WeavingDB\WeavingDBClient\obj\Debug\WeavingDBClient.csprojAssemblyReference.cache
 D:\WeavingDB\WeavingDBClient\obj\Debug\WeavingDBClient.csproj.CoreCompileInputs.cache
 D:\WeavingDB\WeavingDBClient\obj\Debug\WeavingDBClient.csproj.CopyComplete
+D:\WeavingDB\WeavingDBClient\bin\Debug\Weave.Base.xml
+D:\WeavingDB\WeavingDBClient\bin\Debug\Weave.TCPClient.xml
