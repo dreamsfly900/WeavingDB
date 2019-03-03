@@ -2,7 +2,7 @@
   <Import Project="../../build/version.props" />
   <PropertyGroup>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net40;net45;netstandard2.0</TargetFrameworks>
     <AssemblyName>WeavingDB.Logical</AssemblyName>
     <RootNamespace>WeavingDB.Logical</RootNamespace>
     <Product>WeavingDB.Logical</Product>
@@ -39,12 +39,16 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)' == 'net40'">
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+
   <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
     <Reference Include="System.Configuration" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Weave.Server" Version="1.0.0-preview-20190223-2" />
+    <PackageReference Include="Weave.Server" Version="1.0.0-preview-20190303-1" />
   </ItemGroup>
 
   <ItemGroup>
