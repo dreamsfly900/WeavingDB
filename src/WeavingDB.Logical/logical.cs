@@ -328,7 +328,19 @@ namespace WeavingDB.Logical
             }
             return lists.ToArray();
         }
+        public bool Stringtonosymbol(String _sqlsst, string rstr)
+        {
 
+            Regex r = new Regex(rstr); // 定义一个Regex对象实例
+            var m = r.Match(_sqlsst);
+
+
+            if (m.Success)
+            {
+                return true;
+            }
+            return false;
+        }
         internal string Stringtonosymbol(string _sqlsst)
         {
             if (_sqlsst == "''")
@@ -344,7 +356,8 @@ namespace WeavingDB.Logical
             return _sqlsst;
         }
 
-        internal string[] Sqltolist(string _sqlsst)
+    
+        internal string[] Sqltolist(String _sqlsst)
         {
             Regex r = new Regex("'(.+?)'|''"); // 定义一个Regex对象实例
             var ms = r.Matches(_sqlsst);
@@ -368,20 +381,24 @@ namespace WeavingDB.Logical
                 }
 
             }
+            _sqlsst = _sqlsst.Replace(" like ", ">like<");
             string[] sst = _sqlsst.Split(' ');
             for (int ssti = 0; ssti < sst.Length; ssti++)
+            {
                 sst[ssti] = string.Format(sst[ssti], sspr);
+            }
             return sst;
         }
-
-        readonly Regex r = new Regex("==|>=|<=|<|>"); // 定义一个Regex对象实例
+        Regex r = new Regex(">like<|==|>=|<=|<|>"); // 定义一个Regex对象实例
         internal string LogicalContrastSplit(string s)
         {
+
             Match m = r.Match(s); // 在字符串中匹配
             if (m.Success)
             {
                 return m.Value;
             }
+            //foreach (string s in sst)
 
             return "";
         }

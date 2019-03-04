@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
+using WeavingDBLogical;
 
 namespace WeavingDB.Logical
 {
@@ -42,7 +43,7 @@ namespace WeavingDB.Logical
                 ThreadPool.QueueUserWorkItem(new WaitCallback(Jsondataout), notimeout);
             }
             ThreadPool.QueueUserWorkItem(new WaitCallback(Bdnull), null);
-            ThreadPool.QueueUserWorkItem(new WaitCallback(DBLogical.Freequeue), null);
+            ThreadPool.QueueUserWorkItem(new WaitCallback(DBLogical.freequeue), null);
         }
 
         void Bdnull(object obj)
@@ -64,7 +65,7 @@ namespace WeavingDB.Logical
                                 if (!CDtable[key].deleterun)
                                 {
                                     CDtable[key].deleterun = true;
-                                    ThreadPool.QueueUserWorkItem(new WaitCallback(DBLogical.Delnull), CDtable[key]);
+                                    ThreadPool.QueueUserWorkItem(new WaitCallback(DBLogical.delnull), CDtable[key]);
                                 }
                             }
                             catch { }
@@ -275,7 +276,7 @@ namespace WeavingDB.Logical
                 try
                 {
                     bool b = CDtable.TryRemove(key, out Liattable list);
-                    new DBLogical().Cleardata(list.datas, list.datahead);
+                    new DBLogical().cleardata(list.datas, list.datahead);
                     list.datahead = null;
                     list = null;
                     return b;
@@ -302,7 +303,7 @@ namespace WeavingDB.Logical
 
                 lock (list.datas)
                 {
-                    list.datas.Add(dblo.InsertintoJson(job, ref list.datahead));
+                    list.datas.Add(dblo.insertintoJson(job, ref list.datahead));
                 }
                 return true;
             }
@@ -327,7 +328,7 @@ namespace WeavingDB.Logical
                 lock (list.datas)
                 {
                     foreach (JObject item in job)
-                        list.datas.Add(dblo.InsertintoJson(item, ref list.datahead));
+                        list.datas.Add(dblo.insertintoJson(item, ref list.datahead));
                 }
                 return true;
             }
@@ -356,9 +357,9 @@ namespace WeavingDB.Logical
                     DBLogical dblo = new DBLogical();
                     Liattable list = CDtable[key];
 
-                    ListDmode[] objsall = dblo.Selecttiem(list.datas, sql, list.datahead);
+                    ListDmode[] objsall = dblo.selecttiem(list.datas, sql, list.datahead);
                     count = objsall.Length;
-                    Hashtable[] objbb2 = dblo.Viewdata(objsall, order, coll, pageindex, pagesize, list.datahead);
+                    Hashtable[] objbb2 = dblo.viewdata(objsall, order, coll, pageindex, pagesize, list.datahead);
                     return Newtonsoft.Json.JsonConvert.SerializeObject(objbb2);
                 }
                 catch
@@ -402,7 +403,7 @@ namespace WeavingDB.Logical
                     Liattable list = CDtable[key];
                     JObject job = JObject.Parse(data);
 
-                    dblo.Updatedata(list.datas, sql, list.datahead, job);
+                    dblo.updatedata(list.datas, sql, list.datahead, job);
                     return true;
                 }
                 catch (Exception ee)
@@ -425,7 +426,7 @@ namespace WeavingDB.Logical
                     DBLogical dblo = new DBLogical();
                     Liattable list = CDtable[key];
 
-                    dblo.Deletedata(list.datas, sql, list.datahead);
+                    dblo.deletedata(list.datas, sql, list.datahead);
                     return true;
                 }
                 catch
@@ -475,10 +476,20 @@ namespace WeavingDB.Logical
         /// <returns></returns>
         public bool Remove(string key)
         {
+            byte[] b; long lo;
             if (CDKV.ContainsKey(key))
             {
-                CDKVlong.TryRemove(key, out _);
-                return CDKV.TryRemove(key, out _);
+                try
+                {
+                    string file = path + "KVDATA" + key + ".bin";
+                    if (File.Exists(file))
+                    {
+                        File.Delete(file);
+                    }
+                }
+                catch { }
+                CDKVlong.TryRemove(key, out lo);
+                return CDKV.TryRemove(key, out b);
             }
             return false;
         }
