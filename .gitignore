@@ -18,3 +18,8 @@
 /WeavingDB/bin/Debug
 /ConsoleApp1/obj
 /src/WDBServer.Core/obj
+/Bin/WeavingDB
+/src/WDBServer.Core/bin/Debug/netcoreapp2.2
+/src/WDBServer.Core/bin/Release/netcoreapp2.2/win10-x64
+/WDBServer/obj
+/WeavingDB/obj/Release
