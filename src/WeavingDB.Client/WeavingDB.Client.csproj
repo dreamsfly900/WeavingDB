@@ -33,7 +33,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Weave.TCPClient" Version="1.0.0-preview-20190303-1" />
+    <PackageReference Include="Weave.TCPClient" Version="1.0.0-preview-20190305-1" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net40'">

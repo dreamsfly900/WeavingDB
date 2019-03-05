@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Swifter.Json;
 
 namespace WeavingDB
 {
@@ -36,13 +37,15 @@ namespace WeavingDB
 
         public static T BytesToT<T>(byte[] bytes)
         {
-            string str = System.Text.Encoding.UTF8.GetString(bytes);
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(str);
+            var str = System.Text.Encoding.UTF8.GetString(bytes);
+            // return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(str);
+            return JsonFormatter.DeserializeObject<T>(str);
         }
 
         public static byte[] TToBytes<T>(T obj)
         {
-            string str = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
+            //string str = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
+            var str = JsonFormatter.SerializeObject(obj);
             return System.Text.Encoding.UTF8.GetBytes(str);
         }
 
