@@ -24,3 +24,5 @@
 /WDBServer/obj
 /WeavingDB/obj/Release
 /src/WDBServer.Core/bin/Release/netcoreapp2.2
+/.vs/WeavingDB/v15
+/ConsoleApp1/bin/Debug
