@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeavingDB.Client", "src\Wea
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeavingDB.Logical", "src\WeavingDB.Logical\WeavingDB.Logical.csproj", "{501917AF-A545-4907-9A26-A545744AD6D2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WDBServer.Core", "src\WDBServer.Core\WDBServer.Core.csproj", "{FC1B3C1F-39B4-4F67-BCC6-AD86AF51C8E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WDBServer", "src\WDBServer.Core\WDBServer.csproj", "{FC1B3C1F-39B4-4F67-BCC6-AD86AF51C8E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
