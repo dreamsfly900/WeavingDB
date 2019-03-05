@@ -497,7 +497,8 @@ namespace WeavingDB.Logical
             {
                 if (CDKV.ContainsKey(key))
                 {
-                    CDKVlong[key] = DateTime.Now.ToFileTime();
+                    if(CDKVlong[key]!=0)
+                     CDKVlong[key] = DateTime.Now.ToFileTime();
                     return CDKV[key];
                 }
                 else
