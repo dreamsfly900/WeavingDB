@@ -1,0 +1,721 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETFramework,Version=v4.5": {
+      "Microsoft.CSharp/4.5.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Microsoft.CSharp"
+        ],
+        "compile": {
+          "ref/net45/_._": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
+        }
+      },
+      "Newtonsoft.Json/12.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        }
+      },
+      "Topshelf/3.3.1": {
+        "type": "package",
+        "compile": {
+          "lib/net40-full/Topshelf.dll": {}
+        },
+        "runtime": {
+          "lib/net40-full/Topshelf.dll": {}
+        }
+      },
+      "Weave.Base/1.0.0-preview-20190303-1": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.1"
+        },
+        "compile": {
+          "lib/net45/Weave.Base.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Weave.Base.dll": {}
+        }
+      },
+      "Weave.Server/1.0.0-preview-20190303-1": {
+        "type": "package",
+        "dependencies": {
+          "Weave.Base": "1.0.0-preview-20190303-1"
+        },
+        "frameworkAssemblies": [
+          "System.Web"
+        ],
+        "compile": {
+          "lib/net45/Weave.Server.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Weave.Server.dll": {}
+        }
+      },
+      "Weave.TCPClient/1.0.0-preview-20190303-1": {
+        "type": "package",
+        "dependencies": {
+          "Weave.Base": "1.0.0-preview-20190303-1"
+        },
+        "compile": {
+          "lib/net45/Weave.TCPClient.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Weave.TCPClient.dll": {}
+        }
+      },
+      "WeavingDB.Client/1.0.0-preview-20190305-1": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5",
+        "dependencies": {
+          "Microsoft.CSharp": "4.5.0",
+          "Weave.TCPClient": "1.0.0-preview-20190303-1",
+          "WeavingDB.DataEncoding": "1.0.0-preview-20190305-1",
+          "WeavingDB.Logical": "1.0.0-preview-20190305-1"
+        },
+        "compile": {
+          "bin/placeholder/WeavingDB.Client.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WeavingDB.Client.dll": {}
+        }
+      },
+      "WeavingDB.DataEncoding/1.0.0-preview-20190305-1": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.1"
+        },
+        "compile": {
+          "bin/placeholder/WeavingDB.DataEncoding.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WeavingDB.DataEncoding.dll": {}
+        }
+      },
+      "WeavingDB.Logical/1.0.0-preview-20190305-1": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5",
+        "dependencies": {
+          "Weave.Server": "1.0.0-preview-20190303-1",
+          "WeavingDB.DataEncoding": "1.0.0-preview-20190305-1"
+        },
+        "compile": {
+          "bin/placeholder/WeavingDB.Logical.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WeavingDB.Logical.dll": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.5/win": {
+      "Microsoft.CSharp/4.5.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Microsoft.CSharp"
+        ],
+        "compile": {
+          "ref/net45/_._": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
+        }
+      },
+      "Newtonsoft.Json/12.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        }
+      },
+      "Topshelf/3.3.1": {
+        "type": "package",
+        "compile": {
+          "lib/net40-full/Topshelf.dll": {}
+        },
+        "runtime": {
+          "lib/net40-full/Topshelf.dll": {}
+        }
+      },
+      "Weave.Base/1.0.0-preview-20190303-1": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.1"
+        },
+        "compile": {
+          "lib/net45/Weave.Base.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Weave.Base.dll": {}
+        }
+      },
+      "Weave.Server/1.0.0-preview-20190303-1": {
+        "type": "package",
+        "dependencies": {
+          "Weave.Base": "1.0.0-preview-20190303-1"
+        },
+        "frameworkAssemblies": [
+          "System.Web"
+        ],
+        "compile": {
+          "lib/net45/Weave.Server.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Weave.Server.dll": {}
+        }
+      },
+      "Weave.TCPClient/1.0.0-preview-20190303-1": {
+        "type": "package",
+        "dependencies": {
+          "Weave.Base": "1.0.0-preview-20190303-1"
+        },
+        "compile": {
+          "lib/net45/Weave.TCPClient.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Weave.TCPClient.dll": {}
+        }
+      },
+      "WeavingDB.Client/1.0.0-preview-20190305-1": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5",
+        "dependencies": {
+          "Microsoft.CSharp": "4.5.0",
+          "Weave.TCPClient": "1.0.0-preview-20190303-1",
+          "WeavingDB.DataEncoding": "1.0.0-preview-20190305-1",
+          "WeavingDB.Logical": "1.0.0-preview-20190305-1"
+        },
+        "compile": {
+          "bin/placeholder/WeavingDB.Client.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WeavingDB.Client.dll": {}
+        }
+      },
+      "WeavingDB.DataEncoding/1.0.0-preview-20190305-1": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.1"
+        },
+        "compile": {
+          "bin/placeholder/WeavingDB.DataEncoding.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WeavingDB.DataEncoding.dll": {}
+        }
+      },
+      "WeavingDB.Logical/1.0.0-preview-20190305-1": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5",
+        "dependencies": {
+          "Weave.Server": "1.0.0-preview-20190303-1",
+          "WeavingDB.DataEncoding": "1.0.0-preview-20190305-1"
+        },
+        "compile": {
+          "bin/placeholder/WeavingDB.Logical.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WeavingDB.Logical.dll": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.5/win-x64": {
+      "Microsoft.CSharp/4.5.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Microsoft.CSharp"
+        ],
+        "compile": {
+          "ref/net45/_._": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
+        }
+      },
+      "Newtonsoft.Json/12.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        }
+      },
+      "Topshelf/3.3.1": {
+        "type": "package",
+        "compile": {
+          "lib/net40-full/Topshelf.dll": {}
+        },
+        "runtime": {
+          "lib/net40-full/Topshelf.dll": {}
+        }
+      },
+      "Weave.Base/1.0.0-preview-20190303-1": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.1"
+        },
+        "compile": {
+          "lib/net45/Weave.Base.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Weave.Base.dll": {}
+        }
+      },
+      "Weave.Server/1.0.0-preview-20190303-1": {
+        "type": "package",
+        "dependencies": {
+          "Weave.Base": "1.0.0-preview-20190303-1"
+        },
+        "frameworkAssemblies": [
+          "System.Web"
+        ],
+        "compile": {
+          "lib/net45/Weave.Server.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Weave.Server.dll": {}
+        }
+      },
+      "Weave.TCPClient/1.0.0-preview-20190303-1": {
+        "type": "package",
+        "dependencies": {
+          "Weave.Base": "1.0.0-preview-20190303-1"
+        },
+        "compile": {
+          "lib/net45/Weave.TCPClient.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Weave.TCPClient.dll": {}
+        }
+      },
+      "WeavingDB.Client/1.0.0-preview-20190305-1": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5",
+        "dependencies": {
+          "Microsoft.CSharp": "4.5.0",
+          "Weave.TCPClient": "1.0.0-preview-20190303-1",
+          "WeavingDB.DataEncoding": "1.0.0-preview-20190305-1",
+          "WeavingDB.Logical": "1.0.0-preview-20190305-1"
+        },
+        "compile": {
+          "bin/placeholder/WeavingDB.Client.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WeavingDB.Client.dll": {}
+        }
+      },
+      "WeavingDB.DataEncoding/1.0.0-preview-20190305-1": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.1"
+        },
+        "compile": {
+          "bin/placeholder/WeavingDB.DataEncoding.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WeavingDB.DataEncoding.dll": {}
+        }
+      },
+      "WeavingDB.Logical/1.0.0-preview-20190305-1": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5",
+        "dependencies": {
+          "Weave.Server": "1.0.0-preview-20190303-1",
+          "WeavingDB.DataEncoding": "1.0.0-preview-20190305-1"
+        },
+        "compile": {
+          "bin/placeholder/WeavingDB.Logical.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WeavingDB.Logical.dll": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.5/win-x86": {
+      "Microsoft.CSharp/4.5.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Microsoft.CSharp"
+        ],
+        "compile": {
+          "ref/net45/_._": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
+        }
+      },
+      "Newtonsoft.Json/12.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        }
+      },
+      "Topshelf/3.3.1": {
+        "type": "package",
+        "compile": {
+          "lib/net40-full/Topshelf.dll": {}
+        },
+        "runtime": {
+          "lib/net40-full/Topshelf.dll": {}
+        }
+      },
+      "Weave.Base/1.0.0-preview-20190303-1": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.1"
+        },
+        "compile": {
+          "lib/net45/Weave.Base.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Weave.Base.dll": {}
+        }
+      },
+      "Weave.Server/1.0.0-preview-20190303-1": {
+        "type": "package",
+        "dependencies": {
+          "Weave.Base": "1.0.0-preview-20190303-1"
+        },
+        "frameworkAssemblies": [
+          "System.Web"
+        ],
+        "compile": {
+          "lib/net45/Weave.Server.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Weave.Server.dll": {}
+        }
+      },
+      "Weave.TCPClient/1.0.0-preview-20190303-1": {
+        "type": "package",
+        "dependencies": {
+          "Weave.Base": "1.0.0-preview-20190303-1"
+        },
+        "compile": {
+          "lib/net45/Weave.TCPClient.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Weave.TCPClient.dll": {}
+        }
+      },
+      "WeavingDB.Client/1.0.0-preview-20190305-1": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5",
+        "dependencies": {
+          "Microsoft.CSharp": "4.5.0",
+          "Weave.TCPClient": "1.0.0-preview-20190303-1",
+          "WeavingDB.DataEncoding": "1.0.0-preview-20190305-1",
+          "WeavingDB.Logical": "1.0.0-preview-20190305-1"
+        },
+        "compile": {
+          "bin/placeholder/WeavingDB.Client.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WeavingDB.Client.dll": {}
+        }
+      },
+      "WeavingDB.DataEncoding/1.0.0-preview-20190305-1": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.1"
+        },
+        "compile": {
+          "bin/placeholder/WeavingDB.DataEncoding.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WeavingDB.DataEncoding.dll": {}
+        }
+      },
+      "WeavingDB.Logical/1.0.0-preview-20190305-1": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5",
+        "dependencies": {
+          "Weave.Server": "1.0.0-preview-20190303-1",
+          "WeavingDB.DataEncoding": "1.0.0-preview-20190305-1"
+        },
+        "compile": {
+          "bin/placeholder/WeavingDB.Logical.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WeavingDB.Logical.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Microsoft.CSharp/4.5.0": {
+      "sha512": "kaj6Wb4qoMuH3HySFJhxwQfe8R/sJsNJnANrvv8WdFPMoNbKY5htfNscv+LHCu5ipz+49m2e+WQXpLXr9XYemQ==",
+      "type": "package",
+      "path": "microsoft.csharp/4.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net45/_._",
+        "lib/netcore50/Microsoft.CSharp.dll",
+        "lib/netcoreapp2.0/_._",
+        "lib/netstandard1.3/Microsoft.CSharp.dll",
+        "lib/netstandard2.0/Microsoft.CSharp.dll",
+        "lib/portable-net45+win8+wp8+wpa81/_._",
+        "lib/uap10.0.16299/_._",
+        "lib/win8/_._",
+        "lib/wp80/_._",
+        "lib/wpa81/_._",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "microsoft.csharp.4.5.0.nupkg.sha512",
+        "microsoft.csharp.nuspec",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net45/_._",
+        "ref/netcore50/Microsoft.CSharp.dll",
+        "ref/netcore50/Microsoft.CSharp.xml",
+        "ref/netcore50/de/Microsoft.CSharp.xml",
+        "ref/netcore50/es/Microsoft.CSharp.xml",
+        "ref/netcore50/fr/Microsoft.CSharp.xml",
+        "ref/netcore50/it/Microsoft.CSharp.xml",
+        "ref/netcore50/ja/Microsoft.CSharp.xml",
+        "ref/netcore50/ko/Microsoft.CSharp.xml",
+        "ref/netcore50/ru/Microsoft.CSharp.xml",
+        "ref/netcore50/zh-hans/Microsoft.CSharp.xml",
+        "ref/netcore50/zh-hant/Microsoft.CSharp.xml",
+        "ref/netcoreapp2.0/_._",
+        "ref/netstandard1.0/Microsoft.CSharp.dll",
+        "ref/netstandard1.0/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/de/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/es/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/fr/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/it/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/ja/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/ko/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/ru/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/zh-hans/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/zh-hant/Microsoft.CSharp.xml",
+        "ref/netstandard2.0/Microsoft.CSharp.dll",
+        "ref/netstandard2.0/Microsoft.CSharp.xml",
+        "ref/portable-net45+win8+wp8+wpa81/_._",
+        "ref/uap10.0.16299/_._",
+        "ref/win8/_._",
+        "ref/wp80/_._",
+        "ref/wpa81/_._",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "Newtonsoft.Json/12.0.1": {
+      "sha512": "pBR3wCgYWZGiaZDYP+HHYnalVnPJlpP1q55qvVb+adrDHmFMDc1NAKio61xTwftK3Pw5h7TZJPJEEVMd6ty8rg==",
+      "type": "package",
+      "path": "newtonsoft.json/12.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.pdb",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.pdb",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.pdb",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.pdb",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.pdb",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.pdb",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.pdb",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.pdb",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.pdb",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "newtonsoft.json.12.0.1.nupkg.sha512",
+        "newtonsoft.json.nuspec"
+      ]
+    },
+    "Topshelf/3.3.1": {
+      "sha512": "HcBcgYHICNnMSzFcVPjz1J6nQFA7dooPam6vDbrjXJGD8rXPQ+xABGZ6PqAWvoc5s8pnsYPafumNjvymGE/ulA==",
+      "type": "package",
+      "path": "topshelf/3.3.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net35/Topshelf.dll",
+        "lib/net40-full/Topshelf.dll",
+        "topshelf.3.3.1.nupkg.sha512",
+        "topshelf.nuspec"
+      ]
+    },
+    "Weave.Base/1.0.0-preview-20190303-1": {
+      "sha512": "Km0G9D3PbBV+vFezxT2g+HmtxMyOimK4mfEQot6KkHkZfDWgCCvwTP1nq9JvqtsKXPagKLxuTUt/EV52fXjhOw==",
+      "type": "package",
+      "path": "weave.base/1.0.0-preview-20190303-1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/Weave.Base.dll",
+        "lib/net40/Weave.Base.xml",
+        "lib/net45/Weave.Base.dll",
+        "lib/net45/Weave.Base.xml",
+        "lib/netstandard2.0/Weave.Base.dll",
+        "lib/netstandard2.0/Weave.Base.xml",
+        "weave.base.1.0.0-preview-20190303-1.nupkg.sha512",
+        "weave.base.nuspec"
+      ]
+    },
+    "Weave.Server/1.0.0-preview-20190303-1": {
+      "sha512": "qN59hrUyKfD9N+2rsIpJStUUkPxdjNCyzQkETzHVzvtfpooRP3OVvTQJVGbFhNGKKM5OzddIWt0u6ov4VW3cxw==",
+      "type": "package",
+      "path": "weave.server/1.0.0-preview-20190303-1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/Weave.Server.dll",
+        "lib/net40/Weave.Server.xml",
+        "lib/net45/Weave.Server.dll",
+        "lib/net45/Weave.Server.xml",
+        "lib/netstandard2.0/Weave.Server.dll",
+        "lib/netstandard2.0/Weave.Server.xml",
+        "weave.server.1.0.0-preview-20190303-1.nupkg.sha512",
+        "weave.server.nuspec"
+      ]
+    },
+    "Weave.TCPClient/1.0.0-preview-20190303-1": {
+      "sha512": "Uo5BgUAOp3Tp+G1rY/3ocn7AzAYkfbjoIXOSZ2EKFqzJHKhKahIpp13MH/SRT128JgVEITufnMfwGDpSMjt2yA==",
+      "type": "package",
+      "path": "weave.tcpclient/1.0.0-preview-20190303-1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/Weave.TCPClient.dll",
+        "lib/net40/Weave.TCPClient.xml",
+        "lib/net45/Weave.TCPClient.dll",
+        "lib/net45/Weave.TCPClient.xml",
+        "lib/netstandard2.0/Weave.TCPClient.dll",
+        "lib/netstandard2.0/Weave.TCPClient.xml",
+        "weave.tcpclient.1.0.0-preview-20190303-1.nupkg.sha512",
+        "weave.tcpclient.nuspec"
+      ]
+    },
+    "WeavingDB.Client/1.0.0-preview-20190305-1": {
+      "type": "project",
+      "path": "../src/WeavingDB.Client/WeavingDB.Client.csproj",
+      "msbuildProject": "../src/WeavingDB.Client/WeavingDB.Client.csproj"
+    },
+    "WeavingDB.DataEncoding/1.0.0-preview-20190305-1": {
+      "type": "project",
+      "path": "../src/WeavingDB.DataEncoding.Core/WeavingDB.DataEncoding.csproj",
+      "msbuildProject": "../src/WeavingDB.DataEncoding.Core/WeavingDB.DataEncoding.csproj"
+    },
+    "WeavingDB.Logical/1.0.0-preview-20190305-1": {
+      "type": "project",
+      "path": "../src/WeavingDB.Logical/WeavingDB.Logical.csproj",
+      "msbuildProject": "../src/WeavingDB.Logical/WeavingDB.Logical.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETFramework,Version=v4.5": [
+      "Topshelf >= 3.3.1",
+      "WeavingDB.Client >= 1.0.0-preview-20190305-1",
+      "WeavingDB.Logical >= 1.0.0-preview-20190305-1"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\qcjxb\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Xamarin\\NuGet\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "E:\\Code\\WeavingDB\\WDBServer\\WDBServer.csproj",
+      "projectName": "WDBServer",
+      "projectPath": "E:\\Code\\WeavingDB\\WDBServer\\WDBServer.csproj",
+      "packagesPath": "C:\\Users\\qcjxb\\.nuget\\packages\\",
+      "outputPath": "E:\\Code\\WeavingDB\\WDBServer\\obj\\",
+      "projectStyle": "PackageReference",
+      "skipContentFileWrite": true,
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Xamarin\\NuGet\\"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\qcjxb\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net45"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "E:\\Code\\HaoCoding\\HaoCoding\\output\\release": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net45": {
+          "projectReferences": {
+            "E:\\Code\\WeavingDB\\src\\WeavingDB.Client\\WeavingDB.Client.csproj": {
+              "projectPath": "E:\\Code\\WeavingDB\\src\\WeavingDB.Client\\WeavingDB.Client.csproj"
+            },
+            "E:\\Code\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj": {
+              "projectPath": "E:\\Code\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj"
+            }
+          }
+        }
+      }
+    },
+    "frameworks": {
+      "net45": {
+        "dependencies": {
+          "Topshelf": {
+            "target": "Package",
+            "version": "[3.3.1, )"
+          }
+        }
+      }
+    },
+    "runtimes": {
+      "win": {
+        "#import": []
+      },
+      "win-x64": {
+        "#import": []
+      },
+      "win-x86": {
+        "#import": []
+      }
+    }
+  }
+}
