@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
-using WeavingDBLogical;
 
 namespace WeavingDB.Logical
 {

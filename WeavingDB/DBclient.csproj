@@ -91,5 +91,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\src\WeavingDB.Client\WeavingDB.Client.csproj">
+      <Project>{9ec0a6ae-736e-49c3-8641-a2652273eeb9}</Project>
+      <Name>WeavingDB.Client</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

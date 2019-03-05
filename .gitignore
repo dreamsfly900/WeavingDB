@@ -14,3 +14,5 @@
 /src/WeavingDB.Client/obj
 /src/WeavingDB.Logical/obj/Debug
 /src/WeavingDB.Logical/obj
+/WDBServer/obj/Debug
+/WeavingDB/bin/Debug

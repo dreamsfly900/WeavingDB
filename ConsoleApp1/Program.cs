@@ -1,16 +1,10 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using WeavingDB;
-using WeavingDBLogical;
+using WeavingDB.Logical;
 
 namespace ConsoleApp1
 {
@@ -164,8 +158,8 @@ namespace ConsoleApp1
 
             DBLogical dblo = new DBLogical();
             int i = 0;
-            List<listDmode> listu = new List<listDmode>();
-            liattable ltable = new liattable();
+            List<ListDmode> listu = new List<ListDmode>();
+            Liattable ltable = new Liattable();
             ltable.datas = listu;
             
             string str = "";
@@ -225,7 +219,7 @@ namespace ConsoleApp1
                         // listu = null;
                       
                         dt = DateTime.Now;
-                        listDmode[] objsall = dblo.selecttiem(listu, ss, ltable.datahead); 
+                        ListDmode[] objsall = dblo.selecttiem(listu, ss, ltable.datahead); 
                             dt2 = DateTime.Now;
                         // List<long> objsall = new List<long>();
                         if (objsall != null || objsall.Length>0)

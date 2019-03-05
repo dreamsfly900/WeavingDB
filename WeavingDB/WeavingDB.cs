@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,12 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WeavingDBLogical;
-using WeavingDBClient;
 using System.Runtime.InteropServices;
 using System.IO;
 using WindowsFormsApplication1;
 using Newtonsoft.Json;
+using WeavingDB.Client;
 
 namespace WeavingDB
 {
@@ -49,7 +47,7 @@ namespace WeavingDB
         {
             DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
             double gggg = 0;
-            dbc.open();
+            dbc.Open();
 
           //  Hashtable ht = new Hashtable();
           //  ht.Add("123123","afasdfasdf");
@@ -82,7 +80,7 @@ namespace WeavingDB
 
 
             label1.Text = "1W次总耗时：" + gggg;
-            dbc.close();
+            dbc.Close();
             //每次插入一条数据
            
         }
@@ -90,7 +88,7 @@ namespace WeavingDB
         private void button2_Click(object sender, EventArgs e)
         {
             DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
-            dbc.open();
+            dbc.Open();
             user u = new user();
             var uu = new aabb();
             uu.list.Add(new bbcc());
@@ -100,9 +98,9 @@ namespace WeavingDB
             {
 
             }
-            bool bbc = dbc.inserttable<user>("ddd", u);
-            user[] u2 = dbc.selecttable<user[]>("ddd");
-            bbc = dbc.inserttable<user>("ddd", u);
+            bool bbc = dbc.Inserttable<user>("ddd", u);
+            user[] u2 = dbc.Selecttable<user[]>("ddd");
+            bbc = dbc.Inserttable<user>("ddd", u);
 
 
             //每次插入一组数据
@@ -117,23 +115,23 @@ namespace WeavingDB
                 i++;
             }
             DateTime dt = DateTime.Now;
-            bbc = dbc.inserttable<user>("ddd", list.ToArray());
+            bbc = dbc.Inserttable<user>("ddd", list.ToArray());
 
             DateTime dt2 = DateTime.Now;
             listBox1.Items.Add("万条数据插入" + (dt2 - dt).TotalMilliseconds + "毫秒");
 
-            dbc.updatetable("ddd", "id<10", new { name = "特大喜讯" });
+            dbc.Updatetable("ddd", "id<10", new { name = "特大喜讯" });
             int count = 0;
 
             dt = DateTime.Now;
 
-            var rrs = dbc.selecttable<List<user>>("ddd", "id<100", 0, "", 0, 0, out count);
+            var rrs = dbc.Selecttable<List<user>>("ddd", "id<100", 0, "", 0, 0, out count);
 
             dt2 = DateTime.Now;
             if(rrs!=null)
             listBox1.Items.Add("数据SQL查询" + (dt2 - dt).TotalMilliseconds + "毫秒。" + "查询数量:" + rrs.Count);
 
-            dbc.deletetable("ddd", "id<2000");
+            dbc.Deletetable("ddd", "id<2000");
 
             //int iii = 0;
             //while (iii < 1)
@@ -141,38 +139,38 @@ namespace WeavingDB
             //    System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(go), null);
             //    iii++;
             //}
-             rrs = dbc.selecttable<List<user>>("ddd", "id<200", 0, "", 0, 0, out count);
+             rrs = dbc.Selecttable<List<user>>("ddd", "id<200", 0, "", 0, 0, out count);
             if(rrs!=null)
             listBox1.Items.Add("查询数量:" + rrs.Count);
-            dbc.close();
+            dbc.Close();
             // go(null);
         }
 
         void go(object ob)
         {
             DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
-            dbc.open();
+            dbc.Open();
             
-            dbc.deletetable("ddd", "id<100");
+            dbc.Deletetable("ddd", "id<100");
 
-            dbc.deletetable("ddd", "id<2000");
+            dbc.Deletetable("ddd", "id<2000");
 
 
           //  dbc.Removetable("ddd");
-            dbc.close();
+            dbc.Close();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            var dbClient = new WeavingDBClient.DBClient("127.0.0.1", 18989, "admin", "123123");
-            dbClient.open();
+            var dbClient = new DBClient("127.0.0.1", 18989, "admin", "123123");
+            dbClient.Open();
 
             var json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "1.json"));
             var model = JsonConvert.DeserializeObject(json);
             dbClient.Set("撒大受打击-41", model);
             object obj=  dbClient.Get<object>("撒大受打击-41");
 
-            dbClient.close();
+            dbClient.Close();
         }
     }
     public class user

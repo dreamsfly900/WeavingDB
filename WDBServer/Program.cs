@@ -42,7 +42,7 @@ namespace WDBServer
 
         public class TownCrier
         {
-            public WeavingDBLogical.DBcontrol dbcon;
+            public WeavingDB.Logical.DBcontrol dbcon;
             public TownCrier()
             {
                 
@@ -50,7 +50,7 @@ namespace WDBServer
 
             public void Start()
             {
-                dbcon = new WeavingDBLogical.DBcontrol();
+                dbcon = new WeavingDB.Logical.DBcontrol();
 
             }
 
