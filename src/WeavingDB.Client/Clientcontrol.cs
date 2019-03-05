@@ -91,6 +91,9 @@ namespace WeavingDB.Client
                     case 0x12:
                         rowsdata = data;
                         break;
+                    case 0x13:
+                        rowsdata = data;
+                        break;
                     case 0xfe:
                         error = System.Text.Encoding.UTF8.GetString(data);
                         break;

@@ -14,10 +14,11 @@ namespace WeavingDB.Logical
     {
         readonly ConcurrentDictionary<string, byte[]> CDKV = new ConcurrentDictionary<string, byte[]>();
         readonly ConcurrentDictionary<string, long> CDKVlong = new ConcurrentDictionary<string, long>();
+        readonly ConcurrentDictionary<string, long> CDKVlongtimeout = new ConcurrentDictionary<string, long>();
         readonly ConcurrentDictionary<string, Liattable> CDtable = new ConcurrentDictionary<string, Liattable>();
         readonly ConcurrentQueue<string> savekey = new ConcurrentQueue<string>();
         readonly string path = "";
-
+        int noselecttimeout = 0, notimeout = 0;
         public DBmanage()
         {
             path = Thread.GetDomain().BaseDirectory;
@@ -25,8 +26,8 @@ namespace WeavingDB.Logical
             {
                 Directory.CreateDirectory(path + "KVDATA");
             }
-            Load(path + "KVDATA");
-            int noselecttimeout = 0, notimeout = 0;
+          
+          
             noselecttimeout = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["KVnoselecttimeout"]);
             if (noselecttimeout != 0)
             {
@@ -36,13 +37,47 @@ namespace WeavingDB.Logical
             {
                 ThreadPool.QueueUserWorkItem(new WaitCallback(Save), 0);
             }
+            ThreadPool.QueueUserWorkItem(new WaitCallback(Datatimeout), 0);
             notimeout = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["noselecttimeout"]);
+          
             if (notimeout != 0)
             {
                 ThreadPool.QueueUserWorkItem(new WaitCallback(Jsondataout), notimeout);
             }
+            Load(path + "KVDATA");
             ThreadPool.QueueUserWorkItem(new WaitCallback(Bdnull), null);
             ThreadPool.QueueUserWorkItem(new WaitCallback(DBLogical.freequeue), null);
+        }
+
+        private void Datatimeout(object state)
+        {
+           
+            while (true)
+            {
+                Thread.Sleep(1000);
+
+                try
+                {
+                    string[] keys = CDKVlongtimeout.Keys.ToArray();
+                    int len = keys.Length;
+                    for (int i = 0; i < len; i++)
+                    {
+                        if (CDKVlongtimeout.ContainsKey(keys[i]))
+                        {
+                            string key = keys[i];
+                            long utc = CDKVlongtimeout[key];
+                            double ss = (DateTime.Now - DateTime.FromFileTime(utc)).TotalSeconds;
+                            if (ss > 0)
+                            {
+                                CDKVlongtimeout.TryRemove(key, out utc);
+                                Remove(key);
+                            }
+                        }
+                    }
+                    
+                }
+                catch { }
+            }
         }
 
         void Bdnull(object obj)
@@ -146,10 +181,13 @@ namespace WeavingDB.Logical
                         {
                             string key = keys[i];
                             long utc = CDKVlong[key];
-                            double ss = (DateTime.Now - DateTime.FromFileTime(utc)).TotalSeconds;
-                            if (ss > timeout)
+                            if (utc != 0)
                             {
-                                Remove(key);
+                                double ss = (DateTime.Now - DateTime.FromFileTime(utc)).TotalSeconds;
+                                if (ss > timeout)
+                                {
+                                    Remove(key);
+                                }
                             }
                         }
                     }
@@ -160,7 +198,8 @@ namespace WeavingDB.Logical
                         {
                             savekey.TryDequeue(out string key);
                             long utc = CDKVlong[key];
-                            Saveone(key, utc);
+                            if (utc != 0)
+                                Saveone(key, utc);
                         }
                     }
                 }
@@ -193,7 +232,18 @@ namespace WeavingDB.Logical
                     long sh = (long)BitConverter.ToUInt64(utc, 0);
                     byte[] data = new byte[len];
                     fs.Read(data, 0, (int)len);
-                    Set(key, data, sh);
+                    if (noselecttimeout != 0)
+                    {
+                        double ss = (DateTime.Now - DateTime.FromFileTime(sh)).TotalSeconds;
+                        if (ss > noselecttimeout)
+                        {
+                           
+                        }else
+                            Set(key, data, sh);
+
+                    }
+                    else
+                      Set(key, data, sh);
                 }
             }
             catch { }
@@ -241,6 +291,7 @@ namespace WeavingDB.Logical
                             {
 
                                 long utc = CDKVlong[key];
+                                if(utc!=0)
                                 Saveone(key, utc);
 
                             }
@@ -520,7 +571,28 @@ namespace WeavingDB.Logical
             finally { savekey.Enqueue(key); }
             return true;
         }
-
+        public bool Set(string key, byte[] vlaue,int timeout)
+        {
+            try
+            {
+                if (CDKV.ContainsKey(key))
+                {
+                    CDKVlong[key] = 0;
+                    CDKV[key] = vlaue;
+                    CDKVlongtimeout[key]= DateTime.Now.AddMinutes(timeout).ToFileTime();
+                    return true;
+                }
+                else
+                {
+                    CDKVlong.TryAdd(key, 0);
+                    CDKVlongtimeout.TryAdd(key, DateTime.Now.AddMinutes(timeout).ToFileTime());
+                    return CDKV.TryAdd(key, vlaue);
+                }
+            }
+            catch { }
+            finally { savekey.Enqueue(key); }
+            return true;
+        }
         public bool Set(string key, byte[] vlaue, long utc)
         {
             if (CDKV.ContainsKey(key))

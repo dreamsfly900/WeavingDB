@@ -54,6 +54,17 @@ namespace WeavingDB.Logical
                 byte[] datas;
                 switch (command)
                 {
+                    case 0x13:
+                        int timeout = 0;
+                        if (DataEncoding.SetKVdecode(rowsdata, out key, out datas,out timeout))
+                        {
+                            bool bb = (dbm.Set(key, datas, timeout));
+                            wserver.Send(soc, command, new byte[] { Convert.ToByte(bb) });
+                        }
+                        else
+                            wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes("账号或密码不正确"));
+
+                        break;
                     case 0x01:
                         if (DataEncoding.SetKVdecode(rowsdata, out key, out datas))
                         {

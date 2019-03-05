@@ -45,7 +45,7 @@ namespace WeavingDB
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DBClient dbc = new DBClient("116.255.252.181", 18989, "admin", "123123");
+            DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
             double gggg = 0;
             dbc.Open();
 
@@ -60,6 +60,7 @@ namespace WeavingDB
             String str2 = dbc.Get<String>("asdasd");
             dbc.GetKey("?d");
             dbc.Set("asdasd", 111);
+            dbc.Set("aabbcc", 111222, 5);
            // dbc.Set<String>("asdasd", "1");
             int i = 0;
            string [] keys=   dbc.GetKey("as?asd");//通配符?一个匹配字符

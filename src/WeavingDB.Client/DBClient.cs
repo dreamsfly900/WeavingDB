@@ -181,7 +181,11 @@ namespace WeavingDB.Client
             byte[] rowdata = DataEncoding.EncodingsetKV(key, DataEncoding.TToBytes<T>(t));
             return Convert.ToBoolean(ccon.Send(0x01, rowdata)[0]);
         }
-
+        public bool Set<T>(string key, T t,int timeoutminute)
+        {
+            byte[] rowdata = DataEncoding.EncodingsetKV(key, DataEncoding.TToBytes<T>(t), timeoutminute);
+            return Convert.ToBoolean(ccon.Send(0x13, rowdata)[0]);
+        }
         public bool RemoveKV(string key)
         {
             byte[] rowdata = DataEncoding.EncodinggetKV(key);

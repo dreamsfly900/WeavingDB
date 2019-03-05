@@ -127,7 +127,30 @@ namespace WeavingDB
             Array.Copy(pp, 0, uupp, 2 + uu.Length, pp.Length);
             return uupp;
         }
-
+        public static bool SetKVdecode(byte[] rowsdata, out string key, out byte[] data,out int timeout)
+        {
+            key = "";
+            data = new byte[0];
+            timeout = 0;
+            try
+            {
+                bool bb = Userpwddecode(rowsdata, out data);
+                byte len = data[0];
+                byte[] keyb = new byte[len];
+                Array.Copy(data, 1, keyb, 0, keyb.Length);
+                key = System.Text.Encoding.UTF8.GetString(keyb);
+                byte[] data2 = new byte[data.Length - (len + 1+ 4)];
+                Array.Copy(data, len + 1, data2, 0, data2.Length);
+                
+                byte[] time = new byte[4];
+                Array.Copy(data, data.Length-4, time, 0, 4);
+                data = data2;
+                timeout = byteArrayToInt(time);
+                return bb;
+            }
+            catch
+            { return false; }
+        }
         public static bool SetKVdecode(byte[] rowsdata, out string key, out byte[] data)
         {
             key = "";
@@ -186,6 +209,36 @@ namespace WeavingDB
             { return false; }
         }
 
+        public static byte[] EncodingsetKV(string key, byte[] data, int timeoutminute)
+        {
+            byte[] users = Userpwdencoding();
+            byte[] keys = System.Text.Encoding.UTF8.GetBytes(key);
+            byte[] rowdata = new byte[users.Length + 1 + keys.Length + data.Length+4];
+            Array.Copy(users, 0, rowdata, 0, users.Length);
+            rowdata[users.Length] = (byte)keys.Length;
+            Array.Copy(keys, 0, rowdata, users.Length + 1, keys.Length);
+            Array.Copy(data, 0, rowdata, users.Length + 1 + keys.Length, data.Length);
+            byte[] time = intToByteArray(timeoutminute);
+            Array.Copy(time, 0, rowdata, users.Length + 1 + keys.Length+ data.Length, 4);
+            return rowdata;
+        }
+         
+        public static int byteArrayToInt(byte[] b)
+        {
+            return b[3] & 0xFF |
+                        (b[2] & 0xFF) << 8 |
+                        (b[1] & 0xFF) << 16 |
+                        (b[0] & 0xFF) << 24;
+        }
+        public static byte[] intToByteArray(int a)
+        {
+                    return new byte[] {
+                (byte) ((a >> 24) & 0xFF),
+                (byte) ((a >> 16) & 0xFF),
+                (byte) ((a >> 8) & 0xFF),
+                (byte) (a & 0xFF)
+            };
+        }
         public static List<byte[]> Dencdingdatalist(byte[] datas)
         {
             List<byte[]> list = new List<byte[]>();
