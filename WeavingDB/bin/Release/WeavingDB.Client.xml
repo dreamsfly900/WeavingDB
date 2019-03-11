@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WeavingDB.Client</name>
+    </assembly>
+    <members>
+        <member name="M:WeavingDB.Client.DBClient.Selecttable``1(System.String)">
+            <summary>
+            查询全部数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="tablename"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WeavingDB.Client.DBClient.Selecttable``1(System.String,System.String)">
+            <summary>
+            有条件的查询数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="tablename"></param>
+            <param name="where"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WeavingDB.Client.DBClient.Selecttable``1(System.String,System.Byte,System.String)">
+            <summary>
+            查询数据并排序
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="tablename"></param>
+            <param name="order"></param>
+            <param name="coll"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WeavingDB.Client.DBClient.Selecttable``1(System.String,System.String,System.Byte,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            查询数据并排序与分页
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="tablename"></param>
+            <param name="where"></param>
+            <param name="order"></param>
+            <param name="coll"></param>
+            <param name="pageindex"></param>
+            <param name="pagesize"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

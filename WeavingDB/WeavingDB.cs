@@ -48,15 +48,17 @@ namespace WeavingDB
             DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
             double gggg = 0;
             dbc.Open();
+            string[] names = dbc.GetKey("SBT*");
+            object data = dbc.Get<object>("SBT5424-雨量");
 
-          //  Hashtable ht = new Hashtable();
-          //  ht.Add("123123","afasdfasdf");
-          //  ht.Add("12312311", "afasdfasdf");
-          //  ht.Add("1231231221", "afasaasdfasdf");
-          //  ht.Add("123123122199", "afasaasdfasdf");
-          // bool bb= dbc.SetAll<string>(ht);
+            //  Hashtable ht = new Hashtable();
+            //  ht.Add("123123","afasdfasdf");
+            //  ht.Add("12312311", "afasdfasdf");
+            //  ht.Add("1231231221", "afasaasdfasdf");
+            //  ht.Add("123123122199", "afasaasdfasdf");
+            // bool bb= dbc.SetAll<string>(ht);
 
-          //string sss=  dbc.Get<String>("12312311");
+            //string sss=  dbc.Get<String>("12312311");
             String str2 = dbc.Get<String>("asdasd");
             dbc.GetKey("?d");
             dbc.Set("asdasd", 111);

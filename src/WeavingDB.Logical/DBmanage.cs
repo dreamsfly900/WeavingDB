@@ -505,7 +505,7 @@ namespace WeavingDB.Logical
                 {
                     try
                     {
-                        string file = path + "KVDATA" + key + ".bin";
+                        string file = path + "KVDATA\\" + key + ".bin";
                         if (File.Exists(file))
                         {
                             Loadone(key);
@@ -532,7 +532,7 @@ namespace WeavingDB.Logical
             {
                 try
                 {
-                    string file = path + "KVDATA" + key + ".bin";
+                    string file = path + "KVDATA\\" + key + ".bin";
                     if (File.Exists(file))
                     {
                         File.Delete(file);
