@@ -1,0 +1,338 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HaoCoding.Core</name>
+    </assembly>
+    <members>
+        <member name="T:System.Collections.Generic.CollectionHelper">
+            <summary>集合扩展</summary>
+        </member>
+        <member name="M:System.Collections.Generic.CollectionHelper.ToArray``1(System.Collections.Generic.ICollection{``0},System.Int32)">
+            <summary>集合转为数组</summary>
+            <typeparam name="T">对象</typeparam>
+            <param name="collection"></param>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Collections.Generic.CollectionHelper.ToKeyArray``2(System.Collections.Generic.IDictionary{``0,``1},System.Int32)">
+            <summary>集合转为数组</summary>
+            <typeparam name="TKey">键</typeparam>
+            <typeparam name="TValue">值</typeparam>
+            <param name="collection"></param>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Collections.Generic.CollectionHelper.ToValueArray``2(System.Collections.Generic.IDictionary{``0,``1},System.Int32)">
+            <summary>集合转为数组</summary>
+            <typeparam name="TKey">键</typeparam>
+            <typeparam name="TValue">值</typeparam>
+            <param name="collection"></param>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Collections.Generic.CollectionHelper.ToDictionary(System.Object)">
+            <summary>目标匿名参数对象转为字典</summary>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Collections.Generic.CollectionHelper.Merge(System.Collections.Generic.IDictionary{System.String,System.Object},System.Object,System.Boolean,System.String[])">
+            <summary>合并字典参数</summary>
+            <param name="dic">字典</param>
+            <param name="target">目标对象</param>
+            <param name="overwrite">是否覆盖同名参数</param>
+            <param name="excludes">排除项</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Collections.Generic.CollectionHelper.ToNullable``2(System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IEqualityComparer{``0})">
+            <summary>转为可空字典</summary>
+            <typeparam name="TKey">键</typeparam>
+            <typeparam name="TValue">值</typeparam>
+            <param name="collection"></param>
+            <param name="comparer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Collections.Generic.CollectionHelper.Take``1(System.Collections.Generic.Queue{``0},System.Int32)">
+            <summary>从队列里面获取指定个数元素</summary>
+            <typeparam name="T">对象</typeparam>
+            <param name="collection">消费集合</param>
+            <param name="count">元素个数</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Collections.Generic.CollectionHelper.Take``1(System.Collections.Concurrent.IProducerConsumerCollection{``0},System.Int32)">
+            <summary>从消费集合里面获取指定个数元素</summary>
+            <typeparam name="T">对象</typeparam>
+            <param name="collection">消费集合</param>
+            <param name="count">元素个数</param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Utility">
+            <summary>工具类</summary>
+            <remarks>
+            采用静态架构，允许外部重载工具类的各种实现<seealso cref="T:System.DefaultConvert"/>。
+            所有类型转换均支持默认值，默认值为该default(T)，在转换失败时返回默认值。
+            </remarks>
+        </member>
+        <member name="P:System.Utility.Convert">
+            <summary>类型转换提供者</summary>
+            <remarks>重载默认提供者<seealso cref="T:System.DefaultConvert"/>并赋值给<see cref="P:System.Utility.Convert"/>可改变所有类型转换的行为</remarks>
+        </member>
+        <member name="M:System.Utility.ToInt(System.Object,System.Int32)">
+            <summary>转为整数，转换失败时返回默认值。支持字符串、全角、字节数组（小端）、时间（Unix秒）</summary>
+            <remarks>Int16/UInt32/Int64等，可以先转为最常用的Int32后再二次处理</remarks>
+            <param name="value">待转换对象</param>
+            <param name="defaultValue">默认值。待转换对象无效时使用</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Utility.ToLong(System.Object,System.Int64)">
+            <summary>转为长整数，转换失败时返回默认值。支持字符串、全角、字节数组（小端）、时间（Unix毫秒）</summary>
+            <param name="value">待转换对象</param>
+            <param name="defaultValue">默认值。待转换对象无效时使用</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Utility.ToDouble(System.Object,System.Double)">
+            <summary>转为浮点数，转换失败时返回默认值。支持字符串、全角、字节数组（小端）</summary>
+            <remarks>Single可以先转为最常用的Double后再二次处理</remarks>
+            <param name="value">待转换对象</param>
+            <param name="defaultValue">默认值。待转换对象无效时使用</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Utility.ToBoolean(System.Object,System.Boolean)">
+            <summary>转为布尔型，转换失败时返回默认值。支持大小写True/False、0和非零</summary>
+            <param name="value">待转换对象</param>
+            <param name="defaultValue">默认值。待转换对象无效时使用</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Utility.ToDateTime(System.Object)">
+            <summary>转为时间日期，转换失败时返回最小时间。支持字符串、整数（Unix秒）</summary>
+            <param name="value">待转换对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Utility.ToDateTime(System.Object,System.DateTime)">
+            <summary>转为时间日期，转换失败时返回默认值</summary>
+            <remarks><see cref="F:System.DateTime.MinValue"/>不是常量无法做默认值</remarks>
+            <param name="value">待转换对象</param>
+            <param name="defaultValue">默认值。待转换对象无效时使用</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Utility.ToFullString(System.DateTime)">
+            <summary>时间日期转为yyyy-MM-dd HH:mm:ss完整字符串</summary>
+            <remarks>最常用的时间日期格式，可以无视各平台以及系统自定义的时间格式</remarks>
+            <param name="value">待转换对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Utility.ToFullString(System.DateTime,System.String)">
+            <summary>时间日期转为yyyy-MM-dd HH:mm:ss完整字符串，支持指定最小时间的字符串</summary>
+            <remarks>最常用的时间日期格式，可以无视各平台以及系统自定义的时间格式</remarks>
+            <param name="value">待转换对象</param>
+            <param name="emptyValue">字符串空值时（DateTime.MinValue）显示的字符串，null表示原样显示最小时间，String.Empty表示不显示</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Utility.ToString(System.DateTime,System.String,System.String)">
+            <summary>时间日期转为指定格式字符串</summary>
+            <param name="value">待转换对象</param>
+            <param name="format">格式化字符串</param>
+            <param name="emptyValue">字符串空值时显示的字符串，null表示原样显示最小时间，String.Empty表示不显示</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Utility.GetTrue(System.Exception)">
+            <summary>获取内部真实异常</summary>
+            <param name="ex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Utility.GetMessage(System.Exception)">
+            <summary>获取异常消息</summary>
+            <param name="ex">异常</param>
+            <returns></returns>
+        </member>
+        <member name="T:System.DefaultConvert">
+            <summary>默认转换</summary>
+        </member>
+        <member name="M:System.DefaultConvert.ToInt(System.Object,System.Int32)">
+            <summary>转为整数，转换失败时返回默认值。支持字符串、全角、字节数组（小端）、时间（Unix秒）</summary>
+            <param name="value">待转换对象</param>
+            <param name="defaultValue">默认值。待转换对象无效时使用</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.DefaultConvert.ToLong(System.Object,System.Int64)">
+            <summary>转为长整数。支持字符串、全角、字节数组（小端）、时间（Unix毫秒）</summary>
+            <param name="value">待转换对象</param>
+            <param name="defaultValue">默认值。待转换对象无效时使用</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.DefaultConvert.ToDouble(System.Object,System.Double)">
+            <summary>转为浮点数</summary>
+            <param name="value">待转换对象</param>
+            <param name="defaultValue">默认值。待转换对象无效时使用</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.DefaultConvert.ToBoolean(System.Object,System.Boolean)">
+            <summary>转为布尔型。支持大小写True/False、0和非零</summary>
+            <param name="value">待转换对象</param>
+            <param name="defaultValue">默认值。待转换对象无效时使用</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.DefaultConvert.ToDateTime(System.Object,System.DateTime)">
+            <summary>转为时间日期，转换失败时返回最小时间。支持字符串、整数（Unix秒）</summary>
+            <param name="value">待转换对象</param>
+            <param name="defaultValue">默认值。待转换对象无效时使用</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.DefaultConvert.ToDBC(System.String)">
+            <summary>全角为半角</summary>
+            <remarks>全角半角的关系是相差0xFEE0</remarks>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.DefaultConvert.ToFullString(System.DateTime,System.String)">
+            <summary>时间日期转为yyyy-MM-dd HH:mm:ss完整字符串</summary>
+            <param name="value">待转换对象</param>
+            <param name="emptyValue">字符串空值时显示的字符串，null表示原样显示最小时间，String.Empty表示不显示</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.DefaultConvert.ToString(System.DateTime,System.String,System.String)">
+            <summary>时间日期转为指定格式字符串</summary>
+            <param name="value">待转换对象</param>
+            <param name="format">格式化字符串</param>
+            <param name="emptyValue">字符串空值时显示的字符串，null表示原样显示最小时间，String.Empty表示不显示</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.DefaultConvert.GetTrue(System.Exception)">
+            <summary>获取内部真实异常</summary>
+            <param name="ex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.DefaultConvert.GetMessage(System.Exception)">
+            <summary>获取异常消息</summary>
+            <param name="ex">异常</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.DefaultConvert.ToGMK(System.Int64,System.String)">
+            <summary>字节单位字符串</summary>
+            <param name="value">数值</param>
+            <param name="format">格式化字符串</param>
+            <returns></returns>
+        </member>
+        <member name="T:System.ConcurrentDictionaryExtensions">
+            <summary>并行字典扩展</summary>
+        </member>
+        <member name="M:System.ConcurrentDictionaryExtensions.Remove``2(System.Collections.Concurrent.ConcurrentDictionary{``0,``1},``0)">
+            <summary>从并行字典中删除</summary>
+            <typeparam name="TKey">键</typeparam>
+            <typeparam name="TValue">值</typeparam>
+            <param name="dict"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:System.StringHelper">
+            <summary>字符串助手类</summary>
+        </member>
+        <member name="M:System.StringHelper.EqualIgnoreCase(System.String,System.String[])">
+            <summary>忽略大小写的字符串相等比较，判断是否以任意一个待比较字符串相等</summary>
+            <param name="value">字符串</param>
+            <param name="strs">待比较字符串数组</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringHelper.StartsWithIgnoreCase(System.String,System.String[])">
+            <summary>忽略大小写的字符串开始比较，判断是否以任意一个待比较字符串开始</summary>
+            <param name="value">字符串</param>
+            <param name="strs">待比较字符串数组</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringHelper.EndsWithIgnoreCase(System.String,System.String[])">
+            <summary>忽略大小写的字符串结束比较，判断是否以任意一个待比较字符串结束</summary>
+            <param name="value">字符串</param>
+            <param name="strs">待比较字符串数组</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringHelper.IsNullOrEmpty(System.String)">
+            <summary>指示指定的字符串是 null 还是 String.Empty 字符串</summary>
+            <param name="value">字符串</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringHelper.IsNullOrWhiteSpace(System.String)">
+            <summary>是否空或者空白字符串</summary>
+            <param name="value">字符串</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringHelper.Split(System.String,System.String[])">
+            <summary>拆分字符串，过滤空格，无效时返回空数组</summary>
+            <param name="value">字符串</param>
+            <param name="separators">分组分隔符，默认逗号分号</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringHelper.SplitAsInt(System.String,System.String[])">
+            <summary>拆分字符串成为整型数组，默认逗号分号分隔，无效时返回空数组</summary>
+            <remarks>过滤空格、过滤无效、不过滤重复</remarks>
+            <param name="value">字符串</param>
+            <param name="separators">分组分隔符，默认逗号分号</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringHelper.SplitAsDictionary(System.String,System.String,System.String[])">
+            <summary>拆分字符串成为不区分大小写的可空名值字典。逗号分号分组，等号分隔</summary>
+            <param name="value">字符串</param>
+            <param name="nameValueSeparator">名值分隔符，默认等于号</param>
+            <param name="separators">分组分隔符，默认逗号分号</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringHelper.SplitAsDictionary(System.String,System.String,System.String,System.Boolean)">
+            <summary>拆分字符串成为不区分大小写的可空名值字典。逗号分组，等号分隔</summary>
+            <param name="value">字符串</param>
+            <param name="nameValueSeparator">名值分隔符，默认等于号</param>
+            <param name="separator">分组分隔符，默认分号</param>
+            <param name="trimQuotation">去掉括号</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringHelper.SplitAsDictionaryT(System.String,System.Char,System.Char,System.Boolean)">
+            <summary>
+            在.netCore需要区分该部分内容
+            </summary>
+            <param name="value"></param>
+            <param name="nameValueSeparator"></param>
+            <param name="separator"></param>
+            <param name="trimQuotation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringHelper.Join(System.Collections.IEnumerable,System.String)">
+            <summary>把一个列表组合成为一个字符串，默认逗号分隔</summary>
+            <param name="value"></param>
+            <param name="separator">组合分隔符，默认逗号</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringHelper.Join``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Func{``0,System.String})">
+            <summary>把一个列表组合成为一个字符串，默认逗号分隔</summary>
+            <param name="value"></param>
+            <param name="separator">组合分隔符，默认逗号</param>
+            <param name="func">把对象转为字符串的委托</param>
+            <typeparam name="T">对象</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringHelper.Join``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Func{``0,System.Object})">
+            <summary>把一个列表组合成为一个字符串，默认逗号分隔</summary>
+            <param name="value"></param>
+            <param name="separator">组合分隔符，默认逗号</param>
+            <param name="func">把对象转为字符串的委托</param>
+            <typeparam name="T">对象</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringHelper.Separate(System.Text.StringBuilder,System.String)">
+            <summary>追加分隔符字符串，忽略开头，常用于拼接</summary>
+            <param name="sb">字符串构造者</param>
+            <param name="separator">分隔符</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringHelper.GetBytes(System.String,System.Text.Encoding)">
+            <summary>字符串转数组</summary>
+            <param name="value">字符串</param>
+            <param name="encoding">编码，默认utf-8无BOM</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringHelper.F(System.String,System.Object[])">
+            <summary>格式化字符串。特别支持无格式化字符串的时间参数</summary>
+            <param name="value">格式字符串</param>
+            <param name="args">参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringHelper.EnsureStart(System.String,System.String)">
+            <summary>确保字符串以指定的另一字符串开始，不区分大小写</summary>
+            <param name="str">字符串</param>
+            <param name="start"></param>

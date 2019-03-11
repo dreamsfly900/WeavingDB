@@ -47,16 +47,12 @@ namespace WeavingDB
             public byte[,] gg = new byte[10, 10];
         }
         private void button1_Click(object sender, EventArgs e)
-        {
-            DBClient dbc = new DBClient("116.255.252.181", 18989, "admin", "123123");
+        {//116.255.252.181
+            DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
             double gggg = 0;
             dbc.Open();
-            string[] names = dbc.GetKey("SBT*");
-            aaa a = new aaa();
-            a.aaas = "1992";
-            dbc.Set<aaa>("123123", a);
-            var data = dbc.Get<aaa>("123123");
-            var data2 = dbc.Get<string>("SBT5424-气压");
+            var data = dbc.Get<object>("1000ndvi41_week_2019-3-4-2");
+            var data2 = dbc.Get<object>("1000ndvi41_week_2019-3-4");
 
             //  Hashtable ht = new Hashtable();
             //  ht.Add("123123","afasdfasdf");

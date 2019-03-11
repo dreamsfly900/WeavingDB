@@ -1,0 +1,22 @@
+﻿#Software: wdbserverform
+#ProcessID: 30192
+#AppDomain: wdbserverform.exe
+#BaseDirectory: D:\WeavingDB\wdbserverform\bin\Debug\
+#CommandLine: "D:\WeavingDB\wdbserverform\bin\Debug\wdbserverform.exe" 
+#ApplicationType: Console
+#CLR: 4.0.30319.42000, .NET Framework 4.5
+#OS: Microsoft Windows NT 6.2.9200.0, DESKTOPBBGV1JT/DELL
+#CPU: 4
+#GC: IsServerGC=False, LatencyMode=Interactive
+#Date: 2019-03-11
+#字段: 时间 线程ID 线程池Y网页W普通N 线程名 消息内容
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+20:40:06.631  1 N - HaoCoding.Core v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+20:40:06.643  1 N - HaoCoding.Core 深圳云企微商网络科技有限公司
+20:40:06.643  1 N - wdbserverform v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+20:40:06.643  1 N - wdbserverform Copyright ©  2019
+20:40:06.643  1 N - Setting的配置文件Config\Core.config 不存在，准备用默认配置覆盖！
+20:40:06.748  1 N - Setting的配置文件Config\Agent.config 不存在，准备用默认配置覆盖！
+20:40:08.856  1 N - 服务启动 循环开始
+20:40:45.971 17 Y AM HaoCoding.Setting的配置文件D:\WeavingDB\wdbserverform\bin\Debug\Config\Core.config有更新，重新加载配置！
+20:40:45.996 17 Y AM HaoCoding.Agent.Setting的配置文件D:\WeavingDB\wdbserverform\bin\Debug\Config\Agent.config有更新，重新加载配置！

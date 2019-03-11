@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeavingDB.Logical", "src\We
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WDBServer", "src\WDBServer.Core\WDBServer.csproj", "{FC1B3C1F-39B4-4F67-BCC6-AD86AF51C8E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wdbserverform", "wdbserverform\wdbserverform.csproj", "{409C6A43-C087-41DD-81E8-A52AE85C0C6F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		AAA|Any CPU = AAA|Any CPU
@@ -64,6 +66,12 @@ Global
 		{FC1B3C1F-39B4-4F67-BCC6-AD86AF51C8E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC1B3C1F-39B4-4F67-BCC6-AD86AF51C8E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC1B3C1F-39B4-4F67-BCC6-AD86AF51C8E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{409C6A43-C087-41DD-81E8-A52AE85C0C6F}.AAA|Any CPU.ActiveCfg = Release|Any CPU
+		{409C6A43-C087-41DD-81E8-A52AE85C0C6F}.AAA|Any CPU.Build.0 = Release|Any CPU
+		{409C6A43-C087-41DD-81E8-A52AE85C0C6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{409C6A43-C087-41DD-81E8-A52AE85C0C6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{409C6A43-C087-41DD-81E8-A52AE85C0C6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{409C6A43-C087-41DD-81E8-A52AE85C0C6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

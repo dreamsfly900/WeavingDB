@@ -220,37 +220,46 @@ namespace WeavingDB.Logical
 
         void Loadone(string key)
         {
-            FileStream fs = null;
+           
             try
             {
-                fs = new FileStream(path + @"KVDATA\" + key + ".bin", FileMode.OpenOrCreate);
-                if (Createtable(key))
-                {
-                    byte[] utc = new byte[8];
-                    fs.Read(utc, 0, 8);
-                    long len = fs.Length - 8;
-                    long sh = (long)BitConverter.ToUInt64(utc, 0);
-                    byte[] data = new byte[len];
-                    fs.Read(data, 0, (int)len);
-                    if (noselecttimeout != 0)
+                FileStream fs = new FileStream(path + @"KVDATA\" + key + ".bin", FileMode.Open ,FileAccess.ReadWrite, FileShare.Read);
+                
+                    if (Createtable(key))
                     {
-                        double ss = (DateTime.Now - DateTime.FromFileTime(sh)).TotalSeconds;
+                        byte[] utc = new byte[8];
+                        fs.Read(utc, 0, 8);
+                        long len = fs.Length - 8;
+                        long sh = (long)BitConverter.ToUInt64(utc, 0);
+                        byte[] data = new byte[len];
+                        fs.Read(data, 0, (int)len);
+                        if (noselecttimeout != 0)
+                        {
+                            double ss = (DateTime.Now - DateTime.FromFileTime(sh)).TotalSeconds;
                         if (ss > noselecttimeout)
                         {
-                           
-                        }else
+                            Set(key, data, DateTime.Now.ToFileTime());
+                        }
+                        else
                             Set(key, data, sh);
 
+                        }
+                        else
+                            Set(key, data, sh);
                     }
-                    else
-                      Set(key, data, sh);
-                }
-            }
-            catch { }
-            finally
-            {
                 if (fs != null)
                     fs.Close();
+            }
+            catch(Exception e)
+            {
+                //System.IO.StreamWriter sw = new StreamWriter(path + "//log//log.tt");
+                //sw.WriteLine(e.Message);
+                //sw.Close();
+                
+            }
+            finally
+            {
+              
             }
         }
 
@@ -512,7 +521,11 @@ namespace WeavingDB.Logical
                             Get(key);
                         }
                     }
-                    catch { }
+                    catch (Exception e){
+                        //System.IO.StreamWriter sw = new StreamWriter(path + "//log//log.tt");
+                        //sw.WriteLine(e.Message);
+                        //sw.Close();
+                    }
                 }
             }
             catch
