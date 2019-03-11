@@ -27,7 +27,7 @@ namespace WeavingDB
         //static extern IntPtr LocalFree(IntPtr mem);
 
  
-    private unsafe void WeavingDB_Load(object sender, EventArgs e)
+    private  void WeavingDB_Load(object sender, EventArgs e)
         {
             //object obj= Newtonsoft.Json.JsonConvert.PopulateObject(builder.ToString());122.114.53.233
             //127.0.0.1
@@ -48,7 +48,7 @@ namespace WeavingDB
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
+            DBClient dbc = new DBClient("116.255.252.181", 18989, "admin", "123123");
             double gggg = 0;
             dbc.Open();
             string[] names = dbc.GetKey("SBT*");

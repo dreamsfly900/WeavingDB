@@ -21,6 +21,7 @@
     <RepositoryType>git</RepositoryType>
     <!-- Disable warning for Controller/Action/Method not have block comment -->
     <NoWarn>1701;1702;1705;1591</NoWarn>
+    <Version>1.0.0-preview-20190311-1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
