@@ -48,7 +48,7 @@ namespace WeavingDB
         }
         private void button1_Click(object sender, EventArgs e)
         {//116.255.252.181
-            DBClient dbc = new DBClient("116.255.252.181", 18989, "admin", "123123");
+            DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
             double gggg = 0;
             dbc.Open();
             var data = dbc.Get<object>("wwwww");
