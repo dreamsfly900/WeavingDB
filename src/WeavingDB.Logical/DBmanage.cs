@@ -70,7 +70,7 @@ namespace WeavingDB.Logical
                             if (ss > 0)
                             {
                                 CDKVlongtimeout.TryRemove(key, out utc);
-                                Remove(key);
+                                clear(key);
                             }
                         }
                     }
@@ -186,7 +186,7 @@ namespace WeavingDB.Logical
                                 double ss = (DateTime.Now - DateTime.FromFileTime(utc)).TotalSeconds;
                                 if (ss > timeout)
                                 {
-                                    Remove(key);
+                                    clear(key);
                                 }
                             }
                         }
@@ -557,7 +557,22 @@ namespace WeavingDB.Logical
             }
             return false;
         }
-
+        /// <summary>
+        /// 移除K-V数据
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public bool clear(string key)
+        {
+            byte[] b; long lo;
+            if (CDKV.ContainsKey(key))
+            {
+                 
+                CDKVlong.TryRemove(key, out lo);
+                return CDKV.TryRemove(key, out b);
+            }
+            return false;
+        }
         /// <summary>
         /// 设置K-V数据
         /// </summary>

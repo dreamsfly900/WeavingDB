@@ -16,7 +16,7 @@ using WeavingDB.Client;
 
 namespace WeavingDB
 {
-  
+   
     public partial class WeavingDB : Form
     {
         public WeavingDB()
@@ -46,20 +46,25 @@ namespace WeavingDB
             public string aaas = "";
             public byte[,] gg = new byte[10, 10];
         }
+        public class network
+        {
+            public string name;
+            public string ip;
+            public bool status;
+        }
         private void button1_Click(object sender, EventArgs e)
         {//116.255.252.181
-            DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
+            DBClient dbc = new DBClient("116.255.252.181", 18989, "admin", "123123");
             double gggg = 0;
             dbc.Open();
-            var data = dbc.Get<object>("wwwww");
-            var data2 = dbc.Get<object>("1000ndvi41_week_2019-3-4");
+            var OBJ = dbc.Get< network[]>("4104_equipmentmode-network");
 
-            //  Hashtable ht = new Hashtable();
-            //  ht.Add("123123","afasdfasdf");
-            //  ht.Add("12312311", "afasdfasdf");
-            //  ht.Add("1231231221", "afasaasdfasdf");
-            //  ht.Add("123123122199", "afasaasdfasdf");
-            // bool bb= dbc.SetAll<string>(ht);
+            Hashtable ht = new Hashtable();
+            ht.Add("123123", "afasdfasdf");
+            ht.Add("12312311", "afasdfasdf");
+            ht.Add("1231231221", "afasaasdfasdf");
+            ht.Add("123123122199", "afasaasdfasdf");
+            bool bb = dbc.SetAll<string>(ht);
 
             //string sss=  dbc.Get<String>("12312311");
             String str2 = dbc.Get<String>("asdasd");
