@@ -536,7 +536,7 @@ namespace WeavingDB.Logical
                         if (File.Exists(file))
                         {
                             Loadone(key);
-                            Get(key);
+                           return Get(key);
                         }
                     }
                     catch (Exception e){
