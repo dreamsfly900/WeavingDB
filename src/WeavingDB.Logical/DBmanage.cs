@@ -536,7 +536,13 @@ namespace WeavingDB.Logical
                         if (File.Exists(file))
                         {
                             Loadone(key);
-                           return Get(key);
+                            if (CDKV.ContainsKey(key))
+                            {
+                                if (CDKVlong[key] != 0)
+                                    CDKVlong[key] = DateTime.Now.ToFileTime();
+                                return CDKV[key];
+                            }
+                            // return Get(key);
                         }
                     }
                     catch (Exception e){
