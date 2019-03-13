@@ -120,6 +120,13 @@
             <param name="key"></param>
             <returns></returns>
         </member>
+        <member name="M:WeavingDB.Logical.DBmanage.clear(System.String)">
+            <summary>
+            移除K-V数据
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
         <member name="M:WeavingDB.Logical.DBmanage.Set(System.String,System.Byte[])">
             <summary>
             设置K-V数据
