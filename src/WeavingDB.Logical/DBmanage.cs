@@ -220,10 +220,10 @@ namespace WeavingDB.Logical
 
         void Loadone(string key)
         {
-           
+            FileStream fs = null;
             try
             {
-                FileStream fs = new FileStream(path + @"KVDATA\" + key + ".bin", FileMode.Open ,FileAccess.ReadWrite, FileShare.Read);
+                 fs = new FileStream(path + @"KVDATA\" + key + ".bin", FileMode.Open ,FileAccess.ReadWrite, FileShare.Read);
                 
                     if (Createtable(key))
                     {
@@ -247,8 +247,7 @@ namespace WeavingDB.Logical
                         else
                             Set(key, data, sh);
                     }
-                if (fs != null)
-                    fs.Close();
+                 
             }
             catch(Exception e)
             {
@@ -259,7 +258,12 @@ namespace WeavingDB.Logical
             }
             finally
             {
-              
+                try
+                {
+                    if (fs != null)
+                        fs.Close();
+                }
+                catch { }
             }
         }
 
@@ -277,8 +281,12 @@ namespace WeavingDB.Logical
             catch { }
             finally
             {
-                if (fs != null)
-                    fs.Close();
+                try
+                {
+                    if (fs != null)
+                        fs.Close();
+                }
+                catch { }
             }
         }
 
@@ -378,19 +386,24 @@ namespace WeavingDB.Logical
         /// <returns></returns>
         public bool InsettabledataArray(string key, string data)
         {
-            if (CDtable.ContainsKey(key))
+            try
             {
-                DBLogical dblo = new DBLogical();
-                Liattable list = CDtable[key];
-                JArray job = JArray.Parse(data);
-
-                lock (list.datas)
+                if (CDtable.ContainsKey(key))
                 {
-                    foreach (JObject item in job)
-                        list.datas.Add(dblo.insertintoJson(item, ref list.datahead));
+                    DBLogical dblo = new DBLogical();
+                    Liattable list = CDtable[key];
+                    JArray job = JArray.Parse(data);
+
+                    lock (list.datas)
+                    {
+                        foreach (JObject item in job)
+                            list.datas.Add(dblo.insertintoJson(item, ref list.datahead));
+                    }
+                    return true;
                 }
-                return true;
             }
+            catch
+            { }
 
             return false;
         }
@@ -430,14 +443,19 @@ namespace WeavingDB.Logical
 
         internal string[] Selctekey(string keyp)
         {
-            keyp = keyp.Replace("*", "(.+)").Replace("?", "(.+){1}");
-            List<string> list = new List<string>();
-            foreach (string key in CDKV.Keys)
+            try
             {
-                if (Stringtonosymbol(key, "^" + keyp + "$"))
-                    list.Add(key);
+                keyp = keyp.Replace("*", "(.+)").Replace("?", "(.+){1}");
+                List<string> list = new List<string>();
+                foreach (string key in CDKV.Keys)
+                {
+                    if (Stringtonosymbol(key, "^" + keyp + "$"))
+                        list.Add(key);
+                }
+                return list.ToArray();
             }
-            return list.ToArray();
+            catch { }
+            return new string[0];
         }
 
         internal bool Stringtonosymbol(string _sqlsst, string rstr)
@@ -467,7 +485,7 @@ namespace WeavingDB.Logical
                 }
                 catch (Exception ee)
                 {
-                    throw ee;
+                    //throw ee;
                 }
             }
 
@@ -518,7 +536,13 @@ namespace WeavingDB.Logical
                         if (File.Exists(file))
                         {
                             Loadone(key);
-                            Get(key);
+                            if (CDKV.ContainsKey(key))
+                            {
+                                if (CDKVlong[key] != 0)
+                                    CDKVlong[key] = DateTime.Now.ToFileTime();
+                                return CDKV[key];
+                            }
+                            // return Get(key);
                         }
                     }
                     catch (Exception e){
@@ -564,13 +588,18 @@ namespace WeavingDB.Logical
         /// <returns></returns>
         public bool clear(string key)
         {
-            byte[] b; long lo;
-            if (CDKV.ContainsKey(key))
+            try
             {
-                 
-                CDKVlong.TryRemove(key, out lo);
-                return CDKV.TryRemove(key, out b);
+                byte[] b; long lo;
+                if (CDKV.ContainsKey(key))
+                {
+
+                    CDKVlong.TryRemove(key, out lo);
+                    return CDKV.TryRemove(key, out b);
+                }
             }
+            catch
+            { }
             return false;
         }
         /// <summary>
@@ -619,22 +648,27 @@ namespace WeavingDB.Logical
                 }
             }
             catch { }
-            finally { savekey.Enqueue(key); }
+            finally {
+                savekey.Enqueue(key); }
             return true;
         }
         public bool Set(string key, byte[] vlaue, long utc)
         {
-            if (CDKV.ContainsKey(key))
+            try
             {
-                CDKVlong[key] = utc;
-                CDKV[key] = vlaue;
-                return true;
+                if (CDKV.ContainsKey(key))
+                {
+                    CDKVlong[key] = utc;
+                    CDKV[key] = vlaue;
+                    return true;
+                }
+                else
+                {
+                    CDKVlong.TryAdd(key, utc);
+                    return CDKV.TryAdd(key, vlaue);
+                }
             }
-            else
-            {
-                CDKVlong.TryAdd(key, utc);
-                return CDKV.TryAdd(key, vlaue);
-            }
+            catch { return true; }
         }
     }
 }

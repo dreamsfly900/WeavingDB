@@ -54,7 +54,7 @@ namespace WeavingDB
         }
         private void button1_Click(object sender, EventArgs e)
         {//116.255.252.181
-            DBClient dbc = new DBClient("116.255.252.181", 18989, "admin", "123123");
+            DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
             double gggg = 0;
             dbc.Open();
             var OBJ = dbc.Get< network[]>("4104_equipmentmode-network");
@@ -77,15 +77,17 @@ namespace WeavingDB
             keys = dbc.GetKey("as*");//通配符* 表示，多个模糊匹配
             dbc.GetKey("as?a?d");
             dbc.GetKey("?d");
-            while (i < 10000)
+            while (i < 100)
             {
                 i++;
                 DateTime dt = DateTime.Now;
+                dbc.Set("asdasd", 111);
                 String str = dbc.Get<String>("asdasd");
                 DateTime dt2 = DateTime.Now;
                 double gg = (dt2 - dt).TotalMilliseconds;
                 gggg += gg;
                 listBox1.Items.Add("第" + (i++) + "次查询耗时：" + gg + "毫秒");
+               // System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(ff));
             }
 
 
@@ -95,7 +97,14 @@ namespace WeavingDB
             //每次插入一条数据
            
         }
-       
+        
+        void ff(object obj)
+        {
+            DBClient dbc2 = new DBClient("127.0.0.1", 18989, "admin", "123123");
+            dbc2.Open();
+            dbc2.RemoveKV("asdasd");
+            dbc2.Close();
+        }
         private void button2_Click(object sender, EventArgs e)
         {
             DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
