@@ -272,11 +272,22 @@ namespace WeavingDB.Logical
             FileStream fs = null;
             try
             {
+                if (File.Exists(path + @"KVDATA\" + key + ".bin"))
+                {
+                    try {
+                        File.Delete(path + @"KVDATA\" + key + ".bin");
+                    }
+                    catch
+                    { }
+                }
                 fs = new FileStream(path + @"KVDATA\" + key + ".bin", FileMode.OpenOrCreate);
+                 
                 int lenth = CDKV[key].Length;
+                
                 byte[] shi = BitConverter.GetBytes(utc);
                 fs.Write(shi, 0, 8);
                 fs.Write(CDKV[key], 0, lenth);
+               
             }
             catch { }
             finally

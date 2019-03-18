@@ -57,8 +57,8 @@ namespace WeavingDB
             DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
             double gggg = 0;
             dbc.Open();
-            var OBJ = dbc.Get<object>("Satellite");
-
+            //     var OBJ = dbc.Get<object>("4104_equipmentmode-Windradar");
+            //var str22 = dbc.Get<network[]>("4104_equipmentmode-network");
             Hashtable ht = new Hashtable();
             ht.Add("123123", "afasdfasdf");
             ht.Add("12312311", "afasdfasdf");
@@ -67,7 +67,7 @@ namespace WeavingDB
             bool bb = dbc.SetAll<string>(ht);
 
             //string sss=  dbc.Get<String>("12312311");
-            String str2 = dbc.Get<String>("asdasd");
+           var  str2 = dbc.Get<String>("afasdfasdf");
             dbc.GetKey("?d");
             dbc.Set("asdasd", 111);
             dbc.Set("aabbcc", 111222, 5);
