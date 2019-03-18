@@ -57,7 +57,7 @@ namespace WeavingDB
             DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
             double gggg = 0;
             dbc.Open();
-            var OBJ = dbc.Get< network[]>("4104_equipmentmode-network");
+            var OBJ = dbc.Get<object>("Satellite");
 
             Hashtable ht = new Hashtable();
             ht.Add("123123", "afasdfasdf");
@@ -107,8 +107,19 @@ namespace WeavingDB
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
+            DBClient dbc = new DBClient("116.255.252.181", 18989, "admin", "123123");
             dbc.Open();
+            string sqlstr = "warningTime>'2019-03-15 14:00:00' && Areacodelist like '41%' ";
+            int i = 0;
+            DateTime dt = DateTime.Now;
+            while (i < 100)
+            {
+                var t_warlist = dbc.Selecttable<object[]>("T_warning", sqlstr);
+                i++;
+            }
+ 
+            DateTime dt2 = DateTime.Now;
+            listBox1.Items.Add("万条数据插入" + (dt2 - dt).TotalMilliseconds + "毫秒");
             user u = new user();
             var uu = new aabb();
             uu.list.Add(new bbcc());
@@ -126,7 +137,7 @@ namespace WeavingDB
             //每次插入一组数据
             List<user> list = new List<user>();
 
-            int i = 0;
+           
             while (i < 200)
             {
                 u = new user();
@@ -134,10 +145,10 @@ namespace WeavingDB
                 list.Add(u);
                 i++;
             }
-            DateTime dt = DateTime.Now;
+             dt = DateTime.Now;
             bbc = dbc.Inserttable<user>("ddd", list.ToArray());
 
-            DateTime dt2 = DateTime.Now;
+             dt2 = DateTime.Now;
             listBox1.Items.Add("万条数据插入" + (dt2 - dt).TotalMilliseconds + "毫秒");
 
             dbc.Updatetable("ddd", "id<10", new { name = "特大喜讯" });

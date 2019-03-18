@@ -225,7 +225,7 @@ namespace WeavingDB.Logical
             {
                  fs = new FileStream(path + @"KVDATA\" + key + ".bin", FileMode.Open ,FileAccess.ReadWrite, FileShare.Read);
                 
-                    if (Createtable(key))
+                  //  if (Createtable(key))
                     {
                         byte[] utc = new byte[8];
                         fs.Read(utc, 0, 8);
