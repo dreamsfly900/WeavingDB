@@ -22,3 +22,5 @@ D:\WeavingDB\wdbserverform\obj\Debug\wdbserverform.csproj.CoreCompileInputs.cach
 D:\WeavingDB\wdbserverform\obj\Debug\wdbserverform.csproj.CopyComplete
 D:\WeavingDB\wdbserverform\obj\Debug\wdbserverform.exe
 D:\WeavingDB\wdbserverform\obj\Debug\wdbserverform.pdb
+D:\WeavingDB\wdbserverform\bin\Debug\Weave.Server.pdb
+D:\WeavingDB\wdbserverform\bin\Debug\Weave.Server.xml

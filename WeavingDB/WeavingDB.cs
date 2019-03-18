@@ -54,12 +54,12 @@ namespace WeavingDB
         }
         private void button1_Click(object sender, EventArgs e)
         {//116.255.252.181
-            DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
+            DBClient dbc = new DBClient("116.255.252.181", 18989, "admin", "123123");
             double gggg = 0;
             dbc.Open();
-            //     var OBJ = dbc.Get<object>("4104_equipmentmode-Windradar");
-            //var str22 = dbc.Get<network[]>("4104_equipmentmode-network");
-            Hashtable ht = new Hashtable();
+            var OBJ = dbc.Get<object>("4104_equipmentmode-radar");
+            var str22 = dbc.Get<network[]>("4104_equipmentmode-network");
+             Hashtable ht = new Hashtable();
             ht.Add("123123", "afasdfasdf");
             ht.Add("12312311", "afasdfasdf");
             ht.Add("1231231221", "afasaasdfasdf");
@@ -77,7 +77,7 @@ namespace WeavingDB
             keys = dbc.GetKey("as*");//通配符* 表示，多个模糊匹配
             dbc.GetKey("as?a?d");
             dbc.GetKey("?d");
-            while (i < 100)
+            while (i < 10000)
             {
                 i++;
                 DateTime dt = DateTime.Now;

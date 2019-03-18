@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WDBServer", "src\WDBServer.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wdbserverform", "wdbserverform\wdbserverform.csproj", "{409C6A43-C087-41DD-81E8-A52AE85C0C6F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weave.TCPClient", "..\weave-socket\Code\src\Weave.TCPClient.Core\Weave.TCPClient.csproj", "{9736D6C1-8667-4AB3-8D5D-5F5CC92A79D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		AAA|Any CPU = AAA|Any CPU
@@ -72,6 +74,12 @@ Global
 		{409C6A43-C087-41DD-81E8-A52AE85C0C6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{409C6A43-C087-41DD-81E8-A52AE85C0C6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{409C6A43-C087-41DD-81E8-A52AE85C0C6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9736D6C1-8667-4AB3-8D5D-5F5CC92A79D8}.AAA|Any CPU.ActiveCfg = Release|Any CPU
+		{9736D6C1-8667-4AB3-8D5D-5F5CC92A79D8}.AAA|Any CPU.Build.0 = Release|Any CPU
+		{9736D6C1-8667-4AB3-8D5D-5F5CC92A79D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9736D6C1-8667-4AB3-8D5D-5F5CC92A79D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9736D6C1-8667-4AB3-8D5D-5F5CC92A79D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9736D6C1-8667-4AB3-8D5D-5F5CC92A79D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
