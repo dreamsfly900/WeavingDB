@@ -33,6 +33,10 @@
     <DocumentationFile>..\..\output\release\netstandard2.0\WeavingDB.Client.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Weave.TCPClient" Version="1.0.0-preview-20190318-01" />
+  </ItemGroup>
+
   <ItemGroup Condition="'$(TargetFramework)' == 'net40'">
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
@@ -43,10 +47,6 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Weave.TCPClient" Version="1.0.0-preview-20190318-01" />
   </ItemGroup>
 
   <ItemGroup>

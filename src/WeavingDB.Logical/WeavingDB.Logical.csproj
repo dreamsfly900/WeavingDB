@@ -47,9 +47,9 @@
   <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
     <Reference Include="System.Configuration" />
   </ItemGroup>
-<ItemGroup>
-    
-    <PackageReference Include="weave.server" Version="1.0.0-preview-20190318-01" />
+
+  <ItemGroup>
+    <PackageReference Include="Weave.Server" Version="1.0.0-preview-20190318-01" />
   </ItemGroup>
 
   <ItemGroup>

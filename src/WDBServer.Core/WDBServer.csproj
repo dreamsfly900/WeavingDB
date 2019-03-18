@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.App" Version="2.2.2" />
-    <PackageReference Include="HaoCoding.Agent" Version="1.0.0-preview-20190304-9" />
+    <PackageReference Include="HaoCoding.Agent" Version="1.0.0-preview-20190315-05" />
   </ItemGroup>
 
   <ItemGroup>
