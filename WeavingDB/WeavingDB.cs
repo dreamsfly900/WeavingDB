@@ -81,8 +81,8 @@ namespace WeavingDB
             {
                 i++;
                 DateTime dt = DateTime.Now;
-                dbc.Set("asdasd", 111);
-                String str = dbc.Get<String>("asdasd");
+                //dbc.Set("asdasd", 111);
+                var str = dbc.Get<int>("asdasd");
                 DateTime dt2 = DateTime.Now;
                 double gg = (dt2 - dt).TotalMilliseconds;
                 gggg += gg;
@@ -109,35 +109,33 @@ namespace WeavingDB
         {
             DBClient dbc = new DBClient("116.255.252.181", 18989, "admin", "123123");
             dbc.Open();
-            string sqlstr = "warningTime>'2019-03-15 14:00:00' && Areacodelist like '41%' ";
-            int i = 0;
+            var t_warlist2 = dbc.Selecttable<object[]>("T_warning", " Areacodelist like '14022%' &&  warningTime>'2019/3/20 08:00:43'");
+
+           string sqlstr = "warningTime>'2019-03-15 14:00:00' && Areacodelist like '41%' ";
+
             DateTime dt = DateTime.Now;
-            while (i < 100)
-            {
-                var t_warlist = dbc.Selecttable<object[]>("T_warning", sqlstr);
-                i++;
-            }
- 
             DateTime dt2 = DateTime.Now;
-            listBox1.Items.Add("万条数据插入" + (dt2 - dt).TotalMilliseconds + "毫秒");
+         //   listBox1.Items.Add("万条数据插入" + (dt2 - dt).TotalMilliseconds + "毫秒");
             user u = new user();
+            u.name= "14,1401,1402"; 
             var uu = new aabb();
             uu.list.Add(new bbcc());
             u.list.Add(uu);
         
-            if (dbc.Createtable("ddd"))
+            if (dbc.Createtable("ddd2"))
             {
 
             }
-            bool bbc = dbc.Inserttable<user>("ddd", u);
-            user[] u2 = dbc.Selecttable<user[]>("ddd");
+         
+            bool bbc = dbc.Inserttable<user>("ddd2", u);
+            user[] u2 = dbc.Selecttable<user[]>("ddd2");
             bbc = dbc.Inserttable<user>("ddd", u);
 
 
             //每次插入一组数据
             List<user> list = new List<user>();
 
-           
+            int i = 0;
             while (i < 200)
             {
                 u = new user();

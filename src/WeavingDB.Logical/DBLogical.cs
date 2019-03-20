@@ -834,7 +834,7 @@ namespace WeavingDB.Logical
                                         {
                                             string value = Marshal.PtrToStringAnsi((IntPtr)p1);
                                             string sconvalue = Marshal.PtrToStringAnsi((IntPtr)mtssscon[ci]);
-                                            sconvalue = sconvalue.Replace("%", "(.+)").Replace("_", "(.+){1}");
+                                            sconvalue = sconvalue.Replace("%", "(.*)").Replace("_", "(.+){1}");
                                             conbb[bi] = Stringtonosymbol(value, "^" + sconvalue + "$");
                                         }
                                     }
@@ -1069,7 +1069,7 @@ namespace WeavingDB.Logical
                                         {
                                             string value = Marshal.PtrToStringAnsi((IntPtr)p1);
                                             string sconvalue = Marshal.PtrToStringAnsi((IntPtr)mtssscon[ci]);
-                                            sconvalue = sconvalue.Replace("%", "(.+)").Replace("_", "(.+){1}");
+                                            sconvalue = sconvalue.Replace("%", "(.*)").Replace("_", "(.+){1}");
                                             conbb[bi] = Stringtonosymbol(value, "^" + sconvalue + "$");
 
                                         }
@@ -1313,7 +1313,7 @@ namespace WeavingDB.Logical
                                     {
                                         string value = Marshal.PtrToStringAnsi((IntPtr)p1);
                                         string sconvalue = Marshal.PtrToStringAnsi((IntPtr)mtssscon[ci]);
-                                        sconvalue = sconvalue.Replace("%", "(.+)").Replace("_", "(.+){1}");
+                                        sconvalue = sconvalue.Replace("%", "(.*)").Replace("_", "(.+){1}");
                                         conbb[bi] = Stringtonosymbol(value, "^" + sconvalue + "$");
                                     }
                                 }

@@ -101,7 +101,7 @@ namespace ConsoleApp1
             //list = new List<byte[]>();
             //DataEncoding.setKVsdecode(data, out kets, out list);
 
-            //Stringtonosymbol("asdaskkkk123吧啊", "^12(.+)?3(.+)$");
+            Stringtonosymbol("123", "^123(.*)$");
             ////Queue st = new Queue();
             ////st.Enqueue(11);
             ////while (true)

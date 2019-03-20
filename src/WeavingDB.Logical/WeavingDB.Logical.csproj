@@ -49,10 +49,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Weave.Server" Version="1.0.0-preview-20190318-01" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\..\..\weave-socket\Code\src\Weave.Server.Core\Weave.Server.csproj" />
     <ProjectReference Include="..\WeavingDB.DataEncoding.Core\WeavingDB.DataEncoding.csproj" />
   </ItemGroup>
 

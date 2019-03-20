@@ -1,0 +1,259 @@
+﻿#Software: wdbserverform
+#ProcessID: 31096 x64
+#AppDomain: wdbserverform.exe
+#BaseDirectory: D:\WeavingDB\wdbserverform\bin\Debug\
+#CommandLine: "D:\WeavingDB\wdbserverform\bin\Debug\wdbserverform.exe" 
+#ApplicationType: Console
+#CLR: 4.0.30319.42000, .NET Framework 4.5
+#OS: Microsoft Windows NT 6.2.9200.0, DESKTOPBBGV1JT/DELL
+#CPU: 4
+#GC: IsServerGC=False, LatencyMode=Interactive
+#Date: 2019-03-20
+#字段: 时间 线程ID 线程池Y网页W普通N 线程名 消息内容
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+09:44:43.737  1 N - HaoCoding.Core v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+09:44:43.739  1 N - 云企微商组件核心库 ©2002-2019 深圳云企微商网络科技有限公司开发团队
+09:44:43.740  1 N - wdbserverform v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+09:44:43.740  1 N - wdbserverform Copyright ©  2019
+09:44:46.678  1 N - 服务启动 循环开始
+09:45:28.311  1 N - 服务停止 循环停止
+
+#Software: wdbserverform
+#ProcessID: 14500 x64
+#AppDomain: wdbserverform.exe
+#BaseDirectory: D:\WeavingDB\wdbserverform\bin\Debug\
+#CommandLine: "D:\WeavingDB\wdbserverform\bin\Debug\wdbserverform.exe" 
+#ApplicationType: Console
+#CLR: 4.0.30319.42000, .NET Framework 4.5
+#OS: Microsoft Windows NT 6.2.9200.0, DESKTOPBBGV1JT/DELL
+#CPU: 4
+#GC: IsServerGC=False, LatencyMode=Interactive
+#Date: 2019-03-20
+#字段: 时间 线程ID 线程池Y网页W普通N 线程名 消息内容
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+09:49:06.478  1 N - HaoCoding.Core v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+09:49:06.480  1 N - 云企微商组件核心库 ©2002-2019 深圳云企微商网络科技有限公司开发团队
+09:49:06.481  1 N - wdbserverform v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+09:49:06.481  1 N - wdbserverform Copyright ©  2019
+09:49:07.713  1 N - RunCmd net start WeavingDB
+09:49:07.826  1 N - 发生系统错误 5。
+
+拒绝访问。
+
+#Software: wdbserverform
+#ProcessID: 5808 x64
+#AppDomain: wdbserverform.exe
+#BaseDirectory: D:\WeavingDB\wdbserverform\bin\Debug\
+#CommandLine: "D:\WeavingDB\wdbserverform\bin\Debug\wdbserverform.exe" 
+#ApplicationType: Console
+#CLR: 4.0.30319.42000, .NET Framework 4.5
+#OS: Microsoft Windows NT 6.2.9200.0, DESKTOPBBGV1JT/DELL
+#CPU: 4
+#GC: IsServerGC=False, LatencyMode=Interactive
+#Date: 2019-03-20
+#字段: 时间 线程ID 线程池Y网页W普通N 线程名 消息内容
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+09:49:14.619  1 N - HaoCoding.Core v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+09:49:14.621  1 N - 云企微商组件核心库 ©2002-2019 深圳云企微商网络科技有限公司开发团队
+09:49:14.621  1 N - wdbserverform v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+09:49:14.621  1 N - wdbserverform Copyright ©  2019
+09:49:15.754  1 N - RunCmd net start WeavingDB
+09:49:18.023  1 N - WeavingDB 服务正在启动 .
+WeavingDB 服务已经启动成功。
+ctory: D:\WeavingDB\wdbserverform\bin\Debug\
+#CurrentDirectory: C:\WINDOWS\system32
+#CommandLine: D:\WeavingDB\wdbserverform\bin\Debug\wdbserverform.exe -s
+#ApplicationType: Service
+#CLR: 4.0.30319.42000, .NET Framework 4.5
+#OS: Microsoft Windows NT 6.2.9200.0, DESKTOPBBGV1JT/SYSTEM
+#CPU: 4
+#GC: IsServerGC=False, LatencyMode=Interactive
+#Date: 2019-03-20
+#字段: 时间 线程ID 线程池Y网页W普通N 线程名 消息内容
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+09:49:16.008  1 N - HaoCoding.Core v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+09:49:16.010  1 N - 云企微商组件核心库 ©2002-2019 深圳云企微商网络科技有限公司开发团队
+09:49:16.010  1 N - wdbserverform v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+09:49:16.010  1 N - wdbserverform Copyright ©  2019
+09:49:16.098  7 Y - 服务启动 OnStart
+09:52:34.430  1 N - RunCmd net stop WeavingDB
+09:52:37.007  1 N - WeavingDB 服务正在停止.
+WeavingDB 服务已成功停止。
+
+#Software: wdbserverform
+#ProcessID: 19244 x64
+#AppDomain: wdbserverform.exe
+#BaseDirectory: D:\WeavingDB\wdbserverform\bin\Debug\
+#CommandLine: "D:\WeavingDB\wdbserverform\bin\Debug\wdbserverform.exe" 
+#ApplicationType: Console
+#CLR: 4.0.30319.42000, .NET Framework 4.5
+#OS: Microsoft Windows NT 6.2.9200.0, DESKTOPBBGV1JT/DELL
+#CPU: 4
+#GC: IsServerGC=False, LatencyMode=Interactive
+#Date: 2019-03-20
+#字段: 时间 线程ID 线程池Y网页W普通N 线程名 消息内容
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+09:56:24.486  1 N - HaoCoding.Core v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+09:56:24.488  1 N - 云企微商组件核心库 ©2002-2019 深圳云企微商网络科技有限公司开发团队
+09:56:24.488  1 N - wdbserverform v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+09:56:24.488  1 N - wdbserverform Copyright ©  2019
+
+#Software: wdbserverform
+#ProcessID: 15096 x64
+#AppDomain: wdbserverform.exe
+#BaseDirectory: D:\WeavingDB\wdbserverform\bin\Debug\
+#CommandLine: "D:\WeavingDB\wdbserverform\bin\Debug\wdbserverform.exe" 
+#ApplicationType: Console
+#CLR: 4.0.30319.42000, .NET Framework 4.5
+#OS: Microsoft Windows NT 6.2.9200.0, DESKTOPBBGV1JT/DELL
+#CPU: 4
+#GC: IsServerGC=False, LatencyMode=Interactive
+#Date: 2019-03-20
+#字段: 时间 线程ID 线程池Y网页W普通N 线程名 消息内容
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+09:56:30.278  1 N - HaoCoding.Core v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+09:56:30.280  1 N - 云企微商组件核心库 ©2002-2019 深圳云企微商网络科技有限公司开发团队
+09:56:30.280  1 N - wdbserverform v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+09:56:30.280  1 N - wdbserverform Copyright ©  2019
+09:56:31.734  1 N - RunCmd net start WeavingDB
+09:56:33.920  1 N - WeavingDB 服务正在启动 .
+WeavingDB 服务已经启动成功。
+ctory: D:\WeavingDB\wdbserverform\bin\Debug\
+#CurrentDirectory: C:\WINDOWS\system32
+#CommandLine: D:\WeavingDB\wdbserverform\bin\Debug\wdbserverform.exe -s
+#ApplicationType: Service
+#CLR: 4.0.30319.42000, .NET Framework 4.5
+#OS: Microsoft Windows NT 6.2.9200.0, DESKTOPBBGV1JT/SYSTEM
+#CPU: 4
+#GC: IsServerGC=False, LatencyMode=Interactive
+#Date: 2019-03-20
+#字段: 时间 线程ID 线程池Y网页W普通N 线程名 消息内容
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+09:56:31.905  1 N - HaoCoding.Core v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+09:56:31.907  1 N - 云企微商组件核心库 ©2002-2019 深圳云企微商网络科技有限公司开发团队
+09:56:31.907  1 N - wdbserverform v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+09:56:31.907  1 N - wdbserverform Copyright ©  2019
+09:56:31.978  7 Y - 服务启动 OnStart
+09:57:15.788  1 N - RunCmd net stop WeavingDB
+09:57:18.371  1 N - WeavingDB 服务正在停止.
+WeavingDB 服务已成功停止。
+
+#Software: wdbserverform
+#ProcessID: 14980 x64
+#AppDomain: wdbserverform.exe
+#BaseDirectory: D:\WeavingDB\wdbserverform\bin\Debug\
+#CommandLine: "D:\WeavingDB\wdbserverform\bin\Debug\wdbserverform.exe" 
+#ApplicationType: Console
+#CLR: 4.0.30319.42000, .NET Framework 4.5
+#OS: Microsoft Windows NT 6.2.9200.0, DESKTOPBBGV1JT/DELL
+#CPU: 4
+#GC: IsServerGC=False, LatencyMode=Interactive
+#Date: 2019-03-20
+#字段: 时间 线程ID 线程池Y网页W普通N 线程名 消息内容
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+09:59:20.073  1 N - HaoCoding.Core v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+09:59:20.075  1 N - 云企微商组件核心库 ©2002-2019 深圳云企微商网络科技有限公司开发团队
+09:59:20.075  1 N - wdbserverform v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+09:59:20.075  1 N - wdbserverform Copyright ©  2019
+09:59:21.134  1 N - RunCmd net start WeavingDB
+09:59:23.309  1 N - WeavingDB 服务正在启动 .
+WeavingDB 服务已经启动成功。
+tory: D:\WeavingDB\wdbserverform\bin\Debug\
+#CurrentDirectory: C:\WINDOWS\system32
+#CommandLine: D:\WeavingDB\wdbserverform\bin\Debug\wdbserverform.exe -s
+#ApplicationType: Service
+#CLR: 4.0.30319.42000, .NET Framework 4.5
+#OS: Microsoft Windows NT 6.2.9200.0, DESKTOPBBGV1JT/SYSTEM
+#CPU: 4
+#GC: IsServerGC=False, LatencyMode=Interactive
+#Date: 2019-03-20
+#字段: 时间 线程ID 线程池Y网页W普通N 线程名 消息内容
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+09:59:21.292  1 N - HaoCoding.Core v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+09:59:21.294  1 N - 云企微商组件核心库 ©2002-2019 深圳云企微商网络科技有限公司开发团队
+09:59:21.294  1 N - wdbserverform v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+09:59:21.294  1 N - wdbserverform Copyright ©  2019
+09:59:21.401  7 Y - 服务启动 OnStart
+10:04:29.719  1 N - RunCmd net stop WeavingDB
+10:04:32.314  1 N - WeavingDB 服务正在停止.
+WeavingDB 服务已成功停止。
+
+#Software: wdbserverform
+#ProcessID: 23492 x64
+#AppDomain: wdbserverform.exe
+#BaseDirectory: D:\WeavingDB\wdbserverform\bin\Debug\
+#CommandLine: "D:\WeavingDB\wdbserverform\bin\Debug\wdbserverform.exe" 
+#ApplicationType: Console
+#CLR: 4.0.30319.42000, .NET Framework 4.5
+#OS: Microsoft Windows NT 6.2.9200.0, DESKTOPBBGV1JT/DELL
+#CPU: 4
+#GC: IsServerGC=False, LatencyMode=Interactive
+#Date: 2019-03-20
+#字段: 时间 线程ID 线程池Y网页W普通N 线程名 消息内容
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+10:05:18.324  1 N - HaoCoding.Core v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+10:05:18.326  1 N - 云企微商组件核心库 ©2002-2019 深圳云企微商网络科技有限公司开发团队
+10:05:18.327  1 N - wdbserverform v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+10:05:18.327  1 N - wdbserverform Copyright ©  2019
+10:05:19.733  1 N - RunCmd net start WeavingDB
+10:05:21.903  1 N - WeavingDB 服务正在启动 .
+WeavingDB 服务已经启动成功。
+ctory: D:\WeavingDB\wdbserverform\bin\Debug\
+#CurrentDirectory: C:\WINDOWS\system32
+#CommandLine: D:\WeavingDB\wdbserverform\bin\Debug\wdbserverform.exe -s
+#ApplicationType: Service
+#CLR: 4.0.30319.42000, .NET Framework 4.5
+#OS: Microsoft Windows NT 6.2.9200.0, DESKTOPBBGV1JT/SYSTEM
+#CPU: 4
+#GC: IsServerGC=False, LatencyMode=Interactive
+#Date: 2019-03-20
+#字段: 时间 线程ID 线程池Y网页W普通N 线程名 消息内容
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+10:05:19.888  1 N - HaoCoding.Core v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+10:05:19.890  1 N - 云企微商组件核心库 ©2002-2019 深圳云企微商网络科技有限公司开发团队
+10:05:19.890  1 N - wdbserverform v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+10:05:19.890  1 N - wdbserverform Copyright ©  2019
+10:05:20.013  7 Y - 服务启动 OnStart
+10:09:18.881  1 N - RunCmd net stop WeavingDB
+10:09:21.488  1 N - WeavingDB 服务正在停止.
+WeavingDB 服务已成功停止。
+
+#Software: wdbserverform
+#ProcessID: 11612 x64
+#AppDomain: wdbserverform.exe
+#BaseDirectory: D:\WeavingDB\wdbserverform\bin\Debug\
+#CommandLine: "D:\WeavingDB\wdbserverform\bin\Debug\wdbserverform.exe" 
+#ApplicationType: Console
+#CLR: 4.0.30319.42000, .NET Framework 4.5
+#OS: Microsoft Windows NT 6.2.9200.0, DESKTOPBBGV1JT/DELL
+#CPU: 4
+#GC: IsServerGC=False, LatencyMode=Interactive
+#Date: 2019-03-20
+#字段: 时间 线程ID 线程池Y网页W普通N 线程名 消息内容
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+10:10:03.902  1 N - HaoCoding.Core v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+10:10:03.904  1 N - 云企微商组件核心库 ©2002-2019 深圳云企微商网络科技有限公司开发团队
+10:10:03.904  1 N - wdbserverform v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+10:10:03.904  1 N - wdbserverform Copyright ©  2019
+10:10:05.084  1 N - RunCmd net start WeavingDB
+10:10:07.269  1 N - WeavingDB 服务正在启动 .
+WeavingDB 服务已经启动成功。
+ctory: D:\WeavingDB\wdbserverform\bin\Debug\
+#CurrentDirectory: C:\WINDOWS\system32
+#CommandLine: D:\WeavingDB\wdbserverform\bin\Debug\wdbserverform.exe -s
+#ApplicationType: Service
+#CLR: 4.0.30319.42000, .NET Framework 4.5
+#OS: Microsoft Windows NT 6.2.9200.0, DESKTOPBBGV1JT/SYSTEM
+#CPU: 4
+#GC: IsServerGC=False, LatencyMode=Interactive
+#Date: 2019-03-20
+#字段: 时间 线程ID 线程池Y网页W普通N 线程名 消息内容
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+10:10:05.255  1 N - HaoCoding.Core v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+10:10:05.256  1 N - 云企微商组件核心库 ©2002-2019 深圳云企微商网络科技有限公司开发团队
+10:10:05.257  1 N - wdbserverform v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+10:10:05.257  1 N - wdbserverform Copyright ©  2019
+10:10:05.344  7 Y - 服务启动 OnStart
+10:30:54.748  1 N - RunCmd net stop WeavingDB
+10:30:57.321  1 N - WeavingDB 服务正在停止.
+WeavingDB 服务已成功停止。
