@@ -46,7 +46,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\weave-socket\Code\src\Weave.TCPClient.Core\Weave.TCPClient.csproj" />
+    <PackageReference Include="Weave.TCPClient" Version="1.0.0-preview-20190524-1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\WeavingDB.DataEncoding.Core\WeavingDB.DataEncoding.csproj" />
     <ProjectReference Include="..\WeavingDB.Logical\WeavingDB.Logical.csproj" />
   </ItemGroup>
