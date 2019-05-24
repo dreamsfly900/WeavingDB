@@ -1,0 +1,23 @@
+﻿#Software: wdbserverform
+#ProcessID: 4116 x64
+#AppDomain: wdbserverform.exe
+#BaseDirectory: D:\WeavingDB\wdbserverform\bin\Debug\
+#CurrentDirectory: C:\WINDOWS\system32
+#CommandLine: D:\WeavingDB\wdbserverform\bin\Debug\wdbserverform.exe -s
+#ApplicationType: Service
+#CLR: 4.0.30319.42000, .NET Framework 4.5
+#OS: Microsoft Windows NT 6.2.9200.0, DESKTOPBBGV1JT/SYSTEM
+#CPU: 4
+#GC: IsServerGC=False, LatencyMode=Interactive
+#Date: 2019-04-18
+#字段: 时间 线程ID 线程池Y网页W普通N 线程名 消息内容
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+14:54:29.666  1 N - HaoCoding.Core v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+14:54:29.666  1 N - 云企微商组件核心库 ©2002-2019 深圳云企微商网络科技有限公司开发团队
+14:54:29.666  1 N - wdbserverform v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+14:54:29.682  1 N - wdbserverform Copyright ©  2019
+14:54:29.916  7 Y - 服务启动 OnStart
+14:54:37.416 14 Y - OnSessionChange SessionId=1 Reason=ConsoleConnect
+14:54:38.103  7 Y - OnSessionChange SessionId=1 Reason=SessionLogon
+14:54:40.509  7 Y - OnSessionChange SessionId=1 Reason=SessionLock
+14:57:09.360 13 Y - OnSessionChange SessionId=1 Reason=SessionUnlock

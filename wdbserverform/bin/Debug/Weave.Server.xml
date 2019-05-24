@@ -112,5 +112,13 @@
             继承自IWeaveTcpBase接口的HTTP Web服务器
             </summary>
         </member>
+        <member name="M:Weave.Server.WeaveWebServer.packageDatajson(System.Byte[],System.Net.Sockets.Socket,System.Net.Security.SslStream)">
+            <summary>
+            对粘包，分包的处理方法
+            </summary>
+            <param name="alldata"></param>
+            <param name="soc"></param>
+            <param name="obj"></param>
+        </member>
     </members>
 </doc>

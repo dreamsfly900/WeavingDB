@@ -442,7 +442,7 @@ namespace WeavingDB.Logical
 
                     ListDmode[] objsall = dblo.selecttiem(list.datas, sql, list.datahead);
                     count = objsall.Length;
-                    Hashtable[] objbb2 = dblo.viewdata(objsall, order, coll, pageindex, pagesize, list.datahead);
+                    JObject[] objbb2 = dblo.viewdata(objsall, order, coll, pageindex, pagesize, list.datahead);
                     return Newtonsoft.Json.JsonConvert.SerializeObject(objbb2);
                 }
                 catch

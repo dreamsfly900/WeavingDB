@@ -130,6 +130,7 @@ namespace WeavingDB.Logical
         /// <param name="_dhead"></param>
         public unsafe void cleardata(List<ListDmode> _listu, Head[] _dhead)
         {
+            dhead = _dhead;
             lock (_listu)
             {
                 for (int i = 0; i < _listu.Count; i++)
@@ -595,10 +596,10 @@ namespace WeavingDB.Logical
             return listutem.ToArray(); ;
         }
 
-        public Hashtable[] viewdata(ListDmode[] objsall, byte order, string ordercol, int indexlen, int viewlen, Head[] datahead)
+        public JObject[] viewdata(ListDmode[] objsall, byte order, string ordercol, int indexlen, int viewlen, Head[] datahead)
         {
-            List<Hashtable> alllist = new List<Hashtable>();
-            Hashtable[] temphtt = alllist.ToArray();
+            //List<Hashtable> alllist = new List<Hashtable>();
+            JObject[] temphtt =new JObject[0];
             try
             {
                 if (ordercol == "")
@@ -628,28 +629,51 @@ namespace WeavingDB.Logical
                     viewlen = objsall.Length;
                 if ((indexlen * viewlen) >= objsall.Length)
                 {
-                    alllist = new List<Hashtable>();
+                    //alllist = new List<Hashtable>();
                     return temphtt;
                 }
                 int count = indexlen * viewlen;
                 int lens = ((indexlen + 1) * viewlen) > objsall.Length ? objsall.Length : ((indexlen + 1) * viewlen);
                 lens = lens - (indexlen * viewlen);
+                string[] ksys = new string[datahead.Length];
+                byte[] types = new byte[datahead.Length];
+                int[] indexs = new int[datahead.Length];
+                int ik = 0;
+                foreach (Head h in datahead)
+                {
+                    ksys[ik] = h.key;
+                    types[ik] = h.type;
+                    indexs[ik] = h.index;
+                        ik++;
+                }
+                temphtt = new JObject[count + lens];
                 for (int i = count; i < count + lens; i++)
                 {
                     try
                     {
                         if (objsall[i] != null)
                         {
-                            Hashtable ht = new Hashtable();
-                            foreach (Head h in datahead)
+                            JObject jo = new JObject();
+                           
+                         
+                            for (int hi=0;hi< datahead.Length;hi++)
                             {
-                                if (objsall[i].dtable2.Length > h.index)
+                                if (objsall[i].dtable2.Length > indexs[hi])
                                 {
-                                    object obj = GetHashtable(h.key, h.type, objsall[i].dtable2[h.index], objsall[i].LenInts[h.index]);
-                                    ht.Add(h.key, obj);
+                                    DateTime dt = DateTime.Now;
+                                  
+                                
+                                    object obj = GetHashtable(ksys[hi], types[hi], objsall[i].dtable2[indexs[hi]], objsall[i].LenInts[indexs[hi]]);
+                                    DateTime dt2 = DateTime.Now;
+                                    //if ((dt2 - dt).TotalMilliseconds > 1)
+                                    //{
+                                    //    Console.WriteLine("耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒--查询后的数据：");
+                                    //}
+                                      
+                                    jo.Add(new JProperty(ksys[hi], obj));
                                 }
                             }
-                            alllist.Add(ht);
+                            temphtt[i] = jo;
                         }
                     }
                     catch (Exception e)
@@ -657,8 +681,8 @@ namespace WeavingDB.Logical
 
                     }
                 }
-                temphtt = alllist.ToArray();
-                alllist = new List<Hashtable>();
+                //temphtt = alllist.ToArray();
+                //alllist = new List<Hashtable>();
                 return temphtt;
             }
             catch

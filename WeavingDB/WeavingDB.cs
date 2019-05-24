@@ -107,10 +107,10 @@ namespace WeavingDB
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
+            DBClient dbc = new DBClient("116.255.252.181", 18989, "admin", "123123");
             dbc.Open();
-            var t_warlist2 = dbc.Selecttable<object[]>("T_warning");
-            var t_warlist = dbc.Selecttable<object[]>("T_warning", " Areacodelist like '14022%' &&  warningTime>'2019/3/20 08:00:43'");
+            //var t_warlist2 = dbc.Selecttable<object[]>("T_warning");
+            var t_warlist = dbc.Selecttable<object[]>("T_warning", " Areacodelist like '140227%' &&  warningTime>'2019/3/20 08:00:43'");
 
            string sqlstr = "warningTime>'2019-03-15 14:00:00' && Areacodelist like '41%' ";
 

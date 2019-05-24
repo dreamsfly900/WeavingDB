@@ -53,6 +53,10 @@ namespace WeavingDB.Logical
                 {
                     obj = Marshal.PtrToStringAnsi((IntPtr)p1);
                 }
+                else if (type == 10)
+                {
+                    return null;
+                }
                 else
                 {
                     byte[] abc = Tobyte((byte*)p1, len);

@@ -93,6 +93,7 @@ namespace ConsoleApp1
             string stssr = System.Threading.Thread.GetDomain().BaseDirectory;
             byte[] shi = System.BitConverter.GetBytes((long)1);
             long sh = (long)System.BitConverter.ToUInt64(shi, 0);
+
             //byte[] data = DataEncoding.encodingdatalist(list);
             //DataEncoding.userid = "admin";
             //DataEncoding.pwd = "123";
@@ -169,22 +170,24 @@ namespace ConsoleApp1
              
             //objbb = JObject.Parse(str);
             int count = 10000;
-            user u = new user() { id = i++, name = "2345ds" + i ,aas =new byte[10,10]};
-            str = Newtonsoft.Json.JsonConvert.SerializeObject(u);
+            //user u = new user() { id = i++, name = "2345ds" + i ,aas =new byte[10,10]};
+            //str = Newtonsoft.Json.JsonConvert.SerializeObject(u);
 
-            objbb = JObject.Parse(str);
-            listu.Add(dblo.insertintoJson(objbb, ref ltable.datahead));
-            while (i < count)
+            //objbb = JObject.Parse(str);
+            //listu.Add(dblo.insertintoJson(objbb, ref ltable.datahead));
+
+            System.IO.StreamReader sr = new System.IO.StreamReader("test.txt");
+             string ssr=  sr.ReadToEnd();
+            sr.Close();
+           
+                JArray objbbs = JArray.Parse(ssr);
+            foreach (JObject jo in objbbs)
             {
-                 u = new user() { id = i++, name = "a"+ i, dt = DateTime.Now.AddSeconds(new Random().Next(0,100)), aa=123};
-                 str = Newtonsoft.Json.JsonConvert.SerializeObject(u);
-                
-                objbb = JObject.Parse(str);
                 //dbm.set(i.ToString(), new byte[0]);
-                
+
                 lock (listu)
                 {
-                    listu.Add(dblo.insertintoJson(objbb, ref ltable.datahead));
+                    listu.Add(dblo.insertintoJson(jo, ref ltable.datahead));
 
                 }
                 str = null;
@@ -196,7 +199,7 @@ namespace ConsoleApp1
              
              
             Console.WriteLine("全部数据：");
-            Console.WriteLine(count+"条");
+            Console.WriteLine(objbbs .Count+ "条");
        
             while (true)
             {
@@ -212,15 +215,15 @@ namespace ConsoleApp1
                     
                    // dblo.updatedata(listu, ss, ltable.datahead, JObject.FromObject(news));
                          DateTime dt=DateTime.Now,dt2=DateTime.Now;
-                    if (ss != "")
+                   // if (ss != "")
                     {
 
 
                         // listu = null;
                       
-                        dt = DateTime.Now;
+                       
                         ListDmode[] objsall = dblo.selecttiem(listu, ss, ltable.datahead); 
-                            dt2 = DateTime.Now;
+                        
                         // List<long> objsall = new List<long>();
                         if (objsall != null || objsall.Length>0)
                         {
@@ -232,12 +235,15 @@ namespace ConsoleApp1
                             int viewlen =Convert.ToInt32( Console.ReadLine());
                             Console.WriteLine("请输入排序列：");
                             string coll = (Console.ReadLine());
-                            Hashtable[] objbb2 = dblo.viewdata(objsall, order, coll, page, viewlen, ltable.datahead);
+                            dt = DateTime.Now;
+                            JObject[] objbb2 = dblo.viewdata(objsall, order, coll, page, viewlen, ltable.datahead);
+                            dt2 = DateTime.Now;
                             Console.WriteLine("耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒--查询后的数据：");
-                             string str2 = Newtonsoft.Json.JsonConvert.SerializeObject(objbb2);
-
+                            string str2 = Newtonsoft.Json.JsonConvert.SerializeObject(objbb2);
+                            dt2 = DateTime.Now;
+                            Console.WriteLine("耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒--查询后的数据：");
                             //  List<user> liss= Newtonsoft.Json.JsonConvert.DeserializeObject<List<user>>(str2);
-                            Console.WriteLine("索引:" + str2);
+                            // Console.WriteLine("索引:" + str2);
                             //str2 = "";
                             objbb2 = null;
                         }
