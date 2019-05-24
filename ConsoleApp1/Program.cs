@@ -239,9 +239,16 @@ namespace ConsoleApp1
                             JObject[] objbb2 = dblo.viewdata(objsall, order, coll, page, viewlen, ltable.datahead);
                             dt2 = DateTime.Now;
                             Console.WriteLine("耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒--查询后的数据：");
+                            //string str2 = "[";
+                            //foreach (JObject j in objbb2)
+                            //{
+                            //      str2 += j.ToString()+",";// Newtonsoft.Json.JsonConvert.SerializeObject(objbb2.ToString());
+                            //}
+                            //str2 += "]";
                             string str2 = Newtonsoft.Json.JsonConvert.SerializeObject(objbb2);
+                           // string str2 = JArray.FromObject(objbb2).ToString();
                             dt2 = DateTime.Now;
-                            Console.WriteLine("耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒--查询后的数据：");
+                            Console.WriteLine("耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒--对象转STRING时间：");
                             //  List<user> liss= Newtonsoft.Json.JsonConvert.DeserializeObject<List<user>>(str2);
                             // Console.WriteLine("索引:" + str2);
                             //str2 = "";

@@ -660,11 +660,11 @@ namespace WeavingDB.Logical
                             {
                                 if (objsall[i].dtable2.Length > indexs[hi])
                                 {
-                                    DateTime dt = DateTime.Now;
+                                  //  DateTime dt = DateTime.Now;
                                   
                                 
                                     object obj = GetHashtable(ksys[hi], types[hi], objsall[i].dtable2[indexs[hi]], objsall[i].LenInts[indexs[hi]]);
-                                    DateTime dt2 = DateTime.Now;
+                                  //  DateTime dt2 = DateTime.Now;
                                     //if ((dt2 - dt).TotalMilliseconds > 1)
                                     //{
                                     //    Console.WriteLine("耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒--查询后的数据：");
