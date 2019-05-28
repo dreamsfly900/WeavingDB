@@ -18,6 +18,7 @@ namespace WeavingDB.Logical
         readonly ConcurrentDictionary<string, Liattable> CDtable = new ConcurrentDictionary<string, Liattable>();
         readonly ConcurrentQueue<string> savekey = new ConcurrentQueue<string>();
         readonly string path = "";
+        bool KVRemove = false;
         int noselecttimeout = 0, notimeout = 0;
         public DBmanage()
         {
@@ -26,9 +27,9 @@ namespace WeavingDB.Logical
             {
                 Directory.CreateDirectory(path + "KVDATA");
             }
-          
-          
-            noselecttimeout = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["KVnoselecttimeout"]);
+            KVRemove = Convert.ToBoolean(System.Configuration.ConfigurationManager.AppSettings["KVRemove"]);
+
+              noselecttimeout = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["KVnoselecttimeout"]);
             if (noselecttimeout != 0)
             {
                 ThreadPool.QueueUserWorkItem(new WaitCallback(Dataout), noselecttimeout);
@@ -70,7 +71,10 @@ namespace WeavingDB.Logical
                             if (ss > 0)
                             {
                                 CDKVlongtimeout.TryRemove(key, out utc);
-                                clear(key);
+                                if (KVRemove)
+                                    Remove(key);
+                                else
+                                  clear(key);
                             }
                         }
                     }
@@ -186,7 +190,11 @@ namespace WeavingDB.Logical
                                 double ss = (DateTime.Now - DateTime.FromFileTime(utc)).TotalSeconds;
                                 if (ss > timeout)
                                 {
-                                    clear(key);
+                                    if (KVRemove)
+                                        Remove(key);
+                                    else
+                                        clear(key);
+                                     
                                 }
                             }
                         }
