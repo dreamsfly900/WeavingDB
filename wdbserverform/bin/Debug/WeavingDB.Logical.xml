@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WeavingDB.Logical</name>
+    </assembly>
+    <members>
+        <member name="M:WeavingDB.Logical.DBLogical.insertintoJson(Newtonsoft.Json.Linq.JObject,WeavingDB.Logical.Head[]@)">
+            <summary>
+            将JSON转成要插入的指针和与其对应的数据类型标识
+            </summary>
+            <param name="obj"></param>
+            <param name="dhead"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WeavingDB.Logical.DBLogical.cleardata(System.Collections.Generic.List{WeavingDB.Logical.ListDmode},WeavingDB.Logical.Head[])">
+            <summary>
+            清理数据表
+            </summary>
+            <param name="_listu"></param>
+            <param name="_dhead"></param>
+        </member>
+        <member name="M:WeavingDB.Logical.DBLogical.deletedata(System.Collections.Generic.List{WeavingDB.Logical.ListDmode},System.String,WeavingDB.Logical.Head[])">
+            <summary>
+            有条件的删除表数据
+            </summary>
+            <param name="_listu"></param>
+            <param name="_sqlsst"></param>
+            <param name="_dhead"></param>
+        </member>
+        <member name="M:WeavingDB.Logical.DBLogical.updatedata(System.Collections.Generic.List{WeavingDB.Logical.ListDmode},System.String,WeavingDB.Logical.Head[],Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            有条件的更新数据
+            </summary>
+            <param name="_listu"></param>
+            <param name="_sqlsst"></param>
+            <param name="_dhead"></param>
+            <param name="job"></param>
+        </member>
+        <member name="M:WeavingDB.Logical.DBLogical.freequeue(System.Object)">
+            <summary>
+            垃圾回收，彻底从内存中移除数据所占用的空间并释放。
+            </summary>
+            <param name="obj"></param>
+        </member>
+        <member name="M:WeavingDB.Logical.DBLogical.delnull(System.Object)">
+            <summary>
+            移除表链中的null行
+            </summary>
+            <param name="oo"></param>
+        </member>
+        <member name="M:WeavingDB.Logical.DBLogical.wherelogical">
+            <summary>
+            分解SQL语句并压入等待判断的条件中
+            </summary>
+        </member>
+        <member name="M:WeavingDB.Logical.DBLogical.selecttiem(System.Collections.Generic.List{WeavingDB.Logical.ListDmode},System.String,WeavingDB.Logical.Head[],System.Int32)">
+            <summary>
+            有条件的查询表中数据，并返回指针，查询是多线程的，数据是无排序的
+            </summary>
+            <param name="_listu"></param>
+            <param name="_sqlsst"></param>
+            <param name="_dhead"></param>
+            <param name="_maxlen"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WeavingDB.Logical.DBmanage.Createtable(System.String)">
+            <summary>
+            创建非关型数据表
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WeavingDB.Logical.DBmanage.Deletetable(System.String)">
+            <summary>
+            清除非关型数据表
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WeavingDB.Logical.DBmanage.Insettabledata(System.String,System.String)">
+            <summary>
+            向非关表中插入数据
+            </summary>
+            <param name="key"></param>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WeavingDB.Logical.DBmanage.InsettabledataArray(System.String,System.String)">
+            <summary>
+            向非关表中插入数据
+            </summary>
+            <param name="key"></param>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WeavingDB.Logical.DBmanage.Selecttabledata(System.String,System.String,System.Byte,System.Int32,System.Int32,System.Int32@,System.String)">
+            <summary>
+             从非关数据表查询数据
+            </summary>
+            <param name="key"></param>
+            <param name="sql"></param>
+            <param name="order"></param>
+            <param name="pageindex"></param>
+            <param name="pagesize"></param>
+            <param name="count"></param>
+            <param name="coll"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WeavingDB.Logical.DBmanage.Get(System.String)">
+            <summary>
+            通过KEY获取V值
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WeavingDB.Logical.DBmanage.Remove(System.String)">
+            <summary>
+            移除K-V数据
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WeavingDB.Logical.DBmanage.clear(System.String)">
+            <summary>
+            移除K-V数据
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WeavingDB.Logical.DBmanage.Set(System.String,System.Byte[])">
+            <summary>
+            设置K-V数据
+            </summary>
+            <param name="key"></param>
+            <param name="vlaue"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
