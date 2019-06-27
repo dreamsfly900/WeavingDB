@@ -25,10 +25,14 @@ namespace WeavingDB.Logical
             path = Thread.GetDomain().BaseDirectory;
             if (!Directory.Exists(path + "KVDATA"))
             {
+
                 Directory.CreateDirectory(path + "KVDATA");
             }
-            KVRemove = Convert.ToBoolean(System.Configuration.ConfigurationManager.AppSettings["KVRemove"]);
-
+            try
+            {
+                KVRemove = Convert.ToBoolean(System.Configuration.ConfigurationManager.AppSettings["KVRemove"]);
+            }
+            catch { }
               noselecttimeout = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["KVnoselecttimeout"]);
             if (noselecttimeout != 0)
             {

@@ -6,11 +6,13 @@
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <Deterministic>False</Deterministic>
     <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.App" Version="2.2.2" />
     <PackageReference Include="HaoCoding.Agent" Version="1.0.0-preview-20190315-05" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.5.4" />
   </ItemGroup>
 
   <ItemGroup>

@@ -16,7 +16,7 @@ using WeavingDB.Client;
 
 namespace WeavingDB
 {
-   
+  
     public partial class WeavingDB : Form
     {
         public WeavingDB()
@@ -54,10 +54,29 @@ namespace WeavingDB
         }
         private void button1_Click(object sender, EventArgs e)
         { 
-            DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
+            DBClient dbc = new DBClient("116.255.252.181", 18989, "admin", "123123");
             double gggg = 0;
-            dbc.Open();
-            var OBJ = dbc.Get<object>("4104_equipmentmode-radar");
+
+            while (gggg < 10)
+            {
+                dbc.Open();
+                var OBJ = dbc.Get<CAllAreaInfo[]>("radar-Z9379-windstorm-06270248");
+                dbc.Close();
+                dbc.Open();
+                var OBJ2 = dbc.Get<radardatamode>("radar-Z9379-VIL-06270248");
+                dbc.Close();
+                dbc.Open();
+                var OBJ3 = dbc.Get<radardatamode>("radar-Z9379-WT-06270348");
+                dbc.Close();
+                dbc.Open();
+                var OBJ4 = dbc.Get<radardatamode>("radar-Z9379-SCR");
+                dbc.Close();
+                dbc.Open();
+                var OBJ5 = dbc.Get<radardatamode>("radar-Z9379-QPF-06270248");
+                dbc.Close();
+                gggg++;
+            }
+            //radar-Z9379-QPF-06270248
             var str22 = dbc.Get<network[]>("4104_equipmentmode-network");
              Hashtable ht = new Hashtable();
             ht.Add("123123", "afasdfasdf");
@@ -203,6 +222,44 @@ namespace WeavingDB
             dbClient.Close();
         }
     }
+    public class CAllAreaInfo
+    {
+        public int x;
+        public int y;
+
+        public int AreaNum { get; set; }
+        public int PixelNumber { get; set; }
+        public Pointxy CenterPoint { get; set; }
+        public List<Pointxy> Points = new List<Pointxy>();
+    }
+    public class Pointxy
+    {
+        public int x;
+        public int y;
+
+    }
+    public class radardatamode
+    {
+        public double minlon;
+        public double maxlon;
+        public double minlat;
+        public double maxlat;
+        public double[,] data;
+        public DateTime dt;
+        public storm[] storms; //风暴属性
+    }
+    public class storm
+    {
+        public string ID;
+        public int x;
+        public int y;
+        public int dbz = 0;
+        public Double speed;
+        public Double direction;
+        public DateTime dt;
+
+    }
+
     public class user
     {
         public int id = 0;
