@@ -48,7 +48,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Weave.Server" Version="1.0.0-preview-20190524-1" />
+    <PackageReference Include="Weave.Server" Version="1.0.0-preview-20190627-01" />
   </ItemGroup>
 
   <ItemGroup>
