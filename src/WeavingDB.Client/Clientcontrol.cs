@@ -10,7 +10,7 @@ namespace WeavingDB.Client
         byte[] rowsdata;
         public bool finsh = false;
         public string error = "";
-
+        public int timeout = 60;
         public Clientcontrol(string ip, int _port)
         {
             IP = ip;
@@ -121,7 +121,7 @@ namespace WeavingDB.Client
                 DateTime dt = DateTime.Now;
                 while (!finsh)
                 {
-                    if ((DateTime.Now - dt).TotalSeconds > 60)
+                    if ((DateTime.Now - dt).TotalSeconds > timeout)
                     {
                         p2Pclient.Stop();
                         throw new Exception("获取数据超时！");

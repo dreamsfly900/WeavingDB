@@ -10,7 +10,7 @@ namespace WeavingDB.Client
         readonly string IP = "";
         readonly int port = 0;
         readonly Clientcontrol ccon;
-
+        public int timeout = 60;
         public DBClient(string ip, int _port, string userid, string pwd)
         {
             IP = ip;
@@ -18,6 +18,7 @@ namespace WeavingDB.Client
             DataEncoding.userid = userid;
             DataEncoding.pwd = pwd;
             ccon = new Clientcontrol(IP, port);
+            ccon.timeout = timeout;
         }
 
         public bool Open()
