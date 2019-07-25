@@ -1232,6 +1232,8 @@ namespace WeavingDB.Logical
                                 void* p1 = listu[i].dtable2[collindex[ci]];
                                 if (p1 == null)
                                     break;
+                                if ((IntPtr)p1 == IntPtr.Zero )
+                                    break;
                                 conbb[bi] = false;
 
                                 if (hindex[ci] == 6)
