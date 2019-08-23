@@ -45,7 +45,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Weave.TCPClient" Version="1.0.0-preview-20190627-01" />
+    <PackageReference Include="Weave.TCPClient" Version="1.0.1" />
   </ItemGroup>
 
   <ItemGroup>

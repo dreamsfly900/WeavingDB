@@ -54,29 +54,30 @@ namespace WeavingDB
         }
         private void button1_Click(object sender, EventArgs e)
         { 
-            DBClient dbc = new DBClient("116.255.252.181", 18989, "admin", "123123");
+            DBClient dbc = new DBClient("*************", 18989, "admin", "123123");
             double gggg = 0;
 
-            while (gggg < 10)
-            {
-                dbc.Open();
-                var OBJ = dbc.Get<CAllAreaInfo[]>("radar-Z9379-windstorm-06270248");
-                dbc.Close();
-                dbc.Open();
-                var OBJ2 = dbc.Get<radardatamode>("radar-Z9379-VIL-06270248");
-                dbc.Close();
-                dbc.Open();
-                var OBJ3 = dbc.Get<radardatamode>("radar-Z9379-WT-06270348");
-                dbc.Close();
-                dbc.Open();
-                var OBJ4 = dbc.Get<radardatamode>("radar-Z9379-SCR");
-                dbc.Close();
-                dbc.Open();
-                var OBJ5 = dbc.Get<radardatamode>("radar-Z9379-QPF-06270248");
-                dbc.Close();
-                gggg++;
-            }
+            //while (gggg < 10)
+            //{
+            //    dbc.Open();
+            //    var OBJ = dbc.Get<CAllAreaInfo[]>("radar-Z9379-windstorm-06270248");
+            //    dbc.Close();
+            //    dbc.Open();
+            //    var OBJ2 = dbc.Get<radardatamode>("radar-Z9379-VIL-06270248");
+            //    dbc.Close();
+            //    //dbc.Open();
+            //    //var OBJ3 = dbc.Get<radardatamode>("radar-Z9379-WT-06270348");
+            //    //dbc.Close();
+            //    dbc.Open();
+            //    var OBJ4 = dbc.Get<radardatamode>("radar-Z9379-SCR");
+            //    dbc.Close();
+            //    dbc.Open();
+            //    var OBJ5 = dbc.Get<radardatamode>("radar-Z9379-QPF-06270248");
+            //    dbc.Close();
+            //    gggg++;
+            //}
             //radar-Z9379-QPF-06270248
+            dbc.Open();
             var str22 = dbc.Get<network[]>("4104_equipmentmode-network");
              Hashtable ht = new Hashtable();
             ht.Add("123123", "afasdfasdf");
@@ -96,7 +97,7 @@ namespace WeavingDB
             keys = dbc.GetKey("as*");//通配符* 表示，多个模糊匹配
             dbc.GetKey("as?a?d");
             dbc.GetKey("?d");
-            while (i < 1000)
+            while (i < 10000)
             {
                 i++;
                 DateTime dt = DateTime.Now;
@@ -127,10 +128,10 @@ namespace WeavingDB
         private void button2_Click(object sender, EventArgs e)
         {
             //*************
-            DBClient dbc = new DBClient("116.255.252.181", 18989, "admin", "123123");
+            DBClient dbc = new DBClient("*************", 18989, "admin", "123123");
             dbc.Open();
-            //var t_warlist2 = dbc.Selecttable<object[]>("T_warning");
-            var t_warlist = dbc.Selecttable<object[]>("T_warning", " Areacodelist like '41%' &&  warningTime>'2019/3/20 08:00:43'");
+            var t_warlist2 = dbc.Selecttable<object[]>("T_warning");
+            var t_warlist = dbc.Selecttable<object[]>("T_warning", " Areacodelist like '41%' &&  warningTime>'2019/8/20 08:00:43'");
 
            string sqlstr = "warningTime>'2019-03-15 14:00:00' && Areacodelist like '41%' ";
 
