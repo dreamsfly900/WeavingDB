@@ -2,23 +2,11 @@
   "version": 3,
   "targets": {
     ".NETFramework,Version=v4.5": {
-      "HaoCoding.Agent/1.0.0-preview-20190311-02": {
+      "Ding.Core/1.0.0-preview-20191112-01": {
         "type": "package",
         "dependencies": {
-          "HaoCoding.Core": "1.0.0-preview-20190311-02"
+          "Newtonsoft.Json": "12.0.3"
         },
-        "frameworkAssemblies": [
-          "System.ServiceProcess"
-        ],
-        "compile": {
-          "lib/net45/HaoCoding.Agent.dll": {}
-        },
-        "runtime": {
-          "lib/net45/HaoCoding.Agent.dll": {}
-        }
-      },
-      "HaoCoding.Core/1.0.0-preview-20190315-05": {
-        "type": "package",
         "frameworkAssemblies": [
           "System.IO.Compression",
           "System.Net.Http",
@@ -28,10 +16,10 @@
           "System.Windows.Forms"
         ],
         "compile": {
-          "lib/net45/HaoCoding.Core.dll": {}
+          "lib/net45/Ding.Core.dll": {}
         },
         "runtime": {
-          "lib/net45/HaoCoding.Core.dll": {}
+          "lib/net45/Ding.Core.dll": {}
         }
       },
       "Newtonsoft.Json/12.0.3": {
@@ -123,23 +111,11 @@
       }
     },
     ".NETFramework,Version=v4.5/win": {
-      "HaoCoding.Agent/1.0.0-preview-20190311-02": {
+      "Ding.Core/1.0.0-preview-20191112-01": {
         "type": "package",
         "dependencies": {
-          "HaoCoding.Core": "1.0.0-preview-20190311-02"
+          "Newtonsoft.Json": "12.0.3"
         },
-        "frameworkAssemblies": [
-          "System.ServiceProcess"
-        ],
-        "compile": {
-          "lib/net45/HaoCoding.Agent.dll": {}
-        },
-        "runtime": {
-          "lib/net45/HaoCoding.Agent.dll": {}
-        }
-      },
-      "HaoCoding.Core/1.0.0-preview-20190315-05": {
-        "type": "package",
         "frameworkAssemblies": [
           "System.IO.Compression",
           "System.Net.Http",
@@ -149,10 +125,10 @@
           "System.Windows.Forms"
         ],
         "compile": {
-          "lib/net45/HaoCoding.Core.dll": {}
+          "lib/net45/Ding.Core.dll": {}
         },
         "runtime": {
-          "lib/net45/HaoCoding.Core.dll": {}
+          "lib/net45/Ding.Core.dll": {}
         }
       },
       "Newtonsoft.Json/12.0.3": {
@@ -244,23 +220,11 @@
       }
     },
     ".NETFramework,Version=v4.5/win-x64": {
-      "HaoCoding.Agent/1.0.0-preview-20190311-02": {
+      "Ding.Core/1.0.0-preview-20191112-01": {
         "type": "package",
         "dependencies": {
-          "HaoCoding.Core": "1.0.0-preview-20190311-02"
+          "Newtonsoft.Json": "12.0.3"
         },
-        "frameworkAssemblies": [
-          "System.ServiceProcess"
-        ],
-        "compile": {
-          "lib/net45/HaoCoding.Agent.dll": {}
-        },
-        "runtime": {
-          "lib/net45/HaoCoding.Agent.dll": {}
-        }
-      },
-      "HaoCoding.Core/1.0.0-preview-20190315-05": {
-        "type": "package",
         "frameworkAssemblies": [
           "System.IO.Compression",
           "System.Net.Http",
@@ -270,10 +234,10 @@
           "System.Windows.Forms"
         ],
         "compile": {
-          "lib/net45/HaoCoding.Core.dll": {}
+          "lib/net45/Ding.Core.dll": {}
         },
         "runtime": {
-          "lib/net45/HaoCoding.Core.dll": {}
+          "lib/net45/Ding.Core.dll": {}
         }
       },
       "Newtonsoft.Json/12.0.3": {
@@ -365,23 +329,11 @@
       }
     },
     ".NETFramework,Version=v4.5/win-x86": {
-      "HaoCoding.Agent/1.0.0-preview-20190311-02": {
+      "Ding.Core/1.0.0-preview-20191112-01": {
         "type": "package",
         "dependencies": {
-          "HaoCoding.Core": "1.0.0-preview-20190311-02"
+          "Newtonsoft.Json": "12.0.3"
         },
-        "frameworkAssemblies": [
-          "System.ServiceProcess"
-        ],
-        "compile": {
-          "lib/net45/HaoCoding.Agent.dll": {}
-        },
-        "runtime": {
-          "lib/net45/HaoCoding.Agent.dll": {}
-        }
-      },
-      "HaoCoding.Core/1.0.0-preview-20190315-05": {
-        "type": "package",
         "frameworkAssemblies": [
           "System.IO.Compression",
           "System.Net.Http",
@@ -391,10 +343,10 @@
           "System.Windows.Forms"
         ],
         "compile": {
-          "lib/net45/HaoCoding.Core.dll": {}
+          "lib/net45/Ding.Core.dll": {}
         },
         "runtime": {
-          "lib/net45/HaoCoding.Core.dll": {}
+          "lib/net45/Ding.Core.dll": {}
         }
       },
       "Newtonsoft.Json/12.0.3": {
@@ -487,38 +439,26 @@
     }
   },
   "libraries": {
-    "HaoCoding.Agent/1.0.0-preview-20190311-02": {
-      "sha512": "c/dWM78vu3p/3WZ2nQ9CYXcBt+1decurV5H5CB+1iFaaDwog3qMghRwGTkbv1kZ/iqBLe5RVFZFYDW7TBDY5Wg==",
+    "Ding.Core/1.0.0-preview-20191112-01": {
+      "sha512": "JslH2nEqHoy2CeWJFNWezrTH5mMfJV2A8GmaHwCO9/w4kQZzfII3m09MyqNVfQZ+efbdqFI7OX2UALR2yYh6pw==",
       "type": "package",
-      "path": "haocoding.agent/1.0.0-preview-20190311-02",
+      "path": "ding.core/1.0.0-preview-20191112-01",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
-        "haocoding.agent.1.0.0-preview-20190311-02.nupkg.sha512",
-        "haocoding.agent.nuspec",
-        "lib/net45/HaoCoding.Agent.dll",
-        "lib/net45/HaoCoding.Agent.xml",
-        "lib/netstandard2.0/HaoCoding.Agent.dll",
-        "lib/netstandard2.0/HaoCoding.Agent.xml",
-        "lib/netstandard2.1/HaoCoding.Agent.dll",
-        "lib/netstandard2.1/HaoCoding.Agent.xml"
-      ]
-    },
-    "HaoCoding.Core/1.0.0-preview-20190315-05": {
-      "sha512": "zUIhTsiEz/JeG0dVqt2fUvKU1zyYV0JU9BUxYC/WgkVCsI+4g77VniMV9jZlND+SNpNYOd8UKyjYv3mQ5bv5Jw==",
-      "type": "package",
-      "path": "haocoding.core/1.0.0-preview-20190315-05",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "haocoding.core.1.0.0-preview-20190315-05.nupkg.sha512",
-        "haocoding.core.nuspec",
-        "lib/net45/HaoCoding.Core.dll",
-        "lib/net45/HaoCoding.Core.pdb",
-        "lib/net45/HaoCoding.Core.xml",
-        "lib/netstandard2.0/HaoCoding.Core.dll",
-        "lib/netstandard2.0/HaoCoding.Core.pdb",
-        "lib/netstandard2.0/HaoCoding.Core.xml"
+        "ding.core.1.0.0-preview-20191112-01.nupkg.sha512",
+        "ding.core.nuspec",
+        "lib/net40/Ding.Core.dll",
+        "lib/net40/Ding.Core.pdb",
+        "lib/net40/Ding.Core.xml",
+        "lib/net45/Ding.Core.dll",
+        "lib/net45/Ding.Core.pdb",
+        "lib/net45/Ding.Core.xml",
+        "lib/netstandard2.0/Ding.Core.dll",
+        "lib/netstandard2.0/Ding.Core.pdb",
+        "lib/netstandard2.0/Ding.Core.xml",
+        "lib/netstandard2.1/Ding.Core.dll",
+        "lib/netstandard2.1/Ding.Core.pdb",
+        "lib/netstandard2.1/Ding.Core.xml"
       ]
     },
     "Newtonsoft.Json/12.0.3": {
@@ -712,8 +652,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.5": [
-      "HaoCoding.Agent >= 1.0.0-preview-20190311-02",
-      "HaoCoding.Core >= 1.0.0-preview-20190315-05",
+      "Ding.Core >= 1.0.0-preview-20191112-01",
       "System.IO.Compression >= 4.3.0",
       "System.Net.Http >= 4.3.4",
       "WeavingDB.Logical >= 1.0.0-preview-20190703-01"
@@ -769,13 +708,9 @@
     "frameworks": {
       "net45": {
         "dependencies": {
-          "HaoCoding.Agent": {
+          "Ding.Core": {
             "target": "Package",
-            "version": "[1.0.0-preview-20190311-02, )"
-          },
-          "HaoCoding.Core": {
-            "target": "Package",
-            "version": "[1.0.0-preview-20190315-05, )"
+            "version": "[1.0.0-preview-20191112-01, )"
           },
           "System.IO.Compression": {
             "target": "Package",

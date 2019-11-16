@@ -61,11 +61,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="HaoCoding.Agent">
-      <Version>1.0.0-preview-20190311-02</Version>
-    </PackageReference>
-    <PackageReference Include="HaoCoding.Core">
-      <Version>1.0.0-preview-20190315-05</Version>
+    <PackageReference Include="Ding.Core">
+      <Version>1.0.0-preview-20191112-01</Version>
     </PackageReference>
     <PackageReference Include="System.IO.Compression">
       <Version>4.3.0</Version>

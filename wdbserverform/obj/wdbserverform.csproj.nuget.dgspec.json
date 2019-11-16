@@ -264,13 +264,9 @@
       "frameworks": {
         "net45": {
           "dependencies": {
-            "HaoCoding.Agent": {
+            "Ding.Core": {
               "target": "Package",
-              "version": "[1.0.0-preview-20190311-02, )"
-            },
-            "HaoCoding.Core": {
-              "target": "Package",
-              "version": "[1.0.0-preview-20190315-05, )"
+              "version": "[1.0.0-preview-20191112-01, )"
             },
             "System.IO.Compression": {
               "target": "Package",
