@@ -33,9 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HaoCoding.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HaoCoding.Core.1.0.0-preview-20190315-05\lib\net45\HaoCoding.Core.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
@@ -56,13 +53,26 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\src\WeavingDB.Logical\WeavingDB.Logical.csproj">
       <Project>{501917af-a545-4907-9a26-a545744ad6d2}</Project>
       <Name>WeavingDB.Logical</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="HaoCoding.Agent">
+      <Version>1.0.0-preview-20190311-02</Version>
+    </PackageReference>
+    <PackageReference Include="HaoCoding.Core">
+      <Version>1.0.0-preview-20190315-05</Version>
+    </PackageReference>
+    <PackageReference Include="System.IO.Compression">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Net.Http">
+      <Version>4.3.4</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
