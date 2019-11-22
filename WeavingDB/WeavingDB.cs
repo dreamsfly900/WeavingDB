@@ -54,7 +54,7 @@ namespace WeavingDB
         }
         private void button1_Click(object sender, EventArgs e)
         { 
-            DBClient dbc = new DBClient("*************", 18989, "admin", "123123");
+            DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "99sw");
             double gggg = 0;
 
             //while (gggg < 10)
@@ -78,28 +78,28 @@ namespace WeavingDB
             //}
             //radar-Z9379-QPF-06270248
             dbc.Open();
-            var str22 = dbc.Get<network[]>("4104_equipmentmode-network");
-             Hashtable ht = new Hashtable();
-            ht.Add("123123", "afasdfasdf");
-            ht.Add("12312311", "afasdfasdf");
-            ht.Add("1231231221", "afasaasdfasdf");
-            ht.Add("123123122199", "afasaasdfasdf");
-            bool bb = dbc.SetAll<string>(ht);
+           // var str22 = dbc.Get<network[]>("4104_equipmentmode-network");
+           //  Hashtable ht = new Hashtable();
+           // ht.Add("123123", "afasdfasdf");
+           // ht.Add("12312311", "afasdfasdf");
+           // ht.Add("1231231221", "afasaasdfasdf");
+           // ht.Add("123123122199", "afasaasdfasdf");
+           // bool bb = dbc.SetAll<string>(ht);
 
-            //string sss=  dbc.Get<String>("12312311");
-           var  str2 = dbc.Get<String>("afasdfasdf");
-            dbc.GetKey("?d");
+           // //string sss=  dbc.Get<String>("12312311");
+           //var  str2 = dbc.Get<String>("afasdfasdf");
+           // dbc.GetKey("?d");
             dbc.Set("asdasd", 111);
-            dbc.Set("aabbcc", 111222, 5);
-           // dbc.Set<String>("asdasd", "1");
+           // dbc.Set("aabbcc", 111222, 5);
+           //// dbc.Set<String>("asdasd", "1");
             int i = 0;
-           string [] keys=   dbc.GetKey("as?asd");//通配符?一个匹配字符
-            keys = dbc.GetKey("as*");//通配符* 表示，多个模糊匹配
-            dbc.GetKey("as?a?d");
-            dbc.GetKey("?d");
+           //string [] keys=   dbc.GetKey("as?asd");//通配符?一个匹配字符
+           // keys = dbc.GetKey("as*");//通配符* 表示，多个模糊匹配
+           // dbc.GetKey("as?a?d");
+           // dbc.GetKey("?d");
             while (i < 10000)
             {
-                i++;
+               // i++;
                 DateTime dt = DateTime.Now;
                 //dbc.Set("asdasd", 111);
                 var str = dbc.Get<int>("asdasd");

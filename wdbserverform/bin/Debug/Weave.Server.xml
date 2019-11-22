@@ -32,22 +32,6 @@
             </summary>
             <returns>返回帧头字节</returns>
         </member>
-        <member name="T:Weave.Server.DtuModel">
-            <summary>
-            DtuModel模型，定义了 一个byte【】数组和一个Socket
-            </summary>
-        </member>
-        <member name="T:Weave.Server.DTUServer">
-            <summary>
-            DTU服务器类
-            </summary>
-        </member>
-        <member name="M:Weave.Server.DTUServer.GetNetWorkListCount">
-            <summary>
-            获取连接到服务器的客户端Socket数量
-            </summary>
-            <returns></returns>
-        </member>
         <member name="T:Weave.Server.HttpProcessor">
             <summary>
             连接到HTTP服务器的客户端封装类，，，用于处理数据，，

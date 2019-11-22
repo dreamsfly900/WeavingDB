@@ -20,6 +20,7 @@
     <RepositoryType>git</RepositoryType>
     <!-- Disable warning for Controller/Action/Method not have block comment -->
     <NoWarn>1701;1702;1705;1591</NoWarn>
+    <Version>2.0.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -45,11 +46,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Weave.TCPClient" Version="1.0.1" />
+    <PackageReference Include="Weave.TCPClient" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\weave-socket\Code\src\Weave.TCPClient.Core\Weave.TCPClient.csproj" />
     <ProjectReference Include="..\WeavingDB.DataEncoding.Core\WeavingDB.DataEncoding.csproj" />
     <ProjectReference Include="..\WeavingDB.Logical\WeavingDB.Logical.csproj" />
   </ItemGroup>

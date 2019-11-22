@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weave.TCPClient", "..\weave
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weave.Base", "..\weave-socket\Code\src\Weave.Base.Core\Weave.Base.csproj", "{E4FA93A1-563F-4BD2-9C1D-DAF6F3247E32}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weave.Server", "..\weave-socket\Code\src\Weave.Server.Core\Weave.Server.csproj", "{4EFED53D-BEB0-4653-9365-5A0F0A88D5E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		AAA|Any CPU = AAA|Any CPU
@@ -88,6 +90,12 @@ Global
 		{E4FA93A1-563F-4BD2-9C1D-DAF6F3247E32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4FA93A1-563F-4BD2-9C1D-DAF6F3247E32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4FA93A1-563F-4BD2-9C1D-DAF6F3247E32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EFED53D-BEB0-4653-9365-5A0F0A88D5E0}.AAA|Any CPU.ActiveCfg = Release|Any CPU
+		{4EFED53D-BEB0-4653-9365-5A0F0A88D5E0}.AAA|Any CPU.Build.0 = Release|Any CPU
+		{4EFED53D-BEB0-4653-9365-5A0F0A88D5E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EFED53D-BEB0-4653-9365-5A0F0A88D5E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EFED53D-BEB0-4653-9365-5A0F0A88D5E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EFED53D-BEB0-4653-9365-5A0F0A88D5E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
