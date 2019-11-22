@@ -1,5 +1,4 @@
-﻿using HaoCoding.Agent;
-using System;
+﻿using Ding.Agent;
 using System.Reflection;
 
 [assembly: AssemblyVersion("1.0.*")]
