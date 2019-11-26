@@ -55,7 +55,7 @@
           "lib/net45/_._": {}
         }
       },
-      "Weave.Base/1.0.1": {
+      "Weave.Base/2.0.1": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "12.0.1"
@@ -67,10 +67,10 @@
           "lib/net45/Weave.Base.dll": {}
         }
       },
-      "Weave.Server/1.0.1": {
+      "Weave.Server/2.0.2": {
         "type": "package",
         "dependencies": {
-          "Weave.Base": "1.0.1"
+          "Weave.Base": "2.0.1"
         },
         "frameworkAssemblies": [
           "System.Web"
@@ -82,7 +82,7 @@
           "lib/net45/Weave.Server.dll": {}
         }
       },
-      "WeavingDB.DataEncoding/1.0.0-preview-20190703-01": {
+      "WeavingDB.DataEncoding/2.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
@@ -95,12 +95,12 @@
           "bin/placeholder/WeavingDB.DataEncoding.dll": {}
         }
       },
-      "WeavingDB.Logical/1.0.0-preview-20190703-01": {
+      "WeavingDB.Logical/2.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
-          "Weave.Server": "1.0.1",
-          "WeavingDB.DataEncoding": "1.0.0-preview-20190703-01"
+          "Weave.Server": "2.0.2",
+          "WeavingDB.DataEncoding": "2.0.0"
         },
         "compile": {
           "bin/placeholder/WeavingDB.Logical.dll": {}
@@ -164,7 +164,7 @@
           "lib/net45/_._": {}
         }
       },
-      "Weave.Base/1.0.1": {
+      "Weave.Base/2.0.1": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "12.0.1"
@@ -176,10 +176,10 @@
           "lib/net45/Weave.Base.dll": {}
         }
       },
-      "Weave.Server/1.0.1": {
+      "Weave.Server/2.0.2": {
         "type": "package",
         "dependencies": {
-          "Weave.Base": "1.0.1"
+          "Weave.Base": "2.0.1"
         },
         "frameworkAssemblies": [
           "System.Web"
@@ -191,7 +191,7 @@
           "lib/net45/Weave.Server.dll": {}
         }
       },
-      "WeavingDB.DataEncoding/1.0.0-preview-20190703-01": {
+      "WeavingDB.DataEncoding/2.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
@@ -204,12 +204,12 @@
           "bin/placeholder/WeavingDB.DataEncoding.dll": {}
         }
       },
-      "WeavingDB.Logical/1.0.0-preview-20190703-01": {
+      "WeavingDB.Logical/2.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
-          "Weave.Server": "1.0.1",
-          "WeavingDB.DataEncoding": "1.0.0-preview-20190703-01"
+          "Weave.Server": "2.0.2",
+          "WeavingDB.DataEncoding": "2.0.0"
         },
         "compile": {
           "bin/placeholder/WeavingDB.Logical.dll": {}
@@ -273,7 +273,7 @@
           "lib/net45/_._": {}
         }
       },
-      "Weave.Base/1.0.1": {
+      "Weave.Base/2.0.1": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "12.0.1"
@@ -285,10 +285,10 @@
           "lib/net45/Weave.Base.dll": {}
         }
       },
-      "Weave.Server/1.0.1": {
+      "Weave.Server/2.0.2": {
         "type": "package",
         "dependencies": {
-          "Weave.Base": "1.0.1"
+          "Weave.Base": "2.0.1"
         },
         "frameworkAssemblies": [
           "System.Web"
@@ -300,7 +300,7 @@
           "lib/net45/Weave.Server.dll": {}
         }
       },
-      "WeavingDB.DataEncoding/1.0.0-preview-20190703-01": {
+      "WeavingDB.DataEncoding/2.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
@@ -313,12 +313,12 @@
           "bin/placeholder/WeavingDB.DataEncoding.dll": {}
         }
       },
-      "WeavingDB.Logical/1.0.0-preview-20190703-01": {
+      "WeavingDB.Logical/2.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
-          "Weave.Server": "1.0.1",
-          "WeavingDB.DataEncoding": "1.0.0-preview-20190703-01"
+          "Weave.Server": "2.0.2",
+          "WeavingDB.DataEncoding": "2.0.0"
         },
         "compile": {
           "bin/placeholder/WeavingDB.Logical.dll": {}
@@ -382,7 +382,7 @@
           "lib/net45/_._": {}
         }
       },
-      "Weave.Base/1.0.1": {
+      "Weave.Base/2.0.1": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "12.0.1"
@@ -394,10 +394,10 @@
           "lib/net45/Weave.Base.dll": {}
         }
       },
-      "Weave.Server/1.0.1": {
+      "Weave.Server/2.0.2": {
         "type": "package",
         "dependencies": {
-          "Weave.Base": "1.0.1"
+          "Weave.Base": "2.0.1"
         },
         "frameworkAssemblies": [
           "System.Web"
@@ -409,7 +409,7 @@
           "lib/net45/Weave.Server.dll": {}
         }
       },
-      "WeavingDB.DataEncoding/1.0.0-preview-20190703-01": {
+      "WeavingDB.DataEncoding/2.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
@@ -422,12 +422,12 @@
           "bin/placeholder/WeavingDB.DataEncoding.dll": {}
         }
       },
-      "WeavingDB.Logical/1.0.0-preview-20190703-01": {
+      "WeavingDB.Logical/2.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
-          "Weave.Server": "1.0.1",
-          "WeavingDB.DataEncoding": "1.0.0-preview-20190703-01"
+          "Weave.Server": "2.0.2",
+          "WeavingDB.DataEncoding": "2.0.0"
         },
         "compile": {
           "bin/placeholder/WeavingDB.Logical.dll": {}
@@ -605,10 +605,10 @@
         "system.net.http.nuspec"
       ]
     },
-    "Weave.Base/1.0.1": {
-      "sha512": "LX2vLswsRyZkDhpHACxA2aP9f6xzqzPt0GPVnh1W+dzBB5ow8JuogQG67lpG4FAKy8W5uBwWwVMrJP4jMibTwQ==",
+    "Weave.Base/2.0.1": {
+      "sha512": "+Ctfp+HR0S7O0OH70n5cKFdf6fJupA+JpTqlO8whIl3ZREBSLHHnKZExX9x2L1mqqz5EZrhAJfo8WiLLWkQHNg==",
       "type": "package",
-      "path": "weave.base/1.0.1",
+      "path": "weave.base/2.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -618,14 +618,14 @@
         "lib/net45/Weave.Base.xml",
         "lib/netstandard2.0/Weave.Base.dll",
         "lib/netstandard2.0/Weave.Base.xml",
-        "weave.base.1.0.1.nupkg.sha512",
+        "weave.base.2.0.1.nupkg.sha512",
         "weave.base.nuspec"
       ]
     },
-    "Weave.Server/1.0.1": {
-      "sha512": "FgSQifEYekYNUoZb53jtnuBHcPIL+oAbROnX0lhdGxapXnTPNP6u0SbqLjFIOkp8krIE/TJ2FHlZBx4QNI2+9g==",
+    "Weave.Server/2.0.2": {
+      "sha512": "b2gkLpa2FSOr385Oke7Gj2tqmbtDUlowcpTtgCndd8bwqo7XYz881OIJEyTd2npoqwXm5ULP99JV56Yt0ZDSLw==",
       "type": "package",
-      "path": "weave.server/1.0.1",
+      "path": "weave.server/2.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -635,16 +635,16 @@
         "lib/net45/Weave.Server.xml",
         "lib/netstandard2.0/Weave.Server.dll",
         "lib/netstandard2.0/Weave.Server.xml",
-        "weave.server.1.0.1.nupkg.sha512",
+        "weave.server.2.0.2.nupkg.sha512",
         "weave.server.nuspec"
       ]
     },
-    "WeavingDB.DataEncoding/1.0.0-preview-20190703-01": {
+    "WeavingDB.DataEncoding/2.0.0": {
       "type": "project",
       "path": "../src/WeavingDB.DataEncoding.Core/WeavingDB.DataEncoding.csproj",
       "msbuildProject": "../src/WeavingDB.DataEncoding.Core/WeavingDB.DataEncoding.csproj"
     },
-    "WeavingDB.Logical/1.0.0-preview-20190703-01": {
+    "WeavingDB.Logical/2.0.0": {
       "type": "project",
       "path": "../src/WeavingDB.Logical/WeavingDB.Logical.csproj",
       "msbuildProject": "../src/WeavingDB.Logical/WeavingDB.Logical.csproj"
@@ -655,38 +655,32 @@
       "Ding.Core >= 1.0.0-preview-20191112-01",
       "System.IO.Compression >= 4.3.0",
       "System.Net.Http >= 4.3.4",
-      "WeavingDB.Logical >= 1.0.0-preview-20190703-01"
+      "WeavingDB.Logical >= 2.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\qcjxb\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\DELL\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "L:\\Project\\WeavingDB\\wdbserverform\\wdbserverform.csproj",
+      "projectUniqueName": "D:\\WeavingDB\\wdbserverform\\wdbserverform.csproj",
       "projectName": "wdbserverform",
-      "projectPath": "L:\\Project\\WeavingDB\\wdbserverform\\wdbserverform.csproj",
-      "packagesPath": "C:\\Users\\qcjxb\\.nuget\\packages\\",
-      "outputPath": "L:\\Project\\WeavingDB\\wdbserverform\\obj\\",
+      "projectPath": "D:\\WeavingDB\\wdbserverform\\wdbserverform.csproj",
+      "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+      "outputPath": "D:\\WeavingDB\\wdbserverform\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
-      "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
-      ],
       "configFilePaths": [
-        "L:\\Project\\WeavingDB\\NuGet.Config",
-        "C:\\Users\\qcjxb\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "D:\\WeavingDB\\NuGet.Config",
+        "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net45"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "L:\\Code\\DC.FrameWork\\DC.Framework\\DC.Framework\\output\\release": {},
         "http://120.79.187.148:8624/nuget/Gicisky/": {},
         "https://api.nuget.org/v3/index.json": {},
         "https://dotnet.myget.org/F/aspnetcore-dev/api/v3/index.json": {},
@@ -698,8 +692,8 @@
       "frameworks": {
         "net45": {
           "projectReferences": {
-            "L:\\Project\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj": {
-              "projectPath": "L:\\Project\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj"
+            "D:\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj": {
+              "projectPath": "D:\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj"
             }
           }
         }
