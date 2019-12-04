@@ -1,0 +1,37 @@
+﻿#Software: wdbserverform
+#ProcessID: 106952 x64
+#AppDomain: wdbserverform.exe
+#BaseDirectory: D:\WeavingDB\wdbserverform\bin\Debug\
+#CommandLine: "D:\WeavingDB\wdbserverform\bin\Debug\wdbserverform.exe" 
+#ApplicationType: Console
+#CLR: 4.0.30319.42000, .NET Framework 4.5
+#OS: Microsoft Windows NT 6.2.9200.0, DESKTOPBBGV1JT/DELL
+#CPU: 4
+#GC: IsServerGC=False, LatencyMode=Interactive
+#Date: 2019-12-04
+#字段: 时间 线程ID 线程池Y网页W普通N 线程名 消息内容
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+10:27:07.550  1 N - Ding.Core v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+10:27:07.597  1 N - Ding核心帮助类库 ©2008-2019 武汉极思灵创开发团队
+10:27:07.598  1 N - wdbserverform v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+10:27:07.599  1 N - wdbserverform Copyright ©  2019
+10:27:10.148  1 N - 服务启动 循环开始
+
+#Software: wdbserverform
+#ProcessID: 112828 x64
+#AppDomain: wdbserverform.exe
+#BaseDirectory: D:\WeavingDB\wdbserverform\bin\Debug\
+#CommandLine: "D:\WeavingDB\wdbserverform\bin\Debug\wdbserverform.exe" 
+#ApplicationType: Console
+#CLR: 4.0.30319.42000, .NET Framework 4.5
+#OS: Microsoft Windows NT 6.2.9200.0, DESKTOPBBGV1JT/DELL
+#CPU: 4
+#GC: IsServerGC=False, LatencyMode=Interactive
+#Date: 2019-12-04
+#字段: 时间 线程ID 线程池Y网页W普通N 线程名 消息内容
+#Fields: Time ThreadID IsPoolThread ThreadName Message
+10:30:40.250  1 N - Ding.Core v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+10:30:40.252  1 N - Ding核心帮助类库 ©2008-2019 武汉极思灵创开发团队
+10:30:40.252  1 N - wdbserverform v1.0.0.0 Build 2000-01-01 .NET Framework 4.5
+10:30:40.252  1 N - wdbserverform Copyright ©  2019
+10:30:42.196  1 N - 服务启动 循环开始

@@ -54,7 +54,7 @@ namespace WeavingDB
         }
         private void button1_Click(object sender, EventArgs e)
         { 
-            DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "99sw");
+            DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "123123");
             double gggg = 0;
 
             //while (gggg < 10)
@@ -128,11 +128,12 @@ namespace WeavingDB
         private void button2_Click(object sender, EventArgs e)
         {
             //*************
-            DBClient dbc = new DBClient("*************", 18989, "admin", "123123");
+            DBClient dbc = new DBClient("127.0.0.1", 18989, "admin", "99sw");
             dbc.Open();
-            var t_warlist2 = dbc.Selecttable<object[]>("T_warning");
-            var t_warlist = dbc.Selecttable<object[]>("T_warning", " Areacodelist like '41%' &&  warningTime>'2019/8/20 08:00:43'");
+              var t_warlist2 = dbc.Selecttable<object[]>("T_warning");
 
+            object[] t_warlist = dbc.Selecttable<object[]>("T_warning", " Areacodelist like '41%'");
+            
            string sqlstr = "warningTime>'2019-03-15 14:00:00' && Areacodelist like '41%' ";
 
             DateTime dt = DateTime.Now;

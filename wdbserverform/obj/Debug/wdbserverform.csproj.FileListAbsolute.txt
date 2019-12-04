@@ -58,3 +58,7 @@ L:\Project\WeavingDB\wdbserverform\bin\Debug\WeavingDB.DataEncoding.xml
 L:\Project\WeavingDB\wdbserverform\obj\Debug\wdbserverform.csproj.CopyComplete
 D:\WeavingDB\wdbserverform\bin\Debug\Ding.Core.dll
 D:\WeavingDB\wdbserverform\bin\Debug\Ding.Core.pdb
+D:\WeavingDB\wdbserverform\bin\Debug\Weave.Server.pdb
+D:\WeavingDB\wdbserverform\bin\Debug\Weave.Server.xml
+D:\WeavingDB\wdbserverform\bin\Debug\Weave.Base.pdb
+D:\WeavingDB\wdbserverform\bin\Debug\Weave.Base.xml

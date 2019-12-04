@@ -55,7 +55,7 @@
           "lib/net45/_._": {}
         }
       },
-      "Weave.Base/2.0.1": {
+      "Weave.Base/2.0.6": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "12.0.1"
@@ -67,10 +67,10 @@
           "lib/net45/Weave.Base.dll": {}
         }
       },
-      "Weave.Server/2.0.2": {
+      "Weave.Server/2.0.6": {
         "type": "package",
         "dependencies": {
-          "Weave.Base": "2.0.1"
+          "Weave.Base": "2.0.6"
         },
         "frameworkAssemblies": [
           "System.Web"
@@ -99,7 +99,7 @@
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
-          "Weave.Server": "2.0.2",
+          "Weave.Server": "2.0.6",
           "WeavingDB.DataEncoding": "2.0.0"
         },
         "compile": {
@@ -164,7 +164,7 @@
           "lib/net45/_._": {}
         }
       },
-      "Weave.Base/2.0.1": {
+      "Weave.Base/2.0.6": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "12.0.1"
@@ -176,10 +176,10 @@
           "lib/net45/Weave.Base.dll": {}
         }
       },
-      "Weave.Server/2.0.2": {
+      "Weave.Server/2.0.6": {
         "type": "package",
         "dependencies": {
-          "Weave.Base": "2.0.1"
+          "Weave.Base": "2.0.6"
         },
         "frameworkAssemblies": [
           "System.Web"
@@ -208,7 +208,7 @@
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
-          "Weave.Server": "2.0.2",
+          "Weave.Server": "2.0.6",
           "WeavingDB.DataEncoding": "2.0.0"
         },
         "compile": {
@@ -273,7 +273,7 @@
           "lib/net45/_._": {}
         }
       },
-      "Weave.Base/2.0.1": {
+      "Weave.Base/2.0.6": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "12.0.1"
@@ -285,10 +285,10 @@
           "lib/net45/Weave.Base.dll": {}
         }
       },
-      "Weave.Server/2.0.2": {
+      "Weave.Server/2.0.6": {
         "type": "package",
         "dependencies": {
-          "Weave.Base": "2.0.1"
+          "Weave.Base": "2.0.6"
         },
         "frameworkAssemblies": [
           "System.Web"
@@ -317,7 +317,7 @@
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
-          "Weave.Server": "2.0.2",
+          "Weave.Server": "2.0.6",
           "WeavingDB.DataEncoding": "2.0.0"
         },
         "compile": {
@@ -382,7 +382,7 @@
           "lib/net45/_._": {}
         }
       },
-      "Weave.Base/2.0.1": {
+      "Weave.Base/2.0.6": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "12.0.1"
@@ -394,10 +394,10 @@
           "lib/net45/Weave.Base.dll": {}
         }
       },
-      "Weave.Server/2.0.2": {
+      "Weave.Server/2.0.6": {
         "type": "package",
         "dependencies": {
-          "Weave.Base": "2.0.1"
+          "Weave.Base": "2.0.6"
         },
         "frameworkAssemblies": [
           "System.Web"
@@ -426,7 +426,7 @@
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
-          "Weave.Server": "2.0.2",
+          "Weave.Server": "2.0.6",
           "WeavingDB.DataEncoding": "2.0.0"
         },
         "compile": {
@@ -605,10 +605,10 @@
         "system.net.http.nuspec"
       ]
     },
-    "Weave.Base/2.0.1": {
-      "sha512": "+Ctfp+HR0S7O0OH70n5cKFdf6fJupA+JpTqlO8whIl3ZREBSLHHnKZExX9x2L1mqqz5EZrhAJfo8WiLLWkQHNg==",
+    "Weave.Base/2.0.6": {
+      "sha512": "RvwAEpkJ8MZ0oE7X1gP1CirO5aN9dnIP/j73OhPsBPu+pjrXIkVFmM0f6np0/iSrlN84Y58veCoN3v1OnNHdbw==",
       "type": "package",
-      "path": "weave.base/2.0.1",
+      "path": "weave.base/2.0.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -618,14 +618,14 @@
         "lib/net45/Weave.Base.xml",
         "lib/netstandard2.0/Weave.Base.dll",
         "lib/netstandard2.0/Weave.Base.xml",
-        "weave.base.2.0.1.nupkg.sha512",
+        "weave.base.2.0.6.nupkg.sha512",
         "weave.base.nuspec"
       ]
     },
-    "Weave.Server/2.0.2": {
-      "sha512": "b2gkLpa2FSOr385Oke7Gj2tqmbtDUlowcpTtgCndd8bwqo7XYz881OIJEyTd2npoqwXm5ULP99JV56Yt0ZDSLw==",
+    "Weave.Server/2.0.6": {
+      "sha512": "RLYUAE1h9pB90oRPdYE9g+BcrSkrVVBV1OA4ysqDjrir4DWpKF3QDh5wnkGBWdJ5mXf4tyqYeSmzSwz6qyPggA==",
       "type": "package",
-      "path": "weave.server/2.0.2",
+      "path": "weave.server/2.0.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -635,7 +635,7 @@
         "lib/net45/Weave.Server.xml",
         "lib/netstandard2.0/Weave.Server.dll",
         "lib/netstandard2.0/Weave.Server.xml",
-        "weave.server.2.0.2.nupkg.sha512",
+        "weave.server.2.0.6.nupkg.sha512",
         "weave.server.nuspec"
       ]
     },
