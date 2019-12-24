@@ -61,7 +61,8 @@
               "target": "Package",
               "version": "[12.0.3, )"
             }
-          }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
         },
         "net45": {
           "dependencies": {
@@ -69,7 +70,8 @@
               "target": "Package",
               "version": "[12.0.3, )"
             }
-          }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
         },
         "netstandard2.0": {
           "dependencies": {
@@ -93,12 +95,13 @@
             "net48"
           ],
           "assetTargetFallback": true,
-          "warn": true
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
     "D:\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj": {
-      "version": "2.0.0",
+      "version": "2.0.2",
       "restore": {
         "projectUniqueName": "D:\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj",
         "projectName": "WeavingDB.Logical",
@@ -166,7 +169,8 @@
               "target": "Package",
               "version": "[2.0.6, )"
             }
-          }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
         },
         "net45": {
           "dependencies": {
@@ -174,7 +178,8 @@
               "target": "Package",
               "version": "[2.0.6, )"
             }
-          }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
         },
         "netstandard2.0": {
           "dependencies": {
@@ -202,7 +207,8 @@
             "net48"
           ],
           "assetTargetFallback": true,
-          "warn": true
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
