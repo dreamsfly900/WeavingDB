@@ -463,7 +463,27 @@ namespace WeavingDB.Logical
 
             return "";
         }
+        public string Selectcount(string key, string sql, out int count)
+        {
+            count = 0;
+            if (CDtable.ContainsKey(key))
+            {
+                try
+                {
+                    DBLogical dblo = new DBLogical();
+                    Liattable list = CDtable[key];
 
+                    ListDmode[] objsall = dblo.selecttiem(list.datas, sql, list.datahead);
+                    count = objsall.Length;
+                 //   JObject[] objbb2 = dblo.viewdata(objsall, order, coll, pageindex, pagesize, list.datahead);
+                    return Newtonsoft.Json.JsonConvert.SerializeObject(count);
+                }
+                catch
+                { return Newtonsoft.Json.JsonConvert.SerializeObject(0); }
+            }
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(0);
+        }
         internal string[] Selctekey(string keyp)
         {
             try

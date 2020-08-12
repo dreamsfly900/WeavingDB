@@ -370,6 +370,13 @@ namespace WeavingDB.Logical
                 throw e;
             }
         }
+
+        public unsafe long selectcount(List<ListDmode> _listu, String _sqlsst, Head[] _dhead, int _maxlen = 100000)
+        {
+            ListDmode [] data= selecttiem( _listu,  _sqlsst, _dhead,  _maxlen);
+            long count = data.LongLength;
+            return count;
+        }
         /// <summary>
         /// 分解SQL语句并压入等待判断的条件中
         /// </summary>

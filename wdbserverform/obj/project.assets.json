@@ -95,7 +95,7 @@
           "bin/placeholder/WeavingDB.DataEncoding.dll": {}
         }
       },
-      "WeavingDB.Logical/2.0.2": {
+      "WeavingDB.Logical/2.0.3": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
@@ -204,7 +204,7 @@
           "bin/placeholder/WeavingDB.DataEncoding.dll": {}
         }
       },
-      "WeavingDB.Logical/2.0.2": {
+      "WeavingDB.Logical/2.0.3": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
@@ -313,7 +313,7 @@
           "bin/placeholder/WeavingDB.DataEncoding.dll": {}
         }
       },
-      "WeavingDB.Logical/2.0.2": {
+      "WeavingDB.Logical/2.0.3": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
@@ -422,7 +422,7 @@
           "bin/placeholder/WeavingDB.DataEncoding.dll": {}
         }
       },
-      "WeavingDB.Logical/2.0.2": {
+      "WeavingDB.Logical/2.0.3": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
@@ -644,7 +644,7 @@
       "path": "../src/WeavingDB.DataEncoding.Core/WeavingDB.DataEncoding.csproj",
       "msbuildProject": "../src/WeavingDB.DataEncoding.Core/WeavingDB.DataEncoding.csproj"
     },
-    "WeavingDB.Logical/2.0.2": {
+    "WeavingDB.Logical/2.0.3": {
       "type": "project",
       "path": "../src/WeavingDB.Logical/WeavingDB.Logical.csproj",
       "msbuildProject": "../src/WeavingDB.Logical/WeavingDB.Logical.csproj"
@@ -655,7 +655,7 @@
       "Ding.Core >= 1.0.0-preview-20191112-01",
       "System.IO.Compression >= 4.3.0",
       "System.Net.Http >= 4.3.4",
-      "WeavingDB.Logical >= 2.0.2"
+      "WeavingDB.Logical >= 2.0.3"
     ]
   },
   "packageFolders": {
@@ -664,15 +664,15 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\WeavingDB\\wdbserverform\\wdbserverform.csproj",
+      "projectUniqueName": "D:\\OneDrive\\代码\\WeavingDB\\wdbserverform\\wdbserverform.csproj",
       "projectName": "wdbserverform",
-      "projectPath": "D:\\WeavingDB\\wdbserverform\\wdbserverform.csproj",
+      "projectPath": "D:\\OneDrive\\代码\\WeavingDB\\wdbserverform\\wdbserverform.csproj",
       "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-      "outputPath": "D:\\WeavingDB\\wdbserverform\\obj\\",
+      "outputPath": "D:\\OneDrive\\代码\\WeavingDB\\wdbserverform\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [
-        "D:\\WeavingDB\\NuGet.Config",
+        "D:\\OneDrive\\代码\\WeavingDB\\NuGet.Config",
         "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -692,8 +692,8 @@
       "frameworks": {
         "net45": {
           "projectReferences": {
-            "D:\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj": {
-              "projectPath": "D:\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj"
+            "D:\\OneDrive\\代码\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj": {
+              "projectPath": "D:\\OneDrive\\代码\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj"
             }
           }
         }

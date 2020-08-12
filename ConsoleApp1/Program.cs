@@ -169,7 +169,7 @@ namespace ConsoleApp1
             
              
             //objbb = JObject.Parse(str);
-            int count = 10000;
+            int count = 100000;
             //user u = new user() { id = i++, name = "2345ds" + i ,aas =new byte[10,10]};
             //str = Newtonsoft.Json.JsonConvert.SerializeObject(u);
 
@@ -206,7 +206,7 @@ namespace ConsoleApp1
                 try
                 {
                     dblo = new DBLogical();
-                    Console.Clear();
+                   // Console.Clear();
                    // string ss = "name=='aa' ";
                     Console.WriteLine("请输入查询条件");
                     string ss = Console.ReadLine();
@@ -220,10 +220,11 @@ namespace ConsoleApp1
 
 
                         // listu = null;
-                      
-                       
-                        ListDmode[] objsall = dblo.selecttiem(listu, ss, ltable.datahead); 
-                        
+                        dt = DateTime.Now;
+
+                        ListDmode[] objsall = dblo.selecttiem(listu, ss, ltable.datahead);
+                        dt2 = DateTime.Now;
+                        Console.WriteLine("耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒--查询后的数据：");
                         // List<long> objsall = new List<long>();
                         if (objsall != null || objsall.Length>0)
                         {
@@ -245,6 +246,7 @@ namespace ConsoleApp1
                             //      str2 += j.ToString()+",";// Newtonsoft.Json.JsonConvert.SerializeObject(objbb2.ToString());
                             //}
                             //str2 += "]";
+                            dt = DateTime.Now;
                             string str2 = Newtonsoft.Json.JsonConvert.SerializeObject(objbb2);
                            // string str2 = JArray.FromObject(objbb2).ToString();
                             dt2 = DateTime.Now;

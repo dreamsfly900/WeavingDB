@@ -123,7 +123,25 @@ namespace WeavingDB.Client
                 return default(T);
             }
         }
+        public int SelectCount(string tablename, string where)
+        {
+           
 
+            byte[] wherdata = DataEncoding.Encodingdata(where);
+            byte[] rowdata = DataEncoding.EncodingsetKV(tablename, wherdata);
+            byte[] alldata = ccon.Send(0x14, rowdata);
+            try
+            {
+                string[] ssr = DataEncoding.Dencdingdata(alldata);
+               int  count = Convert.ToInt32(ssr[0]);
+                 
+                return count;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
         public bool Deletetable(string tablename, string where)
         {
             try

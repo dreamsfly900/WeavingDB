@@ -1,22 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
-using System.IO;
-using WindowsFormsApplication1;
-using Newtonsoft.Json;
 using WeavingDB.Client;
 
 namespace WeavingDB
 {
-  
+
     public partial class WeavingDB : Form
     {
         public WeavingDB()
@@ -216,11 +205,17 @@ namespace WeavingDB
         {
             var dbClient = new DBClient("127.0.0.1", 18989, "admin", "123123");
             dbClient.Open();
+            DateTime dt = DateTime.Now;
 
-            var json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "1.json"));
-            var model = JsonConvert.DeserializeObject(json);
-            dbClient.Set("撒大受打击-41", model);
-            object obj=  dbClient.Get<object>("撒大受打击-41");
+            int count=dbClient.SelectCount("T_warning", " warningTime>'2020-08-12 10:00:00' && Areacodelist like '41%'");
+            DateTime dt2 = DateTime.Now;
+
+            listBox1.Items.Add("数据COUNT查询" + (dt2 - dt).TotalMilliseconds + "毫秒。"+ count);
+
+            //var json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "1.json"));
+            //var model = JsonConvert.DeserializeObject(json);
+            //dbClient.Set("撒大受打击-41", model);
+            //object obj=  dbClient.Get<object>("撒大受打击-41");
 
             dbClient.Close();
         }

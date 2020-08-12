@@ -169,6 +169,20 @@ namespace WeavingDB.Logical
                         else
                             wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes("账号或密码不正确"));
                         break;
+                    case 0x14:
+                        if (DataEncoding.SetKVdecode(rowsdata, out key, out datas))
+                        {
+                            string[] ss = DataEncoding.Dencdingdata(datas);
+                            if (ss.Length == 1)
+                            {
+                                string str = dbm.Selectcount(key, ss[0], out int count);
+                                byte[] senddata = GZIP.Compress(DataEncoding.Encodingdata(count.ToString()));
+                                wserver.Send(soc, command, senddata);
+                            }
+                        }
+                        else
+                            wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes("账号或密码不正确"));
+                        break;
                     case 0x09:
                         if (DataEncoding.SetKVdecode(rowsdata, out key, out datas))
                         {
@@ -183,6 +197,7 @@ namespace WeavingDB.Logical
                         else
                             wserver.Send(soc, 0xfe, System.Text.Encoding.UTF8.GetBytes("账号或密码不正确"));
                         break;
+                       
                     case 0x10:
                         if (DataEncoding.SetKVdecode(rowsdata, out key, out datas))
                         {
