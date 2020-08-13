@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace WeavingDB.Logical
 {
@@ -559,13 +560,28 @@ namespace WeavingDB.Logical
                 if (listu.Count < maxlen)
                     num = 1;
                 numbb = new bool[num];
-                for (int ih = 0; ih < num; ih++)
-                {
+                Parallel.For(0, num,ih=> {
                     numbb[ih] = false;
-                    System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(gg), ih);
-                    //Logicaltiem((ih + 1) * maxlen, ih * maxlen);
+                    int index = (int)ih;
+                    try
+                    {
+                        Logicaltiem((index + 1) * maxlen, index * maxlen);
 
-                }
+                    }
+                    catch
+                    {
+                        numbb[index] = true;
+                    }
+                    numbb[index] = true;
+
+                });
+                //for (int ih = 0; ih < num; ih++)
+                //{
+                //    numbb[ih] = false;
+                //    System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(gg), ih);
+                //    //Logicaltiem((ih + 1) * maxlen, ih * maxlen);
+
+                //}
                 try
                 {
 
@@ -706,20 +722,20 @@ namespace WeavingDB.Logical
 
         }
 
-        void gg(object objmode)
-        {
-            int index = (int)objmode;
-            try
-            {
-                Logicaltiem((index + 1) * maxlen, index * maxlen);
+        //void gg(object objmode)
+        //{
+        //    int index = (int)objmode;
+        //    try
+        //    {
+        //        Logicaltiem((index + 1) * maxlen, index * maxlen);
 
-            }
-            catch
-            {
-                numbb[index] = true;
-            }
-            numbb[index] = true;
-        }
+        //    }
+        //    catch
+        //    {
+        //        numbb[index] = true;
+        //    }
+        //    numbb[index] = true;
+        //}
 
 
 

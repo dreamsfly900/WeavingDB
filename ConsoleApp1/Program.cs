@@ -176,7 +176,7 @@ namespace ConsoleApp1
             //objbb = JObject.Parse(str);
             //listu.Add(dblo.insertintoJson(objbb, ref ltable.datahead));
 
-            System.IO.StreamReader sr = new System.IO.StreamReader("test.txt");
+            System.IO.StreamReader sr = new System.IO.StreamReader("a.json");
              string ssr=  sr.ReadToEnd();
             sr.Close();
            

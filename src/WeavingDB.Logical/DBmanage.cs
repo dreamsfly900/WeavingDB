@@ -107,7 +107,8 @@ namespace WeavingDB.Logical
                                 if (!CDtable[key].deleterun)
                                 {
                                     CDtable[key].deleterun = true;
-                                    ThreadPool.QueueUserWorkItem(new WaitCallback(DBLogical.delnull), CDtable[key]);
+                                    DBLogical.delnull(CDtable[key]);
+                                   // ThreadPool.QueueUserWorkItem(new WaitCallback(), );
                                 }
                             }
                             catch { }

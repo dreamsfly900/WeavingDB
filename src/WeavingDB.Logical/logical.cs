@@ -334,8 +334,9 @@ namespace WeavingDB.Logical
         }
         public bool Stringtonosymbol(String _sqlsst, string rstr)
         {
-
+            
             Regex r = new Regex(rstr); // 定义一个Regex对象实例
+            
             var m = r.Match(_sqlsst);
 
 

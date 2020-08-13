@@ -49,6 +49,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="DBLogical.cs~RF245ad2e.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Weave.Server" Version="2.0.6" />
   </ItemGroup>
 

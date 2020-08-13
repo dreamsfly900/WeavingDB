@@ -207,10 +207,15 @@ namespace WeavingDB
             dbClient.Open();
             DateTime dt = DateTime.Now;
 
-            int count=dbClient.SelectCount("T_warning", " warningTime>'2020-08-12 10:00:00' && Areacodelist like '41%'");
+           var objjson=dbClient.Selecttable<object[]>("T_warning", " warningTime>'2020-08-12 10:00:00' && Areacodelist like '41%'");
+
+           //string str = Newtonsoft.Json.JsonConvert.SerializeObject(objjson);
+           // System.IO.StreamWriter sw = new System.IO.StreamWriter("a.json");
+           // sw.Write(str);
+           // sw.Close();
             DateTime dt2 = DateTime.Now;
 
-            listBox1.Items.Add("数据COUNT查询" + (dt2 - dt).TotalMilliseconds + "毫秒。"+ count);
+          //  listBox1.Items.Add("数据COUNT查询" + (dt2 - dt).TotalMilliseconds + "毫秒。"+ count);
 
             //var json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "1.json"));
             //var model = JsonConvert.DeserializeObject(json);

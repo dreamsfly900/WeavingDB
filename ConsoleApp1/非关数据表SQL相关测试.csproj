@@ -52,6 +52,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\src\WeavingDB.DataEncoding.Core\WeavingDB.DataEncoding.csproj">
+      <Project>{6d4f99ba-d420-40a3-940f-93015103d22f}</Project>
+      <Name>WeavingDB.DataEncoding</Name>
+    </ProjectReference>
     <ProjectReference Include="..\src\WeavingDB.Logical\WeavingDB.Logical.csproj">
       <Project>{501917af-a545-4907-9a26-a545744ad6d2}</Project>
       <Name>WeavingDB.Logical</Name>
@@ -60,6 +64,9 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="WeavingDB.Client">
+      <Version>2.0.3</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
