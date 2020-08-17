@@ -6,6 +6,8 @@ namespace WeavingDB.Logical
     public unsafe class ListDmode
     {
         public void*[] dtable2;
+        public IntPtr[] dtable;
+        public IntPtr* dtableone;
         public int[] LenInts;
         public long dt = DateTime.Now.ToFileTime();
     }

@@ -110,9 +110,10 @@ namespace WeavingDB.Logical
             return write;
         }
 
-        internal unsafe void*[] Gethtabledtjsontointptr(JObject obj, Head[] dhead, ref int[] lensInts)
+        internal unsafe void*[] Gethtabledtjsontointptr(JObject obj, Head[] dhead, ref int[] lensInts, ref IntPtr[] objIntPtrs)
         {
             void*[] objs = new void*[dhead.Length];
+           objIntPtrs = new IntPtr[dhead.Length];
             lensInts = new int[dhead.Length];
             foreach (var item in dhead)
             {
@@ -132,6 +133,7 @@ namespace WeavingDB.Logical
                             IntPtr intPtr = Marshal.AllocHGlobal(nSizeOfPerson);
                             Marshal.StructureToPtr(p, intPtr, true);
                             objs[item.index] = intPtr.ToPointer();
+                            objIntPtrs[item.index] = intPtr;
                             lensInts[item.index] = 4;
                         }
                         else if (jtt == 9)
@@ -140,7 +142,8 @@ namespace WeavingDB.Logical
                             int nSizeOfPerson = Marshal.SizeOf(p);
                             IntPtr intPtr = Marshal.AllocHGlobal(nSizeOfPerson);
                             Marshal.StructureToPtr(p, intPtr, true);
-                            objs[item.index] = intPtr.ToPointer(); ;
+                            objs[item.index] = intPtr.ToPointer();
+                            objIntPtrs[item.index] = intPtr;
                             lensInts[item.index] = 1;
                         }
                         else if (jtt == 7)
@@ -150,6 +153,7 @@ namespace WeavingDB.Logical
                             IntPtr intPtr = Marshal.AllocHGlobal(nSizeOfPerson);
                             Marshal.StructureToPtr(p, intPtr, true);
                             objs[item.index] = intPtr.ToPointer();
+                            objIntPtrs[item.index] = intPtr;
                             lensInts[item.index] = 8;
                         }
                         else if (jtt == 12)
@@ -160,20 +164,22 @@ namespace WeavingDB.Logical
                             int nSizeOfPerson = Marshal.SizeOf(p);
                             IntPtr intPtr = Marshal.AllocHGlobal(nSizeOfPerson);
                             Marshal.StructureToPtr(p, intPtr, true);
-                            objs[item.index] = intPtr.ToPointer(); ;
+                            objs[item.index] = intPtr.ToPointer();
+                            objIntPtrs[item.index] = intPtr;
                         }
                         else if (jtt == 8)
                         {
                             string str = obj[item.key].ToString();
                             lensInts[item.index] = System.Text.Encoding.Default.GetBytes(str.ToCharArray()).Length;
-                            char* p = (char*)Marshal.StringToHGlobalAnsi(str).ToPointer();
-                            objs[item.index] = p;
+                            IntPtr p = Marshal.StringToHGlobalAnsi(str);
+                            objs[item.index] = p.ToPointer();
+                            objIntPtrs[item.index] = p;
                         }
                         else
                         {
                             byte[] p = GZIP.Compress(TToBytes(obj[item.key].ToString()));
-
-                            objs[item.index] = Tobytes(p).ToPointer();
+                            objIntPtrs[item.index] = Tobytes(p);
+                            objs[item.index] = objIntPtrs[item.index].ToPointer();
                             lensInts[item.index] = p.Length;
                         }
                     }

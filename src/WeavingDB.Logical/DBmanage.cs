@@ -28,6 +28,11 @@ namespace WeavingDB.Logical
 
                 Directory.CreateDirectory(path + "KVDATA");
             }
+            if (!Directory.Exists(path + "TDATA"))
+            {
+
+                Directory.CreateDirectory(path + "TDATA");
+            }
             try
             {
                 KVRemove = Convert.ToBoolean(System.Configuration.ConfigurationManager.AppSettings["KVRemove"]);
@@ -50,6 +55,7 @@ namespace WeavingDB.Logical
                 ThreadPool.QueueUserWorkItem(new WaitCallback(Jsondataout), notimeout);
             }
             Load(path + "KVDATA");
+            Loadtable(path + "TDATA");
             ThreadPool.QueueUserWorkItem(new WaitCallback(Bdnull), null);
             ThreadPool.QueueUserWorkItem(new WaitCallback(DBLogical.freequeue), null);
         }
@@ -219,15 +225,23 @@ namespace WeavingDB.Logical
                 catch { }
             }
         }
-
+        void Loadtable(string pathd)
+        {
+            string[] files = Directory.GetFiles(pathd);
+            foreach (string file in files)
+            {
+                string temp = file.Replace(pathd + @"\", "").Replace(".bin", "");
+                Createtable(temp);
+            }
+        }
         void Load(string pathd)
         {
             string[] files = Directory.GetFiles(pathd);
             foreach (string file in files)
             {
                 string temp = file.Replace(pathd + @"\", "").Replace(".bin", "");
-                Loadone(temp);
 
+                Loadone(temp);
             }
         }
 
@@ -351,7 +365,15 @@ namespace WeavingDB.Logical
         public bool Createtable(string key)
         {
             if (!CDtable.ContainsKey(key))
+            {
+                if (!File.Exists(path + @"TDATA\" + key + ".bin"))
+                {
+
+                    using (FileStream fs = System.IO.File.Create(path + @"TDATA\" + key + ".bin"))
+                    { } 
+                }
                 return CDtable.TryAdd(key, new Liattable());
+            }
             return false;
         }
 
@@ -366,6 +388,12 @@ namespace WeavingDB.Logical
             {
                 try
                 {
+                    if (File.Exists(path + @"TDATA\" + key + ".bin"))
+                    {
+
+                        System.IO.File.Delete(path + @"TDATA\" + key + ".bin");
+                      
+                    }
                     bool b = CDtable.TryRemove(key, out Liattable list);
                     new DBLogical().cleardata(list.datas, list.datahead);
                     list.datahead = null;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using WeavingDB.Client;
@@ -203,19 +204,30 @@ namespace WeavingDB
 
         private void button3_Click(object sender, EventArgs e)
         {
-            var dbClient = new DBClient("127.0.0.1", 18989, "admin", "123123");
+            var dbClient = new DBClient("116.255.252.181", 18989, "admin", "123123");
             dbClient.Open();
+            //bool bb=dbClient.Createtable("T_warning");
             DateTime dt = DateTime.Now;
 
-           var objjson=dbClient.Selecttable<object[]>("T_warning", " warningTime>'2020-08-12 10:00:00' && Areacodelist like '41%'");
-
+            //System.IO.StreamReader sr = new System.IO.StreamReader("a.json");
+            //string ssr = sr.ReadToEnd();
+            //sr.Close();
+            //T_warning[] data= Newtonsoft.Json.JsonConvert.DeserializeObject<T_warning[]>(ssr);
+            //bool ff = dbClient.Inserttable<T_warning>("T_warning", data);
+            //JArray objbbs = JArray.Parse(ssr);
+            //foreach (JObject jo in objbbs)
+            //{
+            //    bool ff = dbClient.Inserttable<JObject>("T_warning", jo);
+            //}
+            //var objjson=dbClient.Selecttable<object[]>("T_warning", " warningTime>'2020-08-12 10:00:00' && Areacodelist like '41%'");
+            var count = dbClient.SelectCount("T_warning", " warningTime>'2020-08-12 10:00:00' && Areacodelist like '41%'");
            //string str = Newtonsoft.Json.JsonConvert.SerializeObject(objjson);
            // System.IO.StreamWriter sw = new System.IO.StreamWriter("a.json");
            // sw.Write(str);
            // sw.Close();
             DateTime dt2 = DateTime.Now;
 
-          //  listBox1.Items.Add("数据COUNT查询" + (dt2 - dt).TotalMilliseconds + "毫秒。"+ count);
+            listBox1.Items.Add("数据COUNT查询" + (dt2 - dt).TotalMilliseconds + "毫秒。"+ count);
 
             //var json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "1.json"));
             //var model = JsonConvert.DeserializeObject(json);
@@ -262,7 +274,19 @@ namespace WeavingDB
         public DateTime dt;
 
     }
-
+    public class T_warning
+    {
+        public DateTime warningTime;
+        public string description;
+        public string eventType;
+        public string Typename;
+        public string headline;
+        public string severity;
+        public string lng;
+        public string lat;
+        public string Areacodelist;
+        public DateTime insertime;
+    }
     public class user
     {
         public int id = 0;

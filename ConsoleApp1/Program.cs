@@ -157,6 +157,13 @@ namespace ConsoleApp1
             // String sstr= BytesToT<String>( GZIP.Decompress(abc));
 
 
+
+            String s = "410041114";
+            String p = "41";
+        
+          int a=  Sunday.strSunday(s, p,0);
+
+
             DBLogical dblo = new DBLogical();
             int i = 0;
             List<ListDmode> listu = new List<ListDmode>();
@@ -224,7 +231,7 @@ namespace ConsoleApp1
 
                         ListDmode[] objsall = dblo.selecttiem(listu, ss, ltable.datahead);
                         dt2 = DateTime.Now;
-                        Console.WriteLine("耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒--查询后的数据：");
+                        Console.WriteLine("耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒--查询后的数据："+ objsall.Length);
                         // List<long> objsall = new List<long>();
                         if (objsall != null || objsall.Length>0)
                         {
