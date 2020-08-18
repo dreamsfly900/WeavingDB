@@ -206,14 +206,14 @@ namespace WeavingDB
         {
             var dbClient = new DBClient("127.0.0.1", 18989, "admin", "123123");
             dbClient.Open();
-            bool bb=dbClient.Createtable("T_warning");
+            //bool bb=dbClient.Createtable("T_warning");
             DateTime dt = DateTime.Now;
 
-            System.IO.StreamReader sr = new System.IO.StreamReader("ab.json");
-            string ssr = sr.ReadToEnd();
-            sr.Close();
-            T_warning[] data = Newtonsoft.Json.JsonConvert.DeserializeObject<T_warning[]>(ssr);
-            bool ff = dbClient.Inserttable<T_warning>("T_warning", data);
+            //System.IO.StreamReader sr = new System.IO.StreamReader("ab.json");
+            //string ssr = sr.ReadToEnd();
+            //sr.Close();
+            //T_warning[] data = Newtonsoft.Json.JsonConvert.DeserializeObject<T_warning[]>(ssr);
+            //bool ff = dbClient.Inserttable<T_warning>("T_warning", data);
             //JArray objbbs = JArray.Parse(ssr);
             //foreach (JObject jo in objbbs)
             //{

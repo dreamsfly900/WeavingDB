@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using BTree;
+using BTrees;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -155,8 +157,7 @@ namespace ConsoleApp1
             //  Marshal.PtrToStructure(sp, byv2);
             //  byte[] abc = tobyte((byte*)byv2.data, byv2.len);
             // String sstr= BytesToT<String>( GZIP.Decompress(abc));
-
-
+           
 
             String s = "410041114";
             String p = "41";
@@ -183,28 +184,42 @@ namespace ConsoleApp1
             //objbb = JObject.Parse(str);
             //listu.Add(dblo.insertintoJson(objbb, ref ltable.datahead));
 
-            System.IO.StreamReader sr = new System.IO.StreamReader("a.json");
+            System.IO.StreamReader sr = new System.IO.StreamReader("ab.json");
              string ssr=  sr.ReadToEnd();
             sr.Close();
+            BTree<String> tree = new BTree<String>(2);
+            BTree<String, IntPtr> bTree = new BTree<string, IntPtr>(2);
            
-                JArray objbbs = JArray.Parse(ssr);
+            JArray objbbs = JArray.Parse(ssr);
+            int iss = 0;
             foreach (JObject jo in objbbs)
             {
                 //dbm.set(i.ToString(), new byte[0]);
 
-                lock (listu)
-                {
-                    listu.Add(dblo.insertintoJson(jo, ref ltable.datahead));
-
-                }
+                
+                    var tee = dblo.insertintoJson(jo, ref ltable.datahead);
+                    listu.Add(tee);
+                    tree.insert(tree, jo["eventType"].ToString(), tee.dtableone);
+                    bTree.Insert(jo["eventType"].ToString(), tee.dtable[0]);
                 str = null;
                 objbb = null;
 
             }
-           
-          //object obj = dbm.get("111");
-             
-             
+            DateTime dt = DateTime.Now, dt2 = DateTime.Now;
+            //object obj = dbm.get("111");
+            tree.deleteKey(tree, "11B09");
+            dt = DateTime.Now;
+            BNode<String> bn= tree.search(tree.root, "11B06");
+            dt2 = DateTime.Now;
+            Console.WriteLine("耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒--查询后的数据：" + (bn!=null? bn.keyvalue[1].Length:0));
+            //dt = DateTime.Now;
+            //var bTree2 = bTree.Search("11B06");
+            //dt2 = DateTime.Now;
+            //Console.WriteLine("耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒--查询后的数据：" + bTree2.Key);
+
+
+            if (bn!=null)
+            tree.print(bn);
             Console.WriteLine("全部数据：");
             Console.WriteLine(objbbs .Count+ "条");
        
@@ -221,7 +236,7 @@ namespace ConsoleApp1
                     var news = new { name = "特大喜讯" };
                     
                    // dblo.updatedata(listu, ss, ltable.datahead, JObject.FromObject(news));
-                         DateTime dt=DateTime.Now,dt2=DateTime.Now;
+                    
                    // if (ss != "")
                     {
 
@@ -233,7 +248,7 @@ namespace ConsoleApp1
                         dt2 = DateTime.Now;
                         Console.WriteLine("耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒--查询后的数据："+ objsall.Length);
                         // List<long> objsall = new List<long>();
-                        if (objsall != null || objsall.Length>0)
+                         if (objsall != null || objsall.Length>0)
                         {
                             Console.WriteLine("请输入排序：正序0，倒叙1");
                             byte order = Convert.ToByte(Console.ReadLine());
