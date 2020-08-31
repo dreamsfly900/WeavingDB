@@ -1,10 +1,12 @@
 ﻿using Newtonsoft.Json.Linq;
+using SQLDBlogic.logic;
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading;
 
@@ -56,8 +58,8 @@ namespace WeavingDB.Logical
             }
             Load(path + "KVDATA");
             Loadtable(path + "TDATA");
-            ThreadPool.QueueUserWorkItem(new WaitCallback(Bdnull), null);
-            ThreadPool.QueueUserWorkItem(new WaitCallback(DBLogical.freequeue), null);
+           // ThreadPool.QueueUserWorkItem(new WaitCallback(Bdnull), null);
+          //  ThreadPool.QueueUserWorkItem(new WaitCallback(DBLogical.freequeue), null);
         }
 
         private void Datatimeout(object state)
@@ -94,46 +96,26 @@ namespace WeavingDB.Logical
             }
         }
 
-        void Bdnull(object obj)
-        {
-            while (true)
-            {
-                Thread.Sleep(1000);
-                try
-                {
-                    string[] keys = CDtable.Keys.ToArray();
-                    int len = keys.Length;
-                    for (int i = 0; i < len; i++)
-                    {
-                        if (CDtable.ContainsKey(keys[i]))
-                        {
-                            try
-                            {
-                                string key = keys[i];
-                                if (!CDtable[key].deleterun)
-                                {
-                                    CDtable[key].deleterun = true;
-                                    DBLogical.delnull(CDtable[key]);
-                                   // ThreadPool.QueueUserWorkItem(new WaitCallback(), );
-                                }
-                            }
-                            catch { }
-
-                        }
-                    }
-                }
-                catch { }
-            }
-        }
-
+      
+        /// <summary>
+        /// 数据表中的数据超过存储时限，清理
+        /// </summary>
+        /// <param name="obj"></param>
         void Jsondataout(object obj)
         {
+            if (!Directory.Exists(path + "TLOG"))
+            {
+
+                Directory.CreateDirectory(path + "TLOG");
+            }
             int timeout = (int)obj;
             while (true)
             {
                 Thread.Sleep(1000);
                 try
                 {
+                    System.IO.StreamWriter fi = new StreamWriter(path + "TLOG/" + DateTime.Now.ToString("yyyyMMddHH")+".log");
+                    
                     string[] keys = CDtable.Keys.ToArray();
                     int len = keys.Length;
                     for (int i = 0; i < len; i++)
@@ -145,28 +127,30 @@ namespace WeavingDB.Logical
                                 string key = keys[i];
                                 List<ListDmode> listdate = CDtable[key].datas;
                                 Head[] hhed = CDtable[key].datahead;
+                                 var tree=  CDtable[key].tree;
                                 for (int j = listdate.Count; j > 0; j--)
                                 {
                                     double ss = (DateTime.Now - DateTime.FromFileTime(listdate[j].dt)).TotalSeconds;
                                     if (ss > timeout)
                                     {
-                                        lock (listdate[i])
+                                        lock (listdate[j])
                                         {
                                             for (int ig = 0; ig < hhed.Length; ig++)
                                             {
-                                                if (listdate[i].dtable2[hhed[ig].index] == null)
+                                                if (listdate[j].dtable2[hhed[ig].index] == null)
                                                     continue;
-                                                IntPtr pp = (IntPtr)listdate[i].dtable2[hhed[ig].index];
+                                                IntPtr pp = (IntPtr)listdate[j].dtable2[hhed[ig].index];
                                                 if (pp == IntPtr.Zero)
                                                     continue;
-                                                Freedata fd = new Freedata
-                                                {
-                                                    ptr = (IntPtr)listdate[i].dtable2[hhed[ig].index],
-                                                    type = hhed[ig].type
-                                                };
-                                                DBLogical.allfree.Enqueue(fd);
+                                                fi.WriteLine("移除超时："+ hhed[ig].key+ "type:"+ hhed[ig].type+"行:"+ j);
+                                                tree[hhed[ig].key].searchremove(pp.ToPointer(), hhed[ig].type, hhed[ig].index);
+                                                listdate[j].dtable2[hhed[ig].index] = null;
+                                                Marshal.FreeHGlobal(pp);
                                             }
+                                            listdate[j].dtable2 = null;
                                             listdate[j] = null;
+                                            listdate.RemoveAt(j);
+                                            j = listdate.Count;
                                         }
                                     }
                                 }
@@ -174,6 +158,7 @@ namespace WeavingDB.Logical
                             catch { }
                         }
                     }
+                    fi.Close();
                 }
                 catch { }
             }
@@ -395,7 +380,7 @@ namespace WeavingDB.Logical
                       
                     }
                     bool b = CDtable.TryRemove(key, out Liattable list);
-                    new DBLogical().cleardata(list.datas, list.datahead);
+                    new DBLogic().cleardata(list.datas, list.datahead, list);
                     list.datahead = null;
                     list = null;
                     return b;
@@ -416,13 +401,16 @@ namespace WeavingDB.Logical
         {
             if (CDtable.ContainsKey(key))
             {
-                DBLogical dblo = new DBLogical();
+                DBLogic dblo = new DBLogic();
                 Liattable list = CDtable[key];
                 JObject job = JObject.Parse(data);
 
                 lock (list.datas)
                 {
-                    list.datas.Add(dblo.insertintoJson(job, ref list.datahead));
+                    var tee = dblo.insertintoJson(job, ref list.datahead);
+                    list.datas.Add(tee);
+                    dblo.insertintoIndex(job, tee, list.datahead, ref list.tree);
+                  //  list.datas.Add(dblo.insertintoJson(job, ref list.datahead));
                 }
                 return true;
             }
@@ -442,14 +430,18 @@ namespace WeavingDB.Logical
             {
                 if (CDtable.ContainsKey(key))
                 {
-                    DBLogical dblo = new DBLogical();
+                    DBLogic dblo = new DBLogic();
                     Liattable list = CDtable[key];
                     JArray job = JArray.Parse(data);
 
                     lock (list.datas)
                     {
                         foreach (JObject item in job)
-                            list.datas.Add(dblo.insertintoJson(item, ref list.datahead));
+                        {
+                            var tee = dblo.insertintoJson(item, ref list.datahead);
+                            list.datas.Add(tee);
+                            dblo.insertintoIndex(item, tee, list.datahead, ref list.tree);
+                        }
                     }
                     return true;
                 }
@@ -478,12 +470,12 @@ namespace WeavingDB.Logical
             {
                 try
                 {
-                    DBLogical dblo = new DBLogical();
+                    DBLogic dblo = new DBLogic();
                     Liattable list = CDtable[key];
 
-                    ListDmode[] objsall = dblo.selecttiem(list.datas, sql, list.datahead);
+                    ListDmode[] objsall = dblo.selecttiem(list.datas, sql, list.datahead, list);
                     count = objsall.Length;
-                    JObject[] objbb2 = dblo.viewdata(objsall, order, coll, pageindex, pagesize, list.datahead);
+                    JObject[] objbb2 = dblo.viewdata(objsall, list.datahead, order, coll, pageindex, pagesize);
                     return Newtonsoft.Json.JsonConvert.SerializeObject(objbb2);
                 }
                 catch
@@ -499,10 +491,10 @@ namespace WeavingDB.Logical
             {
                 try
                 {
-                    DBLogical dblo = new DBLogical();
+                    DBLogic dblo = new DBLogic();
                     Liattable list = CDtable[key];
 
-                    ListDmode[] objsall = dblo.selecttiem(list.datas, sql, list.datahead);
+                    ListDmode[] objsall = dblo.selecttiem(list.datas, sql, list.datahead, list);
                     count = objsall.Length;
                  //   JObject[] objbb2 = dblo.viewdata(objsall, order, coll, pageindex, pagesize, list.datahead);
                     return Newtonsoft.Json.JsonConvert.SerializeObject(count);
@@ -548,11 +540,11 @@ namespace WeavingDB.Logical
             {
                 try
                 {
-                    DBLogical dblo = new DBLogical();
+                    DBLogic dblo = new DBLogic();
                     Liattable list = CDtable[key];
                     JObject job = JObject.Parse(data);
 
-                    dblo.updatedata(list.datas, sql, list.datahead, job);
+                    dblo.updatedata(list.datas, sql, list.datahead, job, list);
                     return true;
                 }
                 catch (Exception ee)
@@ -572,10 +564,10 @@ namespace WeavingDB.Logical
                 {
                     if (sql == "")
                         return false;
-                    DBLogical dblo = new DBLogical();
+                    DBLogic dblo = new DBLogic();
                     Liattable list = CDtable[key];
 
-                    dblo.deletedata(list.datas, sql, list.datahead);
+                    dblo.deletedata(list.datas, sql, list.datahead, list);
                     return true;
                 }
                 catch

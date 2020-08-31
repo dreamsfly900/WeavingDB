@@ -1,8 +1,6 @@
-﻿using BTree;
-using BTrees;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
+using SQLDBlogic.logic;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
@@ -165,7 +163,7 @@ namespace ConsoleApp1
           int a=  Sunday.strSunday(s, p,0);
 
 
-            DBLogical dblo = new DBLogical();
+            DBLogic dblo = new DBLogic();
             int i = 0;
             List<ListDmode> listu = new List<ListDmode>();
             Liattable ltable = new Liattable();
@@ -187,11 +185,12 @@ namespace ConsoleApp1
             System.IO.StreamReader sr = new System.IO.StreamReader("ab.json");
              string ssr=  sr.ReadToEnd();
             sr.Close();
-            BTree<String> tree = new BTree<String>(2);
-            BTree<String, IntPtr> bTree = new BTree<string, IntPtr>(2);
+            BPTree tree = new BPTree(3);
+           // BTree<String, IntPtr> bTree = new BTree<string, IntPtr>(2);
            
             JArray objbbs = JArray.Parse(ssr);
             int iss = 0;
+            long p2 = Convert.ToDateTime("2020-08-13T11:20:47+08:00").ToFileTime();
             foreach (JObject jo in objbbs)
             {
                 //dbm.set(i.ToString(), new byte[0]);
@@ -199,27 +198,36 @@ namespace ConsoleApp1
                 
                     var tee = dblo.insertintoJson(jo, ref ltable.datahead);
                     listu.Add(tee);
-                    tree.insert(tree, jo["eventType"].ToString(), tee.dtableone);
-                    bTree.Insert(jo["eventType"].ToString(), tee.dtable[0]);
+               // long p1 = Convert.ToDateTime(jo["warningTime"].ToString()).ToFileTime();
+                if ((*(long*)tee.dtable2[0]) == p2)
+                { 
+                
+                }
+                 tree.insert(tree.root, tee.dtable2[0], tee, ltable.datahead[0].type);
+                  //  bTree.Insert(jo["eventType"].ToString(), tee.dtable[0]);
                 str = null;
                 objbb = null;
 
             }
+          
             DateTime dt = DateTime.Now, dt2 = DateTime.Now;
             //object obj = dbm.get("111");
-            tree.deleteKey(tree, "11B09");
+         //   tree.deleteKey(tree, "11B09");
             dt = DateTime.Now;
-            BNode<String> bn= tree.search(tree.root, "11B06");
-            dt2 = DateTime.Now;
-            Console.WriteLine("耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒--查询后的数据：" + (bn!=null? bn.keyvalue[1].Length:0));
+            //var data=  bTree.Search("11B06");
+            // var bn= tree.search(tree.root, p2);
+            IntPtr p3 = Marshal.StringToHGlobalAnsi("11B06");
+            Node nd= tree.search(tree.root, &p2);
+              dt2 = DateTime.Now;
+            Console.WriteLine("耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒--查询后的数据：" );//+ (bn!=null? bn.Count:0)
             //dt = DateTime.Now;
             //var bTree2 = bTree.Search("11B06");
             //dt2 = DateTime.Now;
             //Console.WriteLine("耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒--查询后的数据：" + bTree2.Key);
 
 
-            if (bn!=null)
-            tree.print(bn);
+           // if (bn!=null)
+          //  tree.print(bn);
             Console.WriteLine("全部数据：");
             Console.WriteLine(objbbs .Count+ "条");
        
@@ -227,7 +235,7 @@ namespace ConsoleApp1
             {
                 try
                 {
-                    dblo = new DBLogical();
+                    dblo = new DBLogic();
                    // Console.Clear();
                    // string ss = "name=='aa' ";
                     Console.WriteLine("请输入查询条件");
@@ -237,52 +245,52 @@ namespace ConsoleApp1
                     
                    // dblo.updatedata(listu, ss, ltable.datahead, JObject.FromObject(news));
                     
-                   // if (ss != "")
-                    {
+                   //// if (ss != "")
+                   // {
 
+                   //   //  ss = "warningTime<='2020-08-14T11:20:47+08:00'";
+                   //     // listu = null;
+                   //     dt = DateTime.Now;
 
-                        // listu = null;
-                        dt = DateTime.Now;
-
-                        ListDmode[] objsall = dblo.selecttiem(listu, ss, ltable.datahead);
-                        dt2 = DateTime.Now;
-                        Console.WriteLine("耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒--查询后的数据："+ objsall.Length);
-                        // List<long> objsall = new List<long>();
-                         if (objsall != null || objsall.Length>0)
-                        {
-                            Console.WriteLine("请输入排序：正序0，倒叙1");
-                            byte order = Convert.ToByte(Console.ReadLine());
-                            Console.WriteLine("请输入页数：");
-                            int page = Convert.ToInt32( Console.ReadLine());
-                            Console.WriteLine("请输入每页数量：");
-                            int viewlen =Convert.ToInt32( Console.ReadLine());
-                            Console.WriteLine("请输入排序列：");
-                            string coll = (Console.ReadLine());
-                            dt = DateTime.Now;
-                            JObject[] objbb2 = dblo.viewdata(objsall, order, coll, page, viewlen, ltable.datahead);
-                            dt2 = DateTime.Now;
-                            Console.WriteLine("耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒--查询后的数据：");
-                            //string str2 = "[";
-                            //foreach (JObject j in objbb2)
-                            //{
-                            //      str2 += j.ToString()+",";// Newtonsoft.Json.JsonConvert.SerializeObject(objbb2.ToString());
-                            //}
-                            //str2 += "]";
-                            dt = DateTime.Now;
-                            string str2 = Newtonsoft.Json.JsonConvert.SerializeObject(objbb2);
-                           // string str2 = JArray.FromObject(objbb2).ToString();
-                            dt2 = DateTime.Now;
-                            Console.WriteLine("耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒--对象转STRING时间：");
-                            //  List<user> liss= Newtonsoft.Json.JsonConvert.DeserializeObject<List<user>>(str2);
-                            // Console.WriteLine("索引:" + str2);
-                            //str2 = "";
-                            objbb2 = null;
-                        }
-                        objsall = null;
+                   //     ListDmode[] objsall = dblo.selecttiem(listu, ss, ltable.datahead);
+                   //     dt2 = DateTime.Now;
+                   //     Console.WriteLine("耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒--查询后的数据："+ objsall.Length);
+                   //     // List<long> objsall = new List<long>();
+                   //      if (objsall != null || objsall.Length>0)
+                   //     {
+                   //         Console.WriteLine("请输入排序：正序0，倒叙1");
+                   //         byte order = Convert.ToByte(Console.ReadLine());
+                   //         Console.WriteLine("请输入页数：");
+                   //         int page = Convert.ToInt32( Console.ReadLine());
+                   //         Console.WriteLine("请输入每页数量：");
+                   //         int viewlen =Convert.ToInt32( Console.ReadLine());
+                   //         Console.WriteLine("请输入排序列：");
+                   //         string coll = (Console.ReadLine());
+                   //         dt = DateTime.Now;
+                   //         JObject[] objbb2 = dblo.viewdata(objsall, order, coll, page, viewlen, ltable.datahead);
+                   //         dt2 = DateTime.Now;
+                   //         Console.WriteLine("耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒--查询后的数据：");
+                   //         //string str2 = "[";
+                   //         //foreach (JObject j in objbb2)
+                   //         //{
+                   //         //      str2 += j.ToString()+",";// Newtonsoft.Json.JsonConvert.SerializeObject(objbb2.ToString());
+                   //         //}
+                   //         //str2 += "]";
+                   //         dt = DateTime.Now;
+                   //         string str2 = Newtonsoft.Json.JsonConvert.SerializeObject(objbb2);
+                   //        // string str2 = JArray.FromObject(objbb2).ToString();
+                   //         dt2 = DateTime.Now;
+                   //         Console.WriteLine("耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒--对象转STRING时间：");
+                   //         //  List<user> liss= Newtonsoft.Json.JsonConvert.DeserializeObject<List<user>>(str2);
+                   //         // Console.WriteLine("索引:" + str2);
+                   //         //str2 = "";
+                   //         objbb2 = null;
+                   //     }
+                   //     objsall = null;
                        
-                        GC.Collect();
-                    }
-                   // dblo.deletedata(listu, ss, ltable.datahead);
+                   //     GC.Collect();
+                   // }
+                   //// dblo.deletedata(listu, ss, ltable.datahead);
 
                    
                      Console.ReadLine();

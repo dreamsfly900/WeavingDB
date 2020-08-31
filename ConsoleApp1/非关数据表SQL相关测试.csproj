@@ -46,17 +46,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BTree.cs" />
+    <Compile Include="calculate.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="utli.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ab.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\BTree\BTree.csproj">
-      <Project>{031678E5-2AD7-4426-8A9C-6A7E269F47C8}</Project>
-      <Name>BTree</Name>
-    </ProjectReference>
     <ProjectReference Include="..\src\WeavingDB.DataEncoding.Core\WeavingDB.DataEncoding.csproj">
       <Project>{6d4f99ba-d420-40a3-940f-93015103d22f}</Project>
       <Name>WeavingDB.DataEncoding</Name>

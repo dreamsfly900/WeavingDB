@@ -1,6 +1,7 @@
 ﻿namespace BTree
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
 
@@ -36,9 +37,11 @@
         /// </summary>
         /// <param name="key">Key being searched.</param>
         /// <returns>Entry for that key, null otherwise.</returns>
-        public Entry<TK, TP> Search(TK key)
+        public List<Entry<TK, TP>> Search(TK key)
         {
-            return this.SearchInternal(this.Root, key);
+            List<Entry<TK, TP>> list = new List<Entry<TK, TP>>();
+           this.SearchInternal(this.Root, key, list);
+            return list;
         }
 
         /// <summary>
@@ -276,23 +279,29 @@
 
             return this.DeletePredecessor(node.Children.First());
         }
-
+      
         /// <summary>
         /// Helper method that search for a key in a given BTree.
         /// </summary>
         /// <param name="node">Node used to start the search.</param>
         /// <param name="key">Key to be searched.</param>
         /// <returns>Entry object with key information if found, null otherwise.</returns>
-        private Entry<TK, TP> SearchInternal(Node<TK, TP> node, TK key)
+        private List<Entry<TK, TP>> SearchInternal(Node<TK, TP> node, TK key, List<Entry<TK, TP>> list)
         {
-            int i = node.Entries.TakeWhile(entry => key.CompareTo(entry.Key) > 0).Count();
+           
+               int i = node.Entries.TakeWhile(entry => key.CompareTo(entry.Key) > 0).Count();
 
             if (i < node.Entries.Count && node.Entries[i].Key.CompareTo(key) == 0)
             {
-                return node.Entries[i];
+                   list.Add(node.Entries[i]);
+                if (node.Children.Count > 0)
+                   this.SearchInternal(node.Children[i], key, list);
+                else
+
+                    return list;// node.Entries[i];
             }
 
-            return node.IsLeaf ? null : this.SearchInternal(node.Children[i], key);
+            return node.IsLeaf ? null : this.SearchInternal(node.Children[i], key, list);
         }
 
         /// <summary>

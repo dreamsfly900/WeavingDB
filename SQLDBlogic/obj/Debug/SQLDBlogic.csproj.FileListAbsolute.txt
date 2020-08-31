@@ -1,0 +1,17 @@
+D:\OneDrive\代码\WeavingDB\SQLDBlogic\bin\Debug\ab.json
+D:\OneDrive\代码\WeavingDB\SQLDBlogic\bin\Debug\test.txt
+D:\OneDrive\代码\WeavingDB\SQLDBlogic\bin\Debug\SQLDBlogic.exe.config
+D:\OneDrive\代码\WeavingDB\SQLDBlogic\bin\Debug\SQLDBlogic.exe
+D:\OneDrive\代码\WeavingDB\SQLDBlogic\bin\Debug\SQLDBlogic.pdb
+D:\OneDrive\代码\WeavingDB\SQLDBlogic\bin\Debug\Newtonsoft.Json.dll
+D:\OneDrive\代码\WeavingDB\SQLDBlogic\bin\Debug\WeavingDB.DataEncoding.dll
+D:\OneDrive\代码\WeavingDB\SQLDBlogic\bin\Debug\WeavingDB.DataEncoding.pdb
+D:\OneDrive\代码\WeavingDB\SQLDBlogic\bin\Debug\WeavingDB.DataEncoding.xml
+D:\OneDrive\代码\WeavingDB\SQLDBlogic\obj\Debug\SQLDBlogic.csprojAssemblyReference.cache
+D:\OneDrive\代码\WeavingDB\SQLDBlogic\obj\Debug\SQLDBlogic.Form1.resources
+D:\OneDrive\代码\WeavingDB\SQLDBlogic\obj\Debug\SQLDBlogic.Properties.Resources.resources
+D:\OneDrive\代码\WeavingDB\SQLDBlogic\obj\Debug\SQLDBlogic.csproj.GenerateResource.cache
+D:\OneDrive\代码\WeavingDB\SQLDBlogic\obj\Debug\SQLDBlogic.csproj.CoreCompileInputs.cache
+D:\OneDrive\代码\WeavingDB\SQLDBlogic\obj\Debug\SQLDBlogic.csproj.CopyComplete
+D:\OneDrive\代码\WeavingDB\SQLDBlogic\obj\Debug\SQLDBlogic.exe
+D:\OneDrive\代码\WeavingDB\SQLDBlogic\obj\Debug\SQLDBlogic.pdb
