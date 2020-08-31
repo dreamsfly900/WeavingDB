@@ -4,64 +4,16 @@
         <name>WeavingDB.Logical</name>
     </assembly>
     <members>
-        <member name="M:WeavingDB.Logical.DBLogical.insertintoJson(Newtonsoft.Json.Linq.JObject,WeavingDB.Logical.Head[]@)">
+        <member name="M:WeavingDB.Logical.Sunday.strSunday(System.String,System.String,System.Int32)">
+            匹配字符串
+            @param s 目标字符串
+            @param p 需要匹配的字符串
+        </member>
+        <member name="M:WeavingDB.Logical.DBmanage.Jsondataout(System.Object)">
             <summary>
-            将JSON转成要插入的指针和与其对应的数据类型标识
+            数据表中的数据超过存储时限，清理
             </summary>
             <param name="obj"></param>
-            <param name="dhead"></param>
-            <returns></returns>
-        </member>
-        <member name="M:WeavingDB.Logical.DBLogical.cleardata(System.Collections.Generic.List{WeavingDB.Logical.ListDmode},WeavingDB.Logical.Head[])">
-            <summary>
-            清理数据表
-            </summary>
-            <param name="_listu"></param>
-            <param name="_dhead"></param>
-        </member>
-        <member name="M:WeavingDB.Logical.DBLogical.deletedata(System.Collections.Generic.List{WeavingDB.Logical.ListDmode},System.String,WeavingDB.Logical.Head[])">
-            <summary>
-            有条件的删除表数据
-            </summary>
-            <param name="_listu"></param>
-            <param name="_sqlsst"></param>
-            <param name="_dhead"></param>
-        </member>
-        <member name="M:WeavingDB.Logical.DBLogical.updatedata(System.Collections.Generic.List{WeavingDB.Logical.ListDmode},System.String,WeavingDB.Logical.Head[],Newtonsoft.Json.Linq.JObject)">
-            <summary>
-            有条件的更新数据
-            </summary>
-            <param name="_listu"></param>
-            <param name="_sqlsst"></param>
-            <param name="_dhead"></param>
-            <param name="job"></param>
-        </member>
-        <member name="M:WeavingDB.Logical.DBLogical.freequeue(System.Object)">
-            <summary>
-            垃圾回收，彻底从内存中移除数据所占用的空间并释放。
-            </summary>
-            <param name="obj"></param>
-        </member>
-        <member name="M:WeavingDB.Logical.DBLogical.delnull(System.Object)">
-            <summary>
-            移除表链中的null行
-            </summary>
-            <param name="oo"></param>
-        </member>
-        <member name="M:WeavingDB.Logical.DBLogical.wherelogical">
-            <summary>
-            分解SQL语句并压入等待判断的条件中
-            </summary>
-        </member>
-        <member name="M:WeavingDB.Logical.DBLogical.selecttiem(System.Collections.Generic.List{WeavingDB.Logical.ListDmode},System.String,WeavingDB.Logical.Head[],System.Int32)">
-            <summary>
-            有条件的查询表中数据，并返回指针，查询是多线程的，数据是无排序的
-            </summary>
-            <param name="_listu"></param>
-            <param name="_sqlsst"></param>
-            <param name="_dhead"></param>
-            <param name="_maxlen"></param>
-            <returns></returns>
         </member>
         <member name="M:WeavingDB.Logical.DBmanage.Createtable(System.String)">
             <summary>
@@ -135,5 +87,59 @@
             <param name="vlaue"></param>
             <returns></returns>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:BPTree.insert(Node,System.Void*,WeavingDB.Logical.ListDmode,System.Byte,System.Int32)" -->
+        <member name="M:SQLDBlogic.logic.DBLogic.insertintoIndex(Newtonsoft.Json.Linq.JObject,WeavingDB.Logical.ListDmode,WeavingDB.Logical.Head[],System.Collections.Generic.Dictionary{System.String,BPTree}@)">
+            <summary>
+            建立索引
+            </summary>
+            <param name="obj"></param>
+            <param name="ld"></param>
+            <param name="dhead"></param>
+            <param name="trees"></param>
+        </member>
+        <member name="M:SQLDBlogic.logic.DBLogic.insertintoJson(Newtonsoft.Json.Linq.JObject,WeavingDB.Logical.Head[]@)">
+            <summary>
+            数据插入到内存
+            </summary>
+            <param name="obj"></param>
+            <param name="dhead"></param>
+            <param name="trees"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SQLDBlogic.logic.DBLogic.updatedata(System.Collections.Generic.List{WeavingDB.Logical.ListDmode},System.String,WeavingDB.Logical.Head[],Newtonsoft.Json.Linq.JObject,WeavingDB.Logical.Liattable)">
+            <summary>
+            数据插入
+            </summary>
+            <param name="obj"></param>
+            <param name="dhead"></param>
+            <param name="trees"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SQLDBlogic.logic.DBLogic.SelectCount(System.Collections.Generic.List{WeavingDB.Logical.ListDmode},System.String,WeavingDB.Logical.Head[],WeavingDB.Logical.Liattable)">
+            <summary>
+            数据总行数查询
+            </summary>
+            <param name="_listu"></param>
+            <param name="_sqlsst"></param>
+            <param name="_dhead"></param>
+            <param name="ltable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SQLDBlogic.logic.DBLogic.selecttiem(System.Collections.Generic.List{WeavingDB.Logical.ListDmode},System.String,WeavingDB.Logical.Head[],WeavingDB.Logical.Liattable)">
+            <summary>
+             通过SQL语句查询
+            </summary>
+            <param name="listu"></param>
+            <param name="sqlsst"></param>
+            <param name="dhead"></param>
+            <param name="ltable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SQLDBlogic.logic.utli.wherelogical(System.String,WeavingDB.Logical.Head[])">
+            <summary>
+            分解SQL语句
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:SQLDBlogic.logic.utli.CompareLogical(System.Byte,System.Void*,System.Int32,System.Void*,System.Int32,System.Int32)" -->
     </members>
 </doc>

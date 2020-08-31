@@ -47,7 +47,7 @@ namespace SQLDBlogic
 
             long p2 = Convert.ToDateTime("2020-08-13T11:20:47+08:00").ToFileTime();
 
-            var temp2 = dblo.SelectCount(listu, " eventType=='11B06'  ", ltable.datahead, ltable);
+            var temp2 = dblo.SelectCount(listu, "  Areacodelist like '41%' ", ltable.datahead, ltable);
 
             int count = dblo.updatedata(listu, " eventType=='11B06'&& warningTime>='2020-08-13T11:20:47+08:00' && warningTime<='2020-08-14T11:20:47+08:00'",
                   ltable.datahead, JObject.FromObject(new { eventType = "特大喜讯" }), ltable);

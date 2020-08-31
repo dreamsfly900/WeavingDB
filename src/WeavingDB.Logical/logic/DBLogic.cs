@@ -390,7 +390,7 @@ namespace SQLDBlogic.logic
                         }
                         else
                         {
-                            listutem = saobiao(listutem, contm.mtsContrast[i], contm.hindex[i], contm.mtssscondata[i], contm.collindex[i], contm.mtslen[i]);
+                            listutem = saobiao(listu, contm.mtsContrast[i], contm.hindex[i], contm.mtssscondata[i], contm.collindex[i], contm.mtslen[i]);
                             if (listutem == null)
                                 return new ListDmode[0];
                         }
