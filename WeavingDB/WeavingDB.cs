@@ -204,7 +204,7 @@ namespace WeavingDB
 
         private void button3_Click(object sender, EventArgs e)
         {
-            var dbClient = new DBClient("116.255.252.181", 18989, "admin", "123123");
+            var dbClient = new DBClient("127.0.0.1", 18989, "admin", "123123");
             dbClient.Open();
             //bool bb=dbClient.Createtable("T_warning");
             DateTime dt = DateTime.Now;
