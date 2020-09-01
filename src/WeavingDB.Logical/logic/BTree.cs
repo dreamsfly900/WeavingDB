@@ -28,8 +28,8 @@ public unsafe class BPTree
     {
         datatype = _datatype;
         root.datatype = _datatype;
-        Node nd= search(root, key);
-        if (nd != null && nd.keys.Count!=0)
+        Node nd = search(root, key);
+        if (nd != null && nd.keys.Count != 0)
         {
             int i = 0;
             while (!utli.CompareLogical(datatype, nd.keys[i].key, 2, key, len))
@@ -111,7 +111,7 @@ public unsafe class BPTree
         {
             Node nd = search(root, v);
 
-            if (nd == null)
+            if (nd == null || nd.keys.Count<=0)
                 return null;
             int i = 0;
             while (!utli.CompareLogical(databyte, v, 2, nd.keys[i].key))
@@ -124,6 +124,8 @@ public unsafe class BPTree
         if (mtsContrast == 0)
         {
             Node nd = search(root, v, mtsContrast);
+            if (nd == null || nd.keys.Count <= 0)
+                return null;
             int i = 0;
             while (i < nd.keys.Count && !utli.CompareLogical(databyte, nd.keys[i].key, mtsContrast, v))
             {
@@ -152,6 +154,8 @@ public unsafe class BPTree
         if (mtsContrast == 1)
         {
             Node nd = search(root, v, mtsContrast);
+            if (nd == null || nd.keys.Count <= 0)
+                return null;
             int i = nd.keys.Count-1;
             while (i >= 0 && !utli.CompareLogical(databyte, nd.keys[i].key, mtsContrast, v)  )
             {
@@ -180,6 +184,8 @@ public unsafe class BPTree
         if (mtsContrast == 3)
         {
             Node nd = search(root, v, mtsContrast);
+            if (nd == null || nd.keys.Count <= 0)
+                return null;
             int i = 0;
             while (i < nd.keys.Count && !utli.CompareLogical(databyte, nd.keys[i].key, mtsContrast, v))
             {
@@ -209,6 +215,8 @@ public unsafe class BPTree
         if (mtsContrast == 4)
         {
             Node nd = search(root, v, mtsContrast);
+            if (nd == null || nd.keys.Count <= 0)
+                return null;
             int i = nd.keys.Count-1;
             while (i >= 0 && !utli.CompareLogical(databyte, nd.keys[i].key, mtsContrast, v)  )
             {
@@ -238,8 +246,10 @@ public unsafe class BPTree
         {
             List<ListDmode> list1 = searcheQualto(root, v, databyte, 3);
             List<ListDmode> list2 = searcheQualto(root, v, databyte, 4);
+            if(list1!=null)
             list.AddRange(list1);
-            list.AddRange(list2);
+            if (list2 != null)
+                list.AddRange(list2);
         }
         return list;
     }
@@ -279,6 +289,8 @@ public unsafe class Node
         if (isLeaf)
         {
             int mid=0;
+            if (keys.Count <= 0)
+                return null;
             KV comp;
            
             comp = keys[mid];
