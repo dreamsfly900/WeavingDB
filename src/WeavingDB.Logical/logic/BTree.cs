@@ -29,7 +29,7 @@ public unsafe class BPTree
         datatype = _datatype;
         root.datatype = _datatype;
         Node nd= search(root, key);
-        if (nd != null)
+        if (nd != null && nd.keys.Count!=0)
         {
             int i = 0;
             while (!utli.CompareLogical(datatype, nd.keys[i].key, 2, key, len))
@@ -53,8 +53,12 @@ public unsafe class BPTree
     }
     public void searchremove(void* key,byte databyte,int index)
     {
+        //if (*(long*)key == 132427237720000000 && index == 9)
+        //{ 
+        //}
+       
          Node nd= search(root, key);
-        if (nd == null)
+        if (nd == null || nd.keys.Count<=0)
             return ;
         int i = 0;
         while (!utli.CompareLogical(databyte, key, 2, nd.keys[i].key))
@@ -64,7 +68,19 @@ public unsafe class BPTree
         if (nd.keys[i].value.Count == 1)
         {
             nd.keys[i].value.Clear();
+            root.isRoot = true;
             root.remove(key, this);
+            //if (index == 9)
+            //{
+            //    if (*(long*)key == 132427234490000000)
+            //    { 
+            //    }
+              
+            //    if ((IntPtr)root.keys[1].key == IntPtr.Zero)
+            //    { 
+
+            //    }
+            //}
         }
         else
         {
@@ -256,7 +272,7 @@ public unsafe class Node
     // 叶节点的后节点
     public Node next;
     public List<Node> Child = new List<Node>();
-    private bool isRoot;
+    public bool isRoot;
     public Node get(void* key,int mtsContrast)
     {
         //如果是叶子节点 
@@ -314,6 +330,10 @@ public unsafe class Node
     public Node get(void* key)
     {
         //如果是叶子节点 
+        if (keys == null || keys.Count<=0)
+        {
+            return this;
+        }
         if (isLeaf)
         {
             int low = 0, high = keys.Count - 1, mid;
@@ -323,6 +343,8 @@ public unsafe class Node
             {
                 mid = (low + high) / 2;
                 comp = keys[mid];
+                if (datatype == 12)
+                    Console.WriteLine(mid + ":" + *(long*)comp.key);
                 if (utli.CompareLogical(datatype, comp.key, 2, key))
                 {
                     return this;
@@ -341,6 +363,7 @@ public unsafe class Node
         }
         //如果不是叶子节点 
         //如果key小于节点最左边的key，沿第一个子节点继续搜索 
+         
         if (utli.CompareLogical(datatype, key, 4, keys[0].key))
         {
             return Child[0].get(key);
@@ -364,12 +387,15 @@ public unsafe class Node
         }
         else
         {
+           
             int low = 0, high = keys.Count - 1, mid = 0;
             KV comp;
             while (low <= high)
             {
                 mid = (low + high) / 2;
                 comp = keys[mid];
+                if (datatype == 12)
+                    Console.WriteLine(mid + ":" + *(long*)comp.key);
                 if (utli.CompareLogical(datatype, comp.key, 2, key))
                 {
                     return Child[mid + 1].get(key);
@@ -467,7 +493,7 @@ public unsafe class Node
                 parent.Child.Insert(index + 1, right);
                 parent.keys.Insert(index, right.keys[0]);
                 keys = null; //删除当前节点的关键字信息
-                Child = null; //删除当前节点的孩子节点引用
+                Child = new List<Node>(); //删除当前节点的孩子节点引用
 
                 //父节点插入或更新关键字 
                 parent.updateInsert(bPTree);
@@ -487,7 +513,7 @@ public unsafe class Node
                 parent.Child.Add(right);
                 parent.keys.Add(right.keys[0]);
                 keys = null;
-                Child = null;
+                Child = new List<Node>();
             }
             return;
         }
@@ -581,7 +607,7 @@ public unsafe class Node
                 parent.Child.Insert(index + 1, right);
                 parent.keys.Insert(index, keys[leftSize - 1]);
                 keys = null;
-                Child = null;
+                Child = new List<Node>();
 
                 //父节点更新关键字 
                 parent.updateInsert(tree);
@@ -602,7 +628,7 @@ public unsafe class Node
                 parent.Child.Add(right);
                 parent.keys.Add(keys[leftSize - 1]);
                 keys = null;
-                Child = null;
+                Child = new List<Node>();
             }
         }
     }
@@ -864,7 +890,10 @@ public unsafe class Node
                 comp = keys[mid];
                 if (utli.CompareLogical(datatype, comp.key, 2, key))
                 {
-                    Child[mid + 1].remove(key, tree);
+                    if (Child.Count > 0)
+                        Child[mid + 1].remove(key, tree);
+                    else 
+                    { }
                     return;
                 }
                 else if (utli.CompareLogical(datatype, comp.key, 4, key))
@@ -897,7 +926,7 @@ public unsafe class Node
                 root.parent = null;
                 root.isRoot = true;
                 keys = null;
-                Child = null;
+                Child = new List<Node>();
                 return;
             }
             //计算前后节点  
@@ -974,9 +1003,10 @@ public unsafe class Node
 
                 //更新父节点的关键字列表
                 parent.Child.Remove(previous);
+                // previous=new Node(false,order);
                 previous.parent = null;
-                previous.Child = null;
-                previous.keys = null;
+                previous.Child = new List<Node>();
+                previous.keys = new List<KV>();
                 parent.keys.RemoveAt(parent.Child.IndexOf(this));
                 if ((!parent.isRoot
                         && (parent.Child.Count >= tree.order / 2
@@ -1007,9 +1037,10 @@ public unsafe class Node
                     keys.Add(next.keys[i]);
                 }
                 parent.Child.Remove(next);
+                // next = new Node(false, order);
                 next.parent = null;
-                next.Child = null;
-                next.keys = null;
+                next.Child = new List<Node>();
+                next.keys = new List<KV>();
                 parent.keys.RemoveAt(parent.Child.IndexOf(this));
                 if ((!parent.isRoot && (parent.Child.Count >= tree.order / 2
                         && parent.Child.Count >= 2))
@@ -1032,16 +1063,17 @@ public unsafe class Node
             comp = keys[mid];
             if (utli.CompareLogical(datatype, comp.key, 2, key))
             {
-                if (keys[mid].key != IntPtr.Zero.ToPointer())
-                {
-                    Marshal.FreeHGlobal((IntPtr)keys[mid].key);
-                    keys[mid].key = IntPtr.Zero.ToPointer();
-                    keys.RemoveAt(mid);
+                //if (keys[mid].key != IntPtr.Zero.ToPointer())
+                //{
+                //    Marshal.FreeHGlobal((IntPtr)keys[mid].key);
+                //    keys[mid].key = IntPtr.Zero.ToPointer();
 
-                }
-                else 
-                { }
-                    return;
+
+                //}
+                //else 
+                //{ }
+                keys.RemoveAt(mid);
+                return;
             }
             else if (utli.CompareLogical(datatype, comp.key, 4, key))
             {

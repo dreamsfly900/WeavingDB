@@ -47,21 +47,24 @@ namespace SQLDBlogic
 
             long p2 = Convert.ToDateTime("2020-08-13T11:20:47+08:00").ToFileTime();
 
-            var temp2 = dblo.SelectCount(listu, "  Areacodelist like '41%' ", ltable.datahead, ltable);
+            var temp2 = dblo.SelectCount(listu, "warningTime>='2020-08-13T11:20:47+08:00' && warningTime<='2020-10-14T11:20:47+08:00' ", ltable.datahead, ltable);
 
-            int count = dblo.updatedata(listu, " eventType=='11B06'&& warningTime>='2020-08-13T11:20:47+08:00' && warningTime<='2020-08-14T11:20:47+08:00'",
+            int count = dblo.updatedata(listu, "  warningTime>='2020-08-13T11:20:47+08:00' && warningTime<='2020-10-14T11:20:47+08:00'",
                   ltable.datahead, JObject.FromObject(new { eventType = "特大喜讯" }), ltable);
 
+
+            int count2 = dblo.deletedata(listu, "eventType=='特大喜讯'",
+                 ltable.datahead, ltable);
 
             //int count3 = dblo.updatedata(listu, " eventType=='特大喜讯' ",
             //    ltable.datahead, JObject.FromObject(new { eventType = "11B06" }), ltable);
 
-            System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(gogo));
-           
-            System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(gogo));
+            //System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(gogo));
+
+            //System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(gogo));
             DateTime dt = DateTime.Now;
 
-            var temp=   dblo.selecttiem(listu, " eventType=='11B06'  ", ltable.datahead, ltable);
+            var temp=   dblo.selecttiem(listu, " eventType=='特大喜讯'  ", ltable.datahead, ltable);
             DateTime dt2 = DateTime.Now;
             Console.WriteLine("耗时：" + (dt2 - dt).TotalMilliseconds + "毫秒--查询后的数据：");
 

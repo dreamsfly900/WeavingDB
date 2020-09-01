@@ -26,12 +26,14 @@ namespace SQLDBlogic.logic
                 void* key = DBDataHead.getdata(dhead[i].type, obj[dhead[i].key], ref len);
                 if (trees.ContainsKey(dhead[i].key))
                 {
-
+                    if (i == 9 && *(long*)key == 132427237720000000)
+                    { 
+                    }
                     trees[dhead[i].key].insert(trees[dhead[i].key].root, key, ld, dhead[i].type);
                 }
                 else
                 {
-                    BPTree tree = new BPTree(4);
+                    BPTree tree = new BPTree(100);
 
                     tree.insert(tree.root, key, ld, dhead[i].type);
 

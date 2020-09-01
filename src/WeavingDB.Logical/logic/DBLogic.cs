@@ -31,7 +31,7 @@ namespace SQLDBlogic.logic
                 }
                 else
                 {
-                    BPTree tree = new BPTree(4);
+                    BPTree tree = new BPTree(100);
 
                     tree.insert(tree.root, key, ld, dhead[i].type);
 
