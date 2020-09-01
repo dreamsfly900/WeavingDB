@@ -66,7 +66,6 @@ namespace WeavingDB.Client
         {
             return Selecttable<T>(tablename, "", 0, "", 0, 0, out _);
         }
-
         /// <summary>
         /// 有条件的查询数据
         /// </summary>
@@ -78,6 +77,33 @@ namespace WeavingDB.Client
         {
             return Selecttable<T>(tablename, where, 0, "", 0, 0, out _);
         }
+        /// <summary>
+        /// 查询通过WHERE 条件，并且规定输出列
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="tablename"></param>
+        /// <param name="where"></param>
+        /// <param name="viewcol"></param>
+        /// <returns></returns>
+        public T Selecttable<T>(string tablename, string where,string viewcol)
+        {
+            return Selecttable<T>(tablename, where, 0, "", 0, 0, out _, viewcol);
+        }
+        /// <summary>
+        /// 查询数据并排序
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="tablename"></param>
+        /// <param name="where"></param>
+        /// <param name="viewcol"></param>
+        /// <param name="order"></param>
+        /// <param name="coll"></param>
+        /// <returns></returns>
+        public T Selecttable<T>(string tablename, string where, string viewcol, byte order, string coll)
+        {
+            return Selecttable<T>(tablename, where, order, coll, 0, 0, out _, viewcol);
+        }
+       
 
         /// <summary>
         /// 查询数据并排序
@@ -104,11 +130,11 @@ namespace WeavingDB.Client
         /// <param name="pagesize"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        public T Selecttable<T>(string tablename, string where, byte order, string coll, int pageindex, int pagesize, out int count)
+        public T Selecttable<T>(string tablename, string where, byte order, string coll, int pageindex, int pagesize, out int count,string viewcol="")
         {
             count = 0;
 
-            byte[] wherdata = DataEncoding.Encodingdata(where, order.ToString(), coll, pageindex.ToString(), pagesize.ToString());
+            byte[] wherdata = DataEncoding.Encodingdata(where, order.ToString(), coll, pageindex.ToString(), pagesize.ToString(), viewcol);
             byte[] rowdata = DataEncoding.EncodingsetKV(tablename, wherdata);
             byte[] alldata = ccon.Send(0x08, rowdata);
             try

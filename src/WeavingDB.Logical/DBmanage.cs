@@ -463,7 +463,7 @@ namespace WeavingDB.Logical
         /// <param name="count"></param>
         /// <param name="coll"></param>
         /// <returns></returns>
-        public string Selecttabledata(string key, string sql, byte order, int pageindex, int pagesize, out int count, string coll = "")
+        public string Selecttabledata(string key, string sql, byte order, int pageindex, int pagesize, out int count, string coll = "",string veiwcoll="")
         {
             count = 0;
             if (CDtable.ContainsKey(key))
@@ -475,7 +475,7 @@ namespace WeavingDB.Logical
 
                     ListDmode[] objsall = dblo.selecttiem(list.datas, sql, list.datahead, list);
                     count = objsall.Length;
-                    JObject[] objbb2 = dblo.viewdata(objsall, list.datahead, order, coll, pageindex, pagesize);
+                    JObject[] objbb2 = dblo.viewdata(objsall, list.datahead, veiwcoll, order, coll, pageindex, pagesize);
                     return Newtonsoft.Json.JsonConvert.SerializeObject(objbb2);
                 }
                 catch

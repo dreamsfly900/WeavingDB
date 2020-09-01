@@ -159,9 +159,11 @@ namespace WeavingDB.Logical
                         if (DataEncoding.SetKVdecode(rowsdata, out key, out datas))
                         {
                             string[] ss = DataEncoding.Dencdingdata(datas);
-                            if (ss.Length == 5)
+                            if (ss.Length >= 5)
                             {
-                                string str = dbm.Selecttabledata(key, ss[0], Convert.ToByte(ss[1]), Convert.ToInt32(ss[3]), Convert.ToInt32(ss[4]), out int count, ss[2]);
+                                string viewcol = "";
+                                if (ss.Length == 6) { viewcol = ss[5]; }
+                                string str = dbm.Selecttabledata(key, ss[0], Convert.ToByte(ss[1]), Convert.ToInt32(ss[3]), Convert.ToInt32(ss[4]), out int count, ss[2], viewcol);
                                 byte[] senddata = GZIP.Compress(DataEncoding.Encodingdata(count.ToString(), str));
                                 wserver.Send(soc, command, senddata);
                             }

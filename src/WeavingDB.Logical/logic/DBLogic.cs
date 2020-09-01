@@ -442,10 +442,33 @@ namespace SQLDBlogic.logic
             //delete(datas.ToArray(), datahead,  ltable);
         }
 
-        public JObject[] viewdata(ListDmode[] objsall, Head[] datahead,byte order=0, string ordercol="", int indexlen=0, int viewlen=0)
+        public JObject[] viewdata(ListDmode[] objsall, Head[] datahead,String viewcol="",byte order=0, string ordercol="", int indexlen=0, int viewlen=0)
         {
             //List<Hashtable> alllist = new List<Hashtable>();
             JObject[] temphtt = new JObject[0];
+            int[] vecol = new int[0];
+            if (viewcol != "")
+            {
+                string[] vcol = viewcol.Split(',');
+                List<int> vecollist = new List<int>();
+
+                int v = 0;
+                while (v < vcol.Length)
+                {
+                    for (int hi = 0; hi < datahead.Length; hi++)
+                    {
+                        if (datahead[hi].key == vcol[v].Trim())
+                        {
+                          //  vecol[v] = hi;
+                            vecollist.Add(hi);
+                            break;
+                        }
+
+                    }
+                    v++;
+                }
+                vecol = vecollist.ToArray();
+            }
             try
             {
                 if (ordercol == "")
@@ -503,13 +526,21 @@ namespace SQLDBlogic.logic
 
                             if (objsall[i].dtable2 == null)
                                 continue;
+                            if (vecol.Length > 0)
+                            {
+                                for (int hi = 0; hi < vecol.Length; hi++)
+                                {
+                                    JProperty obj = utli.GetHashtable(ksys[vecol[hi]], types[vecol[hi]], objsall[i].dtable2[indexs[vecol[hi]]], objsall[i].LenInts[indexs[vecol[hi]]]);
+
+                                    if (obj != null)
+                                        jo.Add(obj);
+                                }
+                            }
+                            else
                             for (int hi = 0; hi < datahead.Length; hi++)
                             {
                                 if (objsall[i].dtable2.Length > indexs[hi])
-                                {
-                                    //  DateTime dt = DateTime.Now;
-
-                                    
+                                { 
                                     JProperty obj =utli. GetHashtable(ksys[hi], types[hi], objsall[i].dtable2[indexs[hi]], objsall[i].LenInts[indexs[hi]]);
                                     //  DateTime dt2 = DateTime.Now;
                                     //if ((dt2 - dt).TotalMilliseconds > 1)
