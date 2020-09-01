@@ -45,7 +45,7 @@
             <param name="data"></param>
             <returns></returns>
         </member>
-        <member name="M:WeavingDB.Logical.DBmanage.Selecttabledata(System.String,System.String,System.Byte,System.Int32,System.Int32,System.Int32@,System.String)">
+        <member name="M:WeavingDB.Logical.DBmanage.Selecttabledata(System.String,System.String,System.Byte,System.Int32,System.Int32,System.Int32@,System.String,System.String)">
             <summary>
              从非关数据表查询数据
             </summary>
