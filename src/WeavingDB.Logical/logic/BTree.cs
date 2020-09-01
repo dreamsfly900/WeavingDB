@@ -343,8 +343,8 @@ public unsafe class Node
             {
                 mid = (low + high) / 2;
                 comp = keys[mid];
-                if (datatype == 12)
-                    Console.WriteLine(mid + ":" + *(long*)comp.key);
+                //if (datatype == 12)
+                //    Console.WriteLine(mid + ":" + *(long*)comp.key);
                 if (utli.CompareLogical(datatype, comp.key, 2, key))
                 {
                     return this;
@@ -394,8 +394,8 @@ public unsafe class Node
             {
                 mid = (low + high) / 2;
                 comp = keys[mid];
-                if (datatype == 12)
-                    Console.WriteLine(mid + ":" + *(long*)comp.key);
+                //if (datatype == 12)
+                //    Console.WriteLine(mid + ":" + *(long*)comp.key);
                 if (utli.CompareLogical(datatype, comp.key, 2, key))
                 {
                     return Child[mid + 1].get(key);

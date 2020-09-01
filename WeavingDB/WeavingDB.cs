@@ -204,11 +204,18 @@ namespace WeavingDB
 
         private void button3_Click(object sender, EventArgs e)
         {
-            var dbClient = new DBClient("127.0.0.1", 18989, "admin", "123123");
+            var dbClient = new DBClient("127.0.0.1", 18989, "admin", "99sw");
             dbClient.Open();
-            //bool bb=dbClient.Createtable("T_warning");
+           // bool bb=dbClient.Createtable("T_warning");
+       
+            System.IO.StreamReader sr = new System.IO.StreamReader("ab.json");
+            string ssr = sr.ReadToEnd();
+            sr.Close();
+            T_warning[] data = Newtonsoft.Json.JsonConvert.DeserializeObject<T_warning[]>(ssr);
+           bool ff = dbClient.Inserttable<T_warning>("T_warning", data);
+          
+            var count3 = dbClient.Deletetable("T_warning", "");
             DateTime dt = DateTime.Now;
-            //var count3 = dbClient.Deletetable("T_warning", " ");
             var count = dbClient.SelectCount("T_warning", "");
          
             //System.IO.StreamReader sr = new System.IO.StreamReader("ab.json");

@@ -562,8 +562,7 @@ namespace WeavingDB.Logical
             {
                 try
                 {
-                    if (sql == "")
-                        return false;
+                   
                     DBLogic dblo = new DBLogic();
                     Liattable list = CDtable[key];
 
