@@ -25,6 +25,7 @@ namespace wdbserverform
                         string[] ss = str.Split(' ');
                         if (ss.Length > 1)
                         {
+                            ss[1] = ss[1].Trim();
                            bool b=  dbcon.dbm.Createindex(ss[1].Split('.')[0], ss[1].Split('.')[1]);
                             Console.WriteLine(ss[1] + "索引创建成功");
                          }
@@ -56,7 +57,7 @@ namespace wdbserverform
                             table = str.Substring(str.IndexOf("from")+("from").Length);
                         }
                         int count = 0;
-                        string data = dbcon.dbm.Selectcount(table, where, out count);
+                        string data = dbcon.dbm.Selectcount(table.Trim(), where.Trim(), out count);
                       
                         Console.WriteLine(count+"行");
 
@@ -75,7 +76,7 @@ namespace wdbserverform
                             table = str.Substring(str.IndexOf("from")+("from").Length);
                         }
                         int count = 0;
-                         string data=  dbcon.dbm.Selecttabledata(table, where, 0, 0, 100, out count, "", viewcol);
+                         string data=  dbcon.dbm.Selecttabledata(table.Trim(), where.Trim(), 0, 0, 100, out count, "", viewcol.Trim());
                         Console.WriteLine(data);
                         Console.WriteLine("仅显示前100行");
 

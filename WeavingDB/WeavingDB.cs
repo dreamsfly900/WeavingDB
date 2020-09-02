@@ -204,7 +204,7 @@ namespace WeavingDB
 
         private void button3_Click(object sender, EventArgs e)
         {
-            var dbClient = new DBClient("116.255.252.181", 18989, "admin", "123123");
+            var dbClient = new DBClient("127.0.0.1", 18989, "admin", "123123");
             dbClient.Open();
             //    bool bb = dbClient.Createtable("T_warning");
 
@@ -216,7 +216,7 @@ namespace WeavingDB
 
             // var count3 = dbClient.Deletetable("T_warning", "");
             DateTime dt = DateTime.Now;
-            var count = dbClient.SelectCount("T_warning", "");
+            var count = dbClient.SelectCount("T_warning", "warningTime>'2020-09-02 00:00:00'  && Areacodelist like '41%'");
 
             //System.IO.StreamReader sr = new System.IO.StreamReader("ab.json");
             //string ssr = sr.ReadToEnd();
@@ -228,16 +228,16 @@ namespace WeavingDB
             //{
             //    bool fff = dbClient.Inserttable<JObject>("T_warning", jo);
             //}
-            //var count = 0;
+            //var count = 0;se
             // warningTime>'2020-08-12 10:00:00' && Areacodelist like '41%'
             //warningTime,Areacodelist,lat,lng,Typename
-            // dbClient.Deletetable("T_warning", "warningTime<'2020-09-02 00:00:00'");
-            var objjson = dbClient.Selecttable<object[]>("T_warning", "warningTime>'2020-09-01 00:00:00' ");
+            //// dbClient.Deletetable("T_warning", "warningTime<'2020-09-02 00:00:00'");
+            //var objjson = dbClient.Selecttable<object[]>("T_warning", "warningTime>'2020-09-01 00:00:00' ");
 
-            string str = Newtonsoft.Json.JsonConvert.SerializeObject(objjson);
-            System.IO.StreamWriter sw = new System.IO.StreamWriter("ab.json");
-            sw.Write(str);
-            sw.Close();
+            //string str = Newtonsoft.Json.JsonConvert.SerializeObject(objjson);
+            //System.IO.StreamWriter sw = new System.IO.StreamWriter("ab.json");
+            //sw.Write(str);
+            //sw.Close();
             DateTime dt2 = DateTime.Now;
 
             listBox1.Items.Add("数据COUNT查询" + (dt2 - dt).TotalMilliseconds + "毫秒。"+ count);

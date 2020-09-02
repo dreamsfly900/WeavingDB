@@ -404,11 +404,12 @@ namespace WeavingDB.Logical
         }
         public bool Createindex(string key,string field)
         {
-            if (!CDtable.ContainsKey(key))
+            if (CDtable.ContainsKey(key))
             {
                 DBLogic dblo = new DBLogic();
                 Liattable list = CDtable[key];
                 dblo.createIndex(list.datas, list.datahead, field, ref list.tree);
+                BinaryData.WriteTableHead(path, key, list);
                 return true;
             }
             return false;
