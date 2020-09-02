@@ -128,9 +128,12 @@ namespace WeavingDB.Logical
                                 List<ListDmode> listdate = CDtable[key].datas;
                                 Head[] hhed = CDtable[key].datahead;
                                  var tree=  CDtable[key].tree;
+                                double ssmin = 999999999;
                                 for (int j = listdate.Count; j > 0; j--)
                                 {
                                     double ss = (DateTime.Now - DateTime.FromFileTime(listdate[j].dt)).TotalSeconds;
+                                    if ((ss - timeout) < ssmin)
+                                        ssmin = (ss - timeout);
                                     if (ss > timeout)
                                     {
                                         lock (listdate[j])
@@ -154,6 +157,10 @@ namespace WeavingDB.Logical
                                         }
                                     }
                                 }
+                                int cc=   clearindex(CDtable[key]);
+                                fi.WriteLine("移除无效索引记录："+ cc+"行");
+                                fi.WriteLine("下次最近移除剩余：" + Math.Abs( ssmin) + "秒");
+
                             }
                             catch { }
                         }
@@ -163,7 +170,30 @@ namespace WeavingDB.Logical
                 catch { }
             }
         }
-
+        int clearindex(Liattable ltable)
+        {
+            int ccount = 0;
+            foreach (string key in ltable.tree.Keys)
+            {
+                IntPtr intp = IntPtr.Zero;
+                int counts = ltable.tree[key].freeintPtrs.Count;
+                int i = 0;
+                while (i < counts)
+                {
+                    ltable.tree[key].freeintPtrs.TryDequeue(out intp);
+                    bool gb = ltable.tree[key].Contains(ltable.tree[key].root, intp);
+                    if (!gb)
+                    {
+                        Marshal.FreeHGlobal(intp);
+                        ccount++;
+                    }
+                    else
+                        ltable.tree[key].freeintPtrs.Enqueue(intp);
+                    i++;
+                }
+            }
+            return ccount;
+        }
         void Dataout(object obj)
         {
             int timeout = (int)obj;

@@ -204,20 +204,20 @@ namespace WeavingDB
 
         private void button3_Click(object sender, EventArgs e)
         {
-            var dbClient = new DBClient("127.0.0.1", 18989, "admin", "123123");
+            var dbClient = new DBClient("116.255.252.181", 18989, "admin", "123123");
             dbClient.Open();
-           // bool bb=dbClient.Createtable("T_warning");
-       
-           // System.IO.StreamReader sr = new System.IO.StreamReader("ab.json");
-           // string ssr = sr.ReadToEnd();
-           // sr.Close();
-           // T_warning[] data = Newtonsoft.Json.JsonConvert.DeserializeObject<T_warning[]>(ssr);
-           //bool ff = dbClient.Inserttable<T_warning>("T_warning", data);
-          
-           // var count3 = dbClient.Deletetable("T_warning", "");
+            // bool bb=dbClient.Createtable("T_warning");
+
+            //System.IO.StreamReader sr = new System.IO.StreamReader("ab.json");
+            //string ssr = sr.ReadToEnd();
+            //sr.Close();
+            //T_warning[] data = Newtonsoft.Json.JsonConvert.DeserializeObject<T_warning[]>(ssr);
+            //bool ff = dbClient.Inserttable<T_warning>("T_warning", data);
+
+            // var count3 = dbClient.Deletetable("T_warning", "");
             DateTime dt = DateTime.Now;
-            var count = dbClient.SelectCount("T_warning", "warningTime>'2020-09-01 10:00:00'");
-         
+            var count = dbClient.SelectCount("T_warning", "");
+
             //System.IO.StreamReader sr = new System.IO.StreamReader("ab.json");
             //string ssr = sr.ReadToEnd();
             //sr.Close();
@@ -231,7 +231,8 @@ namespace WeavingDB
             //var count = 0;
             // warningTime>'2020-08-12 10:00:00' && Areacodelist like '41%'
             //warningTime,Areacodelist,lat,lng,Typename
-          //  var objjson = dbClient.Selecttable<object[]>("T_warning", "Areacodelist=='451022000000' ", "warningTime,Areacodelist,lat,lng,Typename");
+            // dbClient.Deletetable("T_warning", "warningTime<'2020-09-02 00:00:00'");
+            //var objjson = dbClient.Selecttable<object[]>("T_warning", "warningTime>'2020-09-01 00:00:00' ");
 
             //string str = Newtonsoft.Json.JsonConvert.SerializeObject(objjson);
             //System.IO.StreamWriter sw = new System.IO.StreamWriter("ab.json");

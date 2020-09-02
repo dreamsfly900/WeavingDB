@@ -31,8 +31,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weave.Server", "..\weave-so
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLDBlogic", "SQLDBlogic\SQLDBlogic.csproj", "{ACB94C59-F3B3-47BC-AE90-ADF9105A4FD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BPTree", "BPTree\BPTree.csproj", "{182EF31E-5ACF-4AB6-B0FD-B14DC93B0DAF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		AAA|Any CPU = AAA|Any CPU
@@ -106,12 +104,6 @@ Global
 		{ACB94C59-F3B3-47BC-AE90-ADF9105A4FD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACB94C59-F3B3-47BC-AE90-ADF9105A4FD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACB94C59-F3B3-47BC-AE90-ADF9105A4FD0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{182EF31E-5ACF-4AB6-B0FD-B14DC93B0DAF}.AAA|Any CPU.ActiveCfg = Release|Any CPU
-		{182EF31E-5ACF-4AB6-B0FD-B14DC93B0DAF}.AAA|Any CPU.Build.0 = Release|Any CPU
-		{182EF31E-5ACF-4AB6-B0FD-B14DC93B0DAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{182EF31E-5ACF-4AB6-B0FD-B14DC93B0DAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{182EF31E-5ACF-4AB6-B0FD-B14DC93B0DAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{182EF31E-5ACF-4AB6-B0FD-B14DC93B0DAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

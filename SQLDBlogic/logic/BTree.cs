@@ -1,11 +1,14 @@
 ﻿using SQLDBlogic.logic;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using WeavingDB.Logical;
 
 public unsafe class BPTree
 {
+    public ConcurrentQueue<IntPtr> freeintPtrs = new ConcurrentQueue<IntPtr>();
     public int order = 0;
     public int height = 0;
     public Node root;
@@ -14,6 +17,10 @@ public unsafe class BPTree
     {
         order = _order;
         root = new Node(true, _order);
+    }
+    public bool Contains(Node root,IntPtr intPtr)
+    {
+        return root.Contains(intPtr);
     }
     byte datatype = 0;
     /// <summary>
@@ -26,6 +33,7 @@ public unsafe class BPTree
     /// <returns></returns>
     public void insert(Node root, void* key, ListDmode value, byte _datatype,int len=-1)
     {
+        
         datatype = _datatype;
         root.datatype = _datatype;
         Node nd = search(root, key);
@@ -36,7 +44,7 @@ public unsafe class BPTree
             {
                 i++;
             }
-            Marshal.FreeHGlobal((IntPtr)key);
+            Marshal.FreeHGlobal((IntPtr)key); 
             key = nd.keys[i].key;
         }
         root.inset(key, value, this);
@@ -262,8 +270,31 @@ public unsafe class KV
 }
 public unsafe class Node
 {
+  
     public Node()
     {
+
+    }
+    public bool Contains(IntPtr intPtr)
+    {
+        int i = 0;
+        while (i < keys.Count)
+        {
+            if (keys[i].key == (void*)intPtr)
+            {
+                return true;
+            }
+            i++;
+        }
+        i = 0;
+        while (i < Child.Count)
+        {
+            if (Child[i].Contains(intPtr))
+                return true;
+            else
+                i++;
+        }
+        return false;
 
     }
     public byte datatype = 0;
@@ -757,13 +788,13 @@ public unsafe class Node
                 {
                     tree.height = (0);
                 }
-                remove(key);
+                removekey(key, tree);
                 return;
             }
             //如果关键字数大于M / 2，直接删除 
             if (keys.Count > tree.order / 2 && keys.Count > 2)
             {
-                remove(key);
+                removekey(key, tree);
                 return;
             }
             //如果自身关键字数小于M / 2，并且前节点关键字数大于M / 2，则从其处借补 
@@ -778,7 +809,7 @@ public unsafe class Node
                 previous.keys.RemoveAt(size - 1);
                 int index = parent.Child.IndexOf(previous);
                 parent.keys[index] = keys[0];
-                remove(key);
+                removekey(key, tree);
                 return;
             }
             //如果自身关键字数小于M / 2，并且后节点关键字数大于M / 2，则从其处借补 
@@ -791,7 +822,7 @@ public unsafe class Node
                 next.keys.RemoveAt(0);
                 int index = parent.Child.IndexOf(this);
                 parent.keys[index] = next.keys[0];
-                remove(key);
+                removekey(key, tree);
                 return;
             }
 
@@ -801,7 +832,7 @@ public unsafe class Node
                     && (previous.keys.Count <= tree.order / 2
                     || previous.keys.Count <= 2))
             {
-                remove(key);
+                removekey(key, tree);
                 for (int i = 0; i < keys.Count; i++)
                 {
                     //将当前节点的关键字添加到前节点的末尾
@@ -842,7 +873,7 @@ public unsafe class Node
                     && (next.keys.Count <= tree.order / 2
                     || next.keys.Count <= 2))
             {
-                remove(key);
+                removekey(key, tree);
                 for (int i = 0; i < next.keys.Count; i++)
                 {
                     //从首位开始添加到末尾 
@@ -1065,7 +1096,7 @@ public unsafe class Node
             }
         }
     }
-    protected void remove(void* key)
+    protected void removekey(void* key, BPTree tree)
     {
         int low = 0, high = keys.Count - 1, mid;
         KV comp;
@@ -1084,6 +1115,7 @@ public unsafe class Node
                 //}
                 //else 
                 //{ }
+                tree.freeintPtrs.Enqueue((IntPtr)keys[mid].key);
                 keys.RemoveAt(mid);
                 return;
             }

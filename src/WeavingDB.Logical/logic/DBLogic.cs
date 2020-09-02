@@ -147,11 +147,11 @@ namespace SQLDBlogic.logic
             int count = mylist.Length;
             if (count > 0)
             {
-                lock (_listu)
-                {
+               
                     allfree = delete(mylist, _dhead, ltable);
                     int i = 0;
-
+                lock (_listu)
+                {
                     while (i < _listu.Count)
                     {
                         if (_listu[i].dtable2 == null)
