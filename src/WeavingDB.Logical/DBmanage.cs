@@ -52,10 +52,9 @@ namespace WeavingDB.Logical
             ThreadPool.QueueUserWorkItem(new WaitCallback(Datatimeout), 0);
             notimeout = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["noselecttimeout"]);
           
-            if (notimeout != 0)
-            {
+           
                 ThreadPool.QueueUserWorkItem(new WaitCallback(Jsondataout), notimeout);
-            }
+            
             Load(path + "KVDATA");
             Loadtable(path + "TDATA");
            // ThreadPool.QueueUserWorkItem(new WaitCallback(Bdnull), null);
@@ -111,7 +110,7 @@ namespace WeavingDB.Logical
             int timeout = (int)obj;
             while (true)
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(10 * 1000);
                 try
                 {
                     System.IO.StreamWriter fi = new StreamWriter(path + "TLOG/" + DateTime.Now.ToString("yyyyMMddHH")+".log");
@@ -129,31 +128,34 @@ namespace WeavingDB.Logical
                                 Head[] hhed = CDtable[key].datahead;
                                  var tree=  CDtable[key].tree;
                                 double ssmin = 999999999;
-                                for (int j = listdate.Count; j > 0; j--)
+                                if (notimeout != 0)
                                 {
-                                    double ss = (DateTime.Now - DateTime.FromFileTime(listdate[j].dt)).TotalSeconds;
-                                    if ((ss - timeout) < ssmin)
-                                        ssmin = (ss - timeout);
-                                    if (ss > timeout)
+                                    for (int j = (listdate.Count-1); j > 0; j--)
                                     {
-                                        lock (listdate[j])
+                                        double ss = (DateTime.Now - DateTime.FromFileTime(listdate[j].dt)).TotalSeconds;
+                                        if ((ss - timeout) < ssmin)
+                                            ssmin = (ss - timeout);
+                                        if (ss > timeout)
                                         {
-                                            for (int ig = 0; ig < hhed.Length; ig++)
+                                            lock (listdate[j])
                                             {
-                                                if (listdate[j].dtable2[hhed[ig].index] == null)
-                                                    continue;
-                                                IntPtr pp = (IntPtr)listdate[j].dtable2[hhed[ig].index];
-                                                if (pp == IntPtr.Zero)
-                                                    continue;
-                                                fi.WriteLine("移除超时："+ hhed[ig].key+ "type:"+ hhed[ig].type+"行:"+ j);
-                                                tree[hhed[ig].key].searchremove(pp.ToPointer(), hhed[ig].type, hhed[ig].index);
-                                                listdate[j].dtable2[hhed[ig].index] = null;
-                                                Marshal.FreeHGlobal(pp);
+                                                for (int ig = 0; ig < hhed.Length; ig++)
+                                                {
+                                                    if (listdate[j].dtable2[hhed[ig].index] == null)
+                                                        continue;
+                                                    IntPtr pp = (IntPtr)listdate[j].dtable2[hhed[ig].index];
+                                                    if (pp == IntPtr.Zero)
+                                                        continue;
+                                                    fi.WriteLine("移除超时：" + hhed[ig].key + "type:" + hhed[ig].type + "行:" + j);
+                                                    tree[hhed[ig].key].searchremove(pp.ToPointer(), hhed[ig].type, hhed[ig].index);
+                                                    listdate[j].dtable2[hhed[ig].index] = null;
+                                                    Marshal.FreeHGlobal(pp);
+                                                }
+                                                listdate[j].dtable2 = null;
+                                                listdate[j] = null;
+                                                listdate.RemoveAt(j);
+                                                j = (listdate.Count - 1);
                                             }
-                                            listdate[j].dtable2 = null;
-                                            listdate[j] = null;
-                                            listdate.RemoveAt(j);
-                                            j = listdate.Count;
                                         }
                                     }
                                 }
