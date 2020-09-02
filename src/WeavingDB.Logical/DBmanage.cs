@@ -153,7 +153,7 @@ namespace WeavingDB.Logical
                                                 }
                                                 listdate[j].dtable2 = null;
                                                 listdate[j] = null;
-                                                listdate.RemoveAt(j);
+                                                listdate.Remove(listdate[j]);
                                                 j = (listdate.Count - 1);
                                             }
                                         }
