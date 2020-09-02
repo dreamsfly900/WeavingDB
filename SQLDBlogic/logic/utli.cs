@@ -606,6 +606,79 @@ namespace SQLDBlogic.logic
             }
             return left; //指向的此时枢轴的位置
         }
+        internal static void* GetHashtablevoid( byte type, void* p1, int len)
+        {
+           
+
+
+                try
+                {
+                if (type == 6)
+                {
+                    int p = *(int*)p1;
+                    int nSizeOfPerson = Marshal.SizeOf(p);
+                    IntPtr intPtr = Marshal.AllocHGlobal(nSizeOfPerson);
+                    Marshal.StructureToPtr(p, intPtr, true);
+                    return intPtr.ToPointer();
+                }
+                else if (type == 9)
+                {
+                    bool p = *(bool*)p1;
+                    int nSizeOfPerson = Marshal.SizeOf(p);
+                    IntPtr intPtr = Marshal.AllocHGlobal(nSizeOfPerson);
+                    Marshal.StructureToPtr(p, intPtr, true);
+                    return intPtr.ToPointer();
+
+                }
+                else if (type == 7)
+                {
+                    double p = *(double*)p1;
+                    int nSizeOfPerson = Marshal.SizeOf(p);
+                    IntPtr intPtr = Marshal.AllocHGlobal(nSizeOfPerson);
+                    Marshal.StructureToPtr(p, intPtr, true);
+                    return intPtr.ToPointer();
+                    ;
+                }
+                else if (type == 12)
+                {
+                    long p = *(long*)p1;
+                    int nSizeOfPerson = Marshal.SizeOf(p);
+                    IntPtr intPtr = Marshal.AllocHGlobal(nSizeOfPerson);
+                    Marshal.StructureToPtr(p, intPtr, true);
+                    return intPtr.ToPointer();
+
+                }
+                else if (type == 8)
+                {
+                    string str = Marshal.PtrToStringAnsi((IntPtr)p1);
+                    len = System.Text.Encoding.Default.GetBytes(str.ToCharArray()).Length;
+                    IntPtr p = Marshal.StringToHGlobalAnsi(str);
+                    return p.ToPointer();
+
+                }
+                else if (type == 10)
+                {
+                    return null;
+                }
+                else
+                {
+                    byte[] abc = Tobyte((byte*)p1, len);
+
+                    string temp = BytesToT<string>(GZIP.Decompress(abc));
+                    byte[] p = GZIP.Compress(utli.TToBytes(temp));
+                    len = p.Length;
+                    IntPtr p2 = utli.Tobytes(p);
+                    return p2.ToPointer();
+
+                }
+                }
+                catch
+                {
+                    return IntPtr.Zero.ToPointer();
+                }
+
+            
+        }
         internal static JProperty GetHashtable(string key, byte type, void* p1, int len)
         {
            

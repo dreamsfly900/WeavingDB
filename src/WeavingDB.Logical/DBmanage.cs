@@ -17,7 +17,7 @@ namespace WeavingDB.Logical
         readonly ConcurrentDictionary<string, byte[]> CDKV = new ConcurrentDictionary<string, byte[]>();
         readonly ConcurrentDictionary<string, long> CDKVlong = new ConcurrentDictionary<string, long>();
         readonly ConcurrentDictionary<string, long> CDKVlongtimeout = new ConcurrentDictionary<string, long>();
-        readonly ConcurrentDictionary<string, Liattable> CDtable = new ConcurrentDictionary<string, Liattable>();
+      public  readonly ConcurrentDictionary<string, Liattable> CDtable = new ConcurrentDictionary<string, Liattable>();
         readonly ConcurrentQueue<string> savekey = new ConcurrentQueue<string>();
         readonly string path = "";
         bool KVRemove = false;
@@ -60,7 +60,7 @@ namespace WeavingDB.Logical
            // ThreadPool.QueueUserWorkItem(new WaitCallback(Bdnull), null);
           //  ThreadPool.QueueUserWorkItem(new WaitCallback(DBLogical.freequeue), null);
         }
-
+        #region 数据清理
         private void Datatimeout(object state)
         {
            
@@ -113,7 +113,7 @@ namespace WeavingDB.Logical
                 Thread.Sleep(10 * 1000);
                 try
                 {
-                    System.IO.StreamWriter fi = new StreamWriter(path + "TLOG/" + DateTime.Now.ToString("yyyyMMddHH")+".log");
+                    System.IO.StreamWriter fi = new StreamWriter(path + "TLOG/" + DateTime.Now.ToString("yyyyMMddHH")+".log",true);
                     
                     string[] keys = CDtable.Keys.ToArray();
                     int len = keys.Length;
@@ -242,13 +242,22 @@ namespace WeavingDB.Logical
                 catch { }
             }
         }
+        #endregion
+        #region 数据保存与加载
         void Loadtable(string pathd)
         {
             string[] files = Directory.GetFiles(pathd);
             foreach (string file in files)
             {
                 string temp = file.Replace(pathd + @"\", "").Replace(".bin", "");
-                Createtable(temp);
+
+                Liattable liattable= BinaryData.ReadTableHead(path, temp);
+                if (!CDtable.ContainsKey(temp))
+                {
+                    
+                     CDtable.TryAdd(temp, liattable);
+                }
+                //Createtable(temp);
             }
         }
         void Load(string pathd)
@@ -373,7 +382,7 @@ namespace WeavingDB.Logical
                 catch { }
             }
         }
-
+        #endregion 
         /// <summary>
         /// 创建非关型数据表
         /// </summary>
@@ -385,7 +394,7 @@ namespace WeavingDB.Logical
             {
                 if (!File.Exists(path + @"TDATA\" + key + ".bin"))
                 {
-
+                   
                     using (FileStream fs = System.IO.File.Create(path + @"TDATA\" + key + ".bin"))
                     { } 
                 }
@@ -393,7 +402,17 @@ namespace WeavingDB.Logical
             }
             return false;
         }
-
+        public bool Createindex(string key,string field)
+        {
+            if (!CDtable.ContainsKey(key))
+            {
+                DBLogic dblo = new DBLogic();
+                Liattable list = CDtable[key];
+                dblo.createIndex(list.datas, list.datahead, field, ref list.tree);
+                return true;
+            }
+            return false;
+        }
         /// <summary>
         /// 清除非关型数据表
         /// </summary>
@@ -436,12 +455,17 @@ namespace WeavingDB.Logical
                 DBLogic dblo = new DBLogic();
                 Liattable list = CDtable[key];
                 JObject job = JObject.Parse(data);
-
-                lock (list.datas)
+                Head[] hd = null;
+                var tee = dblo.insertintoJson(job, ref hd);
+                if (list.datahead == null)
                 {
-                    var tee = dblo.insertintoJson(job, ref list.datahead);
-                    list.datas.Add(tee);
-                    dblo.insertintoIndex(job, tee, list.datahead, ref list.tree);
+                    list.datahead = hd;
+                    BinaryData.WriteTableHead(path, key, list);
+                }
+                dblo.insertintoIndex(job, tee, list.datahead, ref list.tree);
+                lock (list.datas)
+                { 
+                    list.datas.Add(tee); 
                   //  list.datas.Add(dblo.insertintoJson(job, ref list.datahead));
                 }
                 return true;
@@ -466,13 +490,23 @@ namespace WeavingDB.Logical
                     Liattable list = CDtable[key];
                     JArray job = JArray.Parse(data);
 
-                    lock (list.datas)
+
+                    foreach (JObject item in job)
                     {
-                        foreach (JObject item in job)
+                        Head[] hd = null;
+                        var tee = dblo.insertintoJson(item, ref hd);
+                        if (list.datahead == null)
                         {
-                            var tee = dblo.insertintoJson(item, ref list.datahead);
+                            list.datahead = hd;
+                            BinaryData.WriteTableHead(path, key, list);
+                        }
+                        dblo.insertintoIndex(item, tee, list.datahead, ref list.tree);
+                        lock (list.datas)
+                        {
                             list.datas.Add(tee);
-                            dblo.insertintoIndex(item, tee, list.datahead, ref list.tree);
+                            //var tee = dblo.insertintoJson(item, ref list.datahead);
+
+                            //dblo.insertintoIndex(item, tee, list.datahead, ref list.tree);
                         }
                     }
                     return true;
@@ -537,7 +571,7 @@ namespace WeavingDB.Logical
 
             return Newtonsoft.Json.JsonConvert.SerializeObject(0);
         }
-        internal string[] Selctekey(string keyp)
+        public string[] Selctekey(string keyp)
         {
             try
             {

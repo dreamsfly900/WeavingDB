@@ -11,6 +11,36 @@ namespace SQLDBlogic.logic
     {
 
         #region 数据插入
+        public unsafe void createIndex(List<ListDmode> _listu, Head[] dhead,string key, ref Dictionary<string, BPTree> trees)
+        {
+            for (int i = 0; i < dhead.Length; i++)
+            {
+                if (dhead[i].key == key)
+                {
+                    BPTree tree = new BPTree(100);
+                    trees.Add(key, tree);
+                    lock (_listu)
+                    {
+                        for (int ii = 0; ii < _listu.Count; ii++)
+                        {
+                            if (ii < _listu.Count && _listu[ii] != null)
+                            {
+                                int len = 0;
+                                void* key2 = utli.GetHashtablevoid(dhead[i].type, _listu[ii].dtable2[dhead[i].index], _listu[ii].LenInts[dhead[i].index]);
+                               // void* key2 = DBDataHead.getdata(dhead[i].type, _listu[ii].dtable2[dhead[i].index], ref len);
+                               if(key2!=IntPtr.Zero.ToPointer())
+                                tree.insert(tree.root, key2, _listu[ii], dhead[i].type);
+                            }
+                        }
+                    }
+                    return;
+                }
+               
+            }
+           
+          
+
+        }
         /// <summary>
         /// 建立索引
         /// </summary>
@@ -23,22 +53,21 @@ namespace SQLDBlogic.logic
             for (int i = 0; i < ld.dtable2.Length; i++)
             {
                 int len = 0;
-                void* key = DBDataHead.getdata(dhead[i].type, obj[dhead[i].key], ref len);
+               
                 if (trees.ContainsKey(dhead[i].key))
                 {
-                    if (i == 9 && *(long*)key == 132427237720000000)
-                    { 
-                    }
+                    void* key = DBDataHead.getdata(dhead[i].type, obj[dhead[i].key], ref len);
+
                     trees[dhead[i].key].insert(trees[dhead[i].key].root, key, ld, dhead[i].type);
                 }
-                else
-                {
-                    BPTree tree = new BPTree(100);
+                //else
+                //{
+                //    BPTree tree = new BPTree(100);
 
-                    tree.insert(tree.root, key, ld, dhead[i].type);
+                //    tree.insert(tree.root, key, ld, dhead[i].type);
 
-                    trees.Add(dhead[i].key, tree);
-                }
+                //    trees.Add(dhead[i].key, tree);
+                //}
             }
 
 
@@ -103,11 +132,12 @@ namespace SQLDBlogic.logic
                 if (dhead == null)
                 {
                     dhead = DBDataHead.Gethead(obj);
+                 
                 }
-                else
-                {
-                    dhead = DBDataHead.Gethead(obj, dhead);
-                }
+                //else
+                //{
+                //    dhead = DBDataHead.Gethead(obj, dhead);
+                //}
 
                 ListDmode ld = new ListDmode();
                 // ld.dtable = gethtabledtjson(obj as JObject, dhead);
@@ -149,11 +179,11 @@ namespace SQLDBlogic.logic
             int count = mylist.Length;
             if (count > 0)
             {
-                lock (_listu)
-                {
+               
                     allfree = delete(mylist, _dhead, ltable);
                     int i = 0;
-
+                lock (_listu)
+                {
                     while (i < _listu.Count)
                     {
                         if (_listu[i].dtable2 == null)
@@ -334,6 +364,7 @@ namespace SQLDBlogic.logic
         List<ListDmode> saobiao(List<ListDmode> listu,int mtsContrast,byte datatype,void* data,int index,int len)
         {
             List<ListDmode> list = new List<ListDmode>();
+            
             for (int i = 0; i < listu.Count; i++)
             {
                
@@ -381,20 +412,21 @@ namespace SQLDBlogic.logic
                     {
                       
 
-                        if (contm.mtsContrast[i] != 5)
+                        if (contm.mtsContrast[i] != 5 && ltable.tree.ContainsKey(dhead[contm.collindex[i]].key))
                         {
                             List<ListDmode> list = new List<ListDmode>();
-                            list = ltable.tree[dhead[contm.collindex[i]].key].searcheQualto(ltable.tree[dhead[contm.collindex[i]].key].root,
-                                       contm.mtssscondata[i], contm.hindex[i], contm.mtsContrast[i]);
-                            if (list == null)
-                                return new ListDmode[0];
-                            listutem.AddRange(list);
+                            
+                                list = ltable.tree[dhead[contm.collindex[i]].key].searcheQualto(ltable.tree[dhead[contm.collindex[i]].key].root,
+                                           contm.mtssscondata[i], contm.hindex[i], contm.mtsContrast[i]);
+                                if (list == null)
+                                    return new ListDmode[0];
+                                listutem.AddRange(list);
+                          
                         }
                         else
                         {
                             listutem = saobiao(listu, contm.mtsContrast[i], contm.hindex[i], contm.mtssscondata[i], contm.collindex[i], contm.mtslen[i]);
-                            if (listutem == null)
-                                return new ListDmode[0];
+                             
                         }
                        
 
@@ -415,7 +447,7 @@ namespace SQLDBlogic.logic
                             else if (contm.logical[b] == 1)
                             {
                             
-                                if (contm.mtsContrast[i] != 5)
+                                if (contm.mtsContrast[i] != 5 && ltable.tree.ContainsKey(dhead[contm.collindex[i]].key))
                                 {
                                     List<ListDmode> list = new List<ListDmode>();
                                     list = ltable.tree[dhead[contm.collindex[i]].key].searcheQualto(ltable.tree[dhead[contm.collindex[i]].key].root,
@@ -440,13 +472,37 @@ namespace SQLDBlogic.logic
 
         internal void cleardata(List<ListDmode> datas, Head[] datahead, Liattable ltable)
         {
-            delete(datas.ToArray(), datahead,  ltable);
+            deletedata(datas, "", datahead, ltable);
+            //delete(datas.ToArray(), datahead,  ltable);
         }
 
-        public JObject[] viewdata(ListDmode[] objsall, Head[] datahead,byte order=0, string ordercol="", int indexlen=0, int viewlen=0)
+        public JObject[] viewdata(ListDmode[] objsall, Head[] datahead,String viewcol="",byte order=0, string ordercol="", int indexlen=0, int viewlen=0)
         {
             //List<Hashtable> alllist = new List<Hashtable>();
             JObject[] temphtt = new JObject[0];
+            int[] vecol = new int[0];
+            if (viewcol != "")
+            {
+                string[] vcol = viewcol.Split(',');
+                List<int> vecollist = new List<int>();
+
+                int v = 0;
+                while (v < vcol.Length)
+                {
+                    for (int hi = 0; hi < datahead.Length; hi++)
+                    {
+                        if (datahead[hi].key == vcol[v].Trim())
+                        {
+                          //  vecol[v] = hi;
+                            vecollist.Add(hi);
+                            break;
+                        }
+
+                    }
+                    v++;
+                }
+                vecol = vecollist.ToArray();
+            }
             try
             {
                 if (ordercol == "")
@@ -502,14 +558,23 @@ namespace SQLDBlogic.logic
                         {
                             JObject jo = new JObject();
 
+                            if (objsall[i].dtable2 == null)
+                                continue;
+                            if (vecol.Length > 0)
+                            {
+                                for (int hi = 0; hi < vecol.Length; hi++)
+                                {
+                                    JProperty obj = utli.GetHashtable(ksys[vecol[hi]], types[vecol[hi]], objsall[i].dtable2[indexs[vecol[hi]]], objsall[i].LenInts[indexs[vecol[hi]]]);
 
+                                    if (obj != null)
+                                        jo.Add(obj);
+                                }
+                            }
+                            else
                             for (int hi = 0; hi < datahead.Length; hi++)
                             {
                                 if (objsall[i].dtable2.Length > indexs[hi])
-                                {
-                                    //  DateTime dt = DateTime.Now;
-
-                                    
+                                { 
                                     JProperty obj =utli. GetHashtable(ksys[hi], types[hi], objsall[i].dtable2[indexs[hi]], objsall[i].LenInts[indexs[hi]]);
                                     //  DateTime dt2 = DateTime.Now;
                                     //if ((dt2 - dt).TotalMilliseconds > 1)

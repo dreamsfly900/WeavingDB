@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using System.Threading;
 using WeavingDB.Logical;
 
 namespace ConsoleApp1
@@ -15,53 +16,7 @@ namespace ConsoleApp1
       
     
         
-        public class user
-        {
-            public int id { get; set; }
-            public string name { get; set; }
-            public byte aa { get; set; }
-            public byte [,] aas { get; set; }
-           // public byte[,] aass;
-            public DateTime dt { get; set; }
-            public bool bb  { get; set; }
-            
-        }
-       
-        static T BytesToT<T>(byte[] bytes)
-        {
-            using (var ms = new System.IO.MemoryStream())
-            {
-                ms.Write(bytes, 0, bytes.Length);
-                var bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                ms.Position = 0;
-                var x = bf.Deserialize(ms);
-                return (T)x;
-            }
-        }
-
-        static byte[] TToBytes<T>(T obj)
-        {
-            var bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-            using (var ms = new System.IO.MemoryStream())
-            {
-                bf.Serialize(ms, obj);
-                return ms.ToArray();
-            }
-        }
-        static unsafe IntPtr tobytes(byte[] write)
-        {
-            IntPtr write_data = Marshal.AllocHGlobal(write.Length);
-            Marshal.Copy(write, 0, write_data, write.Length);
-            // Marshal.FreeHGlobal(write_data);
-            return write_data;
-        }
-        static unsafe byte[] tobyte(byte* write_data,int len)
-        {
-            IntPtr ip = (IntPtr)write_data;
-            byte[] write = new byte[len];
-            Marshal.Copy((IntPtr)write_data, write, 0, write.Length);
-            return write;
-        }
+      
         static  DBmanage dbm = new DBmanage();
       static  IntPtr p3 = System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi("asdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwer");
 
@@ -158,7 +113,7 @@ namespace ConsoleApp1
            
 
             String s = "410041114";
-            String p = "41";
+            String p = "%00411%";
         
           int a=  Sunday.strSunday(s, p,0);
 
@@ -203,15 +158,18 @@ namespace ConsoleApp1
                 { 
                 
                 }
-                 tree.insert(tree.root, tee.dtable2[0], tee, ltable.datahead[0].type);
+               //  tree.insert(tree.root, tee.dtable2[0], tee, ltable.datahead[0].type);
                 dblo.insertintoIndex(jo, tee, ltable.datahead, ref ltable.tree);
                   //  bTree.Insert(jo["eventType"].ToString(), tee.dtable[0]);
                 str = null;
                 objbb = null;
 
             }
-          
-            DateTime dt = DateTime.Now, dt2 = DateTime.Now;
+            dblo.createIndex(listu, ltable.datahead, "warningTime", ref ltable.tree);
+           string path = Thread.GetDomain().BaseDirectory;
+            BinaryData.WriteTableHead(path,"T_warning", ltable);
+            Liattable templiattable= BinaryData.ReadTableHead(path,"T_warning");
+              DateTime dt = DateTime.Now, dt2 = DateTime.Now;
             //object obj = dbm.get("111");
          //   tree.deleteKey(tree, "11B09");
             dt = DateTime.Now;

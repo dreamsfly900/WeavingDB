@@ -253,10 +253,6 @@
       "frameworks": {
         "net45": {
           "dependencies": {
-            "Ding.Core": {
-              "target": "Package",
-              "version": "[1.0.0-preview-20191112-01, )"
-            },
             "System.IO.Compression": {
               "target": "Package",
               "version": "[4.3.0, )"

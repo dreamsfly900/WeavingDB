@@ -192,6 +192,7 @@ namespace SQLDBlogic.logic
                 return null;
             }
         }
+        
         public static Head[] Gethead(JObject obj)
         {
             Head[] coll = new Head[obj.Count];

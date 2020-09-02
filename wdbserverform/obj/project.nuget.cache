@@ -1,10 +1,9 @@
 {
   "version": 2,
-  "dgSpecHash": "sw48/sOHu99JegWGWChLP3ja794v/iPLvU4j7iwQPwX7TLlxmvKtP8DCIi6O0gQn4Yj7fy0huQVdMIiRIRMsiw==",
+  "dgSpecHash": "VUOS18GzM370N0B2aFXA+++rfkrXUeWdGS3t7OxREvDdirAHxtm11PmeJVXCP7FovPYJSkwktCAQFBrLYnUWuA==",
   "success": true,
   "projectFilePath": "D:\\OneDrive\\代码\\WeavingDB\\wdbserverform\\wdbserverform.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\DELL\\.nuget\\packages\\ding.core\\1.0.0-preview-20191112-01\\ding.core.1.0.0-preview-20191112-01.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\system.io.compression\\4.3.0\\system.io.compression.4.3.0.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\system.net.http\\4.3.4\\system.net.http.4.3.4.nupkg.sha512",

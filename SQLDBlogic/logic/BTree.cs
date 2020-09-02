@@ -33,20 +33,20 @@ public unsafe class BPTree
     /// <returns></returns>
     public void insert(Node root, void* key, ListDmode value, byte _datatype,int len=-1)
     {
-        
+
         datatype = _datatype;
         root.datatype = _datatype;
-        Node nd = search(root, key);
-        if (nd != null && nd.keys.Count != 0)
-        {
-            int i = 0;
-            while (!utli.CompareLogical(datatype, nd.keys[i].key, 2, key, len))
-            {
-                i++;
-            }
-            Marshal.FreeHGlobal((IntPtr)key); 
-            key = nd.keys[i].key;
-        }
+        //Node nd = search(root, key);
+        //if (nd != null && nd.keys.Count != 0)
+        //{
+        //    int i = 0;
+        //    while (!utli.CompareLogical(datatype, nd.keys[i].key, 2, key, len))
+        //    {
+        //        i++;
+        //    }
+        //    Marshal.FreeHGlobal((IntPtr)key);
+        //    key = nd.keys[i].key;
+        //}
         root.inset(key, value, this);
     }
     public Node search(Node root, void* key)

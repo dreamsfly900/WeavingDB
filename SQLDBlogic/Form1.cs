@@ -28,17 +28,37 @@ namespace SQLDBlogic
             ltable.datas = listu;
            
             DBLogic dblo = new DBLogic();
-            foreach (JObject jo in objbbs)
+            int ss = 0;
+            while (ss < 10)
             {
-                //dbm.set(i.ToString(), new byte[0]);
+                foreach (JObject jo in objbbs)
+                {
+                    //dbm.set(i.ToString(), new byte[0]);
 
 
-                var tee = dblo.insertintoJson(jo, ref ltable.datahead);
-                dblo.insertintoIndex(jo, tee, ltable.datahead, ref ltable.tree);
-                listu.Add(tee);
-              
-              //  break;
+                    var tee = dblo.insertintoJson(jo, ref ltable.datahead);
+                    dblo.insertintoIndex(jo, tee, ltable.datahead, ref ltable.tree);
+                    listu.Add(tee);
+
+                    //  break;
+                }
+                ss++;
             }
+            dblo.createIndex(listu, ltable.datahead, "warningTime", ref ltable.tree);
+            //BPTree tree = new BPTree(100);
+            //DateTime dt3 = DateTime.Now;
+            //int ss = 0;
+            //while (ss < 50)
+            //{
+            //    foreach (ListDmode ld in listu)
+            //    {
+            //        tree.insert(tree.root, ld.dtable2[0], ld, ltable.datahead[0].type);
+            //    }
+            //    ss++;
+            //}
+            //DateTime dt4 = DateTime.Now;
+
+            //Console.WriteLine("耗时：" + (dt4 - dt3).TotalMilliseconds + "毫秒--查询后的数据：");
             string str = "11B06";
           
             IntPtr p1 = Marshal.StringToHGlobalAnsi(str);
@@ -46,9 +66,11 @@ namespace SQLDBlogic
 
 
             long p2 = Convert.ToDateTime("2020-08-13T11:20:47+08:00").ToFileTime();
-
+            DateTime dt3 = DateTime.Now;
             var temp2 = dblo.SelectCount(listu, "warningTime>='2020-08-13T11:20:47+08:00' && warningTime<='2020-08-30T00:22:47+08:00' ", ltable.datahead, ltable);
+            DateTime dt4 = DateTime.Now;
 
+            Console.WriteLine("耗时：" + (dt4 - dt3).TotalMilliseconds + "毫秒--查询后的数据：");
             int count = dblo.updatedata(listu, " eventType = '11B06'",
                   ltable.datahead, JObject.FromObject(new { eventType = "特大喜讯" }), ltable);
 

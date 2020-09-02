@@ -24,6 +24,7 @@ namespace WeavingDB.Logical
         public Head[] datahead;
         public Dictionary<string, BPTree> tree = new Dictionary<string, BPTree>();
         public bool deleterun = false;
+        public IntPtr filedata = IntPtr.Zero;
     }
     public unsafe class ListDmode
     {

@@ -215,168 +215,176 @@ namespace SQLDBlogic.logic
             if ((IntPtr)valuep1 == IntPtr.Zero)
                 return false;
             bool conbb = false;
-
-            if (type == 6)
+            try
             {
-                int value = (int)(*(int*)p1);
-                int sconvalue = (int)(*(int*)valuep1);
-                if (mtsContrast == 0)
+                if (type == 6)
                 {
-
-                    return (value) >= sconvalue;
-                }
-                else if (mtsContrast == 1)
-                {
-                    return (value) <= sconvalue;
-                }
-                else if (mtsContrast == 2)
-                {
-                    return sconvalue == (value);
-                }
-                else if (mtsContrast == 3)
-                {
-                    return (value) > sconvalue;
-                }
-                else if (mtsContrast == 4)
-                {
-                    return (value) < sconvalue;
-                }
-                else if (mtsContrast == 6)
-                {
-                    return (value) != sconvalue;
-                }
-            }
-            else if (type == 9)
-            {
-                bool value = (bool)(*(bool*)p1);
-                bool sconvalue = (bool)(*(bool*)valuep1);
-                if (mtsContrast == 2)
-                {
-                    return sconvalue == (value);
-                }
-                else if (mtsContrast == 0)
-                {
-
-                    return (value).CompareTo(sconvalue) >= 0;
-                }
-                else if (mtsContrast == 1)
-                {
-                    return (value).CompareTo(sconvalue) <= 0;
-                }
-
-                else if (mtsContrast == 3)
-                {
-                    return  (value).CompareTo(sconvalue) > 0;
-                }
-                else if (mtsContrast == 4)
-                {
-                    return (value).CompareTo(sconvalue) < 0;
-                }
-                else if (mtsContrast == 6)
-                {
-                    return (value) != sconvalue;
-                }
-            }
-            else if (type == 7)
-            {
-                double value = (double)(*(double*)p1);
-                double sconvalue = (double)(*(double*)valuep1);
-               if (mtsContrast == 0)
-                {
-                    return (value) >= sconvalue;
-                }
-                else if (mtsContrast == 1)
-                {
-                    return (value) <= sconvalue;
-                }
-                else if (mtsContrast == 2)
-                {
-                    return sconvalue == (value);
-                }
-                else if (mtsContrast == 3)
-                {
-                    return (value) > sconvalue;
-                }
-                else if (mtsContrast == 4)
-                {
-                    return (value) < sconvalue;
-                }
-                else if (mtsContrast == 6)
-                {
-                    return (value) != sconvalue;
-                }
-
-            }
-            else if (type == 12)
-            {
-
-                // conbb[bi] = Contrast<DateTime>(Convert.ToDateTime(st), Convert.ToDateTime(value), mtsContrast[ci]);
-                long value = (long)(*(long*)p1);
-                long sconvalue = (long)(*(long*)valuep1);
-                if (mtsContrast == 0)
-                {
-                    return value >= sconvalue;
-                }
-                else if (mtsContrast == 1)
-                {
-                    return value <= sconvalue;
-                }
-                else if (mtsContrast == 2)
-                {
-                    return value == sconvalue;
-                }
-                else if (mtsContrast == 3)
-                {
-                    return (value) > sconvalue;
-                }
-                else if (mtsContrast == 4)
-                {
-                    return (value) < sconvalue;
-                }
-                else if (mtsContrast == 6)
-                {
-                    return (value) != sconvalue;
-                }
-            }
-            else if (type == 8)
-            {
-                
-             
-                if (mtsContrast == 0)
-                {
-                    if (len != -1)
+                    int value = (int)(*(int*)p1);
+                    int sconvalue = (int)(*(int*)valuep1);
+                    if (mtsContrast == 0)
                     {
-                        if (len > lenvalue)
-                        {
-                            return true;
 
+                        return (value) >= sconvalue;
+                    }
+                    else if (mtsContrast == 1)
+                    {
+                        return (value) <= sconvalue;
+                    }
+                    else if (mtsContrast == 2)
+                    {
+                        return sconvalue == (value);
+                    }
+                    else if (mtsContrast == 3)
+                    {
+                        return (value) > sconvalue;
+                    }
+                    else if (mtsContrast == 4)
+                    {
+                        return (value) < sconvalue;
+                    }
+                    else if (mtsContrast == 6)
+                    {
+                        return (value) != sconvalue;
+                    }
+                }
+                else if (type == 9)
+                {
+                    bool value = (bool)(*(bool*)p1);
+                    bool sconvalue = (bool)(*(bool*)valuep1);
+                    if (mtsContrast == 2)
+                    {
+                        return sconvalue == (value);
+                    }
+                    else if (mtsContrast == 0)
+                    {
+
+                        return (value).CompareTo(sconvalue) >= 0;
+                    }
+                    else if (mtsContrast == 1)
+                    {
+                        return (value).CompareTo(sconvalue) <= 0;
+                    }
+
+                    else if (mtsContrast == 3)
+                    {
+                        return (value).CompareTo(sconvalue) > 0;
+                    }
+                    else if (mtsContrast == 4)
+                    {
+                        return (value).CompareTo(sconvalue) < 0;
+                    }
+                    else if (mtsContrast == 6)
+                    {
+                        return (value) != sconvalue;
+                    }
+                }
+                else if (type == 7)
+                {
+                    double value = (double)(*(double*)p1);
+                    double sconvalue = (double)(*(double*)valuep1);
+                    if (mtsContrast == 0)
+                    {
+                        return (value) >= sconvalue;
+                    }
+                    else if (mtsContrast == 1)
+                    {
+                        return (value) <= sconvalue;
+                    }
+                    else if (mtsContrast == 2)
+                    {
+                        return sconvalue == (value);
+                    }
+                    else if (mtsContrast == 3)
+                    {
+                        return (value) > sconvalue;
+                    }
+                    else if (mtsContrast == 4)
+                    {
+                        return (value) < sconvalue;
+                    }
+                    else if (mtsContrast == 6)
+                    {
+                        return (value) != sconvalue;
+                    }
+
+                }
+                else if (type == 12)
+                {
+
+                    // conbb[bi] = Contrast<DateTime>(Convert.ToDateTime(st), Convert.ToDateTime(value), mtsContrast[ci]);
+                    long value = (long)(*(long*)p1);
+                    long sconvalue = (long)(*(long*)valuep1);
+                    if (mtsContrast == 0)
+                    {
+                        return value >= sconvalue;
+                    }
+                    else if (mtsContrast == 1)
+                    {
+                        return value <= sconvalue;
+                    }
+                    else if (mtsContrast == 2)
+                    {
+                        return value == sconvalue;
+                    }
+                    else if (mtsContrast == 3)
+                    {
+                        return (value) > sconvalue;
+                    }
+                    else if (mtsContrast == 4)
+                    {
+                        return (value) < sconvalue;
+                    }
+                    else if (mtsContrast == 6)
+                    {
+                        return (value) != sconvalue;
+                    }
+                }
+                else if (type == 8)
+                {
+
+
+                    if (mtsContrast == 0)
+                    {
+                        if (len != -1)
+                        {
+                            if (len > lenvalue)
+                            {
+                                return true;
+
+                            }
+                            else
+                            {
+
+                                string value = Marshal.PtrToStringAnsi((IntPtr)p1);
+                                string sconvalue = Marshal.PtrToStringAnsi((IntPtr)valuep1);
+                                return (value).CompareTo(sconvalue) >= 0;
+                            }
                         }
                         else
                         {
-                            
                             string value = Marshal.PtrToStringAnsi((IntPtr)p1);
                             string sconvalue = Marshal.PtrToStringAnsi((IntPtr)valuep1);
                             return (value).CompareTo(sconvalue) >= 0;
                         }
-                    }
-                    else
-                    {
-                        string value = Marshal.PtrToStringAnsi((IntPtr)p1);
-                        string sconvalue = Marshal.PtrToStringAnsi((IntPtr)valuep1);
-                        return (value).CompareTo(sconvalue) >= 0;
-                    }
 
 
-                 
-                }
-                else if (mtsContrast == 1)
-                {
-                    if (len != -1)
+
+                    }
+                    else if (mtsContrast == 1)
                     {
-                        if (len < lenvalue)
+                        if (len != -1)
                         {
-                            return true;
+                            if (len < lenvalue)
+                            {
+                                return true;
 
+                            }
+                            else
+                            {
+                                string value = Marshal.PtrToStringAnsi((IntPtr)p1);
+                                string sconvalue = Marshal.PtrToStringAnsi((IntPtr)valuep1);
+                                return (value).CompareTo(sconvalue) <= 0;
+                            }
                         }
                         else
                         {
@@ -384,24 +392,24 @@ namespace SQLDBlogic.logic
                             string sconvalue = Marshal.PtrToStringAnsi((IntPtr)valuep1);
                             return (value).CompareTo(sconvalue) <= 0;
                         }
-                    }
-                    else
-                    {
-                        string value = Marshal.PtrToStringAnsi((IntPtr)p1);
-                        string sconvalue = Marshal.PtrToStringAnsi((IntPtr)valuep1);
-                        return (value).CompareTo(sconvalue) <= 0;
-                    }
-                   
-                }
 
-                else if (mtsContrast == 3)
-                {
-                    if (len != -1)
+                    }
+
+                    else if (mtsContrast == 3)
                     {
-                        if (len > lenvalue)
+                        if (len != -1)
                         {
-                            return true;
+                            if (len > lenvalue)
+                            {
+                                return true;
 
+                            }
+                            else
+                            {
+                                string value = Marshal.PtrToStringAnsi((IntPtr)p1);
+                                string sconvalue = Marshal.PtrToStringAnsi((IntPtr)valuep1);
+                                return (value).CompareTo(sconvalue) > 0;
+                            }
                         }
                         else
                         {
@@ -409,99 +417,96 @@ namespace SQLDBlogic.logic
                             string sconvalue = Marshal.PtrToStringAnsi((IntPtr)valuep1);
                             return (value).CompareTo(sconvalue) > 0;
                         }
+
                     }
-                    else
+                    else if (mtsContrast == 4)
                     {
-                        string value = Marshal.PtrToStringAnsi((IntPtr)p1);
-                        string sconvalue = Marshal.PtrToStringAnsi((IntPtr)valuep1);
-                        return (value).CompareTo(sconvalue) > 0;
-                    }
-                   
-                }
-                else if (mtsContrast == 4)
-                {
-                    if (len != -1)
-                    {
-                        if (len < lenvalue)
+                        if (len != -1)
                         {
-                            return true;
+                            if (len < lenvalue)
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                string value = Marshal.PtrToStringAnsi((IntPtr)p1);
+                                string sconvalue = Marshal.PtrToStringAnsi((IntPtr)valuep1);
+                                return (value).CompareTo(sconvalue) < 0;
+                            }
+
+
                         }
-                        else {
+                        else
+                        {
                             string value = Marshal.PtrToStringAnsi((IntPtr)p1);
                             string sconvalue = Marshal.PtrToStringAnsi((IntPtr)valuep1);
                             return (value).CompareTo(sconvalue) < 0;
                         }
-                          
 
                     }
-                    else
+                    else if (mtsContrast == 2)
                     {
-                        string value = Marshal.PtrToStringAnsi((IntPtr)p1);
-                        string sconvalue = Marshal.PtrToStringAnsi((IntPtr)valuep1);
-                        return (value).CompareTo(sconvalue) < 0;
-                    }
-
-                }
-                else if (mtsContrast == 2)
-                {
-                    if (len != -1)
-                    {
-                        if (len == lenvalue)
+                        if (len != -1)
+                        {
+                            if (len == lenvalue)
+                            {
+                                string value = Marshal.PtrToStringAnsi((IntPtr)p1);
+                                string sconvalue = Marshal.PtrToStringAnsi((IntPtr)valuep1);
+                                return Sunday.strcontains(sconvalue, (value));
+                            }
+                            else
+                                return false;
+                        }
+                        else
                         {
                             string value = Marshal.PtrToStringAnsi((IntPtr)p1);
                             string sconvalue = Marshal.PtrToStringAnsi((IntPtr)valuep1);
                             return Sunday.strcontains(sconvalue, (value));
                         }
-                        else
-                            return false;
-                    }
-                    else
-                    {
-                        string value = Marshal.PtrToStringAnsi((IntPtr)p1);
-                        string sconvalue = Marshal.PtrToStringAnsi((IntPtr)valuep1);
-                        return Sunday.strcontains(sconvalue, (value));
-                    }
-                   
-                }
 
-                else if (mtsContrast == 6)
-                {
-                    if (len != -1)
+                    }
+
+                    else if (mtsContrast == 6)
                     {
-                        if (len == lenvalue)
+                        if (len != -1)
+                        {
+                            if (len == lenvalue)
+                            {
+                                string value = Marshal.PtrToStringAnsi((IntPtr)p1);
+                                string sconvalue = Marshal.PtrToStringAnsi((IntPtr)valuep1);
+                                return (value) != sconvalue;
+                            }
+                            else
+                                return true;
+                        }
+                        else
                         {
                             string value = Marshal.PtrToStringAnsi((IntPtr)p1);
                             string sconvalue = Marshal.PtrToStringAnsi((IntPtr)valuep1);
                             return (value) != sconvalue;
                         }
-                        else
-                            return true;
+
                     }
-                    else
+                    else if (mtsContrast == 5)
                     {
                         string value = Marshal.PtrToStringAnsi((IntPtr)p1);
                         string sconvalue = Marshal.PtrToStringAnsi((IntPtr)valuep1);
-                        return (value) != sconvalue;
+                        //sconvalue = sconvalue.Replace("%", "(.*)").Replace("_", "(.+){1}");
+                        //conbb = Stringtonosymbol(value, "^" + sconvalue + "$");
+                        if (Sunday.strSunday(value, sconvalue, 0) == 0)
+                            return true;
+                        else
+                            return false;
                     }
-                   
                 }
-                else if (mtsContrast == 5)
+                else
                 {
-                    string value = Marshal.PtrToStringAnsi((IntPtr)p1);
-                    string sconvalue = Marshal.PtrToStringAnsi((IntPtr)valuep1);
-                    //sconvalue = sconvalue.Replace("%", "(.*)").Replace("_", "(.+){1}");
-                    //conbb = Stringtonosymbol(value, "^" + sconvalue + "$");
-                    if (Sunday.strSunday(value, sconvalue, 0) == 0)
-                        return  true;
-                    else
-                        return false;
+                    conbb = false;
+                    // throw new Exception("不支持的逻辑判断。");
                 }
             }
-            else
-            {
-                conbb = false;
-                // throw new Exception("不支持的逻辑判断。");
-            }
+            catch 
+            { }
             return conbb;
         }
 
@@ -600,6 +605,79 @@ namespace SQLDBlogic.logic
                 }
             }
             return left; //指向的此时枢轴的位置
+        }
+        internal static void* GetHashtablevoid( byte type, void* p1, int len)
+        {
+           
+
+
+                try
+                {
+                if (type == 6)
+                {
+                    int p = *(int*)p1;
+                    int nSizeOfPerson = Marshal.SizeOf(p);
+                    IntPtr intPtr = Marshal.AllocHGlobal(nSizeOfPerson);
+                    Marshal.StructureToPtr(p, intPtr, true);
+                    return intPtr.ToPointer();
+                }
+                else if (type == 9)
+                {
+                    bool p = *(bool*)p1;
+                    int nSizeOfPerson = Marshal.SizeOf(p);
+                    IntPtr intPtr = Marshal.AllocHGlobal(nSizeOfPerson);
+                    Marshal.StructureToPtr(p, intPtr, true);
+                    return intPtr.ToPointer();
+
+                }
+                else if (type == 7)
+                {
+                    double p = *(double*)p1;
+                    int nSizeOfPerson = Marshal.SizeOf(p);
+                    IntPtr intPtr = Marshal.AllocHGlobal(nSizeOfPerson);
+                    Marshal.StructureToPtr(p, intPtr, true);
+                    return intPtr.ToPointer();
+                    ;
+                }
+                else if (type == 12)
+                {
+                    long p = *(long*)p1;
+                    int nSizeOfPerson = Marshal.SizeOf(p);
+                    IntPtr intPtr = Marshal.AllocHGlobal(nSizeOfPerson);
+                    Marshal.StructureToPtr(p, intPtr, true);
+                    return intPtr.ToPointer();
+
+                }
+                else if (type == 8)
+                {
+                    string str = Marshal.PtrToStringAnsi((IntPtr)p1);
+                    len = System.Text.Encoding.Default.GetBytes(str.ToCharArray()).Length;
+                    IntPtr p = Marshal.StringToHGlobalAnsi(str);
+                    return p.ToPointer();
+
+                }
+                else if (type == 10)
+                {
+                    return null;
+                }
+                else
+                {
+                    byte[] abc = Tobyte((byte*)p1, len);
+
+                    string temp = BytesToT<string>(GZIP.Decompress(abc));
+                    byte[] p = GZIP.Compress(utli.TToBytes(temp));
+                    len = p.Length;
+                    IntPtr p2 = utli.Tobytes(p);
+                    return p2.ToPointer();
+
+                }
+                }
+                catch
+                {
+                    return null;
+                }
+
+            
         }
         internal static JProperty GetHashtable(string key, byte type, void* p1, int len)
         {

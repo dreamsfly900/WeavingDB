@@ -65,8 +65,6 @@ D:\WeavingDB\wdbserverform\bin\Debug\Weave.Base.xml
 D:\OneDrive\代码\WeavingDB\wdbserverform\bin\Debug\wdbserverform.exe.config
 D:\OneDrive\代码\WeavingDB\wdbserverform\bin\Debug\wdbserverform.exe
 D:\OneDrive\代码\WeavingDB\wdbserverform\bin\Debug\wdbserverform.pdb
-D:\OneDrive\代码\WeavingDB\wdbserverform\bin\Debug\Ding.Core.dll
-D:\OneDrive\代码\WeavingDB\wdbserverform\bin\Debug\Ding.Core.pdb
 D:\OneDrive\代码\WeavingDB\wdbserverform\bin\Debug\Newtonsoft.Json.dll
 D:\OneDrive\代码\WeavingDB\wdbserverform\bin\Debug\Weave.Base.dll
 D:\OneDrive\代码\WeavingDB\wdbserverform\bin\Debug\Weave.Server.dll

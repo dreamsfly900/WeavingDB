@@ -11,6 +11,38 @@ namespace SQLDBlogic.logic
     {
 
         #region 数据插入
+        public unsafe void createIndex(List<ListDmode> _listu, Head[] dhead,string key, ref Dictionary<string, BPTree> trees)
+        {
+            if (trees.ContainsKey(key))
+                return;
+            for (int i = 0; i < dhead.Length; i++)
+            {
+                if (dhead[i].key == key)
+                {
+                    BPTree tree = new BPTree(100);
+                    trees.Add(key, tree);
+                    lock (_listu)
+                    {
+                        for (int ii = 0; ii < _listu.Count; ii++)
+                        {
+                            if (ii < _listu.Count && _listu[ii] != null)
+                            {
+                                int len = 0;
+                                void* key2 = utli.GetHashtablevoid(dhead[i].type, _listu[ii].dtable2[dhead[i].index], _listu[ii].LenInts[dhead[i].index]);
+                                // void* key2 = DBDataHead.getdata(dhead[i].type, _listu[ii].dtable2[dhead[i].index], ref len);
+                                if (key2 != IntPtr.Zero.ToPointer())
+                                    tree.insert(tree.root, key2, _listu[ii], dhead[i].type);
+                            }
+                        }
+                    }
+                    return;
+                }
+               
+            }
+           
+          
+
+        }
         /// <summary>
         /// 建立索引
         /// </summary>
@@ -23,20 +55,21 @@ namespace SQLDBlogic.logic
             for (int i = 0; i < ld.dtable2.Length; i++)
             {
                 int len = 0;
-                void* key = DBDataHead.getdata(dhead[i].type, obj[dhead[i].key], ref len);
+               
                 if (trees.ContainsKey(dhead[i].key))
                 {
+                    void* key = DBDataHead.getdata(dhead[i].type, obj[dhead[i].key], ref len);
 
                     trees[dhead[i].key].insert(trees[dhead[i].key].root, key, ld, dhead[i].type);
                 }
-                else
-                {
-                    BPTree tree = new BPTree(100);
+                //else
+                //{
+                //    BPTree tree = new BPTree(100);
 
-                    tree.insert(tree.root, key, ld, dhead[i].type);
+                //    tree.insert(tree.root, key, ld, dhead[i].type);
 
-                    trees.Add(dhead[i].key, tree);
-                }
+                //    trees.Add(dhead[i].key, tree);
+                //}
             }
 
 
@@ -101,11 +134,12 @@ namespace SQLDBlogic.logic
                 if (dhead == null)
                 {
                     dhead = DBDataHead.Gethead(obj);
+                 
                 }
-                else
-                {
-                    dhead = DBDataHead.Gethead(obj, dhead);
-                }
+                //else
+                //{
+                //    dhead = DBDataHead.Gethead(obj, dhead);
+                //}
 
                 ListDmode ld = new ListDmode();
                 // ld.dtable = gethtabledtjson(obj as JObject, dhead);
@@ -332,6 +366,7 @@ namespace SQLDBlogic.logic
         List<ListDmode> saobiao(List<ListDmode> listu,int mtsContrast,byte datatype,void* data,int index,int len)
         {
             List<ListDmode> list = new List<ListDmode>();
+            
             for (int i = 0; i < listu.Count; i++)
             {
                
@@ -379,20 +414,21 @@ namespace SQLDBlogic.logic
                     {
                       
 
-                        if (contm.mtsContrast[i] != 5)
+                        if (contm.mtsContrast[i] != 5 && ltable.tree.ContainsKey(dhead[contm.collindex[i]].key))
                         {
                             List<ListDmode> list = new List<ListDmode>();
-                            list = ltable.tree[dhead[contm.collindex[i]].key].searcheQualto(ltable.tree[dhead[contm.collindex[i]].key].root,
-                                       contm.mtssscondata[i], contm.hindex[i], contm.mtsContrast[i]);
-                            if (list == null)
-                                return new ListDmode[0];
-                            listutem.AddRange(list);
+                            
+                                list = ltable.tree[dhead[contm.collindex[i]].key].searcheQualto(ltable.tree[dhead[contm.collindex[i]].key].root,
+                                           contm.mtssscondata[i], contm.hindex[i], contm.mtsContrast[i]);
+                                if (list == null)
+                                    return new ListDmode[0];
+                                listutem.AddRange(list);
+                          
                         }
                         else
                         {
                             listutem = saobiao(listu, contm.mtsContrast[i], contm.hindex[i], contm.mtssscondata[i], contm.collindex[i], contm.mtslen[i]);
-                            if (listutem == null)
-                                return new ListDmode[0];
+                             
                         }
                        
 
@@ -413,7 +449,7 @@ namespace SQLDBlogic.logic
                             else if (contm.logical[b] == 1)
                             {
                             
-                                if (contm.mtsContrast[i] != 5)
+                                if (contm.mtsContrast[i] != 5 && ltable.tree.ContainsKey(dhead[contm.collindex[i]].key))
                                 {
                                     List<ListDmode> list = new List<ListDmode>();
                                     list = ltable.tree[dhead[contm.collindex[i]].key].searcheQualto(ltable.tree[dhead[contm.collindex[i]].key].root,

@@ -2,26 +2,6 @@
   "version": 3,
   "targets": {
     ".NETFramework,Version=v4.5": {
-      "Ding.Core/1.0.0-preview-20191112-01": {
-        "type": "package",
-        "dependencies": {
-          "Newtonsoft.Json": "12.0.3"
-        },
-        "frameworkAssemblies": [
-          "System.IO.Compression",
-          "System.Net.Http",
-          "System.ServiceProcess",
-          "System.Web",
-          "System.Web.Extensions",
-          "System.Windows.Forms"
-        ],
-        "compile": {
-          "lib/net45/Ding.Core.dll": {}
-        },
-        "runtime": {
-          "lib/net45/Ding.Core.dll": {}
-        }
-      },
       "Newtonsoft.Json/12.0.3": {
         "type": "package",
         "compile": {
@@ -111,26 +91,6 @@
       }
     },
     ".NETFramework,Version=v4.5/win": {
-      "Ding.Core/1.0.0-preview-20191112-01": {
-        "type": "package",
-        "dependencies": {
-          "Newtonsoft.Json": "12.0.3"
-        },
-        "frameworkAssemblies": [
-          "System.IO.Compression",
-          "System.Net.Http",
-          "System.ServiceProcess",
-          "System.Web",
-          "System.Web.Extensions",
-          "System.Windows.Forms"
-        ],
-        "compile": {
-          "lib/net45/Ding.Core.dll": {}
-        },
-        "runtime": {
-          "lib/net45/Ding.Core.dll": {}
-        }
-      },
       "Newtonsoft.Json/12.0.3": {
         "type": "package",
         "compile": {
@@ -220,26 +180,6 @@
       }
     },
     ".NETFramework,Version=v4.5/win-x64": {
-      "Ding.Core/1.0.0-preview-20191112-01": {
-        "type": "package",
-        "dependencies": {
-          "Newtonsoft.Json": "12.0.3"
-        },
-        "frameworkAssemblies": [
-          "System.IO.Compression",
-          "System.Net.Http",
-          "System.ServiceProcess",
-          "System.Web",
-          "System.Web.Extensions",
-          "System.Windows.Forms"
-        ],
-        "compile": {
-          "lib/net45/Ding.Core.dll": {}
-        },
-        "runtime": {
-          "lib/net45/Ding.Core.dll": {}
-        }
-      },
       "Newtonsoft.Json/12.0.3": {
         "type": "package",
         "compile": {
@@ -329,26 +269,6 @@
       }
     },
     ".NETFramework,Version=v4.5/win-x86": {
-      "Ding.Core/1.0.0-preview-20191112-01": {
-        "type": "package",
-        "dependencies": {
-          "Newtonsoft.Json": "12.0.3"
-        },
-        "frameworkAssemblies": [
-          "System.IO.Compression",
-          "System.Net.Http",
-          "System.ServiceProcess",
-          "System.Web",
-          "System.Web.Extensions",
-          "System.Windows.Forms"
-        ],
-        "compile": {
-          "lib/net45/Ding.Core.dll": {}
-        },
-        "runtime": {
-          "lib/net45/Ding.Core.dll": {}
-        }
-      },
       "Newtonsoft.Json/12.0.3": {
         "type": "package",
         "compile": {
@@ -439,28 +359,6 @@
     }
   },
   "libraries": {
-    "Ding.Core/1.0.0-preview-20191112-01": {
-      "sha512": "JslH2nEqHoy2CeWJFNWezrTH5mMfJV2A8GmaHwCO9/w4kQZzfII3m09MyqNVfQZ+efbdqFI7OX2UALR2yYh6pw==",
-      "type": "package",
-      "path": "ding.core/1.0.0-preview-20191112-01",
-      "files": [
-        ".nupkg.metadata",
-        "ding.core.1.0.0-preview-20191112-01.nupkg.sha512",
-        "ding.core.nuspec",
-        "lib/net40/Ding.Core.dll",
-        "lib/net40/Ding.Core.pdb",
-        "lib/net40/Ding.Core.xml",
-        "lib/net45/Ding.Core.dll",
-        "lib/net45/Ding.Core.pdb",
-        "lib/net45/Ding.Core.xml",
-        "lib/netstandard2.0/Ding.Core.dll",
-        "lib/netstandard2.0/Ding.Core.pdb",
-        "lib/netstandard2.0/Ding.Core.xml",
-        "lib/netstandard2.1/Ding.Core.dll",
-        "lib/netstandard2.1/Ding.Core.pdb",
-        "lib/netstandard2.1/Ding.Core.xml"
-      ]
-    },
     "Newtonsoft.Json/12.0.3": {
       "sha512": "6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
       "type": "package",
@@ -652,7 +550,6 @@
   },
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.5": [
-      "Ding.Core >= 1.0.0-preview-20191112-01",
       "System.IO.Compression >= 4.3.0",
       "System.Net.Http >= 4.3.4",
       "WeavingDB.Logical >= 2.0.6"
@@ -702,10 +599,6 @@
     "frameworks": {
       "net45": {
         "dependencies": {
-          "Ding.Core": {
-            "target": "Package",
-            "version": "[1.0.0-preview-20191112-01, )"
-          },
           "System.IO.Compression": {
             "target": "Package",
             "version": "[4.3.0, )"
