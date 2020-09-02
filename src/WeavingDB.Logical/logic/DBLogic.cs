@@ -224,11 +224,12 @@ namespace SQLDBlogic.logic
                            
                             IntPtr pp = (IntPtr)_listu[i].dtable2[ig];
                             byte type = _dhead[ig].type;
+                            if(ltable.tree.ContainsKey(_dhead[ig].key))
                             ltable.tree[_dhead[ig].key].searchremove(_listu[i].dtable2[ig], type, ig);
                             if (pp != IntPtr.Zero)
                             {
                                 count++;
-
+                                 
                                 Marshal.FreeHGlobal(pp);
                                 //Freedata fd = new Freedata();
                                 //fd.ptr = pp;
@@ -313,7 +314,8 @@ namespace SQLDBlogic.logic
                                     if (type == hhead[igg].type)
                                     {
                                         IntPtr pp = (IntPtr)_listu[i].dtable2[_dhead[ig].index];
-                                        ltable.tree[hhead[igg].key].searchremove(_listu[i].dtable2[_dhead[ig].index], type, _dhead[ig].index);
+                                        if (ltable.tree.ContainsKey(_dhead[ig].key))
+                                            ltable.tree[hhead[igg].key].searchremove(_listu[i].dtable2[_dhead[ig].index], type, _dhead[ig].index);
                                         if (pp != IntPtr.Zero)
                                         {
                                             count++;
@@ -327,7 +329,8 @@ namespace SQLDBlogic.logic
                                         _listu[i].LenInts[_dhead[ig].index] = dmode.LenInts[hhead[igg].index];
                                         int len = 0;
                                         void* key = DBDataHead.getdata(_dhead[ig].type, job[_dhead[ig].key], ref len);
-                                        ltable.tree[hhead[igg].key].insert(ltable.tree[hhead[igg].key].root, key, _listu[i], type);
+                                        if (ltable.tree.ContainsKey(_dhead[ig].key))
+                                            ltable.tree[hhead[igg].key].insert(ltable.tree[hhead[igg].key].root, key, _listu[i], type);
                                        
                                         //  dmode.dtable2[hhead[igg].index] = IntPtr.Zero.ToPointer();
                                     }
