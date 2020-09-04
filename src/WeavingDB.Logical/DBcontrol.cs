@@ -169,6 +169,8 @@ namespace WeavingDB.Logical
                                     {
                                         byte[] senddatabb = dbm.Selecttabledatabyte(key, ss[0], Convert.ToByte(ss[1]), Convert.ToInt32(ss[3]), Convert.ToInt32(ss[4]), out int count2, ss[2], viewcol);
                                         senddatabb=GZIP.Compress(senddatabb);
+                                        if (senddatabb.Length == 0)
+                                            senddatabb = new byte[1];
                                         wserver.Send(soc, 0x81, senddatabb);
                                         return;
                                     }

@@ -212,11 +212,11 @@ namespace WeavingDB
             //var count3 = dbClient.Deletetable("T_warning", "");
             ////    bool bb = dbClient.Createtable("T_warning");
             //var count2 = dbClient.SelectCount("T_warning", "");
-            //System.IO.StreamReader sr = new System.IO.StreamReader("ab.json");
-            //string ssr = sr.ReadToEnd();
-            //sr.Close();
-            //T_warning[] data = Newtonsoft.Json.JsonConvert.DeserializeObject<T_warning[]>(ssr);
-            //bool ff = dbClient.Inserttable<T_warning>("T_warning", data);
+            System.IO.StreamReader sr = new System.IO.StreamReader("ab.json");
+            string ssr = sr.ReadToEnd();
+            sr.Close();
+            T_warning[] data = Newtonsoft.Json.JsonConvert.DeserializeObject<T_warning[]>(ssr);
+            bool ff = dbClient.Inserttable<T_warning>("T_warning", data);
 
             // 
             DateTime dt = DateTime.Now;
@@ -254,14 +254,15 @@ namespace WeavingDB
             dt = DateTime.Now;
 
 
-            var objjsona = dbClient.Selecttable<object[]>("T_warning", "",1);
+            var objjsona = dbClient.Selecttable<object[]>("T_warning", "warningTime<'2020-09-02 00:00:00'", 1);
 
             //string str = Newtonsoft.Json.JsonConvert.SerializeObject(objjson);
             //System.IO.StreamWriter sw = new System.IO.StreamWriter("ab.json");
             //sw.Write(str);
             //sw.Close();
             dt2 = DateTime.Now;
-
+            if (objjsona == null)
+                objjsona = new object[0];
             listBox1.Items.Add("数据Binary查询" + (dt2 - dt).TotalMilliseconds + "毫秒。" + objjsona.Length);
             //var json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "1.json"));
             //var model = JsonConvert.DeserializeObject(json);

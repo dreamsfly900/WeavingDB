@@ -567,7 +567,7 @@ namespace SQLDBlogic.logic
                 //    indexs[ik] = h.index;
                 //    ik++;
                 //}
-
+                
 
                 return BinaryData.EncodeBinaryData(heads, objsall, count, count + lens, vecol); ;
             }

@@ -75,7 +75,10 @@ namespace WeavingDB.Client
                         rowsdata = GZIP.Decompress(data);
                         break;
                     case 0x81://select
-                        rowsdata = GZIP.Decompress(data);
+                        if (data.Length > 1)
+                            rowsdata = GZIP.Decompress(data);
+                        else
+                            rowsdata = new byte[0];
                         break;
                     case 0x09:
                         rowsdata = data;

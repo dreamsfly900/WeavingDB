@@ -30,7 +30,7 @@ namespace SQLDBlogic.logic
                         objs[item.index] = getdata(jtt, obj[item.key], ref len);
                         if ((IntPtr)objs[item.index] == IntPtr.Zero)
                         {
-                            Console.WriteLine("数据写入错误" + obj[item.key]);
+                            Console.WriteLine("数据写入错误" + item.key+ obj[item.key].ToString());
                             return null;
                         }
                         lensInts[item.index] = len;

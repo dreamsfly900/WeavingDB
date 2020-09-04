@@ -457,13 +457,17 @@ namespace WeavingDB.Logical
                 DBLogic dblo = new DBLogic();
                 Liattable list = CDtable[key];
                 JObject job = JObject.Parse(data);
-                Head[] hd = null;
-                var tee = dblo.insertintoJson(job, ref hd);
+              
+                Head[] hd = list.datahead;
+                ListDmode tee;
                 if (list.datahead == null)
                 {
+                     tee = dblo.insertintoJson(job, ref hd);
                     list.datahead = hd;
                     BinaryFileData.WriteTableHead(path, key, list);
-                }
+                }else
+                     tee = dblo.insertintoJson(job, ref hd);
+                if(tee!=null)
                 dblo.insertintoIndex(job, tee, list.datahead, ref list.tree);
                 lock (list.datas)
                 { 
@@ -492,17 +496,20 @@ namespace WeavingDB.Logical
                     Liattable list = CDtable[key];
                     JArray job = JArray.Parse(data);
 
-                    Head[] hd = null;
+                    Head[] hd = list.datahead;
                     foreach (JObject item in job)
                     {
-                      
-                        var tee = dblo.insertintoJson(item, ref hd);
+                        ListDmode tee;
                         if (list.datahead == null)
                         {
+                            tee = dblo.insertintoJson(item, ref hd);
                             list.datahead = hd;
                             BinaryFileData.WriteTableHead(path, key, list);
                         }
-                        dblo.insertintoIndex(item, tee, list.datahead, ref list.tree);
+                        else
+                            tee = dblo.insertintoJson(item, ref hd);
+                        if (tee != null)
+                            dblo.insertintoIndex(item, tee, list.datahead, ref list.tree);
                         lock (list.datas)
                         {
                             list.datas.Add(tee);

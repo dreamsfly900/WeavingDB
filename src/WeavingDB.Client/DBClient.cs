@@ -146,10 +146,13 @@ namespace WeavingDB.Client
                 if (type == 1)
                 {
                     DateTime dt = DateTime.Now;
+                    if(alldata.Length<=10)
+                        return default(T);
                     JArray alldatasJ = BinaryData.DecodeBinaryDataJson(alldata);
                    
                     T t=  alldatasJ.ToObject<T>();
                     DateTime dt2 = DateTime.Now;
+                    
                     Console.WriteLine("BinaryData" + (dt2 - dt).TotalMilliseconds);
                     return t;
                 }
