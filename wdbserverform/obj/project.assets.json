@@ -75,7 +75,7 @@
           "bin/placeholder/WeavingDB.DataEncoding.dll": {}
         }
       },
-      "WeavingDB.Logical/2.0.6": {
+      "WeavingDB.Logical/2.0.7": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
@@ -164,7 +164,7 @@
           "bin/placeholder/WeavingDB.DataEncoding.dll": {}
         }
       },
-      "WeavingDB.Logical/2.0.6": {
+      "WeavingDB.Logical/2.0.7": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
@@ -253,7 +253,7 @@
           "bin/placeholder/WeavingDB.DataEncoding.dll": {}
         }
       },
-      "WeavingDB.Logical/2.0.6": {
+      "WeavingDB.Logical/2.0.7": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
@@ -342,7 +342,7 @@
           "bin/placeholder/WeavingDB.DataEncoding.dll": {}
         }
       },
-      "WeavingDB.Logical/2.0.6": {
+      "WeavingDB.Logical/2.0.7": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
@@ -542,7 +542,7 @@
       "path": "../src/WeavingDB.DataEncoding.Core/WeavingDB.DataEncoding.csproj",
       "msbuildProject": "../src/WeavingDB.DataEncoding.Core/WeavingDB.DataEncoding.csproj"
     },
-    "WeavingDB.Logical/2.0.6": {
+    "WeavingDB.Logical/2.0.7": {
       "type": "project",
       "path": "../src/WeavingDB.Logical/WeavingDB.Logical.csproj",
       "msbuildProject": "../src/WeavingDB.Logical/WeavingDB.Logical.csproj"
@@ -552,7 +552,7 @@
     ".NETFramework,Version=v4.5": [
       "System.IO.Compression >= 4.3.0",
       "System.Net.Http >= 4.3.4",
-      "WeavingDB.Logical >= 2.0.6"
+      "WeavingDB.Logical >= 2.0.7"
     ]
   },
   "packageFolders": {

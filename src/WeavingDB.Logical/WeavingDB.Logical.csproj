@@ -11,7 +11,7 @@
     <Authors>葛杰、丁川</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageTags>weavingdb;applicationframework;netframework;dotnetcore;aspnetcore;iot;;logical;</PackageTags>
-    <Description>WeavingDB.Logical是基于weaving-socket的网关应用框架的缓存数据库之服务端核心类库。优化字符串like匹配，效率提升100%,使用b*tree建立查询索引</Description>
+    <Description>WeavingDB.Logical是基于weaving-socket的网关应用框架的缓存数据库之服务端核心类库。优化字符串like匹配，效率提升100%,使用b*tree建立查询索引，增加数据库表结构以及索引结构的保存，以及全新的二进制打包模式</Description>
     <PackageId>WeavingDB.Logical</PackageId>
     <PackageReleaseNotes>C#实现的KV-与JSON 支持SQL语句的缓存库</PackageReleaseNotes>
     <PackageIconUrl></PackageIconUrl>
@@ -21,7 +21,7 @@
     <RepositoryType>git</RepositoryType>
     <!-- Disable warning for Controller/Action/Method not have block comment -->
     <NoWarn>1701;1702;1705;1591</NoWarn>
-    <Version>2.0.6</Version>
+    <Version>2.0.7</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
