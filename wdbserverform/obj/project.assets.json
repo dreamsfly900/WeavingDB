@@ -62,7 +62,7 @@
           "lib/net45/Weave.Server.dll": {}
         }
       },
-      "WeavingDB.DataEncoding/2.0.0": {
+      "WeavingDB.DataEncoding/2.0.1": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
@@ -80,7 +80,7 @@
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
           "Weave.Server": "2.0.6",
-          "WeavingDB.DataEncoding": "2.0.0"
+          "WeavingDB.DataEncoding": "2.0.1"
         },
         "compile": {
           "bin/placeholder/WeavingDB.Logical.dll": {}
@@ -151,7 +151,7 @@
           "lib/net45/Weave.Server.dll": {}
         }
       },
-      "WeavingDB.DataEncoding/2.0.0": {
+      "WeavingDB.DataEncoding/2.0.1": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
@@ -169,7 +169,7 @@
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
           "Weave.Server": "2.0.6",
-          "WeavingDB.DataEncoding": "2.0.0"
+          "WeavingDB.DataEncoding": "2.0.1"
         },
         "compile": {
           "bin/placeholder/WeavingDB.Logical.dll": {}
@@ -240,7 +240,7 @@
           "lib/net45/Weave.Server.dll": {}
         }
       },
-      "WeavingDB.DataEncoding/2.0.0": {
+      "WeavingDB.DataEncoding/2.0.1": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
@@ -258,7 +258,7 @@
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
           "Weave.Server": "2.0.6",
-          "WeavingDB.DataEncoding": "2.0.0"
+          "WeavingDB.DataEncoding": "2.0.1"
         },
         "compile": {
           "bin/placeholder/WeavingDB.Logical.dll": {}
@@ -329,7 +329,7 @@
           "lib/net45/Weave.Server.dll": {}
         }
       },
-      "WeavingDB.DataEncoding/2.0.0": {
+      "WeavingDB.DataEncoding/2.0.1": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
@@ -347,7 +347,7 @@
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
           "Weave.Server": "2.0.6",
-          "WeavingDB.DataEncoding": "2.0.0"
+          "WeavingDB.DataEncoding": "2.0.1"
         },
         "compile": {
           "bin/placeholder/WeavingDB.Logical.dll": {}
@@ -537,7 +537,7 @@
         "weave.server.nuspec"
       ]
     },
-    "WeavingDB.DataEncoding/2.0.0": {
+    "WeavingDB.DataEncoding/2.0.1": {
       "type": "project",
       "path": "../src/WeavingDB.DataEncoding.Core/WeavingDB.DataEncoding.csproj",
       "msbuildProject": "../src/WeavingDB.DataEncoding.Core/WeavingDB.DataEncoding.csproj"

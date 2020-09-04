@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "y4kQqEQ74lbGC8hvxKj5KHWySaHEHMETJOCVMAByyPzhoThDkV4JnmtMhR9LSyDnI/g0Htac0nCVctSDDxNlgA==",
+  "dgSpecHash": "8Kh86FRDuPRsl0q1FOU+sOWfSVHaDTUkBZGxtGmhfYLWfeDIDsm5mRQfZ+/U9e5WUVWsHgfhUB5fB7ymikSW+Q==",
   "success": true,
   "projectFilePath": "D:\\OneDrive\\代码\\WeavingDB\\wdbserverform\\wdbserverform.csproj",
   "expectedPackageFiles": [
@@ -8,8 +8,7 @@
     "C:\\Users\\DELL\\.nuget\\packages\\system.io.compression\\4.3.0\\system.io.compression.4.3.0.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\system.net.http\\4.3.4\\system.net.http.4.3.4.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\weave.base\\2.0.6\\weave.base.2.0.6.nupkg.sha512",
-    "C:\\Users\\DELL\\.nuget\\packages\\weave.server\\2.0.6\\weave.server.2.0.6.nupkg.sha512",
-    "C:\\Users\\DELL\\.nuget\\packages\\weavingdb.dataencoding\\2.0.0\\weavingdb.dataencoding.2.0.0.nupkg.sha512"
+    "C:\\Users\\DELL\\.nuget\\packages\\weave.server\\2.0.6\\weave.server.2.0.6.nupkg.sha512"
   ],
   "logs": []
 }
