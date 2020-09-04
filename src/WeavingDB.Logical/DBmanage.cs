@@ -133,8 +133,9 @@ namespace WeavingDB.Logical
                                     for (int j = (listdate.Count-1); j > 0; j--)
                                     {
                                         double ss = (DateTime.Now - DateTime.FromFileTime(listdate[j].dt)).TotalSeconds;
-                                        if ((ss - timeout) < ssmin)
-                                            ssmin = (ss - timeout);
+                                        fi.WriteLine("当前：" + DateTime.Now .ToString()+ ",本行："+ DateTime.FromFileTime(listdate[j].dt).ToString());
+                                        if (Math.Abs(ss - timeout) < ssmin)
+                                            ssmin = Math.Abs(ss - timeout);
                                         if (ss > timeout)
                                         {
                                             lock (listdate[j])
@@ -251,7 +252,7 @@ namespace WeavingDB.Logical
             {
                 string temp = file.Replace(pathd + @"\", "").Replace(".bin", "");
 
-                Liattable liattable= BinaryData.ReadTableHead(path, temp);
+                Liattable liattable= BinaryFileData.ReadTableHead(path, temp);
                 if (!CDtable.ContainsKey(temp))
                 {
                     
@@ -409,7 +410,7 @@ namespace WeavingDB.Logical
                 DBLogic dblo = new DBLogic();
                 Liattable list = CDtable[key];
                 dblo.createIndex(list.datas, list.datahead, field, ref list.tree);
-                BinaryData.WriteTableHead(path, key, list);
+                BinaryFileData.WriteTableHead(path, key, list);
                 return true;
             }
             return false;
@@ -461,7 +462,7 @@ namespace WeavingDB.Logical
                 if (list.datahead == null)
                 {
                     list.datahead = hd;
-                    BinaryData.WriteTableHead(path, key, list);
+                    BinaryFileData.WriteTableHead(path, key, list);
                 }
                 dblo.insertintoIndex(job, tee, list.datahead, ref list.tree);
                 lock (list.datas)
@@ -491,15 +492,15 @@ namespace WeavingDB.Logical
                     Liattable list = CDtable[key];
                     JArray job = JArray.Parse(data);
 
-
+                    Head[] hd = null;
                     foreach (JObject item in job)
                     {
-                        Head[] hd = null;
+                      
                         var tee = dblo.insertintoJson(item, ref hd);
                         if (list.datahead == null)
                         {
                             list.datahead = hd;
-                            BinaryData.WriteTableHead(path, key, list);
+                            BinaryFileData.WriteTableHead(path, key, list);
                         }
                         dblo.insertintoIndex(item, tee, list.datahead, ref list.tree);
                         lock (list.datas)
@@ -530,7 +531,8 @@ namespace WeavingDB.Logical
         /// <param name="count"></param>
         /// <param name="coll"></param>
         /// <returns></returns>
-        public string Selecttabledata(string key, string sql, byte order, int pageindex, int pagesize, out int count, string coll = "",string veiwcoll="")
+        public string Selecttabledata(string key, string sql, byte order, int pageindex, int pagesize, 
+            out int count, string coll = "",string veiwcoll="")
         {
             count = 0;
             if (CDtable.ContainsKey(key))
@@ -550,6 +552,28 @@ namespace WeavingDB.Logical
             }
 
             return "";
+        }
+        public byte[] Selecttabledatabyte(string key, string sql, byte order, int pageindex, int pagesize,
+            out int count, string coll = "", string veiwcoll = "")
+        {
+            count = 0;
+            if (CDtable.ContainsKey(key))
+            {
+                try
+                {
+                    DBLogic dblo = new DBLogic();
+                    Liattable list = CDtable[key];
+
+                    ListDmode[] objsall = dblo.selecttiem(list.datas, sql, list.datahead, list);
+                    count = objsall.Length;
+                    byte[] datas = dblo.viewdatabyte(objsall, list.datahead, veiwcoll, order, coll, pageindex, pagesize);
+                    return datas;
+                }
+                catch
+                { return new byte[0]; }
+            }
+
+            return new byte[0];
         }
         public string Selectcount(string key, string sql, out int count)
         {

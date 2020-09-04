@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using WeavingDB.Logical;
 
 namespace WeavingDB.Client
 {
@@ -62,9 +64,9 @@ namespace WeavingDB.Client
         /// <typeparam name="T"></typeparam>
         /// <param name="tablename"></param>
         /// <returns></returns>
-        public T Selecttable<T>(string tablename)
+        public T Selecttable<T>(string tablename, int type = 0)
         {
-            return Selecttable<T>(tablename, "", 0, "", 0, 0, out _);
+            return Selecttable<T>(tablename, "", 0, "", 0, 0, out _,"", type);
         }
         /// <summary>
         /// 有条件的查询数据
@@ -72,10 +74,11 @@ namespace WeavingDB.Client
         /// <typeparam name="T"></typeparam>
         /// <param name="tablename"></param>
         /// <param name="where"></param>
+        ///  <param name="type">0为json传输，1为二进制压缩传输</param>
         /// <returns></returns>
-        public T Selecttable<T>(string tablename, string where)
+        public T Selecttable<T>(string tablename, string where, int type = 0)
         {
-            return Selecttable<T>(tablename, where, 0, "", 0, 0, out _);
+            return Selecttable<T>(tablename, where, 0, "", 0, 0, out _,"", type);
         }
         /// <summary>
         /// 查询通过WHERE 条件，并且规定输出列
@@ -85,9 +88,9 @@ namespace WeavingDB.Client
         /// <param name="where"></param>
         /// <param name="viewcol"></param>
         /// <returns></returns>
-        public T Selecttable<T>(string tablename, string where,string viewcol)
+        public T Selecttable<T>(string tablename, string where,string viewcol, int type = 0)
         {
-            return Selecttable<T>(tablename, where, 0, "", 0, 0, out _, viewcol);
+            return Selecttable<T>(tablename, where, 0, "", 0, 0, out _, viewcol, type);
         }
         /// <summary>
         /// 查询数据并排序
@@ -99,9 +102,9 @@ namespace WeavingDB.Client
         /// <param name="order"></param>
         /// <param name="coll"></param>
         /// <returns></returns>
-        public T Selecttable<T>(string tablename, string where, string viewcol, byte order, string coll)
+        public T Selecttable<T>(string tablename, string where, string viewcol, byte order, string coll, int type = 0)
         {
-            return Selecttable<T>(tablename, where, order, coll, 0, 0, out _, viewcol);
+            return Selecttable<T>(tablename, where, order, coll, 0, 0, out _, viewcol, type);
         }
        
 
@@ -113,9 +116,9 @@ namespace WeavingDB.Client
         /// <param name="order"></param>
         /// <param name="coll"></param>
         /// <returns></returns>
-        public T Selecttable<T>(string tablename, byte order, string coll)
+        public T Selecttable<T>(string tablename, byte order, string coll, int type = 0)
         {
-            return Selecttable<T>(tablename, "", order, coll, 0, 0, out _);
+            return Selecttable<T>(tablename, "", order, coll, 0, 0, out _,"", type);
         }
 
         /// <summary>
@@ -130,19 +133,37 @@ namespace WeavingDB.Client
         /// <param name="pagesize"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        public T Selecttable<T>(string tablename, string where, byte order, string coll, int pageindex, int pagesize, out int count,string viewcol="")
+        public T Selecttable<T>(string tablename, string where, byte order, string coll, int pageindex, int pagesize, out int count,string viewcol="",int type=0)
         {
+           
             count = 0;
 
-            byte[] wherdata = DataEncoding.Encodingdata(where, order.ToString(), coll, pageindex.ToString(), pagesize.ToString(), viewcol);
+            byte[] wherdata = DataEncoding.Encodingdata(where, order.ToString(), coll, pageindex.ToString(), pagesize.ToString(), viewcol, type.ToString());
             byte[] rowdata = DataEncoding.EncodingsetKV(tablename, wherdata);
             byte[] alldata = ccon.Send(0x08, rowdata);
             try
             {
-                string[] ssr = DataEncoding.Dencdingdata(alldata);
-                count = Convert.ToInt32(ssr[0]);
-                string temp = ssr[1];
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(temp);
+                if (type == 1)
+                {
+                    DateTime dt = DateTime.Now;
+                    JArray alldatasJ = BinaryData.DecodeBinaryDataJson(alldata);
+                   
+                    T t=  alldatasJ.ToObject<T>();
+                    DateTime dt2 = DateTime.Now;
+                    Console.WriteLine("BinaryData" + (dt2 - dt).TotalMilliseconds);
+                    return t;
+                }
+                else
+                {
+                    DateTime dt = DateTime.Now;
+                    string[] ssr = DataEncoding.Dencdingdata(alldata);
+                    count = Convert.ToInt32(ssr[0]);
+                    string temp = ssr[1];
+                    T t= Newtonsoft.Json.JsonConvert.DeserializeObject<T>(temp);
+                    DateTime dt2 = DateTime.Now;
+                    Console.WriteLine("JSON" + (dt2 - dt).TotalMilliseconds);
+                    return t;
+                }
             }
             catch
             {

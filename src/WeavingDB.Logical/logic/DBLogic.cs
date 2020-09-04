@@ -52,6 +52,7 @@ namespace SQLDBlogic.logic
         /// <param name="trees"></param>
         public unsafe void insertintoIndex(JObject obj,ListDmode ld, Head[] dhead, ref Dictionary<string, BPTree> trees)
         {
+            if(ld.dtable2!=null)
             for (int i = 0; i < ld.dtable2.Length; i++)
             {
                 int len = 0;
@@ -481,6 +482,111 @@ namespace SQLDBlogic.logic
             //delete(datas.ToArray(), datahead,  ltable);
         }
 
+        public byte[] viewdatabyte(ListDmode[] objsall, Head[] datahead, String viewcol = "", byte order = 0, string ordercol = "", int indexlen = 0, int viewlen = 0)
+        {
+            //List<Hashtable> alllist = new List<Hashtable>();
+            byte[] temphtt = new byte[0];
+            int[] vecol = new int[0];
+            if (viewcol != "")
+            {
+                string[] vcol = viewcol.Split(',');
+                List<int> vecollist = new List<int>();
+
+                int v = 0;
+                while (v < vcol.Length)
+                {
+                    for (int hi = 0; hi < datahead.Length; hi++)
+                    {
+                        if (datahead[hi].key == vcol[v].Trim())
+                        {
+                            //  vecol[v] = hi;
+                            vecollist.Add(hi);
+                            break;
+                        }
+
+                    }
+                    v++;
+                }
+                vecol = vecollist.ToArray();
+            }
+            try
+            {
+                if (ordercol == "")
+                {
+
+                }
+                else
+                {
+                    Head orhe = null;
+                    foreach (Head h in datahead)
+                    {
+                        if (h.key == ordercol)
+                        {
+                            orhe = h;
+                            break;
+                        }
+                    }
+                    if (orhe == null)
+                        return null;
+
+
+                    objsall = utli.Sort(objsall, orhe, order);
+
+                }
+
+                if (viewlen <= 0)
+                    viewlen = objsall.Length;
+                if ((indexlen * viewlen) >= objsall.Length)
+                {
+                    //alllist = new List<Hashtable>();
+                    return temphtt;
+                }
+                int count = indexlen * viewlen;
+                int lens = ((indexlen + 1) * viewlen) > objsall.Length ? objsall.Length : ((indexlen + 1) * viewlen);
+                lens = lens - (indexlen * viewlen);
+                string[] ksys = new string[datahead.Length];
+                byte[] types = new byte[datahead.Length];
+                int[] indexs = new int[datahead.Length];
+                int ik = 0;
+                Head[] heads = new Head[vecol.Length];
+                if (vecol.Length > 0)
+                {
+                    for (int i = 0; i < vecol.Length; i++)
+                    {
+                        heads[i] = datahead[vecol[i]];
+                    }
+                }
+                else
+                {
+                    heads = datahead;
+                }
+                //foreach (Head h in datahead)
+                //{
+                //    ksys[ik] = h.key;
+                //    types[ik] = h.type;
+                //    indexs[ik] = h.index;
+                //    ik++;
+                //}
+
+
+                return BinaryData.EncodeBinaryData(heads, objsall, count, count + lens, vecol); ;
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+
+            }
+
+
+
+
+        }
+
+
+   
         public JObject[] viewdata(ListDmode[] objsall, Head[] datahead,String viewcol="",byte order=0, string ordercol="", int indexlen=0, int viewlen=0)
         {
             //List<Hashtable> alllist = new List<Hashtable>();

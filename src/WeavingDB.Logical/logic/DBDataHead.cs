@@ -28,6 +28,11 @@ namespace SQLDBlogic.logic
                     {
                         int len = 0;
                         objs[item.index] = getdata(jtt, obj[item.key], ref len);
+                        if ((IntPtr)objs[item.index] == IntPtr.Zero)
+                        {
+                            Console.WriteLine("数据写入错误" + obj[item.key]);
+                            return null;
+                        }
                         lensInts[item.index] = len;
                         
                     }
@@ -97,7 +102,10 @@ namespace SQLDBlogic.logic
                     string str = obj.ToString();
                     len= System.Text.Encoding.Default.GetBytes(str.ToCharArray()).Length;
                     IntPtr p = Marshal.StringToHGlobalAnsi(str);
-                     return p.ToPointer();
+                    if (p == IntPtr.Zero)
+                    {
+                    }
+                    return p.ToPointer();
                   //  objIntPtrs[item.index] = p;
                 }
                 else

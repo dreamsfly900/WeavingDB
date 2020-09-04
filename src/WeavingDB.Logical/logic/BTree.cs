@@ -110,7 +110,7 @@ public unsafe class BPTree
         }
     }
 
-    internal List<ListDmode> searcheQualto(Node root, void* v,byte databyte,int mtsContrast)
+    public List<ListDmode> searcheQualto(Node root, void* v,byte databyte,int mtsContrast)
     {
        
         List<ListDmode> list = new List<ListDmode>();

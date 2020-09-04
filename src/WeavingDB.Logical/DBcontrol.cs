@@ -162,7 +162,17 @@ namespace WeavingDB.Logical
                             if (ss.Length >= 5)
                             {
                                 string viewcol = "";
+                                int Bdatatype = 0;
                                 if (ss.Length == 6) { viewcol = ss[5]; }
+                                if (ss.Length == 7) { Bdatatype = Convert.ToInt32( ss[6]);
+                                    if (Bdatatype == 1)
+                                    {
+                                        byte[] senddatabb = dbm.Selecttabledatabyte(key, ss[0], Convert.ToByte(ss[1]), Convert.ToInt32(ss[3]), Convert.ToInt32(ss[4]), out int count2, ss[2], viewcol);
+                                        senddatabb=GZIP.Compress(senddatabb);
+                                        wserver.Send(soc, 0x81, senddatabb);
+                                        return;
+                                    }
+                                }
                                 string str = dbm.Selecttabledata(key, ss[0], Convert.ToByte(ss[1]), Convert.ToInt32(ss[3]), Convert.ToInt32(ss[4]), out int count, ss[2], viewcol);
                                 byte[] senddata = GZIP.Compress(DataEncoding.Encodingdata(count.ToString(), str));
                                 wserver.Send(soc, command, senddata);

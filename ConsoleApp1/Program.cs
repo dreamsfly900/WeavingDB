@@ -17,7 +17,7 @@ namespace ConsoleApp1
     
         
       
-        static  DBmanage dbm = new DBmanage();
+      //  static  DBmanage dbm = new DBmanage();
       static  IntPtr p3 = System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi("asdfasdfasdfasdfasdfassd所谓发射点发射点发啊撒士大夫阿瑟东dfasdfasdfewqrqwer");
 
       static  void go(object obj)
@@ -146,6 +146,7 @@ namespace ConsoleApp1
             JArray objbbs = JArray.Parse(ssr);
             int iss = 0;
             long p2 = Convert.ToDateTime("2020-08-13T11:20:47+08:00").ToFileTime();
+            DateTime dt = DateTime.Now, dt2 = DateTime.Now;
             foreach (JObject jo in objbbs)
             {
                 //dbm.set(i.ToString(), new byte[0]);
@@ -153,23 +154,61 @@ namespace ConsoleApp1
                 
                     var tee = dblo.insertintoJson(jo, ref ltable.datahead);
                     listu.Add(tee);
-               // long p1 = Convert.ToDateTime(jo["warningTime"].ToString()).ToFileTime();
-                if ((*(long*)tee.dtable2[0]) == p2)
-                { 
+               //// long p1 = Convert.ToDateTime(jo["warningTime"].ToString()).ToFileTime();
+               // if ((*(long*)tee.dtable2[0]) == p2)
+               // { 
                 
-                }
-               //  tree.insert(tree.root, tee.dtable2[0], tee, ltable.datahead[0].type);
-                dblo.insertintoIndex(jo, tee, ltable.datahead, ref ltable.tree);
+               // }
+               ////  tree.insert(tree.root, tee.dtable2[0], tee, ltable.datahead[0].type);
+               // dblo.insertintoIndex(jo, tee, ltable.datahead, ref ltable.tree);
                   //  bTree.Insert(jo["eventType"].ToString(), tee.dtable[0]);
                 str = null;
                 objbb = null;
 
             }
+            byte[] datass = dblo.viewdatabyte(listu.ToArray(), ltable.datahead, "warningTime,eventType", 0, "", 1, 100);
+            ListDmode[] alldatas = BinaryData.DecodeBinaryData(datass);
+            JArray alldatasJ = BinaryData.DecodeBinaryDataJson(datass);
+            dt2 = DateTime.Now;
+            double haomiao = (dt2 - dt).TotalMilliseconds;
+
+            dt = DateTime.Now;
+            byte[] datas = BinaryData.EncodeBinaryData(ltable.datahead, listu.ToArray());
+            dt2 = DateTime.Now;
+
+            double haomiao3 = (dt2 - dt).TotalMilliseconds;
+
+
+           
+
+            dt = DateTime.Now;
+            ListDmode[]  alldata= BinaryData.DecodeBinaryData(datas);
+            dt2 = DateTime.Now;
+            double haomiao2 = (dt2 - dt).TotalMilliseconds;
+
+            dt = DateTime.Now;
+            JObject[] joss = new JObject[alldata.Length];
+            int uu = 0;
+            foreach (ListDmode ld in alldata)
+            {
+                JObject jos = new JObject();
+                for (int ss = 0; ss < ltable.datahead.Length; ss++)
+                {
+                    JProperty obj = utli.GetHashtable(ltable.datahead[ss].key, ltable.datahead[ss].type, ld.dtable2[ss], ld.LenInts[ss]);
+                    jos.Add(obj);
+                }
+                joss[uu] = jos;
+                uu++;
+            }
+            string str22 =JArray.FromObject(joss).ToString();
+            dt2 = DateTime.Now;
+            double haomiao4 = (dt2 - dt).TotalMilliseconds;
+
             dblo.createIndex(listu, ltable.datahead, "warningTime", ref ltable.tree);
            string path = Thread.GetDomain().BaseDirectory;
-            BinaryData.WriteTableHead(path,"T_warning", ltable);
-            Liattable templiattable= BinaryData.ReadTableHead(path,"T_warning");
-              DateTime dt = DateTime.Now, dt2 = DateTime.Now;
+            BinaryFileData.WriteTableHead(path,"T_warning", ltable);
+            Liattable templiattable= BinaryFileData.ReadTableHead(path,"T_warning");
+             
             //object obj = dbm.get("111");
          //   tree.deleteKey(tree, "11B09");
             dt = DateTime.Now;

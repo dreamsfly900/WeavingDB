@@ -204,23 +204,26 @@ namespace WeavingDB
 
         private void button3_Click(object sender, EventArgs e)
         {
-            
+            //description
+
             //127.0.0.1
             var dbClient = new DBClient("127.0.0.1", 18989, "admin", "123123");
             dbClient.Open();
-            var count3 = dbClient.Deletetable("T_warning", "");
-            //    bool bb = dbClient.Createtable("T_warning");
-            var count2 = dbClient.SelectCount("T_warning", "");
-            System.IO.StreamReader sr = new System.IO.StreamReader("ab.json");
-            string ssr = sr.ReadToEnd();
-            sr.Close();
-            T_warning[] data = Newtonsoft.Json.JsonConvert.DeserializeObject<T_warning[]>(ssr);
-            bool ff = dbClient.Inserttable<T_warning>("T_warning", data);
+            //var count3 = dbClient.Deletetable("T_warning", "");
+            ////    bool bb = dbClient.Createtable("T_warning");
+            //var count2 = dbClient.SelectCount("T_warning", "");
+            //System.IO.StreamReader sr = new System.IO.StreamReader("ab.json");
+            //string ssr = sr.ReadToEnd();
+            //sr.Close();
+            //T_warning[] data = Newtonsoft.Json.JsonConvert.DeserializeObject<T_warning[]>(ssr);
+            //bool ff = dbClient.Inserttable<T_warning>("T_warning", data);
 
             // 
             DateTime dt = DateTime.Now;
                 var count = dbClient.SelectCount("T_warning", "");
+            DateTime dt2 = DateTime.Now;
 
+            listBox1.Items.Add("数据COUNT查询" + (dt2 - dt).TotalMilliseconds + "毫秒。" + count);
             //System.IO.StreamReader sr = new System.IO.StreamReader("ab.json");
             //string ssr = sr.ReadToEnd();
             //sr.Close();
@@ -235,16 +238,31 @@ namespace WeavingDB
             // warningTime>'2020-08-12 10:00:00' && Areacodelist like '41%'
             //warningTime,Areacodelist,lat,lng,Typename
             //// dbClient.Deletetable("T_warning", "warningTime<'2020-09-02 00:00:00'");
+             dt = DateTime.Now;
             var objjson = dbClient.Selecttable<object[]>("T_warning", "");
 
             string str = Newtonsoft.Json.JsonConvert.SerializeObject(objjson);
             System.IO.StreamWriter sw = new System.IO.StreamWriter("ab.json");
             sw.Write(str);
             sw.Close();
-            DateTime dt2 = DateTime.Now;
+            dt2 = DateTime.Now;
 
-            listBox1.Items.Add("数据COUNT查询" + (dt2 - dt).TotalMilliseconds + "毫秒。"+ count);
+            listBox1.Items.Add("数据JSON查询" + (dt2 - dt).TotalMilliseconds + "毫秒。"+ objjson.Length);
 
+
+
+            dt = DateTime.Now;
+
+
+            var objjsona = dbClient.Selecttable<object[]>("T_warning", "",1);
+
+            //string str = Newtonsoft.Json.JsonConvert.SerializeObject(objjson);
+            //System.IO.StreamWriter sw = new System.IO.StreamWriter("ab.json");
+            //sw.Write(str);
+            //sw.Close();
+            dt2 = DateTime.Now;
+
+            listBox1.Items.Add("数据Binary查询" + (dt2 - dt).TotalMilliseconds + "毫秒。" + objjsona.Length);
             //var json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "1.json"));
             //var model = JsonConvert.DeserializeObject(json);
             //dbClient.Set("撒大受打击-41", model);

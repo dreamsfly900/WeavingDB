@@ -74,6 +74,9 @@ namespace WeavingDB.Client
                     case 0x08://select
                         rowsdata = GZIP.Decompress(data);
                         break;
+                    case 0x81://select
+                        rowsdata = GZIP.Decompress(data);
+                        break;
                     case 0x09:
                         rowsdata = data;
                         break;
