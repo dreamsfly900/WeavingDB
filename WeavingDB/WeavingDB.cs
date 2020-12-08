@@ -212,11 +212,11 @@ namespace WeavingDB
             //var count3 = dbClient.Deletetable("T_warning", "");
             ////    bool bb = dbClient.Createtable("T_warning");
             //var count2 = dbClient.SelectCount("T_warning", "");
-            System.IO.StreamReader sr = new System.IO.StreamReader("ab.json");
-            string ssr = sr.ReadToEnd();
-            sr.Close();
-            T_warning[] data = Newtonsoft.Json.JsonConvert.DeserializeObject<T_warning[]>(ssr);
-            bool ff = dbClient.Inserttable<T_warning>("T_warning", data);
+            //System.IO.StreamReader sr = new System.IO.StreamReader("ab.json");
+            //string ssr = sr.ReadToEnd();
+            //sr.Close();
+            //T_warning[] data = Newtonsoft.Json.JsonConvert.DeserializeObject<T_warning[]>(ssr);
+            //bool ff = dbClient.Inserttable<T_warning>("T_warning", data);
 
             // 
             DateTime dt = DateTime.Now;
@@ -239,7 +239,7 @@ namespace WeavingDB
             //warningTime,Areacodelist,lat,lng,Typename
             //// dbClient.Deletetable("T_warning", "warningTime<'2020-09-02 00:00:00'");
              dt = DateTime.Now;
-            var objjson = dbClient.Selecttable<object[]>("T_warning", "");
+            var objjson = dbClient.Selecttable<object[]>("T_warning", "warningTime>'2020-12-08 10:00:00'");
 
             string str = Newtonsoft.Json.JsonConvert.SerializeObject(objjson);
             System.IO.StreamWriter sw = new System.IO.StreamWriter("ab.json");

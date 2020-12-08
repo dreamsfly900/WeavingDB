@@ -376,6 +376,7 @@ namespace SQLDBlogic.logic
                
                 if (utli.CompareLogical(datatype, listu[i].dtable2[index], mtsContrast, data, len, listu[i].LenInts[index]))
                 {
+                    listu[i].dt = DateTime.Now.ToFileTime();
                     list.Add(listu[i]);
                 }
             }

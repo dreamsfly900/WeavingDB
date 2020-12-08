@@ -1,14 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "8Kh86FRDuPRsl0q1FOU+sOWfSVHaDTUkBZGxtGmhfYLWfeDIDsm5mRQfZ+/U9e5WUVWsHgfhUB5fB7ymikSW+Q==",
+  "dgSpecHash": "TGSOiiar4LGDkBY1h48QdN+wngSRtjzlMGEsYi9anoQHvGAfSTD+c3wgHIpikgUVoVQfIfj2avH5OFtO3a2kfw==",
   "success": true,
   "projectFilePath": "D:\\OneDrive\\代码\\WeavingDB\\wdbserverform\\wdbserverform.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\DELL\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
-    "C:\\Users\\DELL\\.nuget\\packages\\system.io.compression\\4.3.0\\system.io.compression.4.3.0.nupkg.sha512",
-    "C:\\Users\\DELL\\.nuget\\packages\\system.net.http\\4.3.4\\system.net.http.4.3.4.nupkg.sha512",
-    "C:\\Users\\DELL\\.nuget\\packages\\weave.base\\2.0.6\\weave.base.2.0.6.nupkg.sha512",
-    "C:\\Users\\DELL\\.nuget\\packages\\weave.server\\2.0.6\\weave.server.2.0.6.nupkg.sha512"
+    "C:\\Users\\xingy\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\xingy\\.nuget\\packages\\system.io.compression\\4.3.0\\system.io.compression.4.3.0.nupkg.sha512",
+    "C:\\Users\\xingy\\.nuget\\packages\\system.net.http\\4.3.4\\system.net.http.4.3.4.nupkg.sha512",
+    "C:\\Users\\xingy\\.nuget\\packages\\weave.base\\2.0.6\\weave.base.2.0.6.nupkg.sha512",
+    "C:\\Users\\xingy\\.nuget\\packages\\weave.server\\2.0.6\\weave.server.2.0.6.nupkg.sha512"
   ],
   "logs": []
 }

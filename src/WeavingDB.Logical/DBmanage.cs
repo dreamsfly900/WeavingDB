@@ -113,7 +113,7 @@ namespace WeavingDB.Logical
                 Thread.Sleep(10 * 1000);
                 try
                 {
-                    System.IO.StreamWriter fi = new StreamWriter(path + "TLOG/" + DateTime.Now.ToString("yyyyMMddHH")+".log",true);
+                    System.IO.StreamWriter fi = new StreamWriter(path + "TLOG/" + DateTime.Now.ToString("yyyyMMddHH")+".log");
                     
                     string[] keys = CDtable.Keys.ToArray();
                     int len = keys.Length;
@@ -123,6 +123,7 @@ namespace WeavingDB.Logical
                         {
                             try
                             {
+                                int cccount = 0;
                                 string key = keys[i];
                                 List<ListDmode> listdate = CDtable[key].datas;
                                 Head[] hhed = CDtable[key].datahead;
@@ -133,39 +134,61 @@ namespace WeavingDB.Logical
                                     for (int j = (listdate.Count-1); j > 0; j--)
                                     {
                                         double ss = (DateTime.Now - DateTime.FromFileTime(listdate[j].dt)).TotalSeconds;
-                                        fi.WriteLine("当前：" + DateTime.Now .ToString()+ ",本行："+ DateTime.FromFileTime(listdate[j].dt).ToString());
-                                        if (Math.Abs(ss - timeout) < ssmin)
-                                            ssmin = Math.Abs(ss - timeout);
+                                     
+                                        
+                                       // fi.WriteLine(timeout+",相差：" + ss + "秒，当前：" + DateTime.Now.ToString() + ",本行：" + DateTime.FromFileTime(listdate[j].dt).ToString());
+
+                                          
                                         if (ss > timeout)
                                         {
-                                            lock (listdate[j])
+                                            try
                                             {
-                                                for (int ig = 0; ig < hhed.Length; ig++)
+                                                lock (listdate[j])
                                                 {
-                                                    if (listdate[j].dtable2[hhed[ig].index] == null)
-                                                        continue;
-                                                    IntPtr pp = (IntPtr)listdate[j].dtable2[hhed[ig].index];
-                                                    if (pp == IntPtr.Zero)
-                                                        continue;
-                                                    fi.WriteLine("移除超时：" + hhed[ig].key + "type:" + hhed[ig].type + "行:" + j);
-                                                    tree[hhed[ig].key].searchremove(pp.ToPointer(), hhed[ig].type, hhed[ig].index);
-                                                    listdate[j].dtable2[hhed[ig].index] = null;
-                                                    Marshal.FreeHGlobal(pp);
+                                                    for (int ig = 0; ig < hhed.Length; ig++)
+                                                    {
+
+                                                        if (listdate[j].dtable2[hhed[ig].index] == null)
+                                                            continue;
+                                                        IntPtr pp = (IntPtr)listdate[j].dtable2[hhed[ig].index];
+                                                        if (pp == IntPtr.Zero)
+                                                            continue;
+                                                        fi.WriteLine("移除超时：" + hhed[ig].key + "-type:" + hhed[ig].type + "行:" + j);
+                                                        try
+                                                        {
+                                                            if (tree.ContainsKey(hhed[ig].key))
+                                                            {
+                                                                tree[hhed[ig].key].searchremove(pp.ToPointer(), hhed[ig].type, hhed[ig].index);
+                                                                fi.WriteLine("移除超时索引：" + hhed[ig].key + "-type:" + hhed[ig].type + "行:" + j);
+                                                            }
+                                                        }
+                                                        catch (Exception e)
+                                                        {
+                                                            Console.WriteLine("Jsondataout:searchremove-" + e.Message);
+                                                        }
+                                                        listdate[j].dtable2[hhed[ig].index] = null;
+                                                        Marshal.FreeHGlobal(pp);
+
+
+                                                    }
+                                                    listdate[j].dtable2 = null;
+                                                    listdate[j] = null;
+                                                    listdate.Remove(listdate[j]);
+                                                    j = (listdate.Count - 1);
+                                                    cccount++;
                                                 }
-                                                listdate[j].dtable2 = null;
-                                                listdate[j] = null;
-                                                listdate.Remove(listdate[j]);
-                                                j = (listdate.Count - 1);
                                             }
+                                            catch (Exception e)
+                                            { Console.WriteLine("Jsondataout:listdate-" + e.Message); }
                                         }
                                     }
                                 }
                                 int cc=   clearindex(CDtable[key]);
-                                fi.WriteLine("移除无效索引记录："+ cc+"行");
-                                fi.WriteLine("下次最近移除剩余：" + Math.Abs( ssmin) + "秒");
+                                fi.WriteLine("移除超时记录："+ cccount + "行");
+                               // fi.WriteLine("下次最近移除剩余：" + Math.Abs( ssmin) + "秒");
 
                             }
-                            catch { }
+                            catch (Exception e){ Console.WriteLine("Jsondataout:"+e.Message); }
                         }
                     }
                     fi.Close();
