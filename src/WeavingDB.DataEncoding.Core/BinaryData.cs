@@ -58,7 +58,7 @@ namespace WeavingDB.Logical
                 JObject Dmode = ByteToJObject(heads, datas, ref offset);
                 list.Add(Dmode);
             }
-            return list;
+            //return list;
         }
         public static byte[] headsToByte(Head[] heads)
         {

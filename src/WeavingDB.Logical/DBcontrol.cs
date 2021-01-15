@@ -22,7 +22,7 @@ namespace WeavingDB.Logical
                 pwd = (System.Configuration.ConfigurationManager.AppSettings["pwd"]);
                 DataEncoding.userid = userid;
                 DataEncoding.pwd = pwd;
-
+                wserver.resttime = 0;
                 wserver.weaveUpdateSocketListEvent += Wserver_weaveUpdateSocketListEvent;
                 wserver.weaveDeleteSocketListEvent += Wserver_weaveDeleteSocketListEvent;
                 wserver.weaveReceiveBitEvent += Wserver_weaveReceiveBitEvent;

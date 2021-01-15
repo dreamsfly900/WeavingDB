@@ -89,7 +89,7 @@ namespace WeavingDB
            // dbc.GetKey("?d");
             while (i < 10000)
             {
-               // i++;
+                i++;
                 DateTime dt = DateTime.Now;
                 //dbc.Set("asdasd", 111);
                 var str = dbc.Get<int>("asdasd");

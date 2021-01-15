@@ -90,7 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\src\WeavingDB.Client\WeavingDB.Client.csproj">
-      <Project>{9ec0a6ae-736e-49c3-8641-a2652273eeb9}</Project>
+      <Project>{47874f94-15f1-4115-bf4b-b0d8eaa48692}</Project>
       <Name>WeavingDB.Client</Name>
     </ProjectReference>
   </ItemGroup>

@@ -63,6 +63,7 @@ namespace WeavingDB.Client
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="tablename"></param>
+        /// <param name="type"></param>
         /// <returns></returns>
         public T Selecttable<T>(string tablename, int type = 0)
         {

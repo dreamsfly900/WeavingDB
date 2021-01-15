@@ -128,7 +128,7 @@ namespace WeavingDB.Logical
                                 List<ListDmode> listdate = CDtable[key].datas;
                                 Head[] hhed = CDtable[key].datahead;
                                  var tree=  CDtable[key].tree;
-                                double ssmin = 999999999;
+                                //double ssmin = 999999999;
                                 if (notimeout != 0)
                                 {
                                     for (int j = (listdate.Count-1); j > 0; j--)
@@ -551,7 +551,7 @@ namespace WeavingDB.Logical
         }
 
         /// <summary>
-        ///  从非关数据表查询数据
+        /// 从非关数据表查询数据
         /// </summary>
         /// <param name="key"></param>
         /// <param name="sql"></param>
@@ -560,6 +560,7 @@ namespace WeavingDB.Logical
         /// <param name="pagesize"></param>
         /// <param name="count"></param>
         /// <param name="coll"></param>
+        /// <param name="veiwcoll"></param>
         /// <returns></returns>
         public string Selecttabledata(string key, string sql, byte order, int pageindex, int pagesize, 
             out int count, string coll = "",string veiwcoll="")

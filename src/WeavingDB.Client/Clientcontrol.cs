@@ -24,7 +24,9 @@ namespace WeavingDB.Client
                 p2Pclient.ReceiveServerEventbit -= P2Pclient_receiveServerEventbit;
                 p2Pclient.ErrorMge -= P2Pclient_ErrorMge;
             }
+          
             p2Pclient = new Weave.TCPClient.P2Pclient(Weave.TCPClient.DataType.bytes);
+            p2Pclient.resttime = 0;
             p2Pclient.ReceiveServerEventbit += P2Pclient_receiveServerEventbit;
             p2Pclient.ErrorMge += P2Pclient_ErrorMge;
             if (!p2Pclient.Start(IP, port, false))

@@ -35,7 +35,7 @@
           "lib/net45/_._": {}
         }
       },
-      "Weave.Base/2.0.6": {
+      "Weave.Base/2.0.16": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "12.0.1"
@@ -47,10 +47,10 @@
           "lib/net45/Weave.Base.dll": {}
         }
       },
-      "Weave.Server/2.0.6": {
+      "Weave.Server/2.0.17": {
         "type": "package",
         "dependencies": {
-          "Weave.Base": "2.0.6"
+          "Weave.Base": "2.0.16"
         },
         "frameworkAssemblies": [
           "System.Web"
@@ -79,7 +79,7 @@
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
-          "Weave.Server": "2.0.6",
+          "Weave.Server": "2.0.17",
           "WeavingDB.DataEncoding": "2.0.1"
         },
         "compile": {
@@ -124,7 +124,7 @@
           "lib/net45/_._": {}
         }
       },
-      "Weave.Base/2.0.6": {
+      "Weave.Base/2.0.16": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "12.0.1"
@@ -136,10 +136,10 @@
           "lib/net45/Weave.Base.dll": {}
         }
       },
-      "Weave.Server/2.0.6": {
+      "Weave.Server/2.0.17": {
         "type": "package",
         "dependencies": {
-          "Weave.Base": "2.0.6"
+          "Weave.Base": "2.0.16"
         },
         "frameworkAssemblies": [
           "System.Web"
@@ -168,7 +168,7 @@
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
-          "Weave.Server": "2.0.6",
+          "Weave.Server": "2.0.17",
           "WeavingDB.DataEncoding": "2.0.1"
         },
         "compile": {
@@ -213,7 +213,7 @@
           "lib/net45/_._": {}
         }
       },
-      "Weave.Base/2.0.6": {
+      "Weave.Base/2.0.16": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "12.0.1"
@@ -225,10 +225,10 @@
           "lib/net45/Weave.Base.dll": {}
         }
       },
-      "Weave.Server/2.0.6": {
+      "Weave.Server/2.0.17": {
         "type": "package",
         "dependencies": {
-          "Weave.Base": "2.0.6"
+          "Weave.Base": "2.0.16"
         },
         "frameworkAssemblies": [
           "System.Web"
@@ -257,7 +257,7 @@
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
-          "Weave.Server": "2.0.6",
+          "Weave.Server": "2.0.17",
           "WeavingDB.DataEncoding": "2.0.1"
         },
         "compile": {
@@ -302,7 +302,7 @@
           "lib/net45/_._": {}
         }
       },
-      "Weave.Base/2.0.6": {
+      "Weave.Base/2.0.16": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "12.0.1"
@@ -314,10 +314,10 @@
           "lib/net45/Weave.Base.dll": {}
         }
       },
-      "Weave.Server/2.0.6": {
+      "Weave.Server/2.0.17": {
         "type": "package",
         "dependencies": {
-          "Weave.Base": "2.0.6"
+          "Weave.Base": "2.0.16"
         },
         "frameworkAssemblies": [
           "System.Web"
@@ -346,7 +346,7 @@
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
         "dependencies": {
-          "Weave.Server": "2.0.6",
+          "Weave.Server": "2.0.17",
           "WeavingDB.DataEncoding": "2.0.1"
         },
         "compile": {
@@ -503,10 +503,10 @@
         "system.net.http.nuspec"
       ]
     },
-    "Weave.Base/2.0.6": {
-      "sha512": "RvwAEpkJ8MZ0oE7X1gP1CirO5aN9dnIP/j73OhPsBPu+pjrXIkVFmM0f6np0/iSrlN84Y58veCoN3v1OnNHdbw==",
+    "Weave.Base/2.0.16": {
+      "sha512": "OoRPIn/aSypSgK77YjR4isHzREzv5FKUqO8+pJze/rBvyAhjYHNYr/yHV2p2u8fhZAIAMRAVnyRqBIQzWRT1kQ==",
       "type": "package",
-      "path": "weave.base/2.0.6",
+      "path": "weave.base/2.0.16",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -516,14 +516,14 @@
         "lib/net45/Weave.Base.xml",
         "lib/netstandard2.0/Weave.Base.dll",
         "lib/netstandard2.0/Weave.Base.xml",
-        "weave.base.2.0.6.nupkg.sha512",
+        "weave.base.2.0.16.nupkg.sha512",
         "weave.base.nuspec"
       ]
     },
-    "Weave.Server/2.0.6": {
-      "sha512": "RLYUAE1h9pB90oRPdYE9g+BcrSkrVVBV1OA4ysqDjrir4DWpKF3QDh5wnkGBWdJ5mXf4tyqYeSmzSwz6qyPggA==",
+    "Weave.Server/2.0.17": {
+      "sha512": "Qh1zofqpAevUQaPJBcDCuNY9yXCZr86M0xxU5GSLX4KhjA/2mqvTjEqk0va107cixWqpgYe/iJtpObIE28ELmw==",
       "type": "package",
-      "path": "weave.server/2.0.6",
+      "path": "weave.server/2.0.17",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -533,7 +533,7 @@
         "lib/net45/Weave.Server.xml",
         "lib/netstandard2.0/Weave.Server.dll",
         "lib/netstandard2.0/Weave.Server.xml",
-        "weave.server.2.0.6.nupkg.sha512",
+        "weave.server.2.0.17.nupkg.sha512",
         "weave.server.nuspec"
       ]
     },
@@ -556,21 +556,21 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\xingy\\.nuget\\packages\\": {}
+    "C:\\Users\\dreamsfly\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\OneDrive\\代码\\WeavingDB\\wdbserverform\\wdbserverform.csproj",
+      "projectUniqueName": "D:\\WeavingDB\\wdbserverform\\wdbserverform.csproj",
       "projectName": "wdbserverform",
-      "projectPath": "D:\\OneDrive\\代码\\WeavingDB\\wdbserverform\\wdbserverform.csproj",
-      "packagesPath": "C:\\Users\\xingy\\.nuget\\packages\\",
-      "outputPath": "D:\\OneDrive\\代码\\WeavingDB\\wdbserverform\\obj\\",
+      "projectPath": "D:\\WeavingDB\\wdbserverform\\wdbserverform.csproj",
+      "packagesPath": "C:\\Users\\dreamsfly\\.nuget\\packages\\",
+      "outputPath": "D:\\WeavingDB\\wdbserverform\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [
-        "D:\\OneDrive\\代码\\WeavingDB\\NuGet.Config",
-        "C:\\Users\\xingy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "D:\\WeavingDB\\NuGet.Config",
+        "C:\\Users\\dreamsfly\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -589,8 +589,8 @@
       "frameworks": {
         "net45": {
           "projectReferences": {
-            "D:\\OneDrive\\代码\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj": {
-              "projectPath": "D:\\OneDrive\\代码\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj"
+            "D:\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj": {
+              "projectPath": "D:\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj"
             }
           }
         }
