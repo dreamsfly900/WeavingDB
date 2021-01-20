@@ -47,7 +47,7 @@
         </member>
         <member name="M:WeavingDB.Logical.DBmanage.Selecttabledata(System.String,System.String,System.Byte,System.Int32,System.Int32,System.Int32@,System.String,System.String)">
             <summary>
-             从非关数据表查询数据
+            从非关数据表查询数据
             </summary>
             <param name="key"></param>
             <param name="sql"></param>
@@ -56,6 +56,7 @@
             <param name="pagesize"></param>
             <param name="count"></param>
             <param name="coll"></param>
+            <param name="veiwcoll"></param>
             <returns></returns>
         </member>
         <member name="M:WeavingDB.Logical.DBmanage.Get(System.String)">
