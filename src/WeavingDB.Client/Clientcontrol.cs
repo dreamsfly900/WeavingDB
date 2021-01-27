@@ -10,6 +10,7 @@ namespace WeavingDB.Client
         byte[] rowsdata;
         public bool finsh = false;
         public string error = "";
+        public int resttime = 0;
         public int timeout = 60;
         public Clientcontrol(string ip, int _port)
         {
@@ -26,7 +27,7 @@ namespace WeavingDB.Client
             }
           
             p2Pclient = new Weave.TCPClient.P2Pclient(Weave.TCPClient.DataType.bytes);
-            p2Pclient.resttime = 0;
+            p2Pclient.resttime = resttime;
             p2Pclient.ReceiveServerEventbit += P2Pclient_receiveServerEventbit;
             p2Pclient.ErrorMge += P2Pclient_ErrorMge;
             if (!p2Pclient.Start(IP, port, false))
