@@ -1,14 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "mitoPQO3oHxb7kufXc0uiOQRRlohCrjNCqlCXgHnznlgrxclSuDCF6ZT29V7Jj87xvR/LghR21X/Bf5dBl+e6A==",
+  "dgSpecHash": "0OCHXjmqjKgSXT0vPc16AwD4VLVjU89PN0bCphsiRcHWTgFyT3eKh+0QHcdjHSrwWsKEvQcDMHDGcPO4YW7D8g==",
   "success": true,
   "projectFilePath": "D:\\OneDrive\\代码\\WeavingDB\\wdbserverform\\wdbserverform.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\xingy\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\xingy\\.nuget\\packages\\system.io.compression\\4.3.0\\system.io.compression.4.3.0.nupkg.sha512",
     "C:\\Users\\xingy\\.nuget\\packages\\system.net.http\\4.3.4\\system.net.http.4.3.4.nupkg.sha512",
-    "C:\\Users\\xingy\\.nuget\\packages\\weave.base\\2.0.17\\weave.base.2.0.17.nupkg.sha512",
-    "C:\\Users\\xingy\\.nuget\\packages\\weave.server\\2.0.18\\weave.server.2.0.18.nupkg.sha512"
+    "C:\\Users\\xingy\\.nuget\\packages\\weave.base\\2.0.18\\weave.base.2.0.18.nupkg.sha512",
+    "C:\\Users\\xingy\\.nuget\\packages\\weave.server\\2.0.19\\weave.server.2.0.19.nupkg.sha512"
   ],
   "logs": []
 }

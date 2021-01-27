@@ -132,6 +132,7 @@ namespace WeavingDB.Client
                 DateTime dt = DateTime.Now;
                 while (!finsh)
                 {
+                    System.Threading.Thread.Yield();
                     if ((DateTime.Now - dt).TotalSeconds > timeout)
                     {
                         p2Pclient.Stop();
