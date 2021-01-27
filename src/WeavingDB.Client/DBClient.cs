@@ -165,7 +165,7 @@ namespace WeavingDB.Client
                     string temp = ssr[1];
                     T t= Newtonsoft.Json.JsonConvert.DeserializeObject<T>(temp);
                     DateTime dt2 = DateTime.Now;
-                    Console.WriteLine("JSON" + (dt2 - dt).TotalMilliseconds);
+                 //   Console.WriteLine("JSON" + (dt2 - dt).TotalMilliseconds);
                     return t;
                 }
             }
