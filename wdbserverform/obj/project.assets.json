@@ -2,13 +2,17 @@
   "version": 3,
   "targets": {
     ".NETFramework,Version=v4.5": {
-      "Newtonsoft.Json/12.0.3": {
+      "Newtonsoft.Json/12.0.1": {
         "type": "package",
         "compile": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "System.IO.Compression/4.3.0": {
@@ -41,10 +45,14 @@
           "Newtonsoft.Json": "12.0.1"
         },
         "compile": {
-          "lib/net45/Weave.Base.dll": {}
+          "lib/net45/Weave.Base.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/Weave.Base.dll": {}
+          "lib/net45/Weave.Base.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Weave.Server/2.0.19": {
@@ -56,18 +64,19 @@
           "System.Web"
         ],
         "compile": {
-          "lib/net45/Weave.Server.dll": {}
+          "lib/net45/Weave.Server.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/Weave.Server.dll": {}
+          "lib/net45/Weave.Server.dll": {
+            "related": ".xml"
+          }
         }
       },
       "WeavingDB.DataEncoding/2.0.1": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
-        "dependencies": {
-          "Newtonsoft.Json": "12.0.3"
-        },
         "compile": {
           "bin/placeholder/WeavingDB.DataEncoding.dll": {}
         },
@@ -91,13 +100,17 @@
       }
     },
     ".NETFramework,Version=v4.5/win": {
-      "Newtonsoft.Json/12.0.3": {
+      "Newtonsoft.Json/12.0.1": {
         "type": "package",
         "compile": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "System.IO.Compression/4.3.0": {
@@ -130,10 +143,14 @@
           "Newtonsoft.Json": "12.0.1"
         },
         "compile": {
-          "lib/net45/Weave.Base.dll": {}
+          "lib/net45/Weave.Base.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/Weave.Base.dll": {}
+          "lib/net45/Weave.Base.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Weave.Server/2.0.19": {
@@ -145,18 +162,19 @@
           "System.Web"
         ],
         "compile": {
-          "lib/net45/Weave.Server.dll": {}
+          "lib/net45/Weave.Server.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/Weave.Server.dll": {}
+          "lib/net45/Weave.Server.dll": {
+            "related": ".xml"
+          }
         }
       },
       "WeavingDB.DataEncoding/2.0.1": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
-        "dependencies": {
-          "Newtonsoft.Json": "12.0.3"
-        },
         "compile": {
           "bin/placeholder/WeavingDB.DataEncoding.dll": {}
         },
@@ -180,13 +198,17 @@
       }
     },
     ".NETFramework,Version=v4.5/win-x64": {
-      "Newtonsoft.Json/12.0.3": {
+      "Newtonsoft.Json/12.0.1": {
         "type": "package",
         "compile": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "System.IO.Compression/4.3.0": {
@@ -219,10 +241,14 @@
           "Newtonsoft.Json": "12.0.1"
         },
         "compile": {
-          "lib/net45/Weave.Base.dll": {}
+          "lib/net45/Weave.Base.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/Weave.Base.dll": {}
+          "lib/net45/Weave.Base.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Weave.Server/2.0.19": {
@@ -234,18 +260,19 @@
           "System.Web"
         ],
         "compile": {
-          "lib/net45/Weave.Server.dll": {}
+          "lib/net45/Weave.Server.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/Weave.Server.dll": {}
+          "lib/net45/Weave.Server.dll": {
+            "related": ".xml"
+          }
         }
       },
       "WeavingDB.DataEncoding/2.0.1": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
-        "dependencies": {
-          "Newtonsoft.Json": "12.0.3"
-        },
         "compile": {
           "bin/placeholder/WeavingDB.DataEncoding.dll": {}
         },
@@ -269,13 +296,17 @@
       }
     },
     ".NETFramework,Version=v4.5/win-x86": {
-      "Newtonsoft.Json/12.0.3": {
+      "Newtonsoft.Json/12.0.1": {
         "type": "package",
         "compile": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "System.IO.Compression/4.3.0": {
@@ -308,10 +339,14 @@
           "Newtonsoft.Json": "12.0.1"
         },
         "compile": {
-          "lib/net45/Weave.Base.dll": {}
+          "lib/net45/Weave.Base.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/Weave.Base.dll": {}
+          "lib/net45/Weave.Base.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Weave.Server/2.0.19": {
@@ -323,18 +358,19 @@
           "System.Web"
         ],
         "compile": {
-          "lib/net45/Weave.Server.dll": {}
+          "lib/net45/Weave.Server.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/Weave.Server.dll": {}
+          "lib/net45/Weave.Server.dll": {
+            "related": ".xml"
+          }
         }
       },
       "WeavingDB.DataEncoding/2.0.1": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5",
-        "dependencies": {
-          "Newtonsoft.Json": "12.0.3"
-        },
         "compile": {
           "bin/placeholder/WeavingDB.DataEncoding.dll": {}
         },
@@ -359,35 +395,43 @@
     }
   },
   "libraries": {
-    "Newtonsoft.Json/12.0.3": {
-      "sha512": "6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
+    "Newtonsoft.Json/12.0.1": {
+      "sha512": "pBR3wCgYWZGiaZDYP+HHYnalVnPJlpP1q55qvVb+adrDHmFMDc1NAKio61xTwftK3Pw5h7TZJPJEEVMd6ty8rg==",
       "type": "package",
-      "path": "newtonsoft.json/12.0.3",
+      "path": "newtonsoft.json/12.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.md",
         "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.pdb",
         "lib/net20/Newtonsoft.Json.xml",
         "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.pdb",
         "lib/net35/Newtonsoft.Json.xml",
         "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.pdb",
         "lib/net40/Newtonsoft.Json.xml",
         "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.pdb",
         "lib/net45/Newtonsoft.Json.xml",
         "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.pdb",
         "lib/netstandard1.0/Newtonsoft.Json.xml",
         "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.pdb",
         "lib/netstandard1.3/Newtonsoft.Json.xml",
         "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.pdb",
         "lib/netstandard2.0/Newtonsoft.Json.xml",
         "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.pdb",
         "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.xml",
         "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.pdb",
         "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.xml",
-        "newtonsoft.json.12.0.3.nupkg.sha512",
-        "newtonsoft.json.nuspec",
-        "packageIcon.png"
+        "newtonsoft.json.12.0.1.nupkg.sha512",
+        "newtonsoft.json.nuspec"
       ]
     },
     "System.IO.Compression/4.3.0": {
@@ -556,21 +600,21 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\xingy\\.nuget\\packages\\": {}
+    "C:\\Users\\gejie\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\OneDrive\\代码\\WeavingDB\\wdbserverform\\wdbserverform.csproj",
+      "projectUniqueName": "E:\\项目\\WeavingDB\\wdbserverform\\wdbserverform.csproj",
       "projectName": "wdbserverform",
-      "projectPath": "D:\\OneDrive\\代码\\WeavingDB\\wdbserverform\\wdbserverform.csproj",
-      "packagesPath": "C:\\Users\\xingy\\.nuget\\packages\\",
-      "outputPath": "D:\\OneDrive\\代码\\WeavingDB\\wdbserverform\\obj\\",
+      "projectPath": "E:\\项目\\WeavingDB\\wdbserverform\\wdbserverform.csproj",
+      "packagesPath": "C:\\Users\\gejie\\.nuget\\packages\\",
+      "outputPath": "E:\\项目\\WeavingDB\\wdbserverform\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [
-        "D:\\OneDrive\\代码\\WeavingDB\\NuGet.Config",
-        "C:\\Users\\xingy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "E:\\项目\\WeavingDB\\NuGet.Config",
+        "C:\\Users\\gejie\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -578,6 +622,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "\\\\10.40.92.200\\web123": {},
         "http://120.79.187.148:8624/nuget/Gicisky/": {},
         "https://api.nuget.org/v3/index.json": {},
         "https://dotnet.myget.org/F/aspnetcore-dev/api/v3/index.json": {},
@@ -589,8 +634,8 @@
       "frameworks": {
         "net45": {
           "projectReferences": {
-            "D:\\OneDrive\\代码\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj": {
-              "projectPath": "D:\\OneDrive\\代码\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj"
+            "E:\\项目\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj": {
+              "projectPath": "E:\\项目\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj"
             }
           }
         }
@@ -621,5 +666,13 @@
         "#import": []
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1803",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "You are running the 'restore' operation with an 'HTTP' source, 'http://120.79.187.148:8624/nuget/Gicisky/'. Non-HTTPS access will be removed in a future version. Consider migrating to an 'HTTPS' source."
+    }
+  ]
 }

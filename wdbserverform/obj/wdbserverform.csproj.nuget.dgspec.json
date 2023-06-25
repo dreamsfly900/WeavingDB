@@ -1,22 +1,22 @@
 {
   "format": 1,
   "restore": {
-    "D:\\OneDrive\\代码\\WeavingDB\\wdbserverform\\wdbserverform.csproj": {}
+    "E:\\项目\\WeavingDB\\wdbserverform\\wdbserverform.csproj": {}
   },
   "projects": {
-    "D:\\OneDrive\\代码\\WeavingDB\\src\\WeavingDB.DataEncoding.Core\\WeavingDB.DataEncoding.csproj": {
+    "E:\\项目\\WeavingDB\\src\\WeavingDB.DataEncoding.Core\\WeavingDB.DataEncoding.csproj": {
       "version": "2.0.1",
       "restore": {
-        "projectUniqueName": "D:\\OneDrive\\代码\\WeavingDB\\src\\WeavingDB.DataEncoding.Core\\WeavingDB.DataEncoding.csproj",
+        "projectUniqueName": "E:\\项目\\WeavingDB\\src\\WeavingDB.DataEncoding.Core\\WeavingDB.DataEncoding.csproj",
         "projectName": "WeavingDB.DataEncoding",
-        "projectPath": "D:\\OneDrive\\代码\\WeavingDB\\src\\WeavingDB.DataEncoding.Core\\WeavingDB.DataEncoding.csproj",
-        "packagesPath": "C:\\Users\\xingy\\.nuget\\packages\\",
-        "outputPath": "D:\\OneDrive\\代码\\WeavingDB\\src\\WeavingDB.DataEncoding.Core\\obj\\",
+        "projectPath": "E:\\项目\\WeavingDB\\src\\WeavingDB.DataEncoding.Core\\WeavingDB.DataEncoding.csproj",
+        "packagesPath": "C:\\Users\\gejie\\.nuget\\packages\\",
+        "outputPath": "E:\\项目\\WeavingDB\\src\\WeavingDB.DataEncoding.Core\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "configFilePaths": [
-          "D:\\OneDrive\\代码\\WeavingDB\\NuGet.Config",
-          "C:\\Users\\xingy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "E:\\项目\\WeavingDB\\NuGet.Config",
+          "C:\\Users\\gejie\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "\\\\10.40.92.200\\web123": {},
           "http://120.79.187.148:8624/nuget/Gicisky/": {},
           "https://api.nuget.org/v3/index.json": {},
           "https://dotnet.myget.org/F/aspnetcore-dev/api/v3/index.json": {},
@@ -57,23 +58,11 @@
       "frameworks": {
         "net40": {
           "targetAlias": "net40",
-          "dependencies": {
-            "Newtonsoft.Json": {
-              "target": "Package",
-              "version": "[12.0.3, )"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         },
         "net45": {
           "targetAlias": "net45",
-          "dependencies": {
-            "Newtonsoft.Json": {
-              "target": "Package",
-              "version": "[12.0.3, )"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         },
         "netstandard2.0": {
           "targetAlias": "netstandard2.0",
@@ -95,27 +84,28 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\OneDrive\\代码\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj": {
+    "E:\\项目\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj": {
       "version": "2.0.8",
       "restore": {
-        "projectUniqueName": "D:\\OneDrive\\代码\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj",
+        "projectUniqueName": "E:\\项目\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj",
         "projectName": "WeavingDB.Logical",
-        "projectPath": "D:\\OneDrive\\代码\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj",
-        "packagesPath": "C:\\Users\\xingy\\.nuget\\packages\\",
-        "outputPath": "D:\\OneDrive\\代码\\WeavingDB\\src\\WeavingDB.Logical\\obj\\",
+        "projectPath": "E:\\项目\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj",
+        "packagesPath": "C:\\Users\\gejie\\.nuget\\packages\\",
+        "outputPath": "E:\\项目\\WeavingDB\\src\\WeavingDB.Logical\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "configFilePaths": [
-          "D:\\OneDrive\\代码\\WeavingDB\\NuGet.Config",
-          "C:\\Users\\xingy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "E:\\项目\\WeavingDB\\NuGet.Config",
+          "C:\\Users\\gejie\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -125,6 +115,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "\\\\10.40.92.200\\web123": {},
           "http://120.79.187.148:8624/nuget/Gicisky/": {},
           "https://api.nuget.org/v3/index.json": {},
           "https://dotnet.myget.org/F/aspnetcore-dev/api/v3/index.json": {},
@@ -137,24 +128,24 @@
           "net40": {
             "targetAlias": "net40",
             "projectReferences": {
-              "D:\\OneDrive\\代码\\WeavingDB\\src\\WeavingDB.DataEncoding.Core\\WeavingDB.DataEncoding.csproj": {
-                "projectPath": "D:\\OneDrive\\代码\\WeavingDB\\src\\WeavingDB.DataEncoding.Core\\WeavingDB.DataEncoding.csproj"
+              "E:\\项目\\WeavingDB\\src\\WeavingDB.DataEncoding.Core\\WeavingDB.DataEncoding.csproj": {
+                "projectPath": "E:\\项目\\WeavingDB\\src\\WeavingDB.DataEncoding.Core\\WeavingDB.DataEncoding.csproj"
               }
             }
           },
           "net45": {
             "targetAlias": "net45",
             "projectReferences": {
-              "D:\\OneDrive\\代码\\WeavingDB\\src\\WeavingDB.DataEncoding.Core\\WeavingDB.DataEncoding.csproj": {
-                "projectPath": "D:\\OneDrive\\代码\\WeavingDB\\src\\WeavingDB.DataEncoding.Core\\WeavingDB.DataEncoding.csproj"
+              "E:\\项目\\WeavingDB\\src\\WeavingDB.DataEncoding.Core\\WeavingDB.DataEncoding.csproj": {
+                "projectPath": "E:\\项目\\WeavingDB\\src\\WeavingDB.DataEncoding.Core\\WeavingDB.DataEncoding.csproj"
               }
             }
           },
           "netstandard2.0": {
             "targetAlias": "netstandard2.0",
             "projectReferences": {
-              "D:\\OneDrive\\代码\\WeavingDB\\src\\WeavingDB.DataEncoding.Core\\WeavingDB.DataEncoding.csproj": {
-                "projectPath": "D:\\OneDrive\\代码\\WeavingDB\\src\\WeavingDB.DataEncoding.Core\\WeavingDB.DataEncoding.csproj"
+              "E:\\项目\\WeavingDB\\src\\WeavingDB.DataEncoding.Core\\WeavingDB.DataEncoding.csproj": {
+                "projectPath": "E:\\项目\\WeavingDB\\src\\WeavingDB.DataEncoding.Core\\WeavingDB.DataEncoding.csproj"
               }
             }
           }
@@ -168,23 +159,23 @@
       "frameworks": {
         "net40": {
           "targetAlias": "net40",
-          "dependencies": {
-            "Weave.Server": {
-              "target": "Package",
-              "version": "[2.0.19, )"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         },
         "net45": {
           "targetAlias": "net45",
           "dependencies": {
+            "Microsoft.NETFramework.ReferenceAssemblies": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.0.2, )",
+              "autoReferenced": true
+            },
             "Weave.Server": {
               "target": "Package",
               "version": "[2.0.19, )"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         },
         "netstandard2.0": {
           "targetAlias": "netstandard2.0",
@@ -210,27 +201,28 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\OneDrive\\代码\\WeavingDB\\wdbserverform\\wdbserverform.csproj": {
+    "E:\\项目\\WeavingDB\\wdbserverform\\wdbserverform.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\OneDrive\\代码\\WeavingDB\\wdbserverform\\wdbserverform.csproj",
+        "projectUniqueName": "E:\\项目\\WeavingDB\\wdbserverform\\wdbserverform.csproj",
         "projectName": "wdbserverform",
-        "projectPath": "D:\\OneDrive\\代码\\WeavingDB\\wdbserverform\\wdbserverform.csproj",
-        "packagesPath": "C:\\Users\\xingy\\.nuget\\packages\\",
-        "outputPath": "D:\\OneDrive\\代码\\WeavingDB\\wdbserverform\\obj\\",
+        "projectPath": "E:\\项目\\WeavingDB\\wdbserverform\\wdbserverform.csproj",
+        "packagesPath": "C:\\Users\\gejie\\.nuget\\packages\\",
+        "outputPath": "E:\\项目\\WeavingDB\\wdbserverform\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "configFilePaths": [
-          "D:\\OneDrive\\代码\\WeavingDB\\NuGet.Config",
-          "C:\\Users\\xingy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "E:\\项目\\WeavingDB\\NuGet.Config",
+          "C:\\Users\\gejie\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -238,6 +230,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "\\\\10.40.92.200\\web123": {},
           "http://120.79.187.148:8624/nuget/Gicisky/": {},
           "https://api.nuget.org/v3/index.json": {},
           "https://dotnet.myget.org/F/aspnetcore-dev/api/v3/index.json": {},
@@ -249,8 +242,8 @@
         "frameworks": {
           "net45": {
             "projectReferences": {
-              "D:\\OneDrive\\代码\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj": {
-                "projectPath": "D:\\OneDrive\\代码\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj"
+              "E:\\项目\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj": {
+                "projectPath": "E:\\项目\\WeavingDB\\src\\WeavingDB.Logical\\WeavingDB.Logical.csproj"
               }
             }
           }

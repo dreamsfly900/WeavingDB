@@ -1,14 +1,23 @@
 {
   "version": 2,
-  "dgSpecHash": "0OCHXjmqjKgSXT0vPc16AwD4VLVjU89PN0bCphsiRcHWTgFyT3eKh+0QHcdjHSrwWsKEvQcDMHDGcPO4YW7D8g==",
+  "dgSpecHash": "lnZLO+4jCmPYtBUQ58tgWzX/6VQo8MMcOnZNy5ZBEcl8AYQr/u7r7+np8U6c1MzoGGHwR91xRtLGpCqtixUvNQ==",
   "success": true,
-  "projectFilePath": "D:\\OneDrive\\代码\\WeavingDB\\wdbserverform\\wdbserverform.csproj",
+  "projectFilePath": "E:\\项目\\WeavingDB\\wdbserverform\\wdbserverform.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\xingy\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
-    "C:\\Users\\xingy\\.nuget\\packages\\system.io.compression\\4.3.0\\system.io.compression.4.3.0.nupkg.sha512",
-    "C:\\Users\\xingy\\.nuget\\packages\\system.net.http\\4.3.4\\system.net.http.4.3.4.nupkg.sha512",
-    "C:\\Users\\xingy\\.nuget\\packages\\weave.base\\2.0.18\\weave.base.2.0.18.nupkg.sha512",
-    "C:\\Users\\xingy\\.nuget\\packages\\weave.server\\2.0.19\\weave.server.2.0.19.nupkg.sha512"
+    "C:\\Users\\gejie\\.nuget\\packages\\newtonsoft.json\\12.0.1\\newtonsoft.json.12.0.1.nupkg.sha512",
+    "C:\\Users\\gejie\\.nuget\\packages\\system.io.compression\\4.3.0\\system.io.compression.4.3.0.nupkg.sha512",
+    "C:\\Users\\gejie\\.nuget\\packages\\system.net.http\\4.3.4\\system.net.http.4.3.4.nupkg.sha512",
+    "C:\\Users\\gejie\\.nuget\\packages\\weave.base\\2.0.18\\weave.base.2.0.18.nupkg.sha512",
+    "C:\\Users\\gejie\\.nuget\\packages\\weave.server\\2.0.19\\weave.server.2.0.19.nupkg.sha512",
+    "C:\\Users\\gejie\\.nuget\\packages\\weavingdb.dataencoding\\2.0.1\\weavingdb.dataencoding.2.0.1.nupkg.sha512",
+    "C:\\Users\\gejie\\.nuget\\packages\\weavingdb.logical\\2.0.8\\weavingdb.logical.2.0.8.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1803",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "You are running the 'restore' operation with an 'HTTP' source, 'http://120.79.187.148:8624/nuget/Gicisky/'. Non-HTTPS access will be removed in a future version. Consider migrating to an 'HTTPS' source."
+    }
+  ]
 }
